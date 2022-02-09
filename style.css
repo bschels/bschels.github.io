@@ -1,0 +1,159 @@
+/*******************************************************
+*
+Theme Name:    BSA
+Theme URI:     http://schels.info
+Description:
+Version:       1.0
+Author:        Benjamin Schels
+License:       none (public domain)
+Tags:          -
+*
+*******************************************************/
+/*	Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+--------------------------------------------------------------------------------------- */
+style type="text/css">
+body {
+margin:auto;
+color:#00f;
+background-color:#fff;
+font-family:Avenir;
+text-align:left;
+width:50%;
+max-width:390px;
+padding-top:8%;
+font-size:1em
+}
+
+hr.zig,hr.zag {
+border:none;
+height:30px;
+margin:0
+}
+
+hr.zig {
+background:linear-gradient(-135deg,#FFF 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,#FFFF 20px,rgba(0,0,0,0) 0) 0 5px;
+background-color:rgba(0,0,0,0);
+background-position:center bottom;
+background-repeat:repeat-x;
+background-size:20px 40px;
+z-index:100;
+position:relative
+}
+
+hr.zag {
+background:linear-gradient(-135deg,#00f 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,#00f 20px,#FFF 0) 0 5px;
+background-color:rgba(0,0,0,0);
+background-position:center bottom;
+background-repeat:repeat-x;
+background-size:20px 40px;
+z-index:50;
+margin-top:-28px
+}
+
+.small {
+text-align:center;
+font-weight:400;
+font-size:100%;
+font-style:normal
+}
+
+.big {
+font-size:220%;
+text-align:left;
+font-weight:700;
+font-style:italic;
+text-transform:uppercase
+}
+
+.logo {
+padding-left:.5em;
+padding-right:.5em;
+font-size:130%;
+text-align:center
+}
+
+a:link {
+border-bottom:.1em dotted;
+text-decoration:none;
+color:#00f
+}
+
+a:hover {
+color:#fff!important;
+border-bottom:none;
+background-color:#00f
+}
+
+a:link,a:visited {
+color:#00f
+}
+
+a.logo:link {
+border-bottom:none;
+text-decoration:none;
+color:#00f
+}
+
+a.logo:hover {
+color:#fff!important;
+border-bottom:none;
+background-color:#00f
+}
+
+a.logo:link,a.logo:visited {
+color:#00f
+}
+
+hr {
+height:1px;
+background-color:#00f;
+color:#00f
+}
+
+.black_overlay {
+display:none;
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-color:#000;
+z-index:1001;
+-moz-opacity:.8;
+opacity:.8;
+filter:alpha(opacity=80)
+}
+
+.white_content {
+display:none;
+position:absolute;
+top:25%;
+left:25%;
+width:50%;
+height:50%;
+padding:16px;
+border:16px solid #00f;
+background-color:#fff;
+z-index:1002;
+overflow:auto
+}
+
+.close {
+position:-webkit-sticky;
+position:sticky;
+top:92%;
+font-size:220%;
+text-align:right;
+font-weight:700;
+font-style:italic;
+text-transform:uppercase
+}
+
+.white {
+background-color:#fff
+}
+
+.impressum {
+text-align:left;
+font-size:1em
+}
