@@ -9,7 +9,6 @@ License:       none (public domain)
 Tags:          -
 *
 *******************************************************/
-
 body {
 margin:auto;
 color:#00f;
@@ -21,7 +20,8 @@ max-width:390px;
 padding-top:8%;
 font-size:1em
 }
-
+/*** Lines ***/
+/* ZigZag-Line*/
 hr.zig,hr.zag {
 border:none;
 height:30px;
@@ -48,6 +48,14 @@ z-index:50;
 margin-top:-28px
 }
 
+hr {
+height:1px;
+background-color:#00f;
+color:#00f
+}
+
+/***Text Styles***/
+
 .small {
 text-align:center;
 font-weight:400;
@@ -61,6 +69,15 @@ text-align:left;
 font-weight:700;
 font-style:italic;
 text-transform:uppercase
+}
+
+.white {
+background-color:#fff
+}
+
+.impressum {
+text-align:left;
+font-size:1em
 }
 
 .logo {
@@ -85,13 +102,12 @@ background-color:#00f
 a:link,a:visited {
 color:#00f
 }
-
+/* Font Awesome Logos */
 a.logo:link {
 border-bottom:none;
 text-decoration:none;
 color:#00f
 }
-
 a.logo:hover {
 color:#fff!important;
 border-bottom:none;
@@ -101,13 +117,7 @@ background-color:#00f
 a.logo:link,a.logo:visited {
 color:#00f
 }
-
-hr {
-height:1px;
-background-color:#00f;
-color:#00f
-}
-
+/* Lightbox */
 .black_overlay {
 display:none;
 position:absolute;
@@ -145,13 +155,4 @@ text-align:right;
 font-weight:700;
 font-style:italic;
 text-transform:uppercase
-}
-
-.white {
-background-color:#fff
-}
-
-.impressum {
-text-align:left;
-font-size:1em
 }
