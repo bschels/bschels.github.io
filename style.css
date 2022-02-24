@@ -9,9 +9,6 @@ License:       none (public domain)
 Tags:          -
 *
 *******************************************************/
-html {
-background:url(trame_bg.gif) 0 0 repeat;
-}
 body {
 margin:auto;
 color:#00f;
@@ -22,6 +19,7 @@ width:50%;
 max-width:390px;
 padding-top:8%;
 font-size:1em
+background-image: url("trame_bg.gif");
 }
 /*** Lines ***/
 /* ZigZag-Line*/
