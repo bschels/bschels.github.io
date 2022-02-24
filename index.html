@@ -14,19 +14,9 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    function set_bg_color(color){
-		document.bgColor = color;
-		//document.getElementById('greymask').style.background = color;
-		document.getElementById('greymask').style.opacity = 0.7;
-		
-		// grey mask bgimage
-		/*background-image: url(trame_bg_mask_inverse.gif);*/
-		if (raster >0){
-		document.getElementById('greymask').style.backgroundImage = 'url(trame_bg_mask_inverse_'+raster+'.gif)';
-		}else{
-		document.getElementById('greymask').style.background = color;
-		}
-    
+html {
+	background:url(trame_bg.gif) 0 0 repeat;
+}
 </head>
 <body>
 <header>
