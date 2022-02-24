@@ -20,6 +20,12 @@ max-width:390px;
 padding-top:8%;
 font-size:1em
 }
+
+html {
+	background:url(trame_bg.gif) 0 0 repeat;
+}
+
+
 /*** Lines ***/
 /* ZigZag-Line*/
 hr.zig,hr.zag {
