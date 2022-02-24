@@ -19,7 +19,8 @@ width:50%;
 max-width:390px;
 padding-top:8%;
 font-size:1em
-background-image: url("trame_bg.gif");
+background-image: url("/trame_bg.gif");
+background-repeat: repeat;
 }
 /*** Lines ***/
 /* ZigZag-Line*/
