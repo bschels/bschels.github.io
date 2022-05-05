@@ -11,7 +11,7 @@ Tags:          -
 *******************************************************/
 body {
 margin:auto;
-color:#00f;
+color:#002FA7;
 background-image: url("trame_bg.gif");
 background-repeat: repeat;
 background-color:#FFFF;
@@ -52,8 +52,8 @@ margin-top:-28px
 
 hr {
 height:1px;
-background-color:#00f;
-color:#00f
+background-color:#002FA7;
+color:#002FA7
 }
 /***Image Styles***/
 
@@ -110,22 +110,22 @@ background-color:#00f
 }
 
 a:link,a:visited {
-color:#00f
+color:#002FA7
 }
 /* Font Awesome Logos */
 a.logo:link {
 border-bottom:none;
 text-decoration:none;
-color:#00f
+color:#002FA7
 }
 a.logo:hover {
 color:#fff!important;
 border-bottom:none;
-background-color:#00f
+background-color:#002FA7
 }
 
 a.logo:link,a.logo:visited {
-color:#00f
+color:#002FA7
 }
 /* Lightbox */
 .black_overlay {
@@ -150,7 +150,7 @@ left:25%;
 width:50%;
 height:50%;
 padding:16px;
-border:16px solid #00f;
+border:16px solid #002FA7;
 background-color:#fff;
 z-index:1002;
 overflow:auto
