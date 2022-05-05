@@ -55,6 +55,14 @@ height:1px;
 background-color:#00f;
 color:#00f
 }
+/***Image Styles***/
+
+.top {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 /***Text Styles***/
 
