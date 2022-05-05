@@ -151,7 +151,7 @@ color:#002FA7
 
 .small {
 text-align:center;
-font-weight:400;
+font-weight:300;
 font-size:100%;
 font-style:normal
 }
@@ -159,9 +159,8 @@ font-style:normal
 .big {
 font-size:220%;
 text-align:left;
-font-weight:400;
+font-weight:300;
 font-style:normal;
-text-transform:uppercase
 }
 
 .white {
