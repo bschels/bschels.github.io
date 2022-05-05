@@ -12,10 +12,11 @@ Tags:          -
 body {
 margin:auto;
 color:#002FA7;
-background-image: url("trame_bg.gif");
-background-repeat: repeat;
-background-color:#FFFF;
-font-family:Avenir;
+
+background: linear-gradient(45deg, rgb(135, 28, 10) 20%, rgb(252, 124, 15) 61%, rgb(253, 121, 20) 100%);
+
+
+font-family:Montserrat;
 text-align:left;
 width:50%;
 max-width:390px;
