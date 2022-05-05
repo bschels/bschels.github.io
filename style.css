@@ -19,6 +19,7 @@ max-width:390px;
 padding-top:8%;
 font-size:1em
 }
+
 /* montserrat-200 - latin */
 @font-face {
   font-family: 'Montserrat';
@@ -149,7 +150,7 @@ color:#002FA7
 
 .small {
 text-align:center;
-font-weight:300;
+font-weight:200;
 font-size:100%;
 font-style:normal
 }
@@ -157,7 +158,7 @@ font-style:normal
 .big {
 font-size:220%;
 text-align:left;
-font-weight:300;
+font-weight:200;
 font-style:normal;
 }
 
