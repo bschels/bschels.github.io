@@ -1,6 +1,6 @@
 /*******************************************************
 *
-Theme Name:    StudioSchels
+Theme Name:    Studio-Schels
 Theme URI:     http://schels.info
 Description:
 Version:       1.2
@@ -41,7 +41,7 @@ position:relative
 }
 
 hr.zag {
-background:linear-gradient(-135deg,#00f 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,#002FA7 20px,#FFF 0) 0 5px;
+background:linear-gradient(-135deg,#002FA7 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,#002FA7 20px,#FFF 0) 0 5px;
 background-color:rgba(0,0,0,0);
 background-position:center bottom;
 background-repeat:repeat-x;
@@ -61,7 +61,7 @@ color:#002FA7
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 30%;
 }
 
 /***Text Styles***/
