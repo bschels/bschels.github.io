@@ -149,7 +149,7 @@ text-align:center;
 
 .small {
 text-align:center;
-font-weight:200;
+font-weight:300;
 font-size:100%;
 font-style:normal
 }
@@ -157,7 +157,14 @@ font-style:normal
 .big {
 font-size:220%;
 text-align:left;
-font-weight:200;
+font-weight:400;
+font-style:normal;
+}
+
+.content {
+font-size:220%;
+text-align:left;
+font-weight:300;
 font-style:normal;
 }
 
@@ -166,7 +173,7 @@ background-color:#fff
 }
 
 .impressum {
-text-align:left;
+text-align:center;
 font-weight:200;
 font-size:1em
 }
