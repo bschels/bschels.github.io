@@ -151,6 +151,11 @@ color:#002FA7
 #tog, #content { display: none }
 #tog:checked + #content { display: block }
 
+#tog2, #content2 { display: none }
+#tog2:checked + #content2 { display: block }
+
+
+
 /***Text Styles***/
 
 .small {
