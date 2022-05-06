@@ -177,6 +177,16 @@ font-style:normal;
     padding: 0;
 }
 
+.cat {
+cursor: pointer;
+text-align:left;
+font-weight:400;
+font-style:normal;
+margin: 0;
+padding: 0;
+}
+
+
 .white {
 background-color:#fff
 }
@@ -209,7 +219,7 @@ color:#00f
 a:hover {
 color:#fff!important;
 border-bottom:none;
-background-color:#00f
+background-color:#002FA7
 }
 
 a:link,a:visited {
