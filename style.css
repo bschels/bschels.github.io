@@ -115,7 +115,7 @@ color:#002FA7
   margin-right: auto;
   width: 100%;
 }
-/*** Translator
+/*** Translator ***/
 
 .trans_de {
 	color: #999999; 
@@ -194,7 +194,7 @@ a:hover.en span {
   z-index: 999;
   border:1px solid #000000;
 }
-***/
+XXXXXXXXXXX
 div.language {
   display: none;
 }
@@ -207,11 +207,6 @@ a.switch-language {
   display: inline-block;
   padding: 5px 20px;
   border: 1px solid #000;
-}
-
-div.parent {
-  padding: 20px;
-  background-color: #fefca8;
 }
 
 /***Toggle box***/
