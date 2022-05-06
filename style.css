@@ -216,7 +216,7 @@ font-size:1em
 .impressum-b {
 text-align:center;
 font-weight:300;
-font-size:1em
+font-size:0.5em
 }
 
 .logo {
@@ -273,7 +273,7 @@ filter:alpha(opacity=80)
 
 .white_content {
 display:none;
-position:absolute;
+position:fixed;
 top:25%;
 left:25%;
 width:50%;
