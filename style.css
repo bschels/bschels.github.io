@@ -12,16 +12,20 @@ Tags:          -
 header {
     background-color: #FFF;
   padding: 1em;
+  padding-bottom: 0;
 }
 footer {
     background-color: #FFF;
     padding: 1em;
+  padding-top:0;
+  padding-bottom:0;
 }
 main {
     background-color: #FFF;
   padding: 1em;
+  padding-top: 0;
+  padding-bottom: 0; 
 }
-
 body {
 background-size: auto auto;
 background-color: rgba(0, 47, 167, 0);
@@ -259,7 +263,7 @@ color:#002FA7
 /* Lightbox */
 .black_overlay {
 display:none;
-position:absolute;
+position: fixed;
 top:0;
 left:0;
 width:100%;
