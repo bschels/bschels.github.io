@@ -194,7 +194,9 @@ a:hover.en span {
   z-index: 999;
   border:1px solid #000000;
 }
-XXXXXXXXXXX
+
+/***Translator new***/
+
 div.language {
   display: none;
 }
@@ -207,6 +209,11 @@ a.switch-language {
   display: inline-block;
   padding: 5px 20px;
   border: 1px solid #000;
+}
+
+div.parent {
+  padding: 20px;
+  background-color: #FFF;
 }
 
 /***Toggle box***/
