@@ -1,8 +1,6 @@
 <!DOCTYPE html> 
 <html lang="en">
-<head>
-<script id="language_script" data-languages="en,fi" src="language.js"></script>
-  
+<head>  
 <!-- Load Favicon -->
 <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
@@ -44,7 +42,12 @@
 </br>
   
   <!-- language switcher --!> 
-        <a href="javascript:void(0)" title="Sprache ändern zu deutsch" style="color: #999999; text-decoration:none" onclick="$('.de, .en').toggle()" class="en">DE/<span>Sprache ändern</span></a><a href="javascript:void(0)" title="switch language to english" style="color: #002fa7; text-decoration:none" onclick="$('.de, .en').toggle()" class="de">DE</a><a href="javascript:void(0)" title="switch language to english" style="color: #999999; text-decoration:none" onclick="$('.de, .en').toggle()" class="de">/EN<span>switch language</span></a><a href="javascript:void(0)" title="Sprache ändern zu deutsch" id="engl" style="color: #002fa7; text-decoration:none" onclick="$('.de, .en').toggle()" class="en">EN</a>
+<div id="trans" style="position: absolute;
+    right: 49%;
+    top: 180px;
+    z-index: 9999;">   
+        <a href="javascript:void(0)" title="Sprache ändern zu deutsch" style="color: rgb(153, 153, 153); text-decoration: none; display: inline;" onclick="$('.de, .en').toggle()" class="en">DE/<span>Sprache ändern</span></a><a href="javascript:void(0)" title="switch language to english" style="color: rgb(0, 47, 167); text-decoration: none; display: none;" onclick="$('.de, .en').toggle()" class="de">DE</a><a href="javascript:void(0)" title="switch language to english" style="color: rgb(153, 153, 153); text-decoration: none; display: none;" onclick="$('.de, .en').toggle()" class="de">/EN<span>switch language</span></a><a href="javascript:void(0)" title="Sprache ändern zu deutsch" id="engl" style="color: rgb(0, 47, 167); text-decoration: none; display: inline;" onclick="$('.de, .en').toggle()" class="en">EN</a>
+        </div>
   
 <!-- ZickZack Linie-->
 
