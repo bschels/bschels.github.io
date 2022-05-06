@@ -31,15 +31,14 @@
 <link rel="stylesheet" href="style.css">
   <!-- Load font awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <!-- language switcher script--> 
-
     
-    <script
-        $(document).ready(function() {
-  $(".switch-language").on("click", function() {
-    var switchTo = $(this).attr("id");
-    $(".language").removeClass('active');
-    $(".language#" + switchTo).addClass('active');
+    <!-- language switcher script--> 
+<script>
+$(document).ready(function() {
+$(".switch-language").on("click", function() {
+var switchTo = $(this).attr("id");
+$(".language").removeClass('active');
+$(".language#" + switchTo).addClass('active');
   });
 });
         </script>
