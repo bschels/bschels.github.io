@@ -19,7 +19,21 @@ max-width:390px;
 padding-top:8%;
 font-size:1em
 }
-
+/* preloader */
+#load_fade {
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:999999999;
+    background-color: #f0f0f0;
+    background-image:url(http://cargocollective.com/_gfx/loadingAnim.gif);
+    background-position: center center;
+    background-repeat:no-repeat;
+    }
 /* montserrat-200 - latin */
 @font-face {
   font-family: 'Montserrat';
