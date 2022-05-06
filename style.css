@@ -133,6 +133,9 @@ font-style:normal;
 a.switch-language {
 padding: 5px 20px;
 text-align:center;
+margin: auto;
+width: 50%;
+padding: 10px;
 }
 
 /***Toggle box***/
@@ -162,7 +165,6 @@ font-style:normal;
 }
 
 .content {
-font-size:220%;
 text-align:left;
 font-weight:300;
 font-style:normal;
@@ -173,6 +175,12 @@ background-color:#fff
 }
 
 .impressum {
+text-align:left;
+font-weight:200;
+font-size:1em
+}
+
+.impressum-b {
 text-align:center;
 font-weight:200;
 font-size:1em
