@@ -11,18 +11,18 @@ Tags:          -
 *******************************************************/
 header {
     background-color: #FFF;
-  padding: 1em;
+  padding: 2em;
   padding-bottom: 0;
 }
 footer {
     background-color: #FFF;
-    padding: 1em;
+    padding: 2em;
   padding-top:0;
   padding-bottom:0;
 }
 main {
     background-color: #FFF;
-  padding: 1em;
+  padding: 2em;
   padding-top: 0;
   padding-bottom: 0; 
 }
@@ -36,8 +36,8 @@ font-family: 'Montserrat', sans-serif;
 text-align:left;
 width:50%;
 max-width:390px;
-padding-top:8%;
-font-size:1em
+padding-top:4%;
+font-size:1em;
 }
 /* montserrat-100 - latin */
 @font-face {
