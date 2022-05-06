@@ -31,7 +31,18 @@
 <link rel="stylesheet" href="style.css">
   <!-- Load font awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  
+  <!-- language switcher script--> 
+
+    
+    <script
+        $(document).ready(function() {
+  $(".switch-language").on("click", function() {
+    var switchTo = $(this).attr("id");
+    $(".language").removeClass('active');
+    $(".language#" + switchTo).addClass('active');
+  });
+});
+        </script>
   
   </head>
 
@@ -42,12 +53,22 @@
 </br>
   
   <!-- language switcher--> 
-<div id="trans" style="position: absolute;
-    right: 49%;
-    top: 180px;
-    z-index: 9999;">   
-        <a href="javascript:void(0)" title="Sprache ändern zu deutsch" style="color: rgb(153, 153, 153); text-decoration: none; display: inline;" onclick="$('.de, .en').toggle()" class="en">DE/<span>Sprache ändern</span></a><a href="javascript:void(0)" title="switch language to english" style="color: rgb(0, 47, 167); text-decoration: none; display: none;" onclick="$('.de, .en').toggle()" class="de">DE</a><a href="javascript:void(0)" title="switch language to english" style="color: rgb(153, 153, 153); text-decoration: none; display: none;" onclick="$('.de, .en').toggle()" class="de">/EN<span>switch language</span></a><a href="javascript:void(0)" title="Sprache ändern zu deutsch" id="engl" style="color: rgb(0, 47, 167); text-decoration: none; display: inline;" onclick="$('.de, .en').toggle()" class="en">EN</a>
-        </div>
+<div class="language-select">
+  <a href="#" id="english" class="switch-language">EN</a>
+  <a href="#" id="german" class="switch-language">DE</a>
+  <a href="#" id="spanish" class="switch-language">ES</a>
+</div>
+<div class="parent">
+  <div id="english" class="language active">
+    english content
+  </div>
+  <div id="german" class="language">
+    Deutscher Inhalt
+  </div>
+  <div id="spanish" class="language">
+    contenido en español
+  </div>
+</div>
   
 <!-- ZickZack Linie-->
 
