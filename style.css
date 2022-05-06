@@ -9,7 +9,23 @@ License:       none (public domain)
 Tags:          -
 *
 *******************************************************/
+header {
+    background-color: #FFF;
+  padding: 1em;
+}
+footer {
+    background-color: #FFF;
+    padding: 1em;
+}
+main {
+    background-color: #FFF;
+  padding: 1em;
+}
+
 body {
+background-size: auto auto;
+background-color: rgba(0, 47, 167, 0);
+background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 47, 167, 1) 10px, rgba(0, 47, 167, 1) 12px );
 margin:auto;
 color:#002FA7;
 font-family: 'Montserrat', sans-serif;
