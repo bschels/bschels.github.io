@@ -146,6 +146,11 @@ color:#002FA7
   width: 100%;
 }
 
+/***Toggle box***/
+
+#tog, #content { display: none }
+#tog:checked + #content { display: block }
+
 /***Text Styles***/
 
 .small {
