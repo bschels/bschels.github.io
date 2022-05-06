@@ -204,17 +204,16 @@ div.language {
 
 div.language.active {
   display: block;
+font-size:220%;
+text-align:left;
+font-weight:400;
+font-style:normal;
 }
 
 a.switch-language {
   display: inline-block;
   padding: 5px 20px;
   border: 1px solid #000;
-}
-
-div.parent {
-  padding: 20px;
-  background-color: #FFF;
 }
 
 /***Toggle box***/
