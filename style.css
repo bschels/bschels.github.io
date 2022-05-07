@@ -168,7 +168,7 @@ background-color:#002FA7
 
 /***Toggle box***/
 
-#tog, #content1 { display: none }
+#tog1, #content1 { display: none }
 #tog:checked + #content1 { display: block }
 
 #tog2, #content2 { display: none }
