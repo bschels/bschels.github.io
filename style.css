@@ -336,11 +336,10 @@ text-transform:uppercase
 .tooltip_l .tooltiptext {
   visibility: hidden;
   width: auto;
-  background-color: black;
-  color: #002FA7;
+  background-color: #002FA7;
+  color: #FFF;
   text-align: center;
   padding-right: 1em;
-    top: -5px;
   right: 105%; 
  
   /* Position the tooltip text - see examples below! */
@@ -365,8 +364,8 @@ text-transform:uppercase
 .tooltip_r .tooltiptext {
   visibility: hidden;
   width: auto;
-  background-color: black;
-  color: #002FA7;
+  background-color: #002FA7;
+  color: #FFF;
   text-align: center;
   padding-left: 1em;
  
