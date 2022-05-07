@@ -249,6 +249,10 @@ text-decoration-line: underline;
 text-decoration-style: dotted;
 }
 
+.impressum-b:hover {
+background-color: #002FA7;
+}
+
 
 .logo {
 padding-left:.5em;
