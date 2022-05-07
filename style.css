@@ -293,7 +293,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background-color: #002FA7;
+background-color: #FFF;
 z-index:1001;
 -moz-opacity:.8;
 opacity:.8;
@@ -379,6 +379,7 @@ text-transform:uppercase
   visibility: visible;
 }
 
+/* Footer Icons Container */
 .footer_l {   
     display: grid;
    justify-content: center;
