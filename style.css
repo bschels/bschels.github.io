@@ -325,57 +325,75 @@ font-style:italic;
 text-transform:uppercase
 }
 
-/* Tooltip container */
+
 .tooltip_l {
   position: relative;
   display: inline-block;
 }
 
-/* Tooltip text */
 .tooltip_l .tooltiptext {
   visibility: hidden;
-  width: auto;
+  width: 120px;
   background-color: #002FA7;
-  color: #FFF;
+  color: #fff;
   text-align: center;
-  padding-right: 1em;
-  right: 100%; 
- 
-  /* Position the tooltip text - see examples below! */
+  padding: 5px 0;
   position: absolute;
   z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip_l .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #002FA7 transparent transparent transparent;
+}
+
 .tooltip_l:hover .tooltiptext {
   visibility: visible;
 }
 
-
-/* Tooltip container */
 .tooltip_r {
   position: relative;
   display: inline-block;
 }
 
-/* Tooltip text */
 .tooltip_r .tooltiptext {
   visibility: hidden;
-  width: auto;
+  width: 120px;
   background-color: #002FA7;
-  color: #FFF;
+  color: #fff;
   text-align: center;
-  padding-left: 1em;
- 
-  /* Position the tooltip text - see examples below! */
+  padding: 5px 0;
   position: absolute;
   z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip_r .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #002FA7 transparent transparent transparent;
+}
+
 .tooltip_r:hover .tooltiptext {
   visibility: visible;
 }
+
 
 /* Footer Icons Container */
 .footer_l {   
