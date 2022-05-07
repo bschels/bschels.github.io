@@ -1,0 +1,6 @@
+# robots.txt für http://schels.info
+
+User-agent: Googlebot
+Disallow: 
+
+Sitemap: http://schels.info/sitemap.xml
