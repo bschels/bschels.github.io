@@ -109,7 +109,6 @@ background-color:rgba(0,0,0,0);
 background-position:center bottom;
 background-repeat:repeat-x;
 background-size:20px 40px;
-z-index:100;
 position:relative
 }
 
@@ -119,7 +118,6 @@ background-color:rgba(0,0,0,0);
 background-position:center bottom;
 background-repeat:repeat-x;
 background-size:20px 40px;
-z-index:50;
 margin-top:-28px
 }
 
