@@ -340,7 +340,7 @@ text-transform:uppercase
   color: #FFF;
   text-align: center;
   padding-right: 1em;
-  right: 105%; 
+  right: 100%; 
  
   /* Position the tooltip text - see examples below! */
   position: absolute;
@@ -381,7 +381,7 @@ text-transform:uppercase
 
 /* Footer Icons Container */
 .footer_l {   
-    display: grid;
    justify-content: center;
    align-items: center;
+    text-align: center;
 }
