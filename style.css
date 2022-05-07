@@ -335,12 +335,13 @@ text-transform:uppercase
 /* Tooltip text */
 .tooltip_l .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: auto;
   background-color: black;
-  color: #fff;
+  color: #002FA7;
   text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
+  padding-right: 1em;
+    top: -5px;
+  right: 105%; 
  
   /* Position the tooltip text - see examples below! */
   position: absolute;
@@ -363,12 +364,11 @@ text-transform:uppercase
 /* Tooltip text */
 .tooltip_r .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: auto;
   background-color: black;
-  color: #fff;
+  color: #002FA7;
   text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
+  padding-left: 1em;
  
   /* Position the tooltip text - see examples below! */
   position: absolute;
