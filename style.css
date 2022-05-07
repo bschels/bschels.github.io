@@ -168,13 +168,29 @@ background-color:#002FA7
 
 /***Toggle box***/
 
-#tog, #content { display: none }
-#tog:checked + #content { display: block }
+#tog, #content1 { display: none }
+#tog:checked + #content1 { display: block }
 
 #tog2, #content2 { display: none }
-#tog2:checked + #content2 { display: block }
+#tog2:checked + #content4 { display: block }
 
+#tog3, #content3 { display: none }
+#tog3:checked + #content4 { display: block }
 
+#tog4, #content4 { display: none }
+#tog4:checked + #content5 { display: block }
+
+#tog5, #content5 { display: none }
+#tog5:checked + #content5 { display: block }
+
+#tog6, #content6 { display: none }
+#tog6:checked + #content6 { display: block }
+
+#tog7, #content7 { display: none }
+#tog7:checked + #content7 { display: block }
+
+#tog8, #content8 { display: none }
+#tog8:checked + #content8 { display: block }
 
 /***Text Styles***/
 
