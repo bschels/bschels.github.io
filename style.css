@@ -412,3 +412,17 @@ text-transform:uppercase
    align-items: center;
     text-align: center;
 }
+
+/*Logo rechts unten*/
+#logo-ru {
+  background-color: #FFF;
+  position: absolute;
+  width: 250px;
+  height: 175px;
+  top: 150px;
+  left: 200px;
+  z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10;
+}
