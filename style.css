@@ -366,30 +366,18 @@ background-color:#fff;
 z-index:1002;
 overflow:auto
 }
-
 .close_parent {
-position:-webkit-sticky;
-position:sticky;
-top:92%;
-font-size:220%;
 text-align:right;
-font-weight:700;
-font-style:italic;
-text-transform:uppercase
 }
 
 .close {
 position:-webkit-sticky;
 position:sticky;
-top:92%;
-font-size:220%;
+font-size:150%;
 text-align:right;
-font-weight:700;
-font-style:italic;
+font-weight:600;
 text-transform:uppercase
 }
-
-
 
 .tooltip_l {
   position: relative;
