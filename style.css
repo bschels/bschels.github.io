@@ -34,7 +34,7 @@ margin:auto;
 color:#002FA7;
 font-family: 'Montserrat', sans-serif;
 text-align:left;
-width:80%;
+width:70%;
 max-width:390px;
 padding-top:4%;
 padding-bottom:4%;
@@ -417,6 +417,7 @@ text-transform:uppercase
 .logo-ru {
 	position:fixed;
 	width:12%;
+	min-width: 65px;
 	bottom:1%; /* stick to bottom */
   right: 0px;
   margin-right: 1%;
