@@ -332,15 +332,17 @@ only screen and (max-device-width: 480px)
 .white_content {
 display:none;
 position:fixed;
-top:50%;
-width:100%;
-height:60%;
-padding:8px;
+align: center; 
+top: 25%; 
+right: 2%; 
+bottom: 25%; 
+left: 2%;
+padding:0.5em;
 border:0.5em solid #002FA7;
 background-color:#fff;
 z-index:1002;
-overflow:auto
-} 
+overflow:auto;
+}
 }
 
 .white_content {
