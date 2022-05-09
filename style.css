@@ -26,6 +26,27 @@ main {
   padding-top: 0;
   padding-bottom: 0; 
 }
+
+only screen and (max-device-width: 480px) 
+{
+ body {
+
+background-size: auto auto;
+background-color: rgba(0, 47, 167, 0);
+background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 47, 167, 1) 10px, rgba(0, 47, 167, 1) 12px );
+margin:auto;
+color:#002FA7;
+font-family: 'Montserrat', sans-serif;
+text-align:left;
+width:90%;
+max-width:600px;
+padding-top:4%;
+padding-bottom:4%;
+font-size:100%;
+}
+}  
+
+
 body {
 background-size: auto auto;
 background-color: rgba(0, 47, 167, 0);
