@@ -414,15 +414,12 @@ text-transform:uppercase
 }
 
 /*Logo rechts unten*/
-#logo-ru {
-  background-color: #FFF;
-  position: absolute;
-  width: 250px;
-  height: 175px;
-  top: 150px;
-  left: 200px;
-  z-index: 1;
-  margin-left: auto;
-  margin-right: auto;
-  width: 10;
+.logo-ru {
+	position:fixed;
+	width:12%;
+	bottom:1%; /* stick to bottom */
+  right: 0px;
+  margin-right: 1%;
+	background:#fff;
+  z-index: -1;
 }
