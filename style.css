@@ -333,8 +333,8 @@ only screen and (max-device-width: 480px)
 display:none;
 position:fixed;
 top:8%;
-left:8%;
-width:80%;
+left: 4%;
+width:95%;
 height:60%;
 padding:8px;
 border:0.5em solid #002FA7;
