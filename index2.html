@@ -156,8 +156,18 @@ Dorfstraße&nbsp;3 - <wbr>D&#8209;85402&nbsp;Thalhausen</br></p>
                
                                         
 <div>
-<a class="impressum-b" href="javascript:void(0);" onclick="document.getElementById('light')kb_source_2_target().style.display='block';document.getElementById('fade').style.display='block'">Test1</a>
-</div>                              
+<a class="impressum-b" href="javascript:void(0);" onclick="kb_source_2_target().style.display='block';document.getElementById('fade').style.display='block'">Test1</a>
+</div>      
+
+<div>
+<a class="impressum-b" href="javascript:void(0);" onclick="document.kb_source_2_target().style.display='block';document.getElementById('fade').style.display='block'">Test2</a>
+</div>   
+
+function kb_source_2_target() {
+		$.get('/pages/datenschutz.html', function(data) {
+			$('#target').html(data);	
+		})
+	}
                                         
 <!-- Impressum Link -->
 <div id="english" class="language">
