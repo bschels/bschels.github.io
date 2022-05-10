@@ -271,6 +271,8 @@ font-size:100%;
 }
 
 .impressum-b {
+text-transform: uppercase;
+font-size:150%;
 }
 
 .impressum-b:hover {
