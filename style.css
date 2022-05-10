@@ -368,7 +368,7 @@ z-index:1002;
 overflow:auto
 }
 
-.close2, close3, close {
+.close2, close3, .close {
 position:fixed;
 text-align: right;
 margin: 0 auto;
