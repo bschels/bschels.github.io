@@ -383,6 +383,21 @@ font-weight:600;
 text-transform:uppercase
 }
 
+a.switch-lb {
+position:fixed;
+text-align: left;
+margin: 0 auto;
+left:4%;
+right:4%;
+top:73%;
+bottom:25%;
+max-width:27em;
+padding:0;
+font-size:150%;
+font-weight:600;
+text-transform:uppercase
+}
+
 .tooltip {
   position: relative;
   display: inline-block;
