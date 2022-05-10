@@ -333,7 +333,7 @@ filter:alpha(opacity=80)
 
 only screen and (max-device-width: 480px) 
 {
-.white_content {
+.white_content3, .white_content2, .white_content {
 display:none;
 position:fixed;
 align: center; 
@@ -349,7 +349,7 @@ overflow:auto;
 }
 }
 
-.white_content {
+.white_content3, .white_content2, .white_content {
 display:none;
 position:fixed;
 text-align: left;
@@ -368,11 +368,8 @@ background-color:#fff;
 z-index:1002;
 overflow:auto
 }
-.close_parent {
-text-align:right;
-}
 
-.close {
+.close2, close3, close {
 position:fixed;
 text-align: right;
 margin: 0 auto;
@@ -387,12 +384,12 @@ font-weight:600;
 text-transform:uppercase
 }
 
-.tooltip_l {
+.tooltip {
   position: relative;
   display: inline-block;
 }
 
-.tooltip_l .tooltiptext {
+.tooltip .tooltiptext {
   visibility: hidden;
   width: 7.5em;
   background-color: #002FA7;
@@ -406,7 +403,7 @@ text-transform:uppercase
   margin-left: -3.7em;
 }
 
-.tooltip_l .tooltiptext::after {
+.tooltip .tooltiptext::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -417,41 +414,7 @@ text-transform:uppercase
   border-color: #002FA7 transparent transparent transparent;
 }
 
-.tooltip_l:hover .tooltiptext {
-  visibility: visible;
-}
-
-.tooltip_r {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip_r .tooltiptext {
-  visibility: hidden;
-  width: 7.5em;
-  background-color: #002FA7;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1010;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -3.7em;
-}
-
-.tooltip_r .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -0.6em;
-  border-width: 0.6em;
-  border-style: solid;
-  border-color: #002FA7 transparent transparent transparent;
-}
-
-.tooltip_r:hover .tooltiptext {
+.tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
