@@ -50,8 +50,8 @@
 <img src="/images/SS_Logo_Single_Blue_01.svg" alt="Studio Schels" class="top"></img>
 </br>
 <div class="language-select">
-<div class="tooltip><a href="javascript:void(0);" id="german" class="switch-language">DE</a>
-    <span class="tooltiptext">deutsch</span></div>
+<div class="tooltip"><a href="javascript:void(0);" id="german" class="switch-language">DE</a>
+<span class="tooltiptext">deutsch</span></div>
 <div class="tooltip"><a href="javascript:void(0);" id="english" class="switch-language">EN</a>
 <span class="tooltiptext">english</span></div>
 </div>
@@ -151,26 +151,17 @@ Dorfstraße&nbsp;3 - <wbr>D&#8209;85402&nbsp;Thalhausen</br></p>
 
 <!-- Impressum -->
 
-<button onclick="kb_source_2_target()">Hier klicken</button>
-               
-
-<!-- Impressum Link -->
 <div>
-<a class="impressum-b" href="javascript:void(0);" onclick="kb_source_2_target();document.getElementById('target').style.display='block';document.getElementById('fade').style.display='block'">Imprint</a>
+<a class="impressum-b" href="javascript:void(0);" onclick="kb_source_2_impressum();document.getElementById('impressum').style.display='block';document.getElementById('fade').style.display='block'"><div id="english" class="language">Imprint</div><div id="german" class="language active">Impressum</div></a>
 </div>
-<div id="target" class="white_content">
-
-<!-- Close Button -->
-
+<div class="white_content">
 <p class="close"><span class="white"><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></span></p>
-
-<!--Lightbox content -->
+<div class="language-select">
+<a href="javascript:void(0);" id="german" class="switch-language">DE</a>
+<a href="javascript:void(0);" id="english" class="switch-language">EN</a>
 </div>
-
-
-<!-- Lightbox Hintergrund abdunkeln -->
-
- <div id="fade" class="black_overlay"></div>
+<div id="impressum"></div>
+<div id="fade" class="black_overlay"></div>
 <footer>
 <img src="/images/SS_Logo-S_ru.svg" alt="Studio Schels" class="logo-ru"></img>
 </footer>
