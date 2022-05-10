@@ -371,10 +371,16 @@ text-align:right;
 }
 
 .close {
-position:-webkit-sticky;
-position:sticky;
+position:fixed;
+text-align: right;
+margin: 0 auto;
+left:4%;
+right:4%;
+top:73%;
+bottom:25%;
+max-width:27em;
+padding:0;
 font-size:150%;
-text-align:right;
 font-weight:600;
 text-transform:uppercase
 }
