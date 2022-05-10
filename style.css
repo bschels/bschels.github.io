@@ -383,7 +383,7 @@ font-weight:600;
 text-transform:uppercase
 }
 
-a.switch-lb {
+.language-select-lb {
 position:fixed;
 text-align: left;
 margin: 0 auto;
