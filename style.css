@@ -289,7 +289,7 @@ color:#00f
 
 a:hover {
 color:#fff!important;
-background-color:#002FA7;
+background-color:#002FA7!important;
 }
 
 a:link,a:visited {
@@ -365,7 +365,7 @@ overflow:auto
 
 .close {
 position:fixed;
-text-align: left;
+text-align: right;
 margin: 0 auto;
 left:4%;
 right:4%;
@@ -380,7 +380,7 @@ text-transform:uppercase
 
 .language-select-lb {
 position:fixed;
-text-align: right;
+text-align: left;
 margin: 0 auto;
 left:4%;
 right:4%;
