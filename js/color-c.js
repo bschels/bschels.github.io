@@ -31,5 +31,5 @@ function changeColor(from, to) {
 
 // change all red color styled elements to blue
 document.getElementById('test').onclick = function() {
-   changeColor('#002FA7','#1234');
+   changeColor('#002FA7','#ff0000');
 }
