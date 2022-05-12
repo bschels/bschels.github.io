@@ -232,6 +232,7 @@ background-color:var(--primary);
 
 .impressum-b {
 text-transform: uppercase;
+	padding:2%;
 }
 
 .impressum-b:hover {
