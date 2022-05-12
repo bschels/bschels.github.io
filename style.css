@@ -285,10 +285,9 @@ font-size: 150%;
 text-align:center
 }
 
-a:link {
-border-bottom:0.1em dotted;
-text-decoration:none;
-color:#00f
+a:link,a:visited {
+text-decoration-style: dotted;
+color:#002FA7
 }
 
 a:hover {
@@ -296,9 +295,6 @@ color:#fff!important;
 background-color:#002FA7!important;
 }
 
-a:link,a:visited {
-color:#002FA7
-}
 /* Font Awesome Logos */
 a.logo:link {
 border-bottom:none;
