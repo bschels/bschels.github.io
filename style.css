@@ -141,11 +141,7 @@ color:var(--primary)
 
 /*** SVG ***/
 
-.logo_top svg, svg path, polygon, text {
-  fill: var(--primary);
-}
-
-.logo_bottom svg, svg path, polygon, text {
+#logo_bottom, #logo_top {
   fill: var(--primary);
 }
 
