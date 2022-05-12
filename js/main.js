@@ -1,3 +1,5 @@
+// AJAX Loader 
+
 function kb_source_2_datenschutz() {
 		$.get('/pages/datenschutz.html', function(data) {
 			$('#datenschutz').html(data);	
@@ -13,3 +15,12 @@ function kb_source_2_cv() {
 			$('#cv').html(data);	
 		})
 	}
+// Language switcher
+
+$(document).ready(function() {
+  $(".switch-language").on("click", function() {
+    var switchTo = $(this).attr("id");
+    $(".language").removeClass('active');
+    $(".language#" + switchTo).addClass('active');
+  });
+});
