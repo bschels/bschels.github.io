@@ -9,9 +9,14 @@ License:       none (public domain)
 Tags:          
 *
 *******************************************************/
- :root {
+ :root, :root.light{
   --primary: #002FA7; 
   --bg: #FFF; 
+}
+
+ :root.dark{
+  --primary: #fff; 
+  --bg: #002FA7; 
 }
 
 header {
