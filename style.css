@@ -39,8 +39,8 @@ main {
 
 body {
 background-size: auto auto;
-background-color: rgba(0, 47, 167, 0);
-background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 47, 167, 1) 10px, rgba(0, 47, 167, 1) 12px );
+background-color: var(--bg);
+background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px );
 margin:auto;
 color:var(--primary);
 font-family: 'Montserrat', sans-serif;
