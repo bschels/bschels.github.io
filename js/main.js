@@ -25,6 +25,6 @@ $(document).ready(function() {
   });
 });
 
-// Lightbox close when click outside
+// theme switcher 
 
 const setTheme = theme => document.documentElement.className = theme;
