@@ -262,6 +262,11 @@ font-weight:400;
 .white {
 background-color:#fff
 }
+.white:hover {
+color:#FFF;
+background-color:#002FA7;
+}
+
 
 .impressum {
 text-align:left;
