@@ -26,3 +26,5 @@ $(document).ready(function() {
 });
 
 // Lightbox close when click outside
+
+const setTheme = theme => document.documentElement.className = theme;
