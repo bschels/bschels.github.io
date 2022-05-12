@@ -145,6 +145,10 @@ color:var(--primary)
   fill: var(--primary);
 }
 
+.logo_bottom svg, svg path, polygon, text {
+  fill: var(--primary);
+}
+
 /***Image Styles***/
 
 .top {
