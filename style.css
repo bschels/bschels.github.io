@@ -137,6 +137,14 @@ hr {
 height:1px;
 color:var(--primary)
 }
+
+
+/*** SVG ***/
+
+.logo_top svg, svg path, polygon, text {
+  fill: var(--primary);
+}
+
 /***Image Styles***/
 
 .top {
