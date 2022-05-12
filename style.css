@@ -371,12 +371,21 @@ text-transform:uppercase
 
 
 /* Footer Icons Container */
-.footer_l {   
-justify-content: center;
-align-items: center;
-text-align: center;
-margin-top:4%;
+.footer_l { 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  margin-top:4%;
 }
+
+/* Footer Links Container */
+.footer_T { 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  margin-top:4%;
+}
+
 
 /*Logo rechts unten*/
 .logo-ru {
