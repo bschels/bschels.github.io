@@ -9,20 +9,24 @@ License:       none (public domain)
 Tags:          
 *
 *******************************************************/
+ :root {
+  --primary: #002FA7; 
+  --bg: #FFF; 
+}
 
 header {
-  background-color: #FFF;
+  background-color: var(--bg);
   padding: 8%;
   padding-bottom: 0;
 }
 footer {
-    background-color: #FFF;
+    background-color: var(--bg);
     padding: 8%;
   padding-top:0;
   padding-bottom:4%;
 }
 main {
-    background-color: #FFF;
+    background-color: var(--bg);
   padding: 8%;
   padding-top: 0;
   padding-bottom: 0; 
@@ -33,7 +37,7 @@ background-size: auto auto;
 background-color: rgba(0, 47, 167, 0);
 background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 47, 167, 1) 10px, rgba(0, 47, 167, 1) 12px );
 margin:auto;
-color:#002FA7;
+color:var(--primary);
 font-family: 'Montserrat', sans-serif;
 text-align:left;
 width:70%;
@@ -107,7 +111,7 @@ margin:0
 }
 
 hr.zig {
-background:linear-gradient(-135deg,#FFF 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,#FFFF 20px,rgba(0,0,0,0) 0) 0 5px;
+background:linear-gradient(-135deg,var(--bg) 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,var(--bg) 20px,rgba(0,0,0,0) 0) 0 5px;
 background-color:rgba(0,0,0,0);
 background-position:center bottom;
 background-repeat:repeat-x;
@@ -116,7 +120,7 @@ position:relative
 }
 
 hr.zag {
-background:linear-gradient(-135deg,#002FA7 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,#002FA7 20px,#FFF 0) 0 5px;
+background:linear-gradient(-135deg,var(--primary) 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,var(--primary) 20px,var(--bg) 0) 0 5px;
 background-color:rgba(0,0,0,0);
 background-position:center bottom;
 background-repeat:repeat-x;
@@ -126,8 +130,7 @@ margin-top:-28px
 
 hr {
 height:1px;
-background-color:#002FA7;
-color:#002FA7
+color:var(--primary)
 }
 /***Image Styles***/
 
@@ -210,8 +213,8 @@ padding: 0;
 background-color:#fff
 }
 .white:hover {
-color:#FFF;
-background-color:#002FA7;
+color: var(--bg);
+background-color:var(--primary);
 }
 
 .impressum-b {
@@ -219,7 +222,7 @@ text-transform: uppercase;
 }
 
 .impressum-b:hover {
-background-color: #002FA7;
+background-color: var(--primary);
 }
 
 
@@ -232,12 +235,12 @@ text-align:center
 
 a:link,a:visited {
 text-decoration-style: dotted;
-color:#002FA7
+color: var(--primary)
 }
 
 a:hover {
 color:#fff!important;
-background-color:#002FA7!important;
+background-color: var(--primary)!important;
 }
 
 /* Font Awesome Logos */
@@ -248,11 +251,11 @@ text-decoration:none;
 a.logo:hover {
 color:#fff!important;
 border-bottom:none;
-background-color:#002FA7
+background-color: var(--primary)
 }
 
 a.logo:link,a.logo:visited {
-color:#002FA7
+color: var(--primary)
 }
 /* Lightbox */
 .black_overlay {
@@ -262,7 +265,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background-color: #FFF;
+background-color: var(--bg);
 z-index:1001;
 -moz-opacity:.8;
 opacity:.8;
@@ -283,7 +286,7 @@ min-height:10em;
 max-height:40em;
 height:50%;
 padding:8px;
-border:0.5em solid #002FA7;
+border:0.5em solid var(--primary);
 background-color:#fff;
 z-index:1002;
 overflow:auto
@@ -327,7 +330,7 @@ text-transform:uppercase
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 7.5em;
-  background-color: #002FA7;
+  background-color: var(--primary);
   color: #fff;
   text-align: center;
   padding: 5px 0;
@@ -346,7 +349,7 @@ text-transform:uppercase
   margin-left: -0.6em;
   border-width: 0.6em;
   border-style: solid;
-  border-color: #002FA7 transparent transparent transparent;
+  border-color: var(--primary) transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
