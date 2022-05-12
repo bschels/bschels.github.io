@@ -30,7 +30,7 @@ main {
 
 only screen and (max-device-width: 480px) 
 {
- body {
+body {
 
 background-size: auto auto;
 background-color: rgba(0, 47, 167, 0);
@@ -47,7 +47,6 @@ padding-bottom:4%;
 font-size:100%;
 }
 }  
-
 
 body {
 background-size: auto auto;
