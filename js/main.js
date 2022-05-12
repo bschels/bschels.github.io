@@ -24,3 +24,13 @@ $(document).ready(function() {
     $(".language#" + switchTo).addClass('active');
   });
 });
+
+// Lightbox close when click outside
+
+$( '#fade, #close').on('click', function(event) {
+    $("#impressum-p, #datenschutz-p, #fade").hide();
+});
+
+$( '#show').on('click', function(event) {
+    $("#impressum-p, #datenschutz-p, #fade").show();
+});
