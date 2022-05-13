@@ -152,6 +152,14 @@ height:1px;
 color:var(--primary)
 }
 
+/*** button ***/
+
+[data-theme='light'] .d-block-light,
+[data-theme='dark'] .d-block-dark {
+    display: block !important;
+}
+
+
 
 /*** SVG ***/
 
