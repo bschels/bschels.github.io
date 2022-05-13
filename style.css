@@ -209,6 +209,11 @@ clear: both;
   fill: var(--primary);
 }
 
+
+.switcher_sun, .switcher_moon {
+margin:5%;
+}
+
 /***Image Styles***/
 
 .top {
