@@ -27,10 +27,8 @@ $(document).ready(function() {
 
 // theme switcher 
 
-const setTheme = theme => document.documentElement.className = theme;
 
 // dark mode
-
 
 var toggle = document.getElementById("theme-toggle");
 
@@ -50,4 +48,5 @@ toggle.onclick = function() {
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
 };
+
 
