@@ -14,16 +14,5 @@ according to the terms and conditions of the CC Attribution-ShareAlike 4.0 Inter
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software, source code and images.
 
----
-Copyright 2022 Benjamin Schels (https://schels.info, hello@schels.info).
-
-Dieses Verzeichnis und die enthaltene Software ist unter den Bedingungen der MIT Lizenz veröffentlicht. 
-
-Die in diesem Verzeichnis enthaltenen Bilder im Ordner 'pictures' ist unter den Bedingungen der CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) veröffentlicht.
-
-Alle Dateien die in dieser Distribution enthalten sind dürfen benutzt, kopiert, verändert und verteilt werden, einzeln oder gesamt unter den Bedingungen der MIT Lizenz. Den vollständigen Inhalt der Lizenz in dieser Datei: `http://schels.info/license/license-mit.txt'. 
-
-Ausserdem dürfen alle Bilder dieser Distribution im Ordner 'pictures' benutzt, verändern, angepasst und weiter verteilt werden, unter den Bedingungen der CC Attribution-ShareAlike 4.0 International Lizenz (CC BY-SA 4.0).
-Den Inhalt dieser Lizenz finden Sie hier:`http://schels.info/license/license-by-sa-4-0.txt`.
-
-Der obige Urheberrechtshinweis und diese Genehmigungshinweis müssen in allen Kopien oder wesentlichen Teilen der Software und Bildern enthalten sein.
+You can also read this license Information in german here: 
+'http://schels.info/license_de.txt'
