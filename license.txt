@@ -6,24 +6,24 @@ The images included in this distribution under the directory named `pictures` ar
 
 You may use, copy, modify and redistribute all files included in this
 distribution, individually or in aggregate, subject to the terms and conditions
-of the MIT license.  See the file `http://schels.info/license/license-mit.txt` for details.
+of the MIT license. See the file `http://schels.info/license/license-mit.txt` for details.
 
 In addition, you may -- at your option -- use, copy, modify and redistribute all
 images included in this distribution under the directory named `pictures`
-according to the terms and conditions of the C Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). See the file `http://schels.info/license/licence-cc-by-sa.txt` for details.
+according to the terms and conditions of the CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). See the file `http://schels.info/license/licence-cc-by-sa.txt` for details.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software, source code and images.
 
 ---
 Copyright 2022 Benjamin Schels (https://schels.info, hello@schels.info).
 
 Dieses Verzeichnis und die enthaltene Software ist unter den Bedingungen der MIT Lizenz veröffentlicht. 
 
-Die in diesem Verzeichnis enthaltenen Bilder im Ordner 'pictures' sind unter den Bedingungen der CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) veröffentlicht.
+Die in diesem Verzeichnis enthaltenen Bilder im Ordner 'pictures' ist unter den Bedingungen der CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) veröffentlicht.
 
-Alle Dateien, die in dieser Distribution enthalten sind dürfen benutzt, kopiert, verändert und verteilt werden, einzeln oder gesamt unter den Bedingungen der 'MIT Lizenz'. Der ungekürzte Text findet sich hier :`http://schels.info/license/license-mit.txt. 
+Alle Dateien die in dieser Distribution enthalten sind dürfen benutzt, kopiert, verändert und verteilt werden, einzeln oder gesamt unter den Bedingungen der MIT Lizenz. Den vollständigen Inhalt der Lizenz in dieser Datei: `http://schels.info/license/license-mit.txt'. 
 
-Ausserdem dürfen alle Bilder dieser Distribution im Ordner 'pictures' benutzt, verändern, angepasst und weiter verteilt werden unter den Bedingungen der CC Attribution-ShareAlike 4.0 International Lizenz (CC BY-SA 4.0).
-Den Volltext finden Sie hier:`http://schels.info/license/licence-cc-by-sa.txt`.
+Ausserdem dürfen alle Bilder dieser Distribution im Ordner 'pictures' benutzt, verändern, angepasst und weiter verteilt werden, unter den Bedingungen der CC Attribution-ShareAlike 4.0 International Lizenz (CC BY-SA 4.0).
+Den Inhalt dieser Lizenz finden Sie hier:`http://schels.info/license/licence-cc-by-sa.txt`.
 
-Der obige Urheberrechtshinweis und dieser Genehmigungshinweis müssen in allen Kopien oder wesentlichen Teilen der Software enthalten sein.
+Der obige Urheberrechtshinweis und diese Genehmigungshinweis müssen in allen Kopien oder wesentlichen Teilen der Software und Bildern enthalten sein.
