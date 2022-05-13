@@ -10,17 +10,8 @@ Tags:
 *
 *******************************************************/
 :root {
-  color-scheme: light dark; /* both supported */
-}
-
-:root, :root.light{
   --primary: #002FA7; 
   --bg: #FFF; 
-}
-
- :root.dark{
-  --primary: #fff; 
-  --bg: #002FA7; 
 }
 
 html[data-theme='light'] {
@@ -155,7 +146,8 @@ color:var(--primary)
 /*** button ***/
 
 [data-theme='light'] .d-block-light,
-[data-theme='dark'] .d-block-dark {
+[data-theme='dark'] .d-block-dark 
+{
     display: block !important;
 }
 
