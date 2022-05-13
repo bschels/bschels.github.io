@@ -312,7 +312,7 @@ background-color: var(--primary);
 .logo {
 padding-left:4%;
 padding-right:4%;
-font-size: 150%;
+width:2em;
 text-align:center
 }
 
