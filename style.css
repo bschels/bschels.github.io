@@ -9,7 +9,11 @@ License:       none (public domain)
 Tags:          
 *
 *******************************************************/
- :root, :root.light{
+:root {
+  color-scheme: light dark; /* both supported */
+}
+
+:root, :root.light{
   --primary: #002FA7; 
   --bg: #FFF; 
 }
@@ -17,6 +21,18 @@ Tags:
  :root.dark{
   --primary: #fff; 
   --bg: #002FA7; 
+}
+
+@media (prefers-color-scheme: dark) {
+ :root, :root.light{
+  --primary: #fff; 
+  --bg: #002FA7; 
+}
+
+ :root.dark{
+  --primary: #002FA7; 
+  --bg: #002FA7; 
+}
 }
 
 header {
