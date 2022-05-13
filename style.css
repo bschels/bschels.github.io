@@ -214,6 +214,10 @@ clear: both;
 margin:5%;
 }
 
+.l_linkedin-in, .l_envelope, .l_heart {
+width: 2em;
+}
+
 /***Image Styles***/
 
 .top {
@@ -312,7 +316,6 @@ background-color: var(--primary);
 .logo {
 padding-left:4%;
 padding-right:4%;
-width:2em;
 text-align:center
 }
 
