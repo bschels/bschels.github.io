@@ -144,6 +144,8 @@ color:var(--primary)
 }
 /*** button ***/
 
+/*** button ***/
+
 [data-theme='dark'] .d-block-dark 
 {
     display: block !important;
@@ -163,20 +165,43 @@ color:var(--primary)
 {
     display: none !important;
 }
+
+.top_nav
+{
+margin-top:4%;
+}
+
 #theme-toggle
 {
 cursor: pointer;
 background-color:var(--bg);
 color: var(--primary);
 border-radius: 50%;
-height: 2em;
-width: 2em;
-padding-top: 0.2em;
+height: 1.5em;
+width: 1.5em;
+font-size: 100%;
 border-radius: 50%;
 border: 0.1em solid var(--primary);
 text-align: center;
 float: right;
 }
+
+#theme-toggle:hover
+{
+background-color: var(--primary);
+border: 0.1em solid var(--bg);
+color: var(--bg);
+}
+
+.language-select
+{
+float: left;
+}
+.zigzag
+{
+clear: both;
+}
+
 
 /*** SVG ***/
 
