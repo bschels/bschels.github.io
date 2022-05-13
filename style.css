@@ -217,6 +217,9 @@ margin:5%;
 
 .l_linkedin-in, .l_envelope, .l_heart {
 width: 1em;
+}
+
+.l_heart {
 margin-left: 1em;
 margin-right: 1em;
 }
