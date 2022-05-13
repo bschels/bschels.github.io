@@ -5,8 +5,8 @@ Theme URI:     http://schels.info
 Description:
 Version:       1.3
 Author:        Benjamin Schels
-License:       none (public domain)
-Tags:          
+License:       MIT License (see .../license.txt)
+Tags:          One Page, responsive, two colored 
 *
 *******************************************************/
 :root {
@@ -206,8 +206,6 @@ clear: both;
 
 #logo_bottom, #logo_top {
 fill: var(--primary);
-padding-right: 1em;
-padding-left:1em;
 }
 
 
