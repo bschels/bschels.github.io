@@ -206,7 +206,9 @@ clear: both;
 /*** SVG ***/
 
 #logo_bottom, #logo_top {
-  fill: var(--primary);
+fill: var(--primary);
+padding-right: 1em;
+padding-left:1em;
 }
 
 
