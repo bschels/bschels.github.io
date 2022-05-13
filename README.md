@@ -12,7 +12,7 @@ distribution, individually or in aggregate, subject to the terms and conditions
 of the MIT license. 
 
 In addition, you may -- at your option -- use, copy, modify and redistribute all
-images included in this distribution under the directory named `pictures`
+images included in this distribution under the directory named `images`
 according to the terms and conditions of the Creative Commons Attribution 4.0
 International License. 
 
