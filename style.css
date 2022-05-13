@@ -23,16 +23,14 @@ Tags:
   --bg: #002FA7; 
 }
 
-@media (prefers-color-scheme: dark) {
- :root, :root.light{
-  --primary: #fff; 
-  --bg: #002FA7; 
+html[data-theme='light'] {
+  --primary: #002FA7; 
+  --bg: #FFF; 
 }
 
- :root.dark{
-  --primary: #002FA7; 
+html[data-theme='dark'] {
+  --primary: #fff; 
   --bg: #002FA7; 
-}
 }
 
 header {
