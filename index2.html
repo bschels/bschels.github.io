@@ -58,6 +58,11 @@
 <div class="tooltip"><a href="javascript:void(0);" id="english" class="switch-language">EN</a>
 <span class="tooltiptext">english</span></div>
 </div>
+ 
+<button id="theme-toggle" class="btn btn-link btn-sm ml-2 small" type="button">
+ <span class="d-block-light d-none">{{> "icons/moon"}}</span>
+ <span class="d-block-dark d-none">{{> "icons/sun"}}</span>
+</button>
 
 <hr class="zig"><hr class="zag">
 
@@ -65,17 +70,6 @@
 
 <main>
  
-
-<div class="toggle-container">
-  <button class="theme-btn light" onclick="setTheme('light')" title="Light mode">
-    <!--sun icon-->
-  </button>
-  <button class="theme-btn dark" onclick="setTheme('dark')" title="Dark mode">
-    <!--moon icon-->
-  </button>
-</div>
-
-
 <!-- Introduction -->
 <div id="english" class="language">
     <h1 class="content">Hello, this is the website of Studio&nbsp;Schels.</h1>
