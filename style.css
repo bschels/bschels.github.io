@@ -142,16 +142,39 @@ hr {
 height:1px;
 color:var(--primary)
 }
-
 /*** button ***/
 
-[data-theme='light'] .d-block-light,
 [data-theme='dark'] .d-block-dark 
 {
     display: block !important;
+
+}
+[data-theme='dark'] .d-block-light 
+{
+    display: none !important;
+
 }
 
-
+[data-theme='light'] .d-block-light
+{
+    display: block !important;
+}
+[data-theme='light'] .d-block-dark
+{
+    display: none !important;
+}
+#theme-toggle
+{
+display:inherit;
+background-color:var(--bg);
+color: var(--primary);
+border-radius: 50%;
+height: 2em;
+width: 2em;
+padding-top: 0.2em;
+border-radius: 50%;
+border: 0.1em solid var(--primary);
+}
 
 /*** SVG ***/
 
