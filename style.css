@@ -364,14 +364,8 @@ background-color:var(--primary);
 }
 
 .impressum-b {
-float:left;
-margin-right:10%;
-
-}
-.datenschutz-b {
-float:right;
-margin-rigt: 10%;
-padding: 2%;
+text-transform: uppercase;
+margin-right:1em;
 }
 
 .impressum-b:hover {
