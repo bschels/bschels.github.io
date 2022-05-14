@@ -328,19 +328,19 @@ color: var(--primary)
 }
 
 a:hover {
-color: var(--bg)!important;
-background-color: var(--primary)!important;
+color: var(--bg);
+background-color: var(--primary);
 }
 
-/* Font Awesome Logos */
+/* Footer Logos */
 a.logo:link {
 border-bottom:none;
 text-decoration:none;
 }
 a.logo:hover {
-color: var(--bg)!important;
+color: var(--primary);
 border-bottom:none;
-background-color: var(--primary)
+background-color: var(--bg)
 }
 
 a.logo:link,a.logo:visited {
