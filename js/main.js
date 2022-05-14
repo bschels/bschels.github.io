@@ -58,8 +58,6 @@ function getRandomColor() {
   }
   return color;
 }
-</script>
-<script>
 // Get the root element
 var r = document.querySelector(':root');
 
