@@ -225,27 +225,34 @@ fill: var(--primary);
 }
 
 
-.switcher_sun, .switcher_moon {
+
+.switcher_sun {
 fill: var(--bg);
 margin:5%;
 }
 
-.switcher_sun:hover, .switcher_moon:hover
-{
+.switcher_moon {
 fill: var(--primary);
-color: var(--primary);
+margin:5%;
+}
+
+.switcher_sun:hover
+{
+}
+
+.switcher_moon:hover
+{
 }
 
 .switcher_color {
-fill: var(--bg);
+fill: var(--primary);
 margin:5%;
 }
 
 .switcher_color:hover
 {
-fill: var(--primary);
-color: var(--primary);
 }
+
 
 .l_linkedin-in, .l_envelope, .l_heart {
 width: 1em;
