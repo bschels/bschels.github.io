@@ -62,10 +62,9 @@ function getRandomColor() {
 }
 
 const btn = document.getElementById("heart");
-const clr = document.querySelector("body");
 
 btn.addEventListener("click", () => {
- document.documentElement.style.setProperty('--primary', getRandomColor());
+document.documentElement.style.setProperty('--primary_r', getRandomColor());
 
 });
 
