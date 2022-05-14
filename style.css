@@ -185,13 +185,6 @@ text-align: center;
 float: right;
 }
 
-#theme-toggle:hover
-{
-background-color: var(--primary);
-border: 0.1em solid var(--bg);
-color: var(--bg);
-}
-
 .language-select
 {
 float: left;
@@ -211,6 +204,12 @@ fill: var(--primary);
 
 .switcher_sun, .switcher_moon {
 margin:5%;
+}
+
+.switcher_sun:hover, .switcher_moon:hover
+{
+fill: var(--primary);
+color: var(--bg);
 }
 
 .l_linkedin-in, .l_envelope, .l_heart {
