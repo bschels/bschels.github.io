@@ -25,9 +25,6 @@ $(document).ready(function() {
   });
 });
 
-// theme switcher 
-
-
 // dark mode
 
 window.onload = function(){ 
@@ -51,5 +48,25 @@ toggle.onclick = function() {
 };
 };
 
+// color switcher
+
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+</script>
+<script>
+// Get the root element
+var r = document.querySelector(':root');
+
+// Create a function for setting a variable value
+function myFunction_set() {
+  // Set the value of variable -- to another value
+  r.style.setProperty('--primary_r', getRandomColor());
+}
 
 
