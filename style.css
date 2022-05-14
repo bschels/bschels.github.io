@@ -10,18 +10,18 @@ Tags:          One Page, responsive, two colored
 *
 *******************************************************/
 :root {
-  --primary: #002FA7; 
-  --bg: #FFF; 
+  --primary_r: #002FA7; 
+  --bg_r: #FFF; 
 }
 
 html[data-theme='light'] {
-  --primary: #002FA7; 
-  --bg: #FFF; 
+  --primary: var(--primary_r); 
+  --bg: var(--bg_r); 
 }
 
 html[data-theme='dark'] {
-  --primary: #fff; 
-  --bg: #002FA7; 
+  --primary: var(--bg); 
+  --bg: var(--primary_r); 
 }
 
 header {
