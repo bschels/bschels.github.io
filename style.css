@@ -202,6 +202,21 @@ text-align: center;
 float: right;
 }
 
+#color-toggle
+{
+cursor: pointer;
+background-color:var(--bg);
+color: var(--primary);
+border-radius: 50%;
+height: 1.5em;
+width: 1.5em;
+font-size: 100%;
+border-radius: 50%;
+border: 0;
+text-align: center;
+float: right;
+}
+
 .language-select
 {
 float: left;
@@ -224,6 +239,16 @@ margin:5%;
 }
 
 .switcher_sun:hover, .switcher_moon:hover
+{
+fill: var(--primary);
+color: var(--primary);
+}
+
+.switcher_color {
+margin:5%;
+}
+
+.switcher_color:hover
 {
 fill: var(--primary);
 color: var(--primary);
