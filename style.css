@@ -188,7 +188,7 @@ text-align: center;
 float: right;
 }
 
-#color-toggle
+.color-switcher
 {
 cursor: pointer;
 background-color:var(--bg);
