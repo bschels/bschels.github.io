@@ -354,7 +354,8 @@ text-transform:uppercase
 }
 
 .white {
-background-color: var(--bg)
+background-color: var(--bg);
+text-transform:uppercase
 }
 
 .white:hover {
@@ -364,7 +365,7 @@ background-color:var(--primary);
 
 .impressum-b {
 text-transform: uppercase;
-	padding:2%;
+padding:2%;
 }
 
 .impressum-b:hover {
