@@ -226,7 +226,7 @@ margin:5%;
 .switcher_sun:hover, .switcher_moon:hover
 {
 fill: var(--primary);
-color: var(--bg);
+color: var(--primary);
 }
 
 .l_linkedin-in, .l_envelope, .l_heart {
@@ -364,8 +364,14 @@ background-color:var(--primary);
 }
 
 .impressum-b {
-text-transform: uppercase;
-padding:2%;
+float:left;
+margin-right:10%;
+
+}
+.datenschutz-b {
+float:right;
+margin-rigt: 10%;
+padding: 2%;
 }
 
 .impressum-b:hover {
