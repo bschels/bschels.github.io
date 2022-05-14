@@ -221,6 +221,7 @@ fill: var(--primary);
 
 
 .switcher_sun, .switcher_moon {
+fill: var(--bg);
 margin:5%;
 }
 
@@ -231,6 +232,7 @@ color: var(--primary);
 }
 
 .switcher_color {
+fill: var(--bg);
 margin:5%;
 }
 
