@@ -9,17 +9,22 @@ License:       MIT License (see .../license.txt)
 Tags:          One Page, responsive, two colored 
 *
 *******************************************************/
+
+:root {
+  color-scheme: light dark; /* both supported */
+}
+
 :root {
   --primary_r: #002FA7; 
   --bg_r: #FFF; 
 }
 
-html[data-theme='light'] {
+:root[data-theme='light'] {
   --primary: var(--primary_r); 
   --bg: var(--bg_r); 
 }
 
-html[data-theme='dark'] {
+:root[data-theme='dark'] {
   --primary: var(--bg_r); 
   --bg: var(--primary_r); 
 }
