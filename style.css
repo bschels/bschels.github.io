@@ -20,7 +20,7 @@ html[data-theme='light'] {
 }
 
 html[data-theme='dark'] {
-  --primary: var(--bg); 
+  --primary: var(--bg_r); 
   --bg: var(--primary_r); 
 }
 
