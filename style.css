@@ -226,12 +226,12 @@ height: 100%;
 
 #logo_bottom, #logo_top {
 fill: var(--primary);
-width:1.5em;
 }
 
 .switcher_color, .switcher_moon, .switcher_sun {
 stroke: var(--primary);
 stroke-width: 2;
+width:1.5em;
 }
 
 .switcher_color:hover, .switcher_moon:hover, .switcher_sun:hover
