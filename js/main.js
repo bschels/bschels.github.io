@@ -27,15 +27,13 @@ $(document).ready(function() {
 
 // dark mode
 
-window.onload = function(){ 
-var toggle = document.getElementById("theme-toggle");
+window.onload = function(){ 	
 
 var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (storedTheme)
     document.documentElement.setAttribute('data-theme', storedTheme)
 
-
-toggle.onclick = function() {
+function darkmode() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
 
@@ -45,7 +43,7 @@ toggle.onclick = function() {
 
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
-};
+	};
 };
 
 // color switcher
@@ -66,5 +64,6 @@ function myFunction_set() {
   // Set the value of variable -- to another value
   r.style.setProperty('--primary_r', getRandomColor());
 }
+
 
 
