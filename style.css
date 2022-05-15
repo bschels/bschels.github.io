@@ -188,7 +188,7 @@ height: 1.5em;
 width: 1.5em;
 font-size: 100%;
 border-radius: 50%;
-border: 0.1em dotted;
+border: none;
 float: right;
 }
 
@@ -222,13 +222,14 @@ margin:-0.5%;
 }
 
 .switcher_color, .switcher_moon, .switcher_sun {
-fill: var(--primary);
+stroke: var(--primary);
 margin:auto;
+stroke-width: 2;
 }
 
 .switcher_color:hover, .switcher_moon:hover, .switcher_sun:hover
 {
-fill: var(--bg);
+stroke: var(--bg);
 margin:-15%;
 }
 
