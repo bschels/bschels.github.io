@@ -231,6 +231,7 @@ fill: var(--primary);
 .switcher_color, .switcher_moon, .switcher_sun {
 stroke: var(--primary);
 stroke-width: 2;
+stroke-linejoin: round;
 width:1.5em;
 }
 
