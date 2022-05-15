@@ -178,7 +178,7 @@ color:var(--primary)
 margin-top:4%;
 }
 
-#theme-toggle
+#theme-toggle, #color-toggle
 {
 cursor: pointer;
 background-color:var(--bg);
@@ -188,36 +188,15 @@ height: 1.5em;
 width: 1.5em;
 font-size: 100%;
 border-radius: 50%;
-border: 0;
-text-align: center;
-float: right;
-}
-#color-toggle
-{
-cursor: pointer;
-background-color:var(--bg);
-color: var(--primary);
-border-radius: 50%;
-height: 1.5em;
-width: 1.5em;
-font-size: 100%;
-border-radius: 50%;
-border: 0;
-text-align: center;
+border: 0.1em dotted;
 float: right;
 }
 
-.color-switcher
+#theme-toggle:hover, #color-toggle:hover
 {
-cursor: pointer;
-background-color:var(--bg);
-color: var(--primary);
-border-radius: 50%;
-height: 1.5em;
-width: 1.5em;
-font-size: 100%;
-border-radius: 50%;
-border: 0;
+background-color:var(--primary);
+color: var(--bg);
+border: 0.1em solid var(--primary);
 text-align: center;
 float: right;
 }
@@ -238,33 +217,19 @@ clear: both;
 fill: var(--primary);
 }
 
+#logo_bottom:hover, #logo_top:hover {
+margin:-0.5%;
+}
 
-
-.switcher_sun {
+.switcher_color, .switcher_moon, .switcher_sun {
 fill: var(--primary);
-margin:5%;
+margin:auto;
 }
 
-.switcher_moon {
-fill: var(--primary);
-margin:5%;
-}
-
-.switcher_sun:hover
+.switcher_color:hover, .switcher_moon:hover, .switcher_sun:hover
 {
-}
-
-.switcher_moon:hover
-{
-}
-
-.switcher_color {
-fill: var(--primary);
-margin:5%;
-}
-
-.switcher_color:hover
-{
+fill: var(--bg);
+margin:-15%;
 }
 
 
