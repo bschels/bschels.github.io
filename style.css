@@ -9,6 +9,12 @@ License:       MIT License (see schels.info/license.txt)
 Tags:          One Page, responsive, two colored 
 *
 *******************************************************/
+/* Stop iOS from changing the styles */
+
+input[type=text], input[type=button] {
+-webkit-appearance: none;
+-webkit-border-radius: 0;
+}
 
 :root {
   color-scheme: light dark; /* both supported */
