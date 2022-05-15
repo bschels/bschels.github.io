@@ -241,7 +241,7 @@ fill: var(--primary);
 
 
 .switcher_sun {
-fill: var(--bg);
+fill: var(--primary);
 margin:5%;
 }
 
