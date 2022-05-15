@@ -189,7 +189,6 @@ margin-top:4%;
 cursor: pointer;
 background-color:var(--bg);
 border-radius: 0;
-
 border: none;
 float: right;
 }
@@ -297,6 +296,7 @@ padding: 0;
 }
 
 h1 {
+font-weight:300;
 }
 
 h2, h3, h4, h5, h6 {
@@ -334,11 +334,6 @@ font-weight:400;
 font-size:150%;
 margin: 0;
 padding: 0;
-}
-
-
-.cat:hover {
-font-weight:300;
 }
 
 .close {
