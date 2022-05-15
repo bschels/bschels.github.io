@@ -213,6 +213,11 @@ clear: both;
 
 /*** SVG ***/
 
+svg {
+width: 100%;
+height: 100%;
+}
+
 #logo_bottom, #logo_top {
 fill: var(--primary);
 }
