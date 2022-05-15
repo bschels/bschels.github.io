@@ -27,13 +27,15 @@ $(document).ready(function() {
 
 // dark mode
 
-window.onload = function(){ 	
+window.onload = function(){ 
+var toggle = document.getElementById("theme-toggle");
 
 var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (storedTheme)
     document.documentElement.setAttribute('data-theme', storedTheme)
 
-function darkmode() {
+
+toggle.onclick = function() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
 
@@ -43,7 +45,7 @@ function darkmode() {
 
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
-	};
+};
 };
 
 // color switcher
@@ -65,5 +67,6 @@ function myFunction_set() {
   r.style.setProperty('--primary_r', getRandomColor());
 }
 
-
-
+function darkmode() {
+  var toggle
+}
