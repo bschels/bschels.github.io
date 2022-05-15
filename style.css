@@ -184,8 +184,8 @@ cursor: pointer;
 background-color:var(--bg);
 color: var(--primary);
 border-radius: 50%;
-height: 1.8em;
-width: 1.8em;
+height: 1.5em;
+width: 1.5em;
 font-size: 100%;
 border-radius: 50%;
 border: none;
@@ -223,20 +223,19 @@ fill: var(--primary);
 }
 
 #logo_bottom:hover, #logo_top:hover {
-stroke: var(--primary);
-stroke-width: 0.1em;
+margin:-0.5%;
 }
 
 .switcher_color, .switcher_moon, .switcher_sun {
 stroke: var(--primary);
+margin:auto;
 stroke-width: 2;
-width: 1em;
-height: 1em;
 }
 
 .switcher_color:hover, .switcher_moon:hover, .switcher_sun:hover
 {
 stroke: var(--bg);
+margin:-15%;
 }
 
 
@@ -337,12 +336,6 @@ font-weight:400;
 font-size:150%;
 margin: 0;
 padding: 0;
-}
-
-.cat:hover {
-cursor: pointer;
-font-weight:300;
-font-size:150%;
 }
 
 .close {
