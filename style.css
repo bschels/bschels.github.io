@@ -196,7 +196,7 @@ float: right;
 
 #color-toggle
 {
-margin-right: 2%;
+margin-right: 0;
 }
 
 #theme-toggle:hover, #color-toggle:hover
