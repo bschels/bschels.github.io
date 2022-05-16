@@ -6,7 +6,7 @@ Description:
 Version:       2.0
 Author:        Benjamin Schels
 License:       MIT License (see schels.info/license.txt)
-Tags:          One Page, responsive, two colored 
+Tags:          Onepager, responsive, Portfolio 
 *
 *******************************************************/
 /* Stop iOS from changing the styles */
@@ -246,7 +246,7 @@ stroke-linejoin:round;
 .switcher_color {
 fill: var(--bg);
 stroke: var(--primary); 
-stroke-width: 2;
+stroke-width: 1.8;
 stroke-linejoin: round;
 stroke-linecap:round;
 width:1.5em;
