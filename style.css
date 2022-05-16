@@ -227,11 +227,20 @@ height: 100%;
 fill: var(--primary);
 }
 
-.switcher_moon, .switcher_sun {
+.switcher_moon {
 stroke: var(--primary);
 stroke-width: 2;
-stroke-linejoin: round;
 width:1.5em;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+
+.switcher_sun {
+stroke: var(--primary);
+stroke-width: 2;
+width:1.5em;
+stroke-linecap:round;
+stroke-linejoin:round;
 }
 
 .switcher_color {
@@ -239,6 +248,7 @@ fill: var(--bg);
 stroke: var(--primary); 
 stroke-width: 1.2;
 stroke-linejoin: round;
+stroke-linecap:round;
 width:1.5em;
 }
 
