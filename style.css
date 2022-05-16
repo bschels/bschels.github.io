@@ -246,7 +246,7 @@ stroke-linejoin:round;
 .switcher_color {
 fill: var(--bg);
 stroke: var(--primary); 
-stroke-width: 1.2;
+stroke-width: 3;
 stroke-linejoin: round;
 stroke-linecap:round;
 width:1.5em;
@@ -255,8 +255,6 @@ width:1.5em;
 .switcher_color:hover {
 fill: var(--primary);
 stroke: var(--bg); 
-stroke-width: 1.2;
-stroke-linejoin: round;
 width:1.5em;
 }
 
