@@ -227,41 +227,33 @@ height: 100%;
 fill: var(--primary);
 }
 
-.switcher_moon {
-stroke: var(--primary);
-stroke-width: 2;
-width:1.5em;
-stroke-linecap:round;
-stroke-linejoin:round;
-}
-
-.switcher_sun {
-stroke: var(--primary);
-stroke-width: 2;
-width:1.5em;
-stroke-linecap:round;
-stroke-linejoin:round;
-}
-
 .switcher_color {
-fill: var(--bg);
+fill: var(--primary);
 stroke: var(--primary); 
-stroke-width: 1.8;
+stroke-width: 2;
 stroke-linejoin: round;
 stroke-linecap:round;
 width:1.5em;
 }
 
-.switcher_color:hover {
+.switcher_theme {
 fill: var(--primary);
+stroke: var(--primary); 
+stroke-width: 2;
+stroke-linejoin: round;
+stroke-linecap:round;
+width:1.5em;
+}
+
+.switcher_theme:hover  {
+fill: var(--bg);
 stroke: var(--bg); 
 }
 
-.switcher_moon:hover, .switcher_sun:hover
-{
-stroke: var(--bg);
+.switcher_color:hover  {
+fill: var(--primary);
+stroke: var(--bg); 
 }
-
 
 .l_linkedin-in, .l_envelope, .l_heart {
 width: 1em;
