@@ -25,7 +25,7 @@ $(document).ready(function() {
   });
 });
 
-// dark mode
+// dark_mode 
 
 window.onload = function(){ 
 var toggle = document.getElementById("theme-toggle");
