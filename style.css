@@ -193,7 +193,7 @@ border: none;
 float: right;
 }
 
-#theme-toggle, #color-toggle,
+#theme-toggle, #color-toggle
 {
 cursor: pointer;
 background-color:var(--bg);
