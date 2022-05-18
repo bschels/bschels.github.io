@@ -28,7 +28,7 @@ $(document).ready(function() {
 // dark_mode 
 
 window.onload = function(){ 
-var toggle = document.getElementsByClassName("theme-toggle");
+var toggle = document.getElementById("theme-toggle");
 	
 var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (storedTheme)
@@ -66,3 +66,22 @@ function myFunction_set() {
   // Set the value of variable -- to another value
   r.style.setProperty('--primary_r', getRandomColor());
 }
+
+// dark_mode_exp
+
+window.onload = function(){ 
+var toggle2 = document.getElementsByClassName("theme-toggle");
+	
+
+toggle2.onclick = function() {
+    var currentTheme = document.documentElement.getAttribute("data-theme");
+    var targetTheme = "light";
+
+    if (currentTheme === "light") {
+        targetTheme = "dark";
+    }
+	
+    document.documentElement.setAttribute('data-theme', targetTheme)
+};
+};
+
