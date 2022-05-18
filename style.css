@@ -184,7 +184,16 @@ color:var(--primary)
 margin-top:4%;
 }
 
-#theme-toggle, .theme-toggle, #color-toggle,
+.theme-toggle
+{
+cursor: pointer;
+background-color:var(--bg);
+border-radius: 0;
+border: none;
+float: right;
+}
+
+#theme-toggle, #color-toggle,
 {
 cursor: pointer;
 background-color:var(--bg);
@@ -198,7 +207,14 @@ float: right;
 margin-right: 0;
 }
 
-#theme-toggle:hover, .theme-toggle:hover, #color-toggle:hover, #theme-toggle2:hover
+#theme-toggle:hover, #color-toggle:hover
+{
+background-color:var(--primary);
+text-align: center;
+float: right;
+}
+
+.theme-toggle:hover
 {
 background-color:var(--primary);
 text-align: center;
