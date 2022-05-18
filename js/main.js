@@ -72,12 +72,6 @@ function darkmode() {
   var toggle
 }
 
-
 function darkmode2() {
-    var currentTheme = document.documentElement.getAttribute("data-theme");
-    var targetTheme = "light";
-
-    if (currentTheme === "light") {
-        targetTheme = "dark";
-    }
- }
+  var toggle
+}
