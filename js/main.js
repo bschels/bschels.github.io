@@ -85,7 +85,7 @@ toggle2.onclick = function() {
 };
 };
 
-function darkmode2() {
+function darkmode() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
 
