@@ -42,7 +42,7 @@ toggle.onclick = function() {
     if (currentTheme === "light") {
         targetTheme = "dark";
     }
-
+	
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
 };
@@ -65,7 +65,4 @@ var r = document.querySelector(':root');
 function myFunction_set() {
   // Set the value of variable -- to another value
   r.style.setProperty('--primary_r', getRandomColor());
-}
-
-function darkmode() {
 }
