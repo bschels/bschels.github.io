@@ -29,6 +29,7 @@ $(document).ready(function() {
 
 window.onload = function(){ 
 var toggle = document.getElementById("theme-toggle");
+var toggle = document.getElementById("theme-toggle2");
 	
 var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (storedTheme)
@@ -70,3 +71,13 @@ function myFunction_set() {
 function darkmode() {
   var toggle
 }
+
+
+function darkmode2() {
+    var currentTheme = document.documentElement.getAttribute("data-theme");
+    var targetTheme = "light";
+
+    if (currentTheme === "light") {
+        targetTheme = "dark";
+    }
+ }
