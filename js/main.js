@@ -28,8 +28,7 @@ $(document).ready(function() {
 // dark_mode 
 
 window.onload = function(){ 
-var toggle = document.getElementById("theme-toggle");
-var toggle = document.getElementById("theme-toggle2");
+var toggle = document.getElementsByClassName("theme-toggle");
 	
 var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (storedTheme)
