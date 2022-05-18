@@ -184,7 +184,7 @@ color:var(--primary)
 margin-top:4%;
 }
 
-#theme-toggle, #color-toggle, #theme-toggle2
+#theme-toggle, .theme-toggle, #color-toggle,
 {
 cursor: pointer;
 background-color:var(--bg);
@@ -198,7 +198,7 @@ float: right;
 margin-right: 0;
 }
 
-#theme-toggle:hover, #color-toggle:hover, #theme-toggle2:hover
+#theme-toggle:hover, .theme-toggle:hover, #color-toggle:hover, #theme-toggle2:hover
 {
 background-color:var(--primary);
 text-align: center;
