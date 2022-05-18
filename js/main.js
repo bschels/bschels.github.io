@@ -67,23 +67,6 @@ function myFunction_set() {
   r.style.setProperty('--primary_r', getRandomColor());
 }
 
-// dark_mode_exp
-
-window.onload = function(){ 
-var toggle2 = document.getElementsByClassName("theme-toggle");
-	
-
-toggle2.onclick = function() {
-    var currentTheme = document.documentElement.getAttribute("data-theme");
-    var targetTheme = "light";
-
-    if (currentTheme === "light") {
-        targetTheme = "dark";
-    }
-	
-    document.documentElement.setAttribute('data-theme', targetTheme)
-};
-};
 
 function darkmode() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
