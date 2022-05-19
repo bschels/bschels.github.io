@@ -1,5 +1,4 @@
 // AJAX Loader 
-
 function kb_source_2_datenschutz() {
 		$.get('/pages/datenschutz.html', function(data) {
 			$('#datenschutz').html(data);	
@@ -16,7 +15,6 @@ function kb_source_2_cv() {
 		})
 	}
 // Language switcher
-
 $(document).ready(function() {
   $(".switch-language").on("click", function() {
     var switchTo = $(this).attr("id");
@@ -24,21 +22,16 @@ $(document).ready(function() {
     $(".language#" + switchTo).addClass('active');
   });
 });
-
 // dark_mode 
-
 window.onload = function(){ 
 var toggle = document.getElementById("theme-toggle");
 	
 var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (storedTheme)
     document.documentElement.setAttribute('data-theme', storedTheme)
-
-
 toggle.onclick = function() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
-
     if (currentTheme === "light") {
         targetTheme = "dark";
     }
@@ -47,46 +40,38 @@ toggle.onclick = function() {
     localStorage.setItem('theme', targetTheme);
 };
 };
-
 // color switcher
-
 function getRandomColor() {
 	
 // //alt: dark colors
 //let color = "#";
 //for (let i = 0; i < 3; i++)
 //color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
-
 // //alt: all colors
 //var letters = "0123456789ABCDEF";
 //var color = "#";
 //for (var i = 0; i < 6; i++) {
 //color += letters[Math.floor(Math.random() * 16)];
-	
+
+//nice colors
 //nice color
 var letters = "0123456789ABCDEF";
 var color = "#";
 for (var i = 0; i < 6; i++) {
 color += letters[Math.floor(Math.random() * 14)];
-
-return color;	
+return color;
+	
 }
-};
-
 // Get the root element
 var r = document.querySelector(':root');
-
 // Create a function for setting a variable value
 function myFunction_set() {
   // Set the value of variable -- to another value
   r.style.setProperty('--primary_r', getRandomColor());
 }
-
-
 function darkmode() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
-
     if (currentTheme === "light") {
         targetTheme = "dark";
     }
