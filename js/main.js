@@ -64,9 +64,10 @@ function getRandomColor() {
 //color += letters[Math.floor(Math.random() * 16)];
 	
 //nice colors
-let color = "#";
-for (let i = 0; i < 4; i++)
-color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
+var letters = "0123456789ABCDEF";
+var color = "#";
+for (var i = 0; i < 5; i++) {
+color += letters[Math.floor(Math.random() * 16)];
 
 return color;
 	
