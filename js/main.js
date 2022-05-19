@@ -52,9 +52,9 @@ toggle.onclick = function() {
 
 function getRandomColor() {
 
-let color = "#";
-for (let i = 0; i < 3; i++)
-color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
+//let color = "#";
+//for (let i = 0; i < 3; i++)
+//color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
 return color;
 	
 //  var letters = "0123456789ABCDEF";
@@ -63,9 +63,8 @@ return color;
 //    color += letters[Math.floor(Math.random() * 16)];
 //  }
 //  return color;
-
-
-
+	
+return "#" + ("00000" + Math.floor(Math.random() * Math.pow(16, 6)).toString(16)).slice(-6);
 
 }
 // Get the root element
