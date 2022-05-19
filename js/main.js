@@ -71,7 +71,7 @@ color += letters[Math.floor(Math.random() * 14)];
 
 return color;	
 }
-}
+};
 
 // Get the root element
 var r = document.querySelector(':root');
