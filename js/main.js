@@ -43,17 +43,16 @@ toggle.onclick = function() {
 // color switcher
 function getRandomColor() {
 	
-// //alt: dark colors
+//alt: dark colors
 //let color = "#";
 //for (let i = 0; i < 3; i++)
 //color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
-// //alt: all colors
+//alt: all colors
 //var letters = "0123456789ABCDEF";
 //var color = "#";
 //for (var i = 0; i < 6; i++) {
 //color += letters[Math.floor(Math.random() * 16)];
-
-//nice colors
+	
 //nice color
 var letters = "0123456789ABCDEF";
 var color = "#";
@@ -62,6 +61,7 @@ color += letters[Math.floor(Math.random() * 14)];
 return color;
 	
 }
+};
 // Get the root element
 var r = document.querySelector(':root');
 // Create a function for setting a variable value
