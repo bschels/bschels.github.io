@@ -64,8 +64,6 @@ function getRandomColor() {
 //color += letters[Math.floor(Math.random() * 16)];
 	
 //nice colors
-function getRandomColor() {
-
 let color = "#";
 for (let i = 0; i < 4; i++)
 color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
