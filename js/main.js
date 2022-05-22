@@ -16,12 +16,12 @@ function kb_source_2_cv() {
 	}
 function kb_source_2_profil() {
 		$.get('/pages/profil.html', function(data) {
-			$('#cv').html(data);	
+			$('#profil').html(data);	
 		})
 	}
 function kb_source_2_portfolio() {
-		$.get('/pages/portfolio.html', function(data) {
-			$('#cv').html(data);	
+		$.get('/pages/projekte.html', function(data) {
+			$('#projekte').html(data);	
 		})
 	}
 // Language switcher
