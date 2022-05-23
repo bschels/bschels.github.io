@@ -314,6 +314,11 @@ border-collapse: collapse;
 width: 100%;
 }
 
+ td {
+vertical-align: top;
+}
+
+
 tr:nth-child(odd){
 background-color: hsla(360,0%,80%,0.2);
 }
