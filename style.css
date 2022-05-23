@@ -155,6 +155,12 @@ height:1px;
 color:var(--primary)
 }
 
+/*** Table ***/
+
+td {
+  vertical-align: top;
+}
+
 /*** button ***/
 
 [data-theme='dark'] .d-block-dark 
