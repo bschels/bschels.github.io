@@ -66,6 +66,7 @@ min-width: 250px;
 padding-top:4%;
 padding-bottom:4%;
 font-size:1em;
+hyphens: auto;
 }
 /* fonts */
 /* montserrat-300 - latin */
