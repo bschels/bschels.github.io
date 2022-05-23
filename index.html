@@ -37,11 +37,13 @@
 <header>
 
 <!-- Top Logo -->
-	<svg id="logo_top" viewBox="0 0 300 300">
-  <title>Studio Schels</title>
-  <path d="M181 99a36 36 0 0 0-12-11q-8-4-19-4a39 39 0 0 0-11 2 32 32 0 0 0-10 5 27 27 0 0 0-8 9 26 26 0 0 0-2 12q0 7 2 12a26 26 0 0 0 8 8 42 42 0 0 0 10 5l12 4 16 6a56 56 0 0 1 14 7 37 37 0 0 1 10 12q4 8 4 19t-4 19a41 41 0 0 1-11 13 46 46 0 0 1-16 8 63 63 0 0 1-17 3 68 68 0 0 1-14-2 61 61 0 0 1-13-4 52 52 0 0 1-11-7 50 50 0 0 1-9-9l13-10a40 40 0 0 0 13 13q9 6 21 6a39 39 0 0 0 11-2 32 32 0 0 0 11-6 30 30 0 0 0 8-9 25 25 0 0 0 3-12q0-8-3-13a27 27 0 0 0-8-9 50 50 0 0 0-12-5l-14-5-14-5a49 49 0 0 1-13-8 36 36 0 0 1-9-12q-4-7-4-17t5-18a39 39 0 0 1 11-13 47 47 0 0 1 15-7 63 63 0 0 1 17-3q15 0 26 6t16 12Z"/>
-  <path d="M83 157H0V0h300v79h-14V14H14v129h69v14zm217 143H0v-78h14v64h272V157h-69v-14h83v157z"/>
-</svg>
+	<a href="/index.html">
+		<svg id="logo_top" viewBox="0 0 300 300">
+  			<title>Studio Schels</title>
+  			<path d="M181 99a36 36 0 0 0-12-11q-8-4-19-4a39 39 0 0 0-11 2 32 32 0 0 0-10 5 27 27 0 0 0-8 9 26 26 0 0 0-2 12q0 7 2 12a26 26 0 0 0 8 8 42 42 0 0 0 10 5l12 4 16 6a56 56 0 0 1 14 7 37 37 0 0 1 10 12q4 8 4 19t-4 19a41 41 0 0 1-11 13 46 46 0 0 1-16 8 63 63 0 0 1-17 3 68 68 0 0 1-14-2 61 61 0 0 1-13-4 52 52 0 0 1-11-7 50 50 0 0 1-9-9l13-10a40 40 0 0 0 13 13q9 6 21 6a39 39 0 0 0 11-2 32 32 0 0 0 11-6 30 30 0 0 0 8-9 25 25 0 0 0 3-12q0-8-3-13a27 27 0 0 0-8-9 50 50 0 0 0-12-5l-14-5-14-5a49 49 0 0 1-13-8 36 36 0 0 1-9-12q-4-7-4-17t5-18a39 39 0 0 1 11-13 47 47 0 0 1 15-7 63 63 0 0 1 17-3q15 0 26 6t16 12Z"/>
+ 		 	<path d="M83 157H0V0h300v79h-14V14H14v129h69v14zm217 143H0v-78h14v64h272V157h-69v-14h83v157z"/>
+		</svg>
+	</a>
 <br>
   
 <!-- Top language, theme, color -->
@@ -152,13 +154,131 @@
 <input type="checkbox" id="tog1"/>
     <div id="content1">
         <div id="english" class="language">
-            <p class="content">My name is Benjamin Schels, I am an architect and designer.</p>
+            <p class="content">My name is Benjamin Schels, I am an architect and designer.<br></p>
         </div>
         <div id="german" class="language active">
-            <p class="content">Mein Name ist Benjamin Schels, ich bin Architekt und Designer.</p>
+            <p class="content">Mein Name ist Benjamin Schels, ich bin Architekt und Designer.<br></p>
+        </div>
+	    
+<div>
+    <div class="impressum-b">
+        <a href="javascript:void(0);" onclick="kb_source_2_cv();document.getElementById('cv-p').style.display='block';document.getElementById('fade').style.display='block'">
+            <div id="english" class="language">◾&#xFE0E; Vita
+            </div>
+             <div id="german" class="language active">◾&#xFE0E; Vita
+             </div>
+        </a>
+    </div>
+    <div class="impressum-b">
+        <a href="javascript:void(0);" onclick="kb_source_2_profil();document.getElementById('profil-p').style.display='block';document.getElementById('fade').style.display='block'">
+            <div id="english" class="language">◾&#xFE0E; Profile
+            </div>
+            <div id="german" class="language active">◾&#xFE0E; Profil
+            </div>
+        </a>
+    </div>
+
+
+
+
+
+<div id="cv-p" class="white_content">
+    <div class="close">
+        <a href="javascript:void(0)" onclick="document.getElementById('cv-p').style.display='none';document.getElementById('fade').style.display='none'">
+            <div id="english" class="language">
+                <span class="white">close
+                </span>
+            </div>
+            <div id="german" class="language active">
+                <span class="white">Schließen
+                </span>
+            </div>
+        </a>
+    </div>
+    <div class="language-select-lb">
+        <a href="javascript:void(0);" id="german" class="switch-language">
+            <span class="white">DE
+            </span>
+        </a>
+        <a href="javascript:void(0);" id="english" class="switch-language">
+            <span class="white">EN
+            </span>
+        </a>
+    </div>
+    <div id="cv">
+    </div>
+</div> 
+
+<div id="profil-p" class="white_content">
+    <div class="close">
+        <a href="javascript:void(0)" onclick="document.getElementById('profil-p').style.display='none';document.getElementById('fade').style.display='none'">
+            <div id="english" class="language">
+                <span class="white">close
+                </span>
+            </div>
+            <div id="german" class="language active">
+                <span class="white">Schließen
+                </span>
+            </div>
+        </a>
+    </div>
+    <div class="language-select-lb">
+        <a href="javascript:void(0);" id="german" class="switch-language">
+            <span class="white">DE
+            </span>
+        </a>
+        <a href="javascript:void(0);" id="english" class="switch-language">
+            <span class="white">EN
+            </span>
+        </a>
+    </div>
+    <div id="profil">
+    </div>
+</div> 
+<div id="portfolio-p" class="white_content">
+    <div class="close">
+        <a href="javascript:void(0)" onclick="document.getElementById('portfolio-p').style.display='none';document.getElementById('fade').style.display='none'">
+            <div id="english" class="language">
+                <span class="white">close
+                </span>
+            </div>
+            <div id="german" class="language active">
+                <span class="white">Schließen
+                </span>
+            </div>
+        </a>
+    </div>
+</div> 
+	    
+    <hr class="zig"><hr class="zag">
+</div>
+
+</div>
+
+<!-- Projekte 
+<label for="tog3">
+    <div id="english" class="language">
+        <p class="cat">Projects</p>
+    </div>
+    <div id="german" class="language active">
+        <p class="cat">Projekte</p>
+    </div>
+    <hr class="zig"><hr class="zag">
+</label>
+<input type="checkbox" id="tog3"/>
+    <div id="content3">
+        <div id="english" class="language">
+            <p class="content">Comming soon, meanwhile you can request my portfolio here:
+            <a href="mailto:hello@schels.info">hello@<wbr>schels.info</a>.</p> 
+        </div>
+        <div id="german" class="language active">
+            <p class="content">Kommt bald, mein Portfolio als PDF kann hier angefordert werden:
+            <a href="mailto:hello@schels.info">hello@<wbr>schels.info</a>.</p>
         </div>
     <hr class="zig"><hr class="zag">
 </div>
+
+-->  
 
 <!-- Contact -->   
 <label for="tog2">
@@ -331,11 +451,13 @@ Dorfstraße&nbsp;3 - <wbr>D&#8209;85402&nbsp;Thalhausen</br>
     
 <!-- Logo Background -->
 <div class="logo-ru">
-  <svg id="logo_bottom" viewBox="0 0 238 113"><title>Studio Schels</title>
-    <path d="M34 15a12 12 0 0 0-10-5c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-13-6l2-2c3 4 7 5 11 5 5 0 10-3 10-9 0-13-23-6-23-22 0-8 8-12 14-12s10 2 12 5Zm25 37h-3V11H41V8h33v3H59Zm21-16V8h4v27c0 7 3 15 13 15s13-8 13-15V8h3v28c0 8-3 17-16 17s-17-9-17-17Zm45-28h14c12 0 24 7 24 22s-12 22-24 22h-14Zm4 41h9c13 0 21-8 21-19s-8-19-21-19h-9Zm47 3h-4V8h4Zm32 1c-13 0-22-9-22-23s9-23 22-23 23 10 23 23-9 23-23 23Zm0-43c-11 0-19 9-19 20s8 20 19 20 20-9 20-20-8-20-20-20ZM34 66a12 12 0 0 0-10-4c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-13-6l2-2c3 3 7 5 11 5 5 0 10-3 10-9 0-13-23-7-23-22 0-8 8-12 14-12s10 2 12 5Zm49 31c-3 5-8 8-16 8-13 0-22-10-22-23s9-23 22-23c7 0 12 2 16 6l-3 3a16 16 0 0 0-12-6c-12 0-19 9-19 20s7 20 19 20a16 16 0 0 0 13-6Zm9-37h3v20h26V60h3v44h-3V83H95v21h-3Zm48 41h24v3h-27V60h26v3h-23v17h22v3h-22Zm37 0h21v3h-25V60h4Zm49-35a12 12 0 0 0-9-4c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-14-6l3-2c3 3 6 5 11 5s10-3 10-9c0-13-23-6-23-22 0-8 7-12 14-12 6 0 10 2 12 5Z"/>
-  </svg>
+	<a href="/index.html">
+		<svg id="logo_bottom" viewBox="0 0 238 113">
+			<title>Studio Schels</title>
+    			<path d="M34 15a12 12 0 0 0-10-5c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-13-6l2-2c3 4 7 5 11 5 5 0 10-3 10-9 0-13-23-6-23-22 0-8 8-12 14-12s10 2 12 5Zm25 37h-3V11H41V8h33v3H59Zm21-16V8h4v27c0 7 3 15 13 15s13-8 13-15V8h3v28c0 8-3 17-16 17s-17-9-17-17Zm45-28h14c12 0 24 7 24 22s-12 22-24 22h-14Zm4 41h9c13 0 21-8 21-19s-8-19-21-19h-9Zm47 3h-4V8h4Zm32 1c-13 0-22-9-22-23s9-23 22-23 23 10 23 23-9 23-23 23Zm0-43c-11 0-19 9-19 20s8 20 19 20 20-9 20-20-8-20-20-20ZM34 66a12 12 0 0 0-10-4c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-13-6l2-2c3 3 7 5 11 5 5 0 10-3 10-9 0-13-23-7-23-22 0-8 8-12 14-12s10 2 12 5Zm49 31c-3 5-8 8-16 8-13 0-22-10-22-23s9-23 22-23c7 0 12 2 16 6l-3 3a16 16 0 0 0-12-6c-12 0-19 9-19 20s7 20 19 20a16 16 0 0 0 13-6Zm9-37h3v20h26V60h3v44h-3V83H95v21h-3Zm48 41h24v3h-27V60h26v3h-23v17h22v3h-22Zm37 0h21v3h-25V60h4Zm49-35a12 12 0 0 0-9-4c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-14-6l3-2c3 3 6 5 11 5s10-3 10-9c0-13-23-6-23-22 0-8 7-12 14-12 6 0 10 2 12 5Z"/>
+		</svg>
+	</a>
 </div>
-
 </footer>
 </body>
 </html>
