@@ -313,10 +313,16 @@ border-collapse: collapse;
 width: 100%;
 }
 
+tr:nth-child(odd){
+background-color: hsla(360,0%,80%,0.2);
+}
+
+/***Table alt 
 th, td {
 vertical-align: top;
 border-bottom: 0.01em solid #ddd;
 }
+***/
 
 /***Text Styles***/
 
