@@ -331,10 +331,14 @@ font-weight:400;
 
 
 em {
-font-weight:400;
 font-style: italic;
 }
 
+blockquote {
+max-width: 100%;
+text-align: center;
+margin: 0 20% 0 20%;
+}
 
 i {
 font-style: italic;
