@@ -331,14 +331,10 @@ font-weight:400;
 
 
 em {
+font-weight:400;
 font-style: italic;
 }
 
-blockquote {
-max-width: 100%;
-text-align: center;
-margin: 0 20% 0 20%;
-}
 
 i {
 font-style: italic;
@@ -352,6 +348,20 @@ font-weight:400;
 ul {
 list-style-type: square;
 
+}
+blockquote {
+	font-style: italic;
+ 
+  	text-align:center;
+	padding:0 20% 0 20%;
+}
+
+blockquote p {
+	text-align:right;
+}
+
+blockquote p.says {
+	text-align:center;
 }
 
 il {
