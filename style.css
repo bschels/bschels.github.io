@@ -309,15 +309,14 @@ display: block;
 
 /***Table***/
  table {
-  width: 100%;
+border-collapse: collapse;
+width: 100%;
 }
 
-td {
-  vertical-align: top;
+th, td {
+vertical-align: top;
+border-bottom: 0.01em solid #ddd;
 }
-
-tr:nth-child(even){background-color: #f2f2f2;}
-
 
 /***Text Styles***/
 
