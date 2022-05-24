@@ -344,10 +344,12 @@ padding: 0;
 
 h1 {
 font-weight:300;
+text-align:left
 }
 
 h2, h3, h4, h5, h6 {
 font-weight:400;
+text-align:left
 }
 
 
@@ -368,7 +370,7 @@ font-weight:400;
 
 ul {
 list-style-type: square;
-
+text-align:left
 }
 blockquote {
 	font-style: italic;
