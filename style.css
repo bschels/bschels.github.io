@@ -441,7 +441,7 @@ color: var(--bg);
 background-color:var(--primary);
 }
 
-.impressum-b {
+.lb-link {
 text-transform: uppercase;
 margin-right:1em;
 margin-top:0;
@@ -449,7 +449,7 @@ margin-bottom:0;
 list-style-position: inside;
 }
 
-.impressum-b:hover {
+.lb-link:hover {
 background-color: var(--primary);
 color: var(--bg);
 }
