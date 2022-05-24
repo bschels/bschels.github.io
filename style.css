@@ -372,8 +372,7 @@ li {
 list-style-type: square;
 }
 
-li.inside {
-list-style-type: square;
+.inside {
 list-style-position: inside;
 }
 
