@@ -312,10 +312,16 @@ display: block;
  table {
 border-collapse: collapse;
 width: 100%;
+hyphens: manual;
 }
 
- td {
+td {
 vertical-align: top;
+hyphens: manual;
+}
+
+td:hover {
+background-color: hsla(360,0%,80%,0.2);
 }
 
 
