@@ -368,10 +368,15 @@ strong {
 font-weight:400;
 }
 
+li {
+list-style-type: square;
+}
+
 ul {
 list-style-type: square;
 text-align:left
 }
+
 blockquote {
 	font-style: italic;
   	text-align:center;
