@@ -65,8 +65,8 @@ min-width: 250px;
 padding-top:4%;
 padding-bottom:4%;
 font-size:1em;
-hyphens: auto;
-text-align: justify;
+text-align: left;
+hyphens: manual;
 }
 /* fonts */
 /* montserrat-300 - latin */
@@ -336,28 +336,21 @@ border-bottom: 0.01em solid #ddd;
 text-align:center;
 margin: 0;
 padding: 0;
-hyphens: manual;
 }
 
 .content {
 font-size:150%;
 margin: 0;
 padding: 0;
-hyphens: manual;
-text-align: left;
 }
 
 
 h1 {
 font-weight:300;
-hyphens: manual;
-text-align: left;
 }
 
 h2, h3, h4, h5, h6 {
 font-weight:400;
-hyphens: manual;
-text-align: left;
 }
 
 
@@ -404,8 +397,6 @@ font-weight:400;
 font-size:150%;
 margin: 0;
 padding: 0;
-hyphens: manual;
-text-align: left;
 }
 
 .close {
@@ -419,7 +410,6 @@ bottom:25%;
 max-width:27em;
 font-size:150%;
 text-transform:uppercase
-hyphens: manual;
 }
 
 .language-select-lb {
@@ -432,15 +422,11 @@ bottom:25%;
 max-width:27em;
 font-size:150%;
 text-transform:uppercase
-hyphens: manual;
-text-align: left;
 }
 
 .white {
 background-color: var(--bg);
 text-transform:uppercase
-hyphens: manual;
-text-align: left;
 }
 
 .white:hover {
@@ -451,8 +437,6 @@ background-color:var(--primary);
 .impressum-b {
 text-transform: uppercase;
 margin-right:1em;
-hyphens: manual;
-text-align: left;
 }
 
 .impressum-b:hover {
@@ -464,7 +448,6 @@ background-color: var(--primary);
 padding-left:4%;
 padding-right:4%;
 text-align:center
-hyphens: manual;
 }
 
 a:link,a:visited {
@@ -510,7 +493,8 @@ filter:alpha(opacity=80)
 .white_content {
 display:none;
 position:fixed;
-text-align: left;
+text-align: justify;
+hyphens: auto;
 margin: 0 auto;
 top:25%;
 left:2%;
