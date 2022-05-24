@@ -320,6 +320,7 @@ td {
 vertical-align: top;
 hyphens: manual;
 text-align: left;
+padding: 0.2em 0 0.2em 0;
 }
 
 tr:nth-child(odd){
