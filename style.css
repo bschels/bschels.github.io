@@ -436,10 +436,13 @@ background-color:var(--primary);
 .impressum-b {
 text-transform: uppercase;
 margin-right:1em;
+margin-top:0;
+  margin-bottom:0
 }
 
 .impressum-b:hover {
 background-color: var(--primary);
+color: var(--bg);
 }
 
 
