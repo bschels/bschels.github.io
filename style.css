@@ -313,28 +313,18 @@ display: block;
 border-collapse: collapse;
 width: 100%;
 hyphens: manual;
+text-align: left;
 }
 
 td {
 vertical-align: top;
 hyphens: manual;
+text-align: left;
 }
-
-td:hover {
-background-color: hsla(360,0%,80%,0.2);
-}
-
 
 tr:nth-child(odd){
 background-color: hsla(360,0%,80%,0.2);
 }
-
-/***Table alt 
-th, td {
-vertical-align: top;
-border-bottom: 0.01em solid #ddd;
-}
-***/
 
 /***Text Styles***/
 
