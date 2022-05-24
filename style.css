@@ -505,6 +505,7 @@ display:none;
 position:fixed;
 text-align: justify;
 hyphens: auto;
+-webkit-hyphens: auto;
 margin: 0 auto;
 top:25%;
 left:2%;
