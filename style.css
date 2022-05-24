@@ -372,6 +372,11 @@ li {
 list-style-type: square;
 }
 
+li.inside {
+list-style-type: square;
+list-style-position: inside;
+}
+
 ul {
 list-style-type: square;
 text-align:left
