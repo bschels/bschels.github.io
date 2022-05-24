@@ -59,13 +59,14 @@ margin:auto;
 color:var(--primary);
 font-family: 'Montserrat', sans-serif;
 font-weight: 300;
-text-align:left;
 width:70%;
 max-width:390px;
 min-width: 250px;
 padding-top:4%;
 padding-bottom:4%;
 font-size:1em;
+hyphens: auto;
+text-align: justify;
 }
 /* fonts */
 /* montserrat-300 - latin */
@@ -335,21 +336,28 @@ border-bottom: 0.01em solid #ddd;
 text-align:center;
 margin: 0;
 padding: 0;
+hyphens: manual;
 }
 
 .content {
 font-size:150%;
 margin: 0;
 padding: 0;
+hyphens: manual;
+text-align: left;
 }
 
 
 h1 {
 font-weight:300;
+hyphens: manual;
+text-align: left;
 }
 
 h2, h3, h4, h5, h6 {
 font-weight:400;
+hyphens: manual;
+text-align: left;
 }
 
 
@@ -374,7 +382,6 @@ list-style-type: square;
 }
 blockquote {
 	font-style: italic;
- 
   	text-align:center;
 	padding:0 5% 0 5%;
 }
@@ -397,6 +404,8 @@ font-weight:400;
 font-size:150%;
 margin: 0;
 padding: 0;
+hyphens: manual;
+text-align: left;
 }
 
 .close {
@@ -410,6 +419,7 @@ bottom:25%;
 max-width:27em;
 font-size:150%;
 text-transform:uppercase
+hyphens: manual;
 }
 
 .language-select-lb {
@@ -422,11 +432,15 @@ bottom:25%;
 max-width:27em;
 font-size:150%;
 text-transform:uppercase
+hyphens: manual;
+text-align: left;
 }
 
 .white {
 background-color: var(--bg);
 text-transform:uppercase
+hyphens: manual;
+text-align: left;
 }
 
 .white:hover {
@@ -437,6 +451,8 @@ background-color:var(--primary);
 .impressum-b {
 text-transform: uppercase;
 margin-right:1em;
+hyphens: manual;
+text-align: left;
 }
 
 .impressum-b:hover {
@@ -448,6 +464,7 @@ background-color: var(--primary);
 padding-left:4%;
 padding-right:4%;
 text-align:center
+hyphens: manual;
 }
 
 a:link,a:visited {
@@ -465,6 +482,7 @@ a.logo:link {
 border-bottom:none;
 text-decoration:none;
 }
+
 a.logo:hover {
 color: var(--primary);
 border-bottom:none;
