@@ -108,6 +108,6 @@ checkbox.addEventListener( 'click', function(){
 // Lightbox hider
 $(document).on('click', function(event) {
     if ($(event.target).has('.black_overlay').length) {
-        $(".lightbox").hide();
+        $(".white_content").hide();
     }
 });
