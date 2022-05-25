@@ -104,3 +104,10 @@ checkbox.addEventListener( 'click', function(){
     document.addEventListener( 'click', listener );
   } 
 });
+
+// Lightbox hider
+$(document).on('click', function(event) {
+    if ($(event.target).has('.black_overlay').length) {
+        $(".lightbox").hide();
+    }
+});
