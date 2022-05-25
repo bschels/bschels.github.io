@@ -140,5 +140,11 @@ checkbox3.addEventListener( 'click', function(){
   } 
 });
 
-//
+//Lightbox Hider on any click outside
+
+$(document).on('click', function(event) {
+  if (!$(event.target).closest('button').length) {
+	$(".black_overlay").hide();
+  }
+});
 
