@@ -87,3 +87,20 @@ function darkmode() {
 	
     document.documentElement.setAttribute('data-theme', targetTheme)
 };
+
+
+// Checkbox closer
+
+var checkbox = document.querySelector( '#tog1' );
+var listener = function( e ) {
+  if( e.target != checkbox && e.target != icon ) {
+    checkbox.checked = false;
+    document.removeEventListener( 'click', listener );
+  }
+};
+
+checkbox.addEventListener( 'click', function(){
+  if( this.checked ) {
+    document.addEventListener( 'click', listener );
+  } 
+});
