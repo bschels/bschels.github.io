@@ -606,3 +606,20 @@ position:fixed;
   padding: 20px;
   transition: all 0.5s;
 }
+
+.accordion label {
+  cursor: pointer;
+  background-color: hsl(200,80%,80%);          /* Hellblau */
+  border-bottom: 2px solid hsl(200,80%,80%);
+  display: block;
+  padding: 15px;
+  width: 100%;
+  color: #fff;
+  font-weight: 400;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.accordion input:checked+label {
+  background-color: hsl(200,80%,50%);            /* Dunkelblau */
+}
