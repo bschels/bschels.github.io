@@ -125,35 +125,27 @@
          </div>
       </header>
       <main>
-         <!-- Introduction -->
-         <div id="english" class="language">
-            <h1 class="content">Welcome, this is the website of Studio&nbsp;Schels.</h1>
-         </div>
-         <div id="german" class="language active">
-            <p class="content">Herzlich Willkommen auf der Website von Studio&nbsp;Schels.</p>
-         </div>
-
 <!-- About -->  
-	      
+<div>
          <label for="tog1">
-            <hr class="zig">
-            <hr class="zag">
             <div id="english" class="language">
-               <p class="cat">About</p>
+               <p class="cat">Studio Schels</p>
             </div>
             <div id="german" class="language active">
-               <p class="cat">Über</p>
+               <p class="cat">Studio Schels</p>
             </div>
             <hr class="zig">
             <hr class="zag">
          </label>
-         <input type="checkbox" id="tog1"/>
+         <input type="radio" name="rdo" id="tog1"/>
          <div id="content1">
             <div id="english" class="language">
-               <p class="content">My name is Benjamin Schels, I am an architect and designer.<br></p>
+               <p class="content"> Welcome.<br>
+My name is Benjamin Schels, I am an architect and a designer.<br></p>
             </div>
             <div id="german" class="language active">
-               <p class="content">Mein Name ist Benjamin Schels, ich bin Architekt und Designer.<br></p>
+               <p class="content"> Herzlich Willkommen.<br>
+Mein Name ist Benjamin Schels, ich bin Architekt und Designer.<br></p>
             </div>
             <div>
                <div class="lb-link">
@@ -161,14 +153,6 @@
 			  <div id="english" class="language"><li>Vita</li>
                      </div>
                      <div id="german" class="language active"><li>Vita</li>
-                     </div>
-                  </a>
-               </div>
-               <div class="lb-link">
-                  <a href="javascript:void(0);" onclick="kb_source_2_profil();document.getElementById('profil-p').style.display='block';document.getElementById('fade').style.display='block'">
-                     <div id="english" class="language"><li>Profile</li>
-                     </div>
-                     <div id="german" class="language active"><li>Profil</li>
                      </div>
                   </a>
                </div>
@@ -197,6 +181,40 @@
                   </div>
                   <div id="cv">
                   </div>
+               </div>
+               <hr class="zig">
+               <hr class="zag">
+            </div>
+    </div>
+	
+<!-- Profil -->  
+<div>
+         <label for="tog4">
+            <div id="english" class="language">
+               <p class="cat">Profile</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="cat">Profil</p>
+            </div>
+            <hr class="zig">
+            <hr class="zag">
+         </label>
+         <input type="radio" name="rdo" id="tog4"/>
+         <div id="content4">
+            <div id="english" class="language">
+               <p class="content">Studio Schels does Architecture.</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="content">Studio Schels macht Architektur.</p>
+            </div>
+            <div>
+               <div class="lb-link">
+                  <a href="javascript:void(0);" onclick="kb_source_2_profil();document.getElementById('profil-p').style.display='block';document.getElementById('fade').style.display='block'">
+                     <div id="english" class="language"><li>Office Profile</li>
+                     </div>
+                     <div id="german" class="language active"><li>Büroprofil</li>
+                     </div>
+                  </a>
                </div>
                <div id="profil-p" class="white_content">
                   <div class="close">
@@ -228,6 +246,7 @@
                <hr class="zag">
             </div>
     </div>
+	
 	      
 <!-- Projects -->  
 	      
@@ -241,7 +260,7 @@
             <hr class="zig">
             <hr class="zag">
          </label>
-         <input type="checkbox" id="tog3"/>
+         <input type="radio" name="rdo" id="tog3"/>
 <div id="content3">
 	<div id="english" class="language">
 		<p class="content">Selected projects in which I was and am involved.</p>
@@ -299,11 +318,13 @@
             <div id="german" class="language active">
                <p class="cat">Kontakt</p>
             </div>
-            <hr class="zig">
-            <hr class="zag">
          </label>
-         <input type="checkbox" id="tog2"/>
+         <input type="radio" name="rdo" id="tog2"/>
          <div id="content2">
+
+           <hr class="zig">
+            <hr class="zag">
+
             <div id="english" class="language">
                <p class="content">For contact inquiries of all kinds.
 		</p>
@@ -316,21 +337,17 @@
                <p class="lb-link"><li class="inside">Email: <a href="mailto:hello@schels.info">hello@schels.info</a></li>
 		    <li class="inside">Telefon: +49&nbsp;8166&nbsp;674&nbsp;128&nbsp;6</li></p>
             </div>
-            <hr class="zig">
-            <hr class="zag">
          </div>
-         <!-- Goodbye -->    
-         <div id="english" class="language">
-            <p class="content">Thank you for visiting.</p>
-         </div>
-         <div id="german" class="language active">
-            <p class="content">Vielen Dank für Ihren Besuch.</p>
-         </div>
+
+ <hr class="zig">
+ <hr class="zag">
+	      </div>
       </main>
+
       <footer>
-      <hr class="zig">
-      <hr class="zag">
-      <!-- Footer Logos -->
+
+<!-- Footer Logos -->
+
       <div class="footer_l">
          <div class="tooltip">
             <a href="mailto:HELLO@SCHELS.INFO" class="logo">
@@ -392,11 +409,20 @@
             </a>
          </div>
       </div>
-      <!-- Lightbox Background -->
-      <div id="fade" class="black_overlay"></div>
-      <!-- Footer Lightboxes -->
-      <!-- Lightbox Imprint -->
+
+<!-- Lightbox Background -->
+
+<div id="fade" class="black_overlay"></div>
+
+<!-- Footer Lightboxes -->
+
+<!-- Lightbox Imprint -->
+
+ <!---- LB Imprint Button ---->
       <div id="impressum-p" class="white_content">
+
+<!---- LB Imprint Button ---->
+	    
          <div class="close">
             <a href="javascript:void(0)" onclick="document.getElementById('impressum-p').style.display='none';document.getElementById('fade').style.display='none'">
                <div id="english" class="language" class="lb-link">
