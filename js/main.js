@@ -91,18 +91,18 @@ function darkmode() {
 // Checkbox closer
 //// About
 
-var checkbox = document.getElementById("tog1");
-var icon = document.getElementById("content1");
-var listener = function( e ) {
-  if( e.target != checkbox && e.target != icon ) {
-    checkbox.checked = false;
-    document.removeEventListener( 'click', listener );
+var checkbox1 = document.getElementById("tog1");
+var icon1 = document.getElementById("content1");
+var listener1 = function( e1 ) {
+  if( e1.target != checkbox1 && e1.target != icon1 ) {
+    checkbox1.checked = false;
+    document.removeEventListener( 'click', listener1 );
   }
 };
 
-checkbox.addEventListener( 'click', function(){
+checkbox1.addEventListener( 'click', function(){
   if( this.checked ) {
-    document.addEventListener( 'click', listener );
+    document.addEventListener( 'click', listener1 );
   } 
 });
 
@@ -139,3 +139,6 @@ checkbox3.addEventListener( 'click', function(){
     document.addEventListener( 'click', listener3 );
   } 
 });
+
+//
+
