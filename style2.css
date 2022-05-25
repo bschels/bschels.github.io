@@ -296,6 +296,18 @@ div.language.active
 display: block;
 }
 
+
+/***Toggle box***/
+
+#tog1, #content1 { display: none }
+#tog1:checked + #content1 { display: block }
+
+#tog2, #content2 { display: none }
+#tog2:checked + #content2 { display: block }
+
+#tog3, #content3 { display: none }
+#tog3:checked + #content3 { display: block }
+
 /***Table***/
  table {
 border-collapse: collapse;
@@ -605,21 +617,4 @@ position:fixed;
   color: #333;
   padding: 20px;
   transition: all 0.5s;
-}
-
-.accordion label {
-  cursor: pointer;
-  background-color: hsl(200,80%,80%);          /* Hellblau */
-  border-bottom: 2px solid hsl(200,80%,80%);
-  display: block;
-  padding: 15px;
-  width: 100%;
-  color: #fff;
-  font-weight: 400;
-  box-sizing: border-box;
-  z-index: 100;
-}
-
-.accordion input:checked+label {
-  background-color: hsl(200,80%,50%);            /* Dunkelblau */
 }
