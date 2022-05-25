@@ -88,8 +88,9 @@ function darkmode() {
     document.documentElement.setAttribute('data-theme', targetTheme)
 };
 
-
 // Checkbox closer
+//// About
+
 var checkbox = document.getElementById("tog1");
 var icon = document.getElementById("content1");
 var listener = function( e ) {
@@ -105,9 +106,36 @@ checkbox.addEventListener( 'click', function(){
   } 
 });
 
-// Lightbox hider
-$(document).on('click', function(event) {
-    if ($(event.target).has('#black_overlay').length) {
-        $(".white_content").hide();
-    }
+////Projekte
+
+var checkbox2 = document.getElementById("tog3");
+var icon2 = document.getElementById("content3");
+var listener2 = function( e2 ) {
+  if( e2.target != checkbox2 && e2.target != icon2 ) {
+    checkbox2.checked = false;
+    document.removeEventListener( 'click', listener2 );
+  }
+};
+
+checkbox2.addEventListener( 'click', function(){
+  if( this.checked ) {
+    document.addEventListener( 'click', listener2 );
+  } 
+});
+
+////Kontakt
+
+var checkbox3 = document.getElementById("tog2");
+var icon3 = document.getElementById("content2");
+var listener3 = function( e3 ) {
+  if( e3.target != checkbox3 && e3.target != icon3 ) {
+    checkbox3.checked = false;
+    document.removeEventListener( 'click', listener3 );
+  }
+};
+
+checkbox3.addEventListener( 'click', function(){
+  if( this.checked ) {
+    document.addEventListener( 'click', listener3 );
+  } 
 });
