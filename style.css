@@ -475,6 +475,10 @@ color: var(--bg);
 background-color: var(--primary);
 }
 
+a.hoverless:hover {
+background-color: var(--bg);
+}
+
 /* Footer Logos */
 a.logo:link {
 border-bottom:none;
