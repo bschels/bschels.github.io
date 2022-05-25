@@ -593,3 +593,28 @@ position:fixed;
 	background: var(--bg);
   z-index: 1;
 }
+
+
+/* EXP */
+
+.accordion input{
+  display: none;
+}
+
+.accordion .panel {
+  margin: 0 auto;
+  height: 0;
+  overflow:hidden;
+  background-color: white;
+  line-height: 1.4;
+  padding: 0 20px;
+  box-sizing: border-box;
+  transition: all 0.5s;
+}
+
+.accordion input:checked~.panel {
+  height: auto;
+  color: #333;
+  padding: 20px;
+  transition: all 0.5s;
+}
