@@ -91,7 +91,7 @@ function darkmode() {
 
 // Checkbox closer
 var checkbox = document.querySelector('#tog1');
-var icon = document.getElementById('#content1');
+var icon = document.querySelector('#content1');
 var listener = function( e ) {
   if( e.target != checkbox && e.target != icon ) {
     checkbox.checked = false;
