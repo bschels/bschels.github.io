@@ -90,10 +90,10 @@ function darkmode() {
 
 
 // Checkbox closer
-
 var checkbox = document.querySelector( '#tog1' );
+var div = document.querySelector( '#content1' );
 var listener = function( e ) {
-  if( e.target != checkbox && e.target != icon ) {
+  if( e.target != checkbox && e.target != div ) {
     checkbox.checked = false;
     document.removeEventListener( 'click', listener );
   }
