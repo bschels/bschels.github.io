@@ -308,6 +308,12 @@ display: block;
 #tog3, #content3 { display: none }
 #tog3:checked + #content3 { display: block }
 
+#tog4, #content4 { display: none }
+#tog4:checked + #content4 { display: block }
+
+#tog5, #content5 { display: none }
+#tog5:checked + #content5 { display: block }
+
 /***Table***/
  table {
 border-collapse: collapse;
