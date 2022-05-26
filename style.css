@@ -62,8 +62,8 @@ font-weight: 300;
 width:70%;
 max-width:390px;
 min-width: 250px;
-padding-top:4%;
-padding-bottom:4%;
+padding-top:2%;
+padding-bottom:2%;
 font-size:1em;
 text-align: left;
 hyphens: manual;
@@ -187,11 +187,6 @@ background:var(--primary)
 [data-theme='light'] .d-block-dark
 {
     display: none !important;
-}
-
-.top_nav
-{
-margin-top:4%;
 }
 
 .theme-toggle
