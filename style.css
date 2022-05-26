@@ -161,7 +161,7 @@ hr.y {
 height:1px;
 border:none;
 background:var(--primary);
-padding-bottom: 2em;
+margin-bottom: 30px
 }
 
 /*** button ***/
