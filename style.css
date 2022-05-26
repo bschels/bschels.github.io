@@ -48,7 +48,7 @@ main {
   background-color: var(--bg);
   padding: 8%;
   padding-top: 0;
-  padding-bottom: 0; 
+  padding-bottom: 1%; 
 }
 
 body {
