@@ -42,7 +42,7 @@ header {
 }
 footer {
     background-color: var(--bg);
-    padding: 0 8% 4% 8%;
+    padding: 0 8% 2% 8%;
 }
 main {
   background-color: var(--bg);
@@ -354,7 +354,7 @@ padding: 0;
 
 .content {
 font-size:150%;
-margin: 0;
+margin: 4% 0 2% 0;
 padding: 0;
 }
 
@@ -464,9 +464,9 @@ background-color:var(--primary);
 
 .lb-link {
 text-transform: uppercase;
-margin-right:1em;
+margin-right:4%;
 margin-top:0;
-margin-bottom:0;
+margin-bottom:4%;
 list-style-position: inside;
 }
 
