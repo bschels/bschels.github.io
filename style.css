@@ -158,10 +158,9 @@ background:var(--primary)
 }
 
 hr.y {
-height:1px;
-border:none;
-background:var(--primary);
-margin-bottom: 30px
+height:30px;
+border-bottom: 1px solid var(--primary);
+background:var(--bg);
 }
 
 /*** button ***/
