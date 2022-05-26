@@ -153,7 +153,8 @@ margin-top:-28px
 
 hr.z {
 height:1px;
-color:var(--primary)
+Margin:30px;
+background:var(--primary)
 }
 
 /*** button ***/
