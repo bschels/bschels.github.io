@@ -153,7 +153,8 @@ margin-top:-28px
 
 hr.z {
 height:1px;
-Margin:30px;
+padding:30px;
+border:none;
 background:var(--primary)
 }
 
