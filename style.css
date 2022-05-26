@@ -126,6 +126,10 @@ hyphens: manual;
 }
 
 /*** Lines ***/
+hr {
+margin:0
+}
+
 /* ZigZag-Line*/
 hr.zig,hr.zag {
 border:none;
@@ -155,24 +159,6 @@ hr.z {
 height:1px;
 border:none;
 background:var(--primary)
-}
-
-hr.y {
-height:30px;
-background:var(--bg);
-border:none;
-height:30px;
-margin:0
-position:relative
-
-}
-
-hr.x {
-background-color:var(--primary);
-background-position:center bottom;
-background-repeat:repeat-x;
-background-size:1px;
-position:relative
 }
 
 /*** button ***/
