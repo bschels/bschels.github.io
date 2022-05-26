@@ -151,7 +151,7 @@ background-size:20px 40px;
 margin-top:-28px
 }
 
-hr {
+hr.z {
 height:1px;
 color:var(--primary)
 }
