@@ -157,6 +157,13 @@ border:none;
 background:var(--primary)
 }
 
+hr.y {
+height:1px;
+border:none;
+background:var(--primary);
+padding-bottom: 2em;
+}
+
 /*** button ***/
 
 [data-theme='dark'] .d-block-dark 
