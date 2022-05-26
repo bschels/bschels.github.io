@@ -163,6 +163,16 @@ background:var(--bg);
 border:none;
 height:30px;
 margin:0
+position:relative
+
+}
+
+hr.x {
+background-color:var(--primary);
+background-position:center bottom;
+background-repeat:repeat-x;
+background-size:1px;
+position:relative
 }
 
 /*** button ***/
