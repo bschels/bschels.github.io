@@ -588,6 +588,7 @@ overflow:auto
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  margin: 2%;
 }
 
 /* Footer Links Container */
