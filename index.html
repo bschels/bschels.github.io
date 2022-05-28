@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html> 
+<html lang="de">
+   <head>
+      <meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1">
+	<title>Studio Schels - Benjamin Schels Architekt M.A.</title>
+      <meta name="keywords" content="Studio Schels, Benjamin Schels, Architekt, Architekturbüro, Schels, München, Thalhausen, Kranzberg, ...">
+      <meta name="description" content="Architektur- und Designbüro aus dem Raum München von Benjamin Schels.">
+      <link rel="start" href="index.html" title="Studio Schels - Benjamin Schels Architekt M.A.">
+      <!-- favicons -->
+      <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+      <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+      <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+      <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+      <link rel="manifest" href="/favicon/manifest.json">
+      <meta name="msapplication-TileColor" content="#ffffff">
+      <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+      <meta name="theme-color" content="#ffffff">
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script src="/js/jquery-3.5.1.min.js"></script>
+      <script src="/js/main.js" type="text/javascript"></script>
+   </head>
+   <body>
+      <header>
+         <!-- Top Logo -->
+         <a href="/index.html" class="hoverless">
+            <svg id="logo_top" viewBox="0 0 300 300">
+               <title>Studio Schels</title>
+               <path d="M181 99a36 36 0 0 0-12-11q-8-4-19-4a39 39 0 0 0-11 2 32 32 0 0 0-10 5 27 27 0 0 0-8 9 26 26 0 0 0-2 12q0 7 2 12a26 26 0 0 0 8 8 42 42 0 0 0 10 5l12 4 16 6a56 56 0 0 1 14 7 37 37 0 0 1 10 12q4 8 4 19t-4 19a41 41 0 0 1-11 13 46 46 0 0 1-16 8 63 63 0 0 1-17 3 68 68 0 0 1-14-2 61 61 0 0 1-13-4 52 52 0 0 1-11-7 50 50 0 0 1-9-9l13-10a40 40 0 0 0 13 13q9 6 21 6a39 39 0 0 0 11-2 32 32 0 0 0 11-6 30 30 0 0 0 8-9 25 25 0 0 0 3-12q0-8-3-13a27 27 0 0 0-8-9 50 50 0 0 0-12-5l-14-5-14-5a49 49 0 0 1-13-8 36 36 0 0 1-9-12q-4-7-4-17t5-18a39 39 0 0 1 11-13 47 47 0 0 1 15-7 63 63 0 0 1 17-3q15 0 26 6t16 12Z"/>
+               <path d="M83 157H0V0h300v79h-14V14H14v129h69v14zm217 143H0v-78h14v64h272V157h-69v-14h83v157z"/>
+            </svg>
+         </a>
+         <br>
+         <!-- Top language, theme, color -->
+         <div id="english" class="language">
+            <div class="top_nav">
+               <div class="language-select">
+                  <div class="tooltip">
+                     <a href="javascript:void(0);" id="german" class="switch-language">DE</a>
+                     <span class="tooltiptext">german
+                     </span>
+                  </div>
+                  <div class="tooltip">
+                     <a href="javascript:void(0);" id="english" class="switch-language">EN</a>
+                     <span class="tooltiptext">english
+                     </span>
+                  </div>
+               </div>
+               <div class="theme-switcher">
+                  <button id="theme-toggle" onclick="darkmode()" type="button" class="tooltip">
+                     <svg viewBox="0 0 24 24" stroke="CurrentColor" class="switcher_theme">
+                        <clipPath id="cut-off-bottom">
+                           <rect x="0" y="0" width="12" height="24"></rect>
+                        </clipPath>
+                        <circle cx="12" cy="12" r="10" clip-path="url(#cut-off-bottom)"></circle>
+                        <circle cx="12" cy="12" r="10" fill="none"></circle>
+                     </svg>
+                     <span class="tooltiptext">invert
+                     </span>
+                  </button>
+               </div>
+               <div class="color-switcher">
+                  <button id="color-toggle" type="button" onclick="myFunction_set()" class="tooltip">
+                     <svg viewBox="0 0 24 24" class="switcher_color">
+                        <circle cx="12" cy="12" r="10"></circle>
+                     </svg>
+                     <span class="tooltiptext">change color
+                     </span>
+                  </button>
+               </div>
+            </div>
+         </div>
+         <div id="german" class="language active">
+            <div class="top_nav">
+               <div class="language-select">
+                  <div class="tooltip">
+                     <a href="javascript:void(0);" id="german" class="switch-language">DE</a>
+                     <span class="tooltiptext">deutsch
+                     </span>
+                  </div>
+                  <div class="tooltip">
+                     <a href="javascript:void(0);" id="english" class="switch-language">EN</a>
+                     <span class="tooltiptext">englisch
+                     </span>
+                  </div>
+               </div>
+               <div class="theme-switcher">
+                  <button id="theme-toggle" onclick="darkmode()" type="button" class="tooltip">
+                     <svg viewBox="0 0 24 24" stroke="CurrentColor" class="switcher_theme">
+                        <clipPath id="cut-off-bottom2">
+                           <rect x="0" y="0" width="12" height="24"></rect>
+                        </clipPath>
+                        <circle cx="12" cy="12" r="10" clip-path="url(#cut-off-bottom2)"></circle>
+                        <circle cx="12" cy="12" r="10" fill="none"></circle>
+                     </svg>
+                     <span class="tooltiptext">Invertieren
+                     </span>
+                  </button>
+               </div>
+               <div class="color-switcher">
+                  <button id="color-toggle" type="button" onclick="myFunction_set()" class="tooltip">
+                     <svg viewBox="0 0 24 24" class="switcher_color">
+                        <circle cx="12" cy="12" r="10"></circle>
+                     </svg>
+                     <span class="tooltiptext">Farbe ändern
+                     </span>
+                  </button>
+               </div>
+            </div>
+         </div>
+            <hr class="y">
+         </div>
+<hr class="z">
+      </header>
+      <main>
+<!-- About -->  
+<div>
+		<label for="tog1">
+            <div id="english" class="language">
+               <p class="cat">Studio Schels</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="cat">Studio Schels</p>
+            </div>
+            <hr class="z">
+         </label>
+         <input type="radio" name="rdo" id="tog1"/>
+         <div id="content1">
+            <div id="english" class="language">
+               <p class="content"> Welcome.<br>
+My name is Benjamin Schels, I am an architect and a designer.<br></p>
+            </div>
+            <div id="german" class="language active">
+               <p class="content"> Herzlich Willkommen.<br>
+Mein Name ist Benjamin Schels, ich bin Architekt und Designer.<br></p>
+            </div>
+            <div>
+               <div class="lb-link">
+                  <a href="javascript:void(0);" onclick="kb_source_2_cv();document.getElementById('cv-p').style.display='block';document.getElementById('fade').style.display='block'">
+			  <div id="english" class="language"><li>Vita</li>
+                     </div>
+                     <div id="german" class="language active"><li>Vita</li>
+                     </div>
+                  </a>
+               </div>
+               <div id="cv-p" class="white_content">
+                  <div class="close">
+                     <a href="javascript:void(0)" onclick="document.getElementById('cv-p').style.display='none';document.getElementById('fade').style.display='none'">
+                        <div id="english" class="language">
+                           <span class="white">close
+                           </span>
+                        </div>
+                        <div id="german" class="language active">
+                           <span class="white">Schließen
+                           </span>
+                        </div>
+                     </a>
+                  </div>
+                  <div class="language-select-lb">
+                     <a href="javascript:void(0);" id="german" class="switch-language">
+                     <span class="white">DE
+                     </span>
+                     </a>
+                     <a href="javascript:void(0);" id="english" class="switch-language">
+                     <span class="white">EN
+                     </span>
+                     </a>
+                  </div>
+                  <div id="cv">
+                  </div>
+               </div>
+               <hr class="z">
+            </div>
+    </div>
+	
+<!-- Profil -->  
+<div>
+         <label for="tog4">
+            <div id="english" class="language">
+               <p class="cat">Profile</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="cat">Profil</p>
+            </div>
+            <hr class="z">
+         </label>
+         <input type="radio" name="rdo" id="tog4"/>
+         <div id="content4">
+            <div id="english" class="language">
+               <p class="content">Studio Schels makes architecture and design.</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="content">Studio Schels schafft Architektur und Design.</p>
+            </div>
+            <div>
+               <div class="lb-link">
+                  <a href="javascript:void(0);" onclick="kb_source_2_profil();document.getElementById('profil-p').style.display='block';document.getElementById('fade').style.display='block'">
+                     <div id="english" class="language"><li>Office Profile</li>
+                     </div>
+                     <div id="german" class="language active"><li>Büroprofil</li>
+                     </div>
+                  </a>
+               </div>
+               <div id="profil-p" class="white_content">
+                  <div class="close">
+                     <a href="javascript:void(0)" onclick="document.getElementById('profil-p').style.display='none';document.getElementById('fade').style.display='none'">
+                        <div id="english" class="language">
+                           <span class="white">close
+                           </span>
+                        </div>
+                        <div id="german" class="language active">
+                           <span class="white">Schließen
+                           </span>
+                        </div>
+                     </a>
+                  </div>
+                  <div class="language-select-lb">
+                     <a href="javascript:void(0);" id="german" class="switch-language">
+                     <span class="white">DE
+                     </span>
+                     </a>
+                     <a href="javascript:void(0);" id="english" class="switch-language">
+                     <span class="white">EN
+                     </span>
+                     </a>
+                  </div>
+                  <div id="profil">
+                  </div>
+               </div>
+               <hr class="z">
+            </div>
+    </div>
+	
+	      
+<!-- Projects -->  
+	      
+         <label for="tog3">
+            <div id="english" class="language">
+               <p class="cat">Projects</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="cat">Projekte</p>
+            </div>
+            <hr class="z">
+         </label>
+         <input type="radio" name="rdo" id="tog3"/>
+<div id="content3">
+	<div id="english" class="language">
+		<p class="content">Selected references of my works.</p>
+	</div>
+	<div id="german" class="language active">
+		<p class="content">Ausgewählte Referenzen meiner Arbeit.</p>
+	</div>
+	<div>
+		<div class="lb-link">
+                  <a href="javascript:void(0);" onclick="kb_source_2_portfolio();document.getElementById('projekte-p').style.display='block';document.getElementById('fade').style.display='block'">
+			  <div id="english" class="language"><li>Projects</li>
+                     </div>
+			  <div id="german" class="language active"><li>Projekte</li>
+                     </div>
+                  </a>
+		</div>
+		<div id="projekte-p" class="white_content">
+			<div class="close">
+				<a href="javascript:void(0)" onclick="document.getElementById('projekte-p').style.display='none';document.getElementById('fade').style.display='none'">
+					<div id="english" class="language">
+						<span class="white">close
+						</span>
+					</div>
+					<div id="german" class="language active">
+						<span class="white">Schließen
+						</span>
+					</div>
+				</a>
+			</div>
+                  	<div class="language-select-lb">
+                    		 <a href="javascript:void(0);" id="german" class="switch-language">
+                    			 <span class="white">DE
+                    			 </span>
+                    		 </a>
+                    		 <a href="javascript:void(0);" id="english" class="switch-language">
+                    		 <span class="white">EN
+                     		</span>
+                    		 </a>
+                  	</div>
+                  	<div id="projekte">
+                  	</div>
+               </div>
+<hr class="z">
+</div>
+</div>
+
+	
+<!-- Contact -->   
+	
+         <label for="tog2">
+            <div id="english" class="language">
+               <p class="cat">Contact</p>
+            </div>
+            <div id="german" class="language active">
+               <p class="cat">Kontakt</p>
+            </div>
+         </label>
+         <input type="radio" name="rdo" id="tog2"/>
+         <div id="content2">
+           <hr class="z">
+            <div id="english" class="language">
+               <p class="content"> I look forward to working with you or getting contacted.</p>
+               <p class="lb-link"><li class="inside">Email: <a href="mailto:hello@schels.info">hello@schels.info</a></li>
+		<li class="inside">Telephone: +49&nbsp;8166&nbsp;674&nbsp;128&nbsp;6</li></p>
+            </div>
+            <div id="german" class="language active">
+               <p class="content">Ich freue mich auf eine Zusammen&shy;arbeit oder Kontakt&shy;anfrage.
+		</p>
+               <p class="lb-link"><li class="inside">Email: <a href="mailto:hello@schels.info">hello@schels.info</a></li>
+		    <li class="inside">Telefon: +49&nbsp;8166&nbsp;674&nbsp;128&nbsp;6</li></p>
+            </div>
+         </div>
+	      </div>
+      </main>
+
+      <footer>
+	 <hr class="z">
+<!-- Footer Logos -->
+
+      <div class="footer_l">
+         <div class="tooltip">
+            <a href="mailto:HELLO@SCHELS.INFO" class="logo">
+               <svg class="l_envelope" viewBox="0 0 512 512">
+                  <path fill="currentColor" d="M0 128c0-35 29-64 64-64h384c35 0 64 29 64 64v256c0 35-29 64-64 64H64c-35 0-64-29-64-64V128zm48 0v22l173 142c20 17 50 17 71 0l172-142v-23c0-8-7-16-16-16H64c-9 0-16 8-16 16v1zm0 84v172c0 9 7 16 16 16h384c9 0 16-7 16-16V212L322 329c-38 31-94 31-133 0L48 212z"/>
+               </svg>
+            </a>
+            <span class="tooltiptext">mail
+            </span>
+         </div>
+         <div class="tooltip">
+            <a href="javascript:void(0)" class="logo" id="heart">
+               <svg class="l_heart" viewBox="0 0 512 512">
+                  <path fill="currentColor" d="m244 84 11 12 12-12c34-33 80-47 126-40 69 12 119 71 119 141v6c0 41-17 81-48 109L284 469a41 41 0 0 1-56 0L48 300C17 272 0 232 0 191v-6A143 143 0 0 1 244 84zm11 80-45-47a97 97 0 0 0-83-26c-45 8-79 48-79 94v6c0 28 12 55 32 74l176 164 176-164c20-19 32-46 32-74v-6c0-46-34-86-79-94-31-5-61 5-83 26l-47 47z"/>
+               </svg>
+            </a>
+            <span class="tooltiptext">♡
+            </span>
+         </div>
+         <div class="tooltip">
+            <a href="https://www.linkedin.com/in/schels/" target="_blank" class="logo" padding-right="1%">
+               <svg class="l_linkedin-in" viewBox="0 0 448 512">
+                  <path fill="currentColor" d="M100 448H7V149h93zM54 108C24 108 0 84 0 54a54 54 0 0 1 108 0c0 29-25 54-54 54zm394 340h-93V302c0-34 0-79-48-79s-56 38-56 77v148h-93V149h90v41h1c12-24 43-49 88-49 94 0 111 62 111 143v164z"/>
+               </svg>
+            </a>
+            <span class="tooltiptext">linkedin
+            </span>
+         </div>
+      </div>
+      <!-- Footer Address -->
+      <p class="small">
+         Studio&nbsp;Schels - Benjamin&nbsp;Schels Architekt&nbsp;M.A.</br>
+         Dorfstraße&nbsp;3 - <wbr>D&#8209;85402&nbsp;Thalhausen</br>
+      </p>
+      <!-- Footer Links -->
+      <div class="footer_t">
+         <div class="lb-link">
+            <a href="javascript:void(0);" onclick="kb_source_2_impressum();document.getElementById('impressum-p').style.display='block';document.getElementById('fade').style.display='block'">
+               <div id="english" class="language">
+                  <span class="white">Imprint
+                  </span>
+               </div>
+               <div id="german" class="language active">
+                  <span class="white">Impressum
+                  </span>
+               </div>
+            </a>
+         </div>
+         <div class="datenschutz-b">
+            <a href="javascript:void(0);" onclick="kb_source_2_datenschutz();document.getElementById('datenschutz-p').style.display='block';document.getElementById('fade').style.display='block'">
+               <div id="english" class="language">
+                  <span class="white">Privacy Policy
+                  </span>
+               </div>
+               <div id="german" class="language active">
+                  <span class="white">Datenschutz
+                  </span>
+               </div>
+            </a>
+         </div>
+      </div>
+
+<!-- Lightbox Background -->
+
+<div id="fade" class="black_overlay"></div>
+
+<!-- Footer Lightboxes -->
+
+<!-- Lightbox Imprint -->
+
+ <!---- LB Imprint Button ---->
+      <div id="impressum-p" class="white_content">
+
+<!---- LB Imprint Button ---->
+	    
+         <div class="close">
+            <a href="javascript:void(0)" onclick="document.getElementById('impressum-p').style.display='none';document.getElementById('fade').style.display='none'">
+               <div id="english" class="language" class="lb-link">
+                  <span class="white">close
+                  </span>
+               </div>
+               <div id="german" class="language active">
+                  <span class="white">Schließen
+                  </span>
+               </div>
+            </a>
+         </div>
+         <div class="language-select-lb">
+            <a href="javascript:void(0);" id="german" class="switch-language">
+            <span class="white">DE
+            </span>
+            </a>
+            <a href="javascript:void(0);" id="english" class="switch-language">
+            <span class="white">EN
+            </span>
+            </a>
+         </div>
+         <div id="impressum">
+         </div>
+      </div>
+      <!-- Lightbox PP -->
+      <div id="datenschutz-p" class="white_content">
+         <div class="close">
+            <a href="javascript:void(0)" onclick="document.getElementById('datenschutz-p').style.display='none';document.getElementById('fade').style.display='none'">
+               <div id="english" class="language">
+                  <span class="white">close
+                  </span>
+               </div>
+               <div id="german" class="language active">
+                  <span class="white">Schließen
+                  </span>
+               </div>
+            </a>
+         </div>
+         <div class="language-select-lb">
+            <a href="javascript:void(0);" id="german" class="switch-language">
+            <span class="white">DE
+            </span>
+            </a>
+            <a href="javascript:void(0);" id="english" class="switch-language">
+            <span class="white">EN
+            </span>
+            </a>
+         </div>
+         <div id="datenschutz">
+         </div>
+      </div>
+      <footer>
+         <!-- Logo Background -->
+         <div class="logo-ru">
+            <a href="/index.html" class="hoverless">
+               <svg id="logo_bottom" viewBox="0 0 238 113">
+                  <title>Studio Schels</title>
+                  <path d="M34 15a12 12 0 0 0-10-5c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-13-6l2-2c3 4 7 5 11 5 5 0 10-3 10-9 0-13-23-6-23-22 0-8 8-12 14-12s10 2 12 5Zm25 37h-3V11H41V8h33v3H59Zm21-16V8h4v27c0 7 3 15 13 15s13-8 13-15V8h3v28c0 8-3 17-16 17s-17-9-17-17Zm45-28h14c12 0 24 7 24 22s-12 22-24 22h-14Zm4 41h9c13 0 21-8 21-19s-8-19-21-19h-9Zm47 3h-4V8h4Zm32 1c-13 0-22-9-22-23s9-23 22-23 23 10 23 23-9 23-23 23Zm0-43c-11 0-19 9-19 20s8 20 19 20 20-9 20-20-8-20-20-20ZM34 66a12 12 0 0 0-10-4c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-13-6l2-2c3 3 7 5 11 5 5 0 10-3 10-9 0-13-23-7-23-22 0-8 8-12 14-12s10 2 12 5Zm49 31c-3 5-8 8-16 8-13 0-22-10-22-23s9-23 22-23c7 0 12 2 16 6l-3 3a16 16 0 0 0-12-6c-12 0-19 9-19 20s7 20 19 20a16 16 0 0 0 13-6Zm9-37h3v20h26V60h3v44h-3V83H95v21h-3Zm48 41h24v3h-27V60h26v3h-23v17h22v3h-22Zm37 0h21v3h-25V60h4Zm49-35a12 12 0 0 0-9-4c-5 0-10 3-10 9 0 13 23 6 23 22 0 8-7 12-14 12a16 16 0 0 1-14-6l3-2c3 3 6 5 11 5s10-3 10-9c0-13-23-6-23-22 0-8 7-12 14-12 6 0 10 2 12 5Z"/>
+               </svg>
+            </a>
+         </div>
+      </footer>
+   </body>
+</html>
