@@ -319,6 +319,14 @@ tr:nth-child(odd){
 background-color: hsla(360,0%,80%,0.2);
 }
 
+.arrow.li:after{
+    content:" >";
+}
+
+.arrow.li:last-of-type:after{
+    content:"";
+}
+
 /***Text Styles***/
 
 .small {
