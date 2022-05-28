@@ -319,13 +319,26 @@ tr:nth-child(odd){
 background-color: hsla(360,0%,80%,0.2);
 }
 
-.arrow.li:after{
-    content:" >";
+#arrow {
+    border-right:2px solid black;
+    border-bottom:2px solid black;
+    width:10px;
+    height:10px;
+    transform: rotate(-45deg);
+    margin-top:40px;
 }
 
-.arrow.li:last-of-type:after{
-    content:"";
+.arrow.ul {
+  position: relative;
+  list-style: none;
 }
+
+.arrow.li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+}
+
 
 /***Text Styles***/
 
