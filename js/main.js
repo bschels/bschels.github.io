@@ -1,4 +1,4 @@
-// AJAX Loader 
+// AJAX Load
 function kb_source_2_datenschutz() {
 		$.get('/pages/datenschutz.html', function(data) {
 			$('#datenschutz').html(data);	
