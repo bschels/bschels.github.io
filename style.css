@@ -329,14 +329,20 @@ background-color: hsla(360,0%,80%,0.2);
 }
 
 ul.arrow {
-  position: relative;
   list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+li.arrow {
+  padding-left: 1em;
+  text-indent: -1em;
 }
 
 li.arrow::before {
-  content: '▶';
-  position: absolute;
-  left: 0;
+content: '▶';
+text-indent: -2ch;
+padding-right: 1ch
 }
 
 
