@@ -19,15 +19,16 @@ function kb_source_2_profil() {
 			$('#profil').html(data);	
 		})
 
-function kb_source_2_profil() {
-		$.get('/pages/profil.html', function(data) {
-			$('#profil').html(data);	
+}
+function kb_source_2_leistunge () {
+		$.get('/pages/leistungen.html', function(data) {
+			$('#leistungen').html(data);	
 		})
 
 	}
-function kb_source_2_leistungen() {
+function kb_source_2_projekte() {
 		$.get('/pages/projekte.html', function(data) {
-			$('#leistungen').html(data);	
+			$('#projekte').html(data);	
 		})
 	}
 // Language switcher
