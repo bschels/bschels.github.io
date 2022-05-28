@@ -328,12 +328,12 @@ background-color: hsla(360,0%,80%,0.2);
     margin-top:40px;
 }
 
-.arrow.ul {
+.arrow ul {
   position: relative;
   list-style: none;
 }
 
-.arrow.li::before {
+.arrow li::before {
   content: '▶';
   position: absolute;
   left: 0;
