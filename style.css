@@ -62,8 +62,8 @@ font-weight: 300;
 width:70%;
 max-width:390px;
 min-width: 250px;
-padding-top:1%;
-padding-bottom:1%;
+padding-top:2%;
+padding-bottom:2%;
 font-size:1em;
 text-align: left;
 hyphens: manual;
@@ -130,31 +130,6 @@ hr {
 margin:0
 }
 
-/* ZigZag-Line*/
-hr.zig,hr.zag {
-border:none;
-height:30px;
-margin:0
-}
-
-hr.zig {
-background:linear-gradient(-135deg,var(--bg) 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,var(--bg) 20px,rgba(0,0,0,0) 0) 0 5px;
-background-color:rgba(0,0,0,0);
-background-position:center bottom;
-background-repeat:repeat-x;
-background-size:20px 40px;
-position:relative
-}
-
-hr.zag {
-background:linear-gradient(-135deg,var(--primary) 20px,rgba(0,0,0,0) 0) 0 5px,linear-gradient(135deg,var(--primary) 20px,var(--bg) 0) 0 5px;
-background-color:rgba(0,0,0,0);
-background-position:center bottom;
-background-repeat:repeat-x;
-background-size:20px 40px;
-margin-top:-28px
-}
-
 hr.y {
 height:1.6em;
 border:none;
@@ -162,7 +137,7 @@ background:var(--bg)
 }
 
 hr.z {
-height:1px;
+height:2px;
 border:none;
 background:var(--primary)
 }
