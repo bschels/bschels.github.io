@@ -18,10 +18,16 @@ function kb_source_2_profil() {
 		$.get('/pages/profil.html', function(data) {
 			$('#profil').html(data);	
 		})
+
+function kb_source_2_profil() {
+		$.get('/pages/profil.html', function(data) {
+			$('#profil').html(data);	
+		})
+
 	}
-function kb_source_2_portfolio() {
+function kb_source_2_leistungen() {
 		$.get('/pages/projekte.html', function(data) {
-			$('#projekte').html(data);	
+			$('#leistungen').html(data);	
 		})
 	}
 // Language switcher
