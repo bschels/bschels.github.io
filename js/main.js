@@ -20,13 +20,13 @@ function kb_source_2_profil() {
 		})
 
 }
-function kb_source_2_leistunge () {
+function kb_source_2_leistungen() {
 		$.get('/pages/leistungen.html', function(data) {
 			$('#leistungen').html(data);	
 		})
 
 	}
-function kb_source_2_projekte() {
+function kb_source_2_portfolio() {
 		$.get('/pages/projekte.html', function(data) {
 			$('#projekte').html(data);	
 		})
