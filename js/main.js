@@ -76,20 +76,9 @@ toggle.onclick = function() {
     localStorage.setItem('theme', targetTheme);
 };
 };
+
 // color switcher
 function getRandomColor() {
-	
-//alt: dark colors
-//let color = "#";
-//for (let i = 0; i < 3; i++)
-//color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
-//alt: all colors
-//var letters = "0123456789ABCDEF";
-//var color = "#";
-//for (var i = 0; i < 6; i++) {
-//color += letters[Math.floor(Math.random() * 16)];
-	
-//nice color
 var letters = "0123456789ABCDEF";
 var color = "#";
 for (var i = 0; i < 6; i++) {
@@ -113,58 +102,6 @@ function darkmode() {
 	
     document.documentElement.setAttribute('data-theme', targetTheme)
 };
-
-// Checkbox closer
-//// About
-
-var checkbox1 = document.getElementById("tog1");
-var icon1 = document.getElementById("content1");
-var listener1 = function( e1 ) {
-  if( e1.target != checkbox1 && e1.target != icon1 ) {
-    checkbox1.checked = false;
-    document.removeEventListener( 'click', listener1 );
-  }
-};
-
-checkbox1.addEventListener( 'click', function(){
-  if( this.checked ) {
-    document.addEventListener( 'click', listener1 );
-  } 
-});
-
-////Projekte
-
-var checkbox2 = document.getElementById("tog3");
-var icon2 = document.getElementById("content3");
-var listener2 = function( e2 ) {
-  if( e2.target != checkbox2 && e2.target != icon2 ) {
-    checkbox2.checked = false;
-    document.removeEventListener( 'click', listener2 );
-  }
-};
-
-checkbox2.addEventListener( 'click', function(){
-  if( this.checked ) {
-    document.addEventListener( 'click', listener2 );
-  } 
-});
-
-////Kontakt
-
-var checkbox3 = document.getElementById("tog2");
-var icon3 = document.getElementById("content2");
-var listener3 = function( e3 ) {
-  if( e3.target != checkbox3 && e3.target != icon3 ) {
-    checkbox3.checked = false;
-    document.removeEventListener( 'click', listener3 );
-  }
-};
-
-checkbox3.addEventListener( 'click', function(){
-  if( this.checked ) {
-    document.addEventListener( 'click', listener3 );
-  } 
-});
 
 //Lightbox Hider on any click outside
 
