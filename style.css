@@ -381,10 +381,6 @@ li {
 list-style-type: square;
 }
 
-.inside {
-list-style-position: inside;
-}
-
 ul {
 list-style-type: square;
 text-align:left
@@ -486,6 +482,10 @@ background-color: var(--primary);
 
 a.hoverless:hover {
 background-color: var(--bg);
+}
+
+.nohover {
+pointer-events: none;
 }
 
 /* Footer Logos */
