@@ -471,6 +471,19 @@ color: var(--bg);
 background-color:var(--primary);
 }
 
+.cat-link {
+text-transform: uppercase;
+margin-right:4%;
+margin-top:0;
+margin-bottom:4%;
+list-style-position: inside;
+}
+
+.cat-link:hover {
+background-color: var(--primary);
+color: var(--bg);
+}
+
 .lb-link {
 text-transform: uppercase;
 margin-right:4%;
@@ -483,7 +496,6 @@ list-style-position: inside;
 background-color: var(--primary);
 color: var(--bg);
 }
-
 
 .logo {
 padding-left:4%;
