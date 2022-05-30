@@ -238,6 +238,10 @@ stroke-linecap:round;
 width:1.5em;
 }
 
+.arrow-nohover {
+pointer-events: none;
+}
+
 .arrow::before {
   content: '';
   border-top: 0.3em solid transparent;
@@ -482,10 +486,6 @@ background-color: var(--primary);
 
 a.hoverless:hover {
 background-color: var(--bg);
-}
-
-.nohover {
-pointer-events: none;
 }
 
 /* Footer Logos */
