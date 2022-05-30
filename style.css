@@ -360,10 +360,6 @@ text-align: left;
 padding: 0.2em 0 0.2em 0;
 }
 
-th {
-vertical-align: top;
-}
-
 tr:nth-child(odd){
 background-color: hsla(360,0%,80%,0.2);
 }
