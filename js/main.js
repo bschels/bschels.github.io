@@ -115,3 +115,10 @@ $(document).on('click', function(event) {
     }
 });
 
+$(document).on('click', function(event) { 
+    if (!$(event.target).closest('button').length &&
+        !$(event.target).closest('#profil_p').length) {
+        $("#fade, #profil_p").hide();
+    }
+});
+
