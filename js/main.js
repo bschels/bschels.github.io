@@ -108,10 +108,9 @@ function darkmode() {
 //$("#fade").on("click", function(event) {
 //    $("#profil-p, #fade").hide();
 //});
-
-
+	
 $(document).on('click', function(event) {
-    if ($(event.target).has('.black_overlay').length) {
+    if ($(event.target).has('#profil_p').length) {
         $("#profil_p, #fade").hide();
     }
 });
