@@ -31,6 +31,18 @@ function kb_source_2_portfolio() {
 			$('#projekte').html(data);	
 		})
 	}
+function kb_source_2_bauenimbestand() {
+		$.get('/pages/bauenimbestand.html', function(data) {
+			$('#bauenimbestand').html(data);	
+		})
+	}
+function kb_source_2_design() {
+		$.get('/pages/design.html', function(data) {
+			$('#design').html(data);	
+		})
+	}
+
+
 // Language switcher
 $(document).ready(function() {
   $(".switch-language").on("click", function() {
