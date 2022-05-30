@@ -105,6 +105,13 @@ function darkmode() {
 
 //Lightbox Hider on any click outside
 
-$("#fade").on("click", function(event) {
-    $("#profil-p, #fade").hide();
+//$("#fade").on("click", function(event) {
+//    $("#profil-p, #fade").hide();
+//});
+
+
+$(document).on('click', function(event) {
+    if ($(event.target).has('#fade').length) {
+        $("#profil_p, #fade").hide();
+    }
 });
