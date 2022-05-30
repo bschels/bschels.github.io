@@ -1,3 +1,10 @@
+//Preloader
+		$(window).on('load', function() { // makes sure the whole site is loaded 
+			$('#status').fadeOut(); // will first fade out the loading animation 
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+            $('body').delay(550).css({'overflow':'visible'});
+		})
+
 // AJAX Load
 function kb_source_2_datenschutz() {
 		$.get('/pages/datenschutz.html', function(data) {
