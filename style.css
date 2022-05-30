@@ -240,6 +240,7 @@ width:1.5em;
 
 .arrow {
 margin: 0;
+font-size:1em;
 }
 
 .arrow-nohover::before {
