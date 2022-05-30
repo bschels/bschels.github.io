@@ -105,6 +105,6 @@ function darkmode() {
 
 //Lightbox Hider on any click outside
 
-$( '#overlay, #close').on('click', function(event) {
+$( '#black_overlay, #close').on('click', function(event) {
     $("#profil-p, #fade").hide();
 });
