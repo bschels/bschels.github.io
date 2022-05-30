@@ -649,12 +649,59 @@ label:hover {
 	position:absolute;
 	left:50%; /* centers the loading animation horizontally on the screen */
 	top:50%; /* centers the loading animation vertically on the screen */
-	background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvkXciXd_bcjuWYuJTgHML765AeIo5zqaGJEWHkYz0Yq5j0PBB'); /* path to your loading animation */
+
+	/* background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvkXciXd_bcjuWYuJTgHML765AeIo5zqaGJEWHkYz0Yq5j0PBB'); 
+	
+	path to your loading animation 
+	
+	*/
+	
 	background-repeat:no-repeat;
 	background-position:center;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
 }
 
+.gooey
+  position: absolute
+  top: 50%
+  left: 50%
+  width: 142px
+  height: 40px
+  margin: -20px 0 0 -71px
+  background: white
+  filter: contrast(20)
+  .dot
+    position: absolute
+    width: 16px
+    height: 16px
+    top: 12px
+    left: 15px
+    filter: blur(4px)
+    background: #000
+    border-radius: 50%
+    transform: translateX(0)
+    animation: dot 2.8s infinite
+  .dots
+    transform: translateX(0)
+    margin-top: 12px
+    margin-left: 31px
+    animation: dots 2.8s infinite
+    span
+      display: block
+      float: left
+      width: 16px
+      height: 16px
+      margin-left: 16px
+      filter: blur(4px)
+      background: #000
+      border-radius: 50%
+
+@keyframes dot
+  50%
+    transform: translateX(96px)
+@keyframes dots
+  50%
+    transform: translateX(-31px)
 
 
 
