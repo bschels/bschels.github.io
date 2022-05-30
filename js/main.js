@@ -108,17 +108,4 @@ function darkmode() {
 //$("#fade").on("click", function(event) {
 //    $("#profil-p, #fade").hide();
 //});
-	
-$(document).on('click', function(event) {
-    if ($(event.target).has('#profil_p').length) {
-        $("#profil_p, #fade").hide();
-    }
-});
-
-$(document).on('click', function(event) { 
-    if (!$(event.target).closest('button').length &&
-        !$(event.target).closest('#profil_p').length) {
-        $("#fade, #profil_p").hide();
-    }
-});
 
