@@ -440,11 +440,13 @@ font-weight:400;
 
 li {
 list-style-type: square;
+justify:none;
 }
 
 ul {
 list-style-type: square;
-text-align:left
+text-align:left;
+justify:none;
 }
 
 ol {
