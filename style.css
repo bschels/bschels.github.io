@@ -332,6 +332,12 @@ display: block;
 #tog5, #content5 { display: none }
 #tog5:checked + #content5 { display: block }
 
+#tog6, #content6 { display: none }
+#tog6:checked + #content6 { display: block }
+
+#tog7, #content7 { display: none }
+#tog7:checked + #content7 { display: block }
+
 /***Table***/
  table {
 border-collapse: collapse;
