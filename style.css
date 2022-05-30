@@ -373,6 +373,8 @@ display: block;
 
 /***Table***/
  table {
+
+vertical-align: top;
 border-collapse: collapse;
 width: 100%;
 hyphens: manual;
@@ -385,6 +387,10 @@ justify:none;
 hyphens: manual;
 text-align: left;
 padding: 0.2em 0 0.2em 0;
+}
+
+th {
+vertical-align: top;
 }
 
 tr:nth-child(odd){
