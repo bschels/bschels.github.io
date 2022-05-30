@@ -238,8 +238,8 @@ stroke-linecap:round;
 width:1.5em;
 }
 
-.arrow-nohover {
-pointer-events: none;
+.arrow-nohover:hover::before {
+border-left: 0.5em solid var(--primary);
 }
 
 .arrow::before {
