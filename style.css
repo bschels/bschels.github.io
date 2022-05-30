@@ -238,10 +238,6 @@ stroke-linecap:round;
 width:1.5em;
 }
 
-.arrow {
-margin: 0;
-}
-
 .arrow-nohover::before {
   content: '';
   border-top: 0.3em solid transparent;
@@ -322,7 +318,7 @@ display: block;
 /***Toggle box***/
 
 #tog1, #content1 { display: none }
-#tog1:checked + #content1 { display: block}
+#tog1:checked + #content1 { display: block }
 
 #tog2, #content2 { display: none }
 #tog2:checked + #content2 { display: block }
@@ -381,7 +377,14 @@ font-weight:300;
 text-align:left
 }
 
-h2, h3, h4, h5, h6 {
+h2 {
+margin-top:0
+}
+
+
+
+
+h3, h4, h5, h6 {
 font-weight:400;
 text-align:left
 }
@@ -477,7 +480,10 @@ background-color:var(--primary);
 
 .cat-link {
 text-transform: uppercase;
-margin:0;
+margin-right:4%;
+margin-top:0;
+margin-bottom:4%;
+list-style-position: inside;
 }
 
 .cat-link:hover {
