@@ -226,6 +226,7 @@ height: 100%;
 
 #logo_bottom, #logo_top {
 fill: var(--primary);
+ 
 }
 
 .switcher_color {
@@ -235,6 +236,22 @@ stroke-width: 2;
 stroke-linejoin: round;
 stroke-linecap:round;
 width:1.5em;
+}
+
+.arrow::before {
+  content: '';
+  border-top: 0.3em solid transparent;
+  border-bottom: 0.3em solid transparent;
+  border-left: 0.5em solid var(--primary);
+  vertical-align: auto;
+  display: inline-block;
+    margin-left: 0.2em;
+  margin-right: 0.1em;
+}
+
+
+.arrow:hover::before {
+  border-left: 0.5em solid var(--bg);
 }
 
 .switcher_theme {
@@ -318,33 +335,6 @@ padding: 0.2em 0 0.2em 0;
 tr:nth-child(odd){
 background-color: hsla(360,0%,80%,0.2);
 }
-
-#arrow {
-    border-right:2px solid black;
-    border-bottom:2px solid black;
-    width:10px;
-    height:10px;
-    transform: rotate(-45deg);
-    margin-top:40px;
-}
-
-ul.arrow {
-  list-style: none;
-  margin-left: 0;
-  padding-left: 0;
-}
-
-li.arrow {
-  padding-left: 1em;
-  text-indent: -1em;
-}
-
-li.arrow::before {
-content: '▶';
-text-indent: -2ch;
-padding-right: 1ch
-}
-
 
 /***Text Styles***/
 
