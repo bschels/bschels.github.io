@@ -238,6 +238,10 @@ stroke-linecap:round;
 width:1.5em;
 }
 
+.arrow {
+margin: 0;
+}
+
 .arrow-nohover::before {
   content: '';
   border-top: 0.3em solid transparent;
@@ -318,7 +322,7 @@ display: block;
 /***Toggle box***/
 
 #tog1, #content1 { display: none }
-#tog1:checked + #content1 { display: block }
+#tog1:checked + #content1 { display: block}
 
 #tog2, #content2 { display: none }
 #tog2:checked + #content2 { display: block }
@@ -473,10 +477,7 @@ background-color:var(--primary);
 
 .cat-link {
 text-transform: uppercase;
-margin-right:4%;
-margin-top:0;
-margin-bottom:4%;
-list-style-position: inside;
+margin:0;
 }
 
 .cat-link:hover {
