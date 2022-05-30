@@ -238,6 +238,17 @@ stroke-linecap:round;
 width:1.5em;
 }
 
+.arrow-nohover::before {
+  content: '';
+  border-top: 0.3em solid transparent;
+  border-bottom: 0.3em solid transparent;
+  border-left: 0.5em solid var(--primary);
+  vertical-align: auto;
+  display: inline-block;
+    margin-left: 0.2em;
+  margin-right: 0.1em;
+}
+
 .arrow-nohover:hover::before {
 border-left: 0.5em solid var(--primary);
 }
