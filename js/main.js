@@ -107,7 +107,7 @@ function darkmode() {
 
 $(document).on('click', function(event) {
     if ($(event.target).has('.white_content').length) {
-        $("#impressum-p").hide();
+        $("#impressum-p, #impressum, .impressum-p, .impressum").hide();
     }
 });
 
