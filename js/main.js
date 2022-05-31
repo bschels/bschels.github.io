@@ -105,7 +105,10 @@ function darkmode() {
 
 // Lightbox Hider on any click outside
 
-function outside_closer() {
+$(document).ready(function(outside_closer) {
+
 $('#fade').on('click', function(event) {
     $(".white_content, #fade").hide();
-}); }
+});	
+	
+	});
