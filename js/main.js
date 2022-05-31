@@ -103,13 +103,8 @@ function darkmode() {
     document.documentElement.setAttribute('data-theme', targetTheme)
 };
 
-//Lightbox Hider on any click outside
+// Lightbox Hider on any click outside
 
-$('#fade, #close').on('click', function(event) {
+$('#fade').on('click', function(event) {
     $(".white_content, #fade").hide();
 });
-
-////Lightbox show
-//$( '#show').on('click', function(event) {
-//    $(".white_content, #fade").show();
-//});
