@@ -105,9 +105,11 @@ function darkmode() {
 
 //Lightbox Hider on any click outside
 
-$(document).on('click', function(event) {
-    if ($(event.target).has('.white_content').length) {
-        $("#impressum-p, #impressum, .impressum-p, .impressum").hide();
-    }
+$( '#fade, #close').on('click', function(event) {
+    $(".lightbox, #fade").hide();
 });
 
+////Lightbox show
+//$( '#show').on('click', function(event) {
+//    $(".lightbox, #fade").show();
+//});
