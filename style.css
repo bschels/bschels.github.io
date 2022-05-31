@@ -547,7 +547,7 @@ color: var(--primary)
 }
 /* Lightbox */
 .black_overlay {
-display:none;
+display:absolute;
 position: fixed;
 top:0;
 left:0;
@@ -562,7 +562,7 @@ filter:alpha(opacity=80)
 
 .white_content {
 display:none;
-position:fixed;
+position:absolute;
 text-align: justify;
 hyphens: auto;
 -webkit-hyphens: auto;
