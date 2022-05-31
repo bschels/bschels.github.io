@@ -111,5 +111,5 @@ $( '#fade, #close').on('click', function(event) {
 
 ////Lightbox show
 //$( '#show').on('click', function(event) {
-//    $(".lightbox, #fade").show();
+//    $(".white_content, #fade").show();
 //});
