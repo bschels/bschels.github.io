@@ -105,8 +105,8 @@ function darkmode() {
 
 //Lightbox Hider on any click outside
 
-$( '#fade, #close').on('click', function(event) {
-    $(".lightbox, #fade").hide();
+$('.black_overlay, #close').on('click', function(event) {
+    $(".white_content, #fade").hide();
 });
 
 ////Lightbox show
