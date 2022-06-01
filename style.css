@@ -325,12 +325,11 @@ display: block;
 .cat {
 cursor: pointer;
 font-weight:400;
-font-size:150%;
 margin: 0;
 padding: 0;
 }
 
-#tog1 {
+#tog1, #tog2, #tog3, #tog4 {
   display: none;
 }
 
@@ -345,23 +344,16 @@ input[type=radio]:checked ~ .cat_text{
 max-height: 1500px;
 }
 
-#tog2, #content2 { display: none }
-#tog2:checked + #content2 { display: block }
+label {
+  cursor: pointer;
+  display: block;
+  margin: 0
+}
 
-#tog3, #content3 { display: none }
-#tog3:checked + #content3 { display: block }
-
-#tog4, #content4 { display: none }
-#tog4:checked + #content4 { display: block }
-
-#tog5, #content5 { display: none }
-#tog5:checked + #content5 { display: block }
-
-#tog6, #content6 { display: none }
-#tog6:checked + #content6 { display: block }
-
-#tog7, #content7 { display: none }
-#tog7:checked + #content7 { display: block }
+label:hover {
+  background-color: var(--primary);
+  color:var(--bg)
+}
 
 /***Table***/
  table {
@@ -658,17 +650,6 @@ position:fixed;
   margin-right: 1%;
 	background: var(--bg);
   z-index: 1;
-}
-
-label {
-  cursor: pointer;
-  display: block;
-  margin: 0
-}
-
-label:hover {
-  background-color: var(--primary);
-  color:var(--bg)
 }
 
 /* Preloader */
