@@ -86,13 +86,16 @@ color += letters[Math.floor(Math.random() * 13)];
 }
 return color;
 }
-// Get the root element
+
 var r = document.querySelector(':root');
 // Create a function for setting a variable value
 function myFunction_set() {
-  // Set the value of variable -- to another value
+
   r.style.setProperty('--primary_r', getRandomColor());
 }
+
+// Dark Mode/ Light Mode switcher
+
 function darkmode() {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
