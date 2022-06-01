@@ -129,3 +129,5 @@ var makeRadiosDeselectableByName = function(name){
         $(this).attr('previousValue', $(this).attr('checked'));
     });
 };
+
+makeRadiosDeselectableByName('rdo');
