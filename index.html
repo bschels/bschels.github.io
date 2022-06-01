@@ -129,66 +129,62 @@
       </header>
       <main>
 <!-- About -->  
-<label class="cat" for="tog1">
-	<div id="english" class="language">
-		<h2 class="cat">Profile</h2>
-	</div>
-	<div id="german" class="language active">
-		<h2 class="cat">Profil</h2>
-	</div>
-	<hr class="z">
-</label>
-<input type="radio" name="rdo" id="tog1">
-	<div class="cat_text" id="content1">
-		<div id="english" class="language">
-			<p class="content"> Welcome.<br>
-			My name is Benjamin Schels, I am an architect and a designer.<br>
-			</p>
-		</div>
-		<div id="german" class="language active">
-			<h1 class="content"> Herzlich Willkommen.<br>
-			Mein Name ist Benjamin Schels, ich bin Architekt und Designer.<br>
-			</h1>
-		</div>
-		<div>
-			<div class="cat-link">
-				<a href="javascript:void(0);" onclick="kb_source_2_cv();document.getElementById('cv-p').style.display='block';document.getElementById('fade').style.display='block'">
-					<div id="english" class="language"><p class="arrow">Vita</p>
-                     			</div>
-                     			<div id="german" class="language active"><h3 class="arrow">Vita</h3>
-                     			</div>
-                 		 </a>
-			</div>
-		</div>
-		<div id="cv-p" class="white_content">
-			<div class="close">
-				<a href="javascript:void(0)" onclick="document.getElementById('cv-p').style.display='none';document.getElementById('fade').style.display='none'">
-                        		<div id="english" class="language">
-                           			<span class="white">close
-                           			</span>
-					</div>
-                       			 <div id="german" class="language active">
-                           			<span class="white">Schließen
-                           			</span>
-                        		</div>
-                    		 </a>
-                  	</div>
+<div>
+		<label class="cat" for="tog1">
+            <div id="english" class="language">
+               <h2 class="cat">Profile</h2>
+            </div>
+            <div id="german" class="language active">
+               <h2 class="cat">Profil</h2>
+            </div>
+            <hr class="z">
+         </label>
+         <input type="radio" name="rdo" id="tog1">
+		 <div class="cat_text" id="content1">
+            <div id="english" class="language">
+               <p class="content"> Welcome.<br>
+My name is Benjamin Schels, I am an architect and a designer.<br></p>
+            </div>
+            <div id="german" class="language active">
+               <h1 class="content"> Herzlich Willkommen.<br>
+Mein Name ist Benjamin Schels, ich bin Architekt und Designer.<br></h1>
+            </div>
+            <div>
+               <div class="cat-link">
+                  <a href="javascript:void(0);" onclick="kb_source_2_cv();document.getElementById('cv-p').style.display='block';document.getElementById('fade').style.display='block'">
+			  <div id="english" class="language"><p class="arrow">Vita</p>
+                     </div>
+                     <div id="german" class="language active"><h3 class="arrow">Vita</h3>
+                     </div>
+                  </a>
+               </div>
+               <div id="cv-p" class="white_content">
+                  <div class="close">
+                     <a href="javascript:void(0)" onclick="document.getElementById('cv-p').style.display='none';document.getElementById('fade').style.display='none'">
+                        <div id="english" class="language">
+                           <span class="white">close
+                           </span>
+                        </div>
+                        <div id="german" class="language active">
+                           <span class="white">Schließen
+                           </span>
+                        </div>
+                     </a>
+                  </div>
                   <div class="language-select-lb">
                      <a href="javascript:void(0);" id="german" class="switch-language">
-                     	<span class="white">DE
-                     	</span>
+                     <span class="white">DE
+                     </span>
                      </a>
                      <a href="javascript:void(0);" id="english" class="switch-language">
-                     	<span class="white">EN
-                     	</span>
+                     <span class="white">EN
+                     </span>
                      </a>
                   </div>
                   <div class="lightbox" id="cv">
                   </div>
-		</div>
-			
-			
-		<div>
+               </div>
+	<div>
                <div class="cat-link">
                   <a href="javascript:void(0);" onclick="kb_source_2_profil();document.getElementById('profil-p').style.display='block';document.getElementById('fade').style.display='block'">
                      <div id="english" class="language"><p class="arrow">Office Profile</p>
@@ -228,9 +224,8 @@
                <hr class="z">
             </div>
     </div>
-
-
 <!-- Leistungen -->  
+<div>
          <label class="cat" for="tog2">
             <div id="english" class="language">
                <p class="cat">Services</p>
@@ -318,12 +313,14 @@
                   <div class="lightbox" id="bauenimbestand">
                   </div>
                </div>
-		</div>
+				               </div>
 		    <br>
-               <hr class="z">      
-		    	</div>
-		     </div>
+               <hr class="z">
+            </div>
+    </div>
+	      
 <!-- Projects -->  
+<div>
          <label class="cat" for="tog3">
             <div id="english" class="language">
                <p class="cat">References</p>
@@ -376,14 +373,14 @@
                   	<div class="lightbox" id="projekte">
          </div>
                </div>
-		</div> 
-	</div>
+		</div>   
 		    <br>
                <hr class="z">
             </div>
-	    </div>
+    </div>
 
 <!-- Contact -->   
+<div>
          <label class="cat" for="tog4">
             <div id="english" class="language">
                <p class="cat">Contact</p>
@@ -410,14 +407,10 @@
             </div>
          </div>
 	      </div>
-	      </div>
-</div>
-		      </main>
+      </main>
 
       <footer>
 	 <hr class="z">
-	          </div>
-</div>
 <!-- Footer Logos -->
 
       <div class="footer_l">
@@ -481,6 +474,7 @@
             </a>
          </div>
       </div>
+</div>
 
 <!-- Lightbox Background -->
 
@@ -560,3 +554,4 @@
       </footer>
    </body>
 </html>
+
