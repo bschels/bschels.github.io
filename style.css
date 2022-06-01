@@ -322,8 +322,25 @@ display: block;
 
 /***Toggle box***/
 
-#tog1, #content1 { display: none }
-#tog1:checked + #content1 { display: block}
+.desc-toggle {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#tog1 {
+  display: none;
+}
+
+.cat_text {
+  height: 0px;                         /* we start animation from 0px */
+  overflow: hidden;                    /* without this the contents will be 
+                                        * visible regardless of height */
+  transition: height 0.5s ease-in;     /* transition has to be defined on base state of element */
+  background-color: #f5f5f5;           /* make transition easier to observe */
+}
+input[type=radio]:checked ~ .cat-text{
+  height: 100px;                       /* change height when input is checked */
+}
 
 #tog2, #content2 { display: none }
 #tog2:checked + #content2 { display: block }
