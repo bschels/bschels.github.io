@@ -338,7 +338,7 @@ display: block;
   transition: height 0.5s ease-in;     /* transition has to be defined on base state of element */
   background-color: #f5f5f5;           /* make transition easier to observe */
 }
-input[type=checkbox]:checked ~ .cat-text{
+input[type=radio]:checked ~ .cat-text{
   height: 100px;                       /* change height when input is checked */
 }
 
