@@ -320,11 +320,14 @@ display: block;
 }
 
 
-/***Toggle box***/
+/*** Accordion ***/
 
-.desc-toggle {
-  font-size: 20px;
-  cursor: pointer;
+.cat {
+cursor: pointer;
+font-weight:400;
+font-size:150%;
+margin: 0;
+padding: 0;
 }
 
 #tog1 {
@@ -461,14 +464,6 @@ blockquote p.says {
 
 il {
 list-style-type: upper-roman;
-}
-
-.cat {
-cursor: pointer;
-font-weight:400;
-font-size:150%;
-margin: 0;
-padding: 0;
 }
 
 .close {
