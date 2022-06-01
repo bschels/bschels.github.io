@@ -126,3 +126,5 @@ $('input[type=radio]').click(function(){
     this.previous = this.checked;
 });
 		});
+
+Radio key { radioKey + isChecked };
