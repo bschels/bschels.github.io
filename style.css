@@ -334,14 +334,14 @@ padding: 0;
 }
 
 .cat_text {
-  height: 0px;
-  overflow: hidden;
-  transition: height 0.5s ease-in; 
+max-height: 0;
+transition: max-height 0.15s ease-out;
+overflow: hidden;
 }
 
 input[type=radio]:checked ~ .cat_text{
-  height: auto;
-max-height: 1500px;
+max-height: 1000px;
+transition: max-height 0.25s ease-in;
 }
 
 label {
