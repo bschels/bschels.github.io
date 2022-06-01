@@ -118,12 +118,30 @@ $('#fade').on('click', function(event) {
 
 // Radio Button Closer
 
-$(document).ready(function(outside_closer) {
-$('input[type=radio]').click(function(){
-    if (this.previous) {
-        this.checked = false;
-    }
+//$(document).ready(function(outside_closer) {
+//$('input[type=radio]').click(function(){
+ //   if (this.previous) {
+ //       this.checked = false;
+ //   }
     this.previous = this.checked;
+//});
+//		});
+
+
+$("input[type='radio']").click(function()
+{
+  var previousValue = $(this).attr('previousValue');
+  var name = $(this).attr('name');
+
+  if (previousValue == 'checked')
+  {
+    $(this).removeAttr('checked');
+    $(this).attr('previousValue', false);
+  }
+  else
+  {
+    $("input[name="+name+"]:radio").attr('previousValue', false);
+    $(this).attr('previousValue', 'checked');
+  }
 });
-		});
 
