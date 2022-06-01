@@ -118,20 +118,14 @@ $('#fade').on('click', function(event) {
 
 // Radio Button Closer
 
-$("input[type='radio']").click(function()
-{
-  var previousValue = $(this).attr('previousValue');
-  var name = $(this).attr('name');
+var makeRadiosDeselectableByName = function(name){
+    $('input[name=' + name + ']').click(function() {
+        if($(this).attr('previousValue') == 'true'){
+            $(this).attr('checked', false)
+        } else {
+            $('input[name=' + name + ']').attr('previousValue', false);
+        }
 
-  if (previousValue == 'checked')
-  {
-    $(this).removeAttr('checked');
-    $(this).attr('previousValue', false);
-  }
-  else
-  {
-    $("input[name="+name+"]:radio").attr('previousValue', false);
-    $(this).attr('previousValue', 'checked');
-  }
-});
-
+        $(this).attr('previousValue', $(this).attr('checked'));
+    });
+};
