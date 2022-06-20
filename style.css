@@ -27,6 +27,7 @@ input[type=text], input[type=button] {
 
 :root[data-theme='light'] {
   --primary: var(--primary_r); 
+  --bg: var(--bg_r); 
 }
 
 :root[data-theme='dark'] {
