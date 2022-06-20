@@ -325,7 +325,7 @@ display: block;
 .cat {
 cursor: pointer;
 font-weight:400;
-font-size:1.3em;
+font-size:1.2em;
 margin: 0;
 padding: 0;
 }
@@ -387,7 +387,7 @@ padding: 0;
 }
 
 .content {
-font-size:1.3em;
+font-size:1.2em;
 margin: 4% 0 2% 0;
 padding: 0;
 }
