@@ -308,6 +308,13 @@ margin-right: .6em;
   width: 100%;
 }
 
+.profile {
+  display: block;
+  margin-left: auto;
+  width: 5em;
+ border-radius: 50%;
+}
+
 /*** Translator new ***/
 
 div.language {
@@ -358,8 +365,11 @@ label:hover {
 }
 
 /***Table***/
- table {
+profile_top {
+background-color: hsla(0,0%,0%,0)!important;
+}
 
+table {
 vertical-align: top;
 border-collapse: collapse;
 width: 100%;
