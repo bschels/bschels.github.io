@@ -309,17 +309,22 @@ margin-right: .6em;
 }
 
 .profile {
-  display: block;
-  margin-left: auto;
-  width: 5em;
- border-radius: 50%;
+position: absolute;
+right: 2%;
+width: 8em;
+border-radius: 50%;
+transition:0.2s ease-out;
+opacity:1;
 }
 
 .profile-large {
-  display: block;
-  margin-left: auto;
-  width: 20em;
- border-radius: 50%;
+position: absolute;
+margin: 10px;
+width: 50%;
+border-radius: 50%;
+transition:0.2s ease-out;
+opacity:1;
+margin: auto;
 }
 
 /*** Translator new ***/
