@@ -144,7 +144,7 @@ $(document).ready(function(){
         // Set image size to original
         img.style.transform = "scale(1)";
         img.style.transition = "transform 0.25s ease";
-      }
+      	}
 	}
-);
+)
 
