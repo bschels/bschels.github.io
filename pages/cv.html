@@ -130,20 +130,20 @@ Architect List: 192,686.
 
         function imgEnlarge(e){
 
-            if(e.style.width=="300px" || e.style.width=="" ){
-                e.style.width="400px";
+            if(e.style.class=="profile" || e.style.class=="" ){
+                e.style.class="profile-large";
             }
             else{
-                e.style.width="300px";
+                e.style.class="profile";
             }
 
-            var imgLength = document.getElementsByTagName('img').length;
+            var imgClass = document.getElementsByTagName('img').class;
 
-            for(var i = 0; i<imgLength; i++){
+            for(var i = 0; i<imgClass; i++){
                 if(document.getElementsByTagName('img')[i].id==  e.id){
                     continue;
                 }
-                document.getElementsByTagName('img')[i].style.width="300px";
+                document.getElementsByTagName('img')[i].style.class="profile";
 
             }
         }
