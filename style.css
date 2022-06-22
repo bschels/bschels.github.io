@@ -309,7 +309,8 @@ margin-right: .6em;
 }
 
 .profile {
-display: block;
+float: right;
+position: absolute;
 right: 2%;
 width: 8em;
 border-radius: 50%;
@@ -318,13 +319,13 @@ opacity:1;
 }
 
 .profile-large {
+float: right;
 position: absolute;
-margin: 10px;
+right: 2%;
 width: 50%;
 border-radius: 50%;
 transition:0.2s ease-out;
 opacity:1;
-margin: auto;
 }
 
 /*** Translator new ***/
