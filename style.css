@@ -315,6 +315,13 @@ margin-right: .6em;
  border-radius: 50%;
 }
 
+.profile-large {
+  display: block;
+  margin-left: auto;
+  width: 20em;
+ border-radius: 50%;
+}
+
 /*** Translator new ***/
 
 div.language {
