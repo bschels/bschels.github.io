@@ -130,11 +130,11 @@ Architect List: 192,686.
 
         function imgEnlarge(e){
 
-            if(e.style.width=="300px" || e.style.width=="" ){
-                e.style.width="400px";
+            if(e.style.width=="5em" || e.style.width=="" ){
+                e.style.width="200%";
             }
             else{
-                e.style.width="300px";
+                e.style.width="5em";
             }
 
             var imgLength = document.getElementsByTagName('img').length;
@@ -143,7 +143,7 @@ Architect List: 192,686.
                 if(document.getElementsByTagName('img')[i].id==  e.id){
                     continue;
                 }
-                document.getElementsByTagName('img')[i].style.width="300px";
+                document.getElementsByTagName('img')[i].style.width="5em";
 
             }
         }
