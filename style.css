@@ -309,7 +309,7 @@ margin-right: .6em;
 }
 
 .profile {
-position: absolute;
+display: block;
 right: 2%;
 width: 8em;
 border-radius: 50%;
