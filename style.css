@@ -310,9 +310,10 @@ margin-right: .6em;
 
 .profile {
 float: right;
+position: block;
 position: absolute;
 right: 2%;
-width: 8em;
+width: 20%;
 border-radius: 50%;
 transition:0.2s ease-out;
 opacity:1;
@@ -321,8 +322,8 @@ opacity:1;
 .profile-large {
 float: right;
 position: absolute;
-right: 2%;
-width: 50%;
+right: 15%;
+width: 70%;
 border-radius: 50%;
 transition:0.2s ease-out;
 opacity:1;
