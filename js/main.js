@@ -131,7 +131,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	
-	var imgEnlarged = 0;
+var imgEnlarged = 0;
 var otherEnlargedImgs = [0, 0, 0, 0, 0, 0, 0, 0,];
 function imgEnlarge(e){
   if (imgEnlarged==0){ //Basic function if no enlarged, enlarge click element
@@ -153,7 +153,6 @@ function imgEnlarge(e){
 function imgAssign() {
 
 }
-	
-	}
+}
 )
 
