@@ -149,5 +149,4 @@ window.onload = function imgEnlarge(e){
             }
         
 }
-)
 
