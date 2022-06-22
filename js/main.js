@@ -129,7 +129,7 @@ $(document).ready(function(){
 
 // Thumbnail enlarger
 
-$(document).ready(function(thumb_enlarger) 
+$(document).ready(function(){
       // Get the img object using its Id
       img = document.getElementById("thumb");
       // Function to increase image size
@@ -144,5 +144,7 @@ $(document).ready(function(thumb_enlarger)
         // Set image size to original
         img.style.transform = "scale(1)";
         img.style.transition = "transform 0.25s ease";
-      });
+      }
+	}
+);
 
