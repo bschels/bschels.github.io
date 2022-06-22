@@ -130,21 +130,30 @@ $(document).ready(function(){
 // Thumbnail enlarger
 
 $(document).ready(function(){
-      // Get the img object using its Id
-      img = document.getElementById("thumb");
-      // Function to increase image size
-      function enlargeImg() {
-        // Set image size to 1.5 times original
-        img.style.transform = "scale(1.5)";
-        // Animation effect
-        img.style.transition = "transform 0.25s ease";
-      }
-      // Function to reset image size
-      function resetImg() {
-        // Set image size to original
-        img.style.transform = "scale(1)";
-        img.style.transition = "transform 0.25s ease";
-      	}
+	
+	var imgEnlarged = 0;
+var otherEnlargedImgs = [0, 0, 0, 0, 0, 0, 0, 0,];
+function imgEnlarge(e){
+  if (imgEnlarged==0){ //Basic function if no enlarged, enlarge click element
+    e.style.width = "400px";
+    imgEnlarged = 1;
+    otherEnlargedImgs[e] = 1 
+  }
+  else if (imgEnlarged==1) { //If an image is enlarged, is it this one? If so, resize image
+    e.style.width = "300px";
+    imgEnlarged = 0;
+    otherEnlargedImgs[0] = 0
+  }
+  else if (imgEnlarged==1 && imgEnlargedOther==1)  { //if enlarged, which? Close other, open current element
+    e.style.width = "300px";
+    imgEnlarged = 1
+    otherEnlargedImgs[0] = 1
+  }
+}
+function imgAssign() {
+
+}
+	
 	}
 )
 
