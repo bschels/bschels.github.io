@@ -129,9 +129,7 @@ $(document).ready(function(){
 
 // Thumbnail enlarger
 
-$(document).ready(function(){
-	
-function imgEnlarge(e){
+$(document).ready(function imgEnlarge(e){
 
             if(e.style.width=="300px" || e.style.width=="" ){
                 e.style.width="400px";
@@ -149,7 +147,7 @@ function imgEnlarge(e){
                 document.getElementsByTagName('img')[i].style.width="300px";
 
             }
-        }
+        
 }
 )
 
