@@ -127,7 +127,7 @@ $(document).ready(function(){
     });
 });
 
-// Thumbnail enlarger 
+// Thumbnail enlarger
 
 $(document).ready(function(){
 	
