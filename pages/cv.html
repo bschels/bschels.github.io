@@ -6,7 +6,7 @@
 Benjamin Schels</h2>
 </td>
 <td>
-<div><img class="profile" id="img_0" onclick="imgEnlarge(this)" onclick="imgAssign()" src="https://schels.info/images/SS_profile_sw.jpg" alt="Benjamin Schels">
+<div><img class="profile" id="img_0" onclick="imgEnlarge(this)" onclick="changeclass()" src="https://schels.info/images/SS_profile_sw.jpg" alt="Benjamin Schels">
  </div>
 </td>
 </tr>
@@ -127,24 +127,8 @@ Architect List: 192,686.
 <br>
 </div>
 <script type="text/javascript">
-
-        function imgEnlarge(e){
-
-            if(e.style.class=="profile" || e.style.class=="" ){
-                e.style.class="profile-large";
-            }
-            else{
-                e.style.class="profile";
-            }
-
-            var imgClass = document.getElementsByTagName('img').class;
-
-            for(var i = 0; i<imgClass; i++){
-                if(document.getElementsByTagName('img')[i].id==  e.id){
-                    continue;
-                }
-                document.getElementsByTagName('img')[i].style.class="profile";
-
-            }
-        }
+$('.img_0').click(function() {
+    $(this).toggleClass('profile');
+    $(this).toggleClass('profile-large');
+});
     </script>
