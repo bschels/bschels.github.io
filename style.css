@@ -486,29 +486,25 @@ il {
 list-style-type: upper-roman;
 }
 
-.close {
+.lb_footer {
+font-size:150%;
+text-transform:uppercase;
 position:fixed;
-text-align: right;
 margin: 0 auto;
 left:4%;
 right:4%;
 top:73%;
 bottom:25%;
 max-width:27em;
-font-size:150%;
-text-transform:uppercase
+
 }
 
-.language-select-lb {
-position:fixed;
-margin: 0 auto;
-left:4%;
-right:4%;
-top:73%;
-bottom:25%;
-max-width:27em;
-font-size:150%;
-text-transform:uppercase
+.lb_close {
+float:right;
+}
+
+.lb_language {
+float:left;
 }
 
 .white {
