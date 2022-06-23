@@ -6,7 +6,7 @@
 </svg>
 <style>
 path {
-fill:"#002FA7";
+fill:#002FA7;
 }
 @media (prefers-color-scheme: dark) {
 path {
