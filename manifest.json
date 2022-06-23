@@ -1,6 +1,6 @@
 {
-    "name": "Starter",
-    "short_name": "Starter",
+    "name": "schels.info",
+    "short_name": "schels.info",
     "icons": [{
         "src": "google-touch-icon.png",
         "sizes": "512x512"
