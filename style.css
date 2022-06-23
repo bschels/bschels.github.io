@@ -171,15 +171,6 @@ background:var(--primary)
 margin:0%;
 }
 
-.theme-toggle
-{
-cursor: pointer;
-background-color:var(--bg);
-border-radius: 0;
-border: none;
-float: right;
-}
-
 #theme-toggle, #color-toggle
 {
 cursor: pointer;
@@ -212,12 +203,6 @@ float: right;
 {
 float: left;
 }
-
-.zigzag
-{
-clear: both;
-}
-
 
 /*** SVG ***/
 
