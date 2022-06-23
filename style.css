@@ -317,6 +317,7 @@ width: 20%;
 border-radius: 50%;
 transition:0.2s ease-out;
 opacity:1;
+cursor: pointer;
 }
 
 .profile-large {
@@ -327,6 +328,7 @@ width: 60%;
 border-radius: 50%;
 transition:0.2s ease-out;
 opacity:1;
+cursor: pointer;
 }
 
 /*** Translator new ***/
