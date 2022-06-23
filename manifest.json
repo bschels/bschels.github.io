@@ -1,6 +1,11 @@
 {
-  "icons": [
-    { "src": "/favicon/icon-192.png", "type": "image/png", "sizes": "192x192" },
-    { "src": "/favicon/icon-512.png", "type": "image/png", "sizes": "512x512" }
-  ]
+    "name": "Starter",
+    "short_name": "Starter",
+    "icons": [{
+        "src": "google-touch-icon.png",
+        "sizes": "512x512"
+    }],
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "display": "fullscreen"
 }
