@@ -1,4 +1,4 @@
-<svg id="logo_top" viewBox="0 0 300 300">
+<svg id="favicon viewBox="0 0 300 300">
 <style>
 path
 { fill: var(--primary); }
