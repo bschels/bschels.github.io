@@ -283,7 +283,9 @@ stroke: var(--bg);
 width: 1.2em;
 margin-left: .6em;
 margin-right: .6em;
-
+}
+	
+	
 .l_linkedin-in:hover, .l_envelope:hover, .l_heart:hover
 {
 background-color:var(--primary);
