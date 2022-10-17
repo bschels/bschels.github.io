@@ -55,8 +55,10 @@ body {
 background-attachment: fixed;
 background-size: auto auto;
 background-color: var(--bg);
+<!-- background lines
 background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px );
 margin:auto;
+-->
 color:var(--primary);
 font-family: 'Montserrat', sans-serif;
 font-weight: 300;
