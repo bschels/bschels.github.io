@@ -659,11 +659,13 @@ overflow:auto
 position:fixed;
 	width:10%;
 	min-width: 65px;
-	bottom:1%; /* stick to bottom */
+	bottom:2%; /* stick to bottom */
   right: 0;
   margin-right: 1%;
 	background: var(--bg);
   z-index: 1;
+  padding: 0.5%;
+  padding-bottom: 0;
 }
 
 /* Preloader */
