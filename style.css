@@ -16,19 +16,15 @@ input[type=text], input[type=button] {
 -webkit-border-radius: 0;
 }
 
-/*  disable color scheme
 :root {
   color-scheme: light dark; /* both supported */
 }
-*/
+
 
 :root {
   --primary_r: #002FA7; 
   --bg_r: #FFF; 
 }
-
-
-/* disable color scheme
 
 :root[data-theme='light'] {
   --primary: var(--primary_r); 
@@ -39,7 +35,6 @@ input[type=text], input[type=button] {
   --primary: var(--bg_r); 
   --bg: var(--primary_r); 
 }
-*/
 
 header {
   background-color: var(--bg);
@@ -62,7 +57,7 @@ background-attachment: fixed;
 background-size: auto auto;
 background-color: var(--bg);
 	
-/*background lines
+/* background lines
 	
 background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px );
 margin:auto;
