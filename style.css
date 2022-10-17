@@ -15,16 +15,19 @@ input[type=text], input[type=button] {
 -webkit-appearance: none;
 -webkit-border-radius: 0;
 }
-
+<!-- disable color scheme
 :root {
   color-scheme: light dark; /* both supported */
 }
+-->
 
 :root {
   --primary_r: #002FA7; 
   --bg_r: #FFF; 
 }
 
+
+<!-- disable color scheme
 :root[data-theme='light'] {
   --primary: var(--primary_r); 
   --bg: var(--bg_r); 
@@ -34,7 +37,7 @@ input[type=text], input[type=button] {
   --primary: var(--bg_r); 
   --bg: var(--primary_r); 
 }
-
+-->
 header {
   background-color: var(--bg);
   padding: 8%;
