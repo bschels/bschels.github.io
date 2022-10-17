@@ -24,7 +24,7 @@ input[type=text], input[type=button] {
   --primary_r: #002FA7; 
   --bg_r: #FFF; 
 }
-/*
+
 :root[data-theme='light'] {
   --primary: var(--primary_r); 
   --bg: var(--bg_r); 
@@ -34,7 +34,8 @@ input[type=text], input[type=button] {
   --primary: var(--bg_r); 
   --bg: var(--primary_r); 
 }
-*/
+
+
 header {
   background-color: var(--bg);
   padding: 8%;
