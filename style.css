@@ -659,6 +659,7 @@ overflow:auto
 position:fixed;
 	width:10%;
 	min-width: 65px;
+	max-width: 100px;
 	bottom:2%; /* stick to bottom */
   right: 0;
   margin-right: 1%;
