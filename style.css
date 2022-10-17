@@ -15,17 +15,17 @@ input[type=text], input[type=button] {
 -webkit-appearance: none;
 -webkit-border-radius: 0;
 }
-/*
+
 :root {
   color-scheme: light dark; /* both supported */
 }
-*/
+
 
 :root {
-  --primary: #002FA7; 
-  --bg: #FFF; 
+  --primary_r: #002FA7; 
+  --bg_r: #FFF; 
 }
-/*
+
 :root[data-theme='light'] {
   --primary: var(--primary_r); 
   --bg: var(--bg_r); 
@@ -35,7 +35,7 @@ input[type=text], input[type=button] {
   --primary: var(--bg_r); 
   --bg: var(--primary_r); 
 }
-*/
+
 header {
   background-color: var(--bg);
   padding: 8%;
@@ -68,7 +68,6 @@ width:70%;
 max-width:390px;
 min-width: 250px;
 min-height:1000px;
-padding-top:2%;
 padding-bottom:2%;
 font-size:1em;
 text-align: left;
