@@ -15,15 +15,14 @@ input[type=text], input[type=button] {
 -webkit-appearance: none;
 -webkit-border-radius: 0;
 }
-/*
+
 :root {
   color-scheme: light dark; /* both supported */
 }
-*/
 
 :root {
-  --primary: #002FA7; 
-  --bg: #FFF; 
+  --primary_r: #002FA7; 
+  --bg_r: #FFF; 
 }
 /*
 :root[data-theme='light'] {
