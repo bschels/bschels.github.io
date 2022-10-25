@@ -544,7 +544,7 @@ text-align:center
 
 a:link,a:visited {
 text-decoration-style: dotted;
-color: var(--primary)
+color: var(--body)
 }
 
 a:hover {
