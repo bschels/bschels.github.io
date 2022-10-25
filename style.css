@@ -143,9 +143,9 @@ background:var(--bg)
 }
 
 hr.z {
-height:2px;
+height:1px;
 border:none;
-background:var(--primary)
+background:var(--body)
 }
 
 /*** button ***/
