@@ -21,9 +21,9 @@ input[type=text], input[type=button] {
 }
 
 :root {
-  --primary: #000; 
+  --primary: #002FA7; 
   --bg: #FFF; 
-  --accent: #002FA7; 
+  --body: #000; 
 }
 /*
 :root[data-theme='light'] {
@@ -62,7 +62,7 @@ background-color: var(--bg);
 background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px );
 */
 margin:auto;
-color:var(--primary);
+color:var(--body);
 font-family: 'Montserrat', sans-serif;
 font-weight: 300;
 width:70%;
@@ -216,7 +216,7 @@ height: 100%;
 }
 
 #logo_bottom, #logo_top {
-fill: var(--accent);
+fill: var(--primary);
  
 }
 
