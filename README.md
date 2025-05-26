@@ -1,8 +1,8 @@
-This is the website of Studio Schels - Benjamin Schels Architekt M.A.
+This is the website of Architekturbüro Schels - Benjamin Schels Architekt M.A.
 
 URL: <a href="https://schels.info">https://schels.info</a>
 
-Copyright 2022 Benjamin Schels (<a href="https://schels.info" target="_blank">https://schels.info</a>, <a href="mailto:hello@schels.info">hello@schels.info</a>).
+Copyright 2025 Benjamin Schels (<a href="https://schels.info" target="_blank">https://schels.info</a>, <a href="mailto:hello@schels.info">hello@schels.info</a>).
 
 This project is free software.  There is no warranty; not even for
 merchantability or fitness for a particular purpose.
