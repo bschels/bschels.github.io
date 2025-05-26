@@ -37,20 +37,18 @@ input[type=text], input[type=button] {
 }
 */
 
-.header-title {
-  display: block;
+/* Titelgestaltung */
+.title-block {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
-  text-decoration: none;
 }
 
 .title-line {
   display: block;
-  font-size: 2.5rem; /* je nach Wunsch anpassen */
-  font-weight: 600;
+  font-size: 2.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  width: 100%;
   letter-spacing: 0.05em;
 }
 
