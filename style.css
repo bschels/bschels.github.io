@@ -21,7 +21,7 @@ input[type=text], input[type=button] {
 }
 
 :root {
-  --primary: #002FA7; 
+  --primary: #000000; 
   --bg: #FFF; 
   --body: #000; 
 }
