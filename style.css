@@ -288,11 +288,7 @@ margin-left: .6em;
 margin-right: .6em;
 }
 	
-	
-.l_linkedin-in:hover, .l_envelope:hover, .l_heart:hover
-{
-background-color:var(--primary);
-}
+
 
 /***Image Styles***/
 
@@ -560,19 +556,26 @@ background-color: var(--bg);
 }
 
 /* Footer Logos */
-a.logo:link {
-border-bottom:none;
-text-decoration:none;
+.footer_l .logo {
+  color: #000; /* normale Iconfarbe */
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  transition: color 0.3s ease;
+  display: inline-block;
 }
 
-a.logo:hover {
-color: var(--primary);
-border-bottom:none;
-background-color: var(--bg)
+.footer_l .logo:hover {
+  color: blue; /* kräftiges Blau nur für Icons beim Hover */
+  background: transparent;
 }
 
-a.logo:link,a.logo:visited {
-color: var(--primary)
+.footer_l .logo svg {
+  fill: currentColor;
+  transition: fill 0.3s ease;
+  vertical-align: middle;
 }
 /* Lightbox */
 .black_overlay {
@@ -661,7 +664,7 @@ overflow:auto
 }
 
 
-/*Logo rechts unten*/
+/* Logo rechts unten */
 .logo-ru {
   display: none; /* Standard: nicht anzeigen */
 }
@@ -672,7 +675,7 @@ overflow:auto
     bottom: 2%;
     right: 2%;
     z-index: 1;
-    background: var(--bg);
+    background: transparent;     /* Kein Hintergrund beim Hover */
     padding: 0.5em;
     text-align: left;
     font-size: 0.8em;
@@ -686,10 +689,17 @@ overflow:auto
     color: var(--body);
     font-weight: 400;
     display: inline-block;
+    transition: color 0.3s ease;
+    background: transparent;
   }
 
   .mini-title-link:hover {
-    color: #002fa7; /* Blau beim Hover */
+    color: #002fa7;          /* Blau beim Hover */
+    background: transparent; /* Kein Hover-Hintergrund */
+  }
+
+  .logo-ru:hover {
+    background: transparent; /* Sicher kein Hover-Hintergrund */
   }
 
   .mini-second-line {
