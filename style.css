@@ -703,3 +703,28 @@ position:fixed;
 	background-repeat:no-repeat;
 	background-position:center;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
+
+	.title-wrapper {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.title-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block; /* wichtig fürs Zentrieren */
+}
+
+.title-line {
+  display: inline-block;
+  text-align: left; /* zweite Zeile linksbündig */
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: 0.3em;
+  font-weight: 400;
+  font-size: 1.6em;
+}
+
+.title-line span {
+  display: block; /* zwingt zur neuen Zeile */
+}
