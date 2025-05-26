@@ -714,7 +714,7 @@ position:fixed;
 
 .title-link {
   text-decoration: none;
-  color: inherit;
+  color: blue;
   pointer-events: auto;
 }
 
