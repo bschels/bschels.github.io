@@ -663,17 +663,38 @@ overflow:auto
 
 /*Logo rechts unten*/
 .logo-ru {
-position:fixed;
-	width:10%;
-	min-width: 65px;
-	max-width: 100px;
-	bottom:2%; /* stick to bottom */
-  right: 0;
-  margin-right: 1%;
-	background: var(--bg);
-  z-index: 1;
-  padding: 0.5%;
-  padding-bottom: 0;
+  display: none; /* Standard: nicht anzeigen */
+}
+
+@media (min-width: 768px) {
+  .logo-ru {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+    z-index: 1;
+    background: var(--bg);
+    padding: 0.5em;
+    text-align: left;
+    font-size: 0.8em;
+    line-height: 1.1;
+    letter-spacing: 0.1em;
+    display: block; /* nur ab 768px */
+  }
+
+  .mini-title-link {
+    text-decoration: none;
+    color: var(--body);
+    font-weight: 400;
+    display: inline-block;
+  }
+
+  .mini-title-link:hover {
+    color: #002fa7; /* Blau beim Hover */
+  }
+
+  .mini-second-line {
+    display: block;
+  }
 }
 
 /* Preloader */
