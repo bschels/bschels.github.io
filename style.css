@@ -36,21 +36,6 @@ input[type=text], input[type=button] {
   --bg: var(--primary_r); 
 }
 */
-
-/* Titelgestaltung */
-.title-block {
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.title-line {
-  display: block;
-  font-size: 2.8rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
 header {
   background-color: var(--bg);
   padding: 8%;
@@ -714,4 +699,23 @@ position:fixed;
 	background-repeat:no-repeat;
 	background-position:center;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
+}
+.title-fullwidth {
+  width: 100vw; /* komplette Bildschirmbreite */
+  text-align: center;
+  padding: 2rem 0;
+  background-color: var(--bg); /* optional: gleiche Farbe wie body */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.title-fullwidth h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0.5rem 0;
 }
