@@ -416,7 +416,8 @@ padding: 0;
 
 h1 {
 font-weight:300;
-text-align:left
+text-align:left;
+letter-spacing: 0.2 em;
 }
 
 h2 {
@@ -504,7 +505,7 @@ float:left;
 
 .white {
 background-color: var(--bg);
-text-transform:uppercase
+text-transform:lowercase
 }
 
 .white:hover {
@@ -699,14 +700,3 @@ position:fixed;
 	background-repeat:no-repeat;
 	background-position:center;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
-}
-.title-fullwidth {
-  margin: 0 auto;
-  text-align: left;
-}
-.title-fullwidth h1 {
-  font-size: 2rem;
-  font-weight: 300;
-  margin: 0.2em 0;
-  letter-spacing: 0.03em;
-}
