@@ -1,4 +1,4 @@
-Copyright 2022 Benjamin Schels (https://schels.info, hello@schels.info).
+Copyright 2025 Benjamin Schels (https://schels.info, hello@schels.info).
 
 This repository and the included software is licensed under the terms of the MIT license. 
 
