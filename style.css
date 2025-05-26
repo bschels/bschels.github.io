@@ -701,21 +701,17 @@ position:fixed;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
 }
 .title-fullwidth {
-  width: 100vw; /* komplette Bildschirmbreite */
-  text-align: center;
+  width: 70%;
+  max-width: 390px;
+  min-width: 250px;
+  margin: 0 auto;
+  text-align: left;
   padding: 2rem 0;
-  background-color: var(--bg); /* optional: gleiche Farbe wie body */
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  background-color: var(--bg);
 }
-
 .title-fullwidth h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0.2em 0;
+  letter-spacing: 0.03em;
 }
