@@ -704,7 +704,10 @@ position:fixed;
 	background-position:center;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
 
-	.title-wrapper {
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin-bottom: 1em;
 }
@@ -712,19 +715,23 @@ position:fixed;
 .title-link {
   text-decoration: none;
   color: inherit;
-  display: inline-block; /* wichtig fürs Zentrieren */
+  pointer-events: auto;
 }
 
-.title-line {
+.title-link:hover {
+  color: inherit;
+  background: none;
+}
+
+.title-text {
   display: inline-block;
-  text-align: left; /* zweite Zeile linksbündig */
-  line-height: 1.2;
-  margin: 0;
-  letter-spacing: 0.3em;
+  text-align: left;
   font-weight: 400;
   font-size: 1.6em;
+  letter-spacing: 0.3em;
+  line-height: 1.2;
 }
 
-.title-line span {
-  display: block; /* zwingt zur neuen Zeile */
+.title-text span {
+  display: block;
 }
