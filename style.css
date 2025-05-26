@@ -423,7 +423,8 @@ letter-spacing: 0.2 em;
 h2 {
 font-weight:400;
 margin-top: 0;
-text-align:left
+text-align:left;
+letter-spacing: 0.2 em;
 }
 
 h3, h4, h5, h6 {
