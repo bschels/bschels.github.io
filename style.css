@@ -719,7 +719,7 @@ position:fixed;
 }
 
 .title-link:hover {
-  color: inherit;
+  color: blue;
   background: none;
 }
 
