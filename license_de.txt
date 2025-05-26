@@ -1,4 +1,4 @@
-Copyright 2022 Benjamin Schels (https://schels.info, hello@schels.info).
+Copyright 2025 Benjamin Schels (https://schels.info, hello@schels.info).
 
 Dieses Verzeichnis und die enthaltene Software ist unter den Bedingungen der MIT Lizenz veröffentlicht. 
 
