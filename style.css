@@ -701,13 +701,8 @@ position:fixed;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */
 }
 .title-fullwidth {
-  width: 70%;
-  max-width: 390px;
-  min-width: 250px;
   margin: 0 auto;
   text-align: left;
-  padding: 2rem 0;
-  background-color: var(--bg);
 }
 .title-fullwidth h1 {
   font-size: 2rem;
