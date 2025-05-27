@@ -84,8 +84,12 @@
         <h2 class="cat">Profil</h2>
         <div class="cat_text"></div>
         <div class="cat-link">
-          <a href="#" data-lightbox="cv">Vita</a>
-          <a href="#" data-lightbox="office-profile">Büroprofil</a>
+          <a href="javascript:void(0);" onclick="kb_source_2_cv();document.getElementById('cv').style.display='block';document.getElementById('fade').style.display='block'">
+            <span class="arrow">Vita</span>
+          </a>
+          <a href="javascript:void(0);" onclick="kb_source_2_profil();document.getElementById('office-profile').style.display='block';document.getElementById('fade').style.display='block'">
+            <span class="arrow">Büroprofil</span>
+          </a>
         </div>
       </section>
 
