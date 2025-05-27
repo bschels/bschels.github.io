@@ -1,72 +1,128 @@
-// Sprachumschalter (funktioniert global & auch in Lightbox)
-$(document).ready(function () {
-  $(".switch-language").on("click", function () {
-    var lang = $(this).data("lang");
-    $(".language").removeClass("active");
-    $(".language-" + lang).addClass("active");
-    $(".switch-language").removeClass("active");
-    $('.switch-language[data-lang="' + lang + '"]').addClass("active");
+//Preloader
+		$(window).on('load', function() { // makes sure the whole site is loaded 
+			$('#status').fadeOut(); // will first fade out the loading animation 
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+            $('body').delay(550).css({'overflow':'visible'});
+		});
 
-    // Lightbox: Inhalt in neuer Sprache laden
-    $('.white_content:visible').each(function () {
-      var lb = $(this);
-      var contentDiv = lb.find('.lightbox');
-      if (contentDiv.length) {
-        var parentId = lb.attr('id');
-        var map = {
-          'cv-p':      {de: '/pages/cv.html',          en: '/pages/cv_en.html'},
-          'profil-p':  {de: '/pages/profil.html',      en: '/pages/profil_en.html'},
-          'leistungen-p': {de: '/pages/leistungen.html', en: '/pages/leistungen_en.html'},
-          'bauenimbestand-p': {de: '/pages/bauenimbestand.html', en: '/pages/bauenimbestand_en.html'},
-          'projekte-p': {de: '/pages/projekte.html',   en: '/pages/projekte_en.html'},
-          'impressum-p': {de: '/pages/impressum.html', en: '/pages/impressum_en.html'},
-          'datenschutz-p': {de: '/pages/datenschutz.html', en: '/pages/datenschutz_en.html'}
-        };
-        if (map[parentId] && map[parentId][lang]) {
-          contentDiv.load(map[parentId][lang]);
-        }
-      }
-    });
-  });
+// AJAX Load 
+function kb_source_2_datenschutz() {
+		$.get('/pages/datenschutz.html', function(data) {
+			$('#datenschutz').html(data);	
+		});
+	}
+function kb_source_2_impressum() {
+		$.get('/pages/impressum.html', function(data) {
+			$('#impressum').html(data);	
+		});
+	}
+function kb_source_2_cv() {
+		$.get('/pages/cv.html', function(data) {
+			$('#cv').html(data);	
+		});
+	}
+function kb_source_2_profil() {
+		$.get('/pages/profil.html', function(data) {
+			$('#profil').html(data);	
+		});
 
-  // Overlay schließt alle Lightboxen
-  $('#fade').on('click', function () {
-    $(".white_content, #fade").hide();
-  });
+}
+function kb_source_2_leistungen() {
+		$.get('/pages/leistungen.html', function(data) {
+			$('#leistungen').html(data);	
+		});
 
-  // Kategorie-Accordion: Togglebar statt reines Radio
-  $('label.cat').each(function () {
-    var input = $('#' + $(this).attr('for'));
-    var self = $(this);
-    self.on('click', function (e) {
-      // Timeout damit das Öffnen durch das Radio-Click vorher ausgeführt wird
-      setTimeout(function () {
-        if (input.prop('checked')) {
-          if (self.hasClass('was-open')) {
-            input.prop('checked', false);
-            self.removeClass('was-open');
-          } else {
-            $('label.cat').removeClass('was-open');
-            self.addClass('was-open');
-          }
-        } else {
-          self.removeClass('was-open');
-        }
-      }, 1);
-    });
+	}
+function kb_source_2_portfolio() {
+		$.get('/pages/projekte.html', function(data) {
+			$('#projekte').html(data);	
+		});
+	}
+function kb_source_2_bauenimbestand() {
+		$.get('/pages/bauenimbestand.html', function(data) {
+			$('#bauenimbestand').html(data);	
+		});
+	}
+function kb_source_2_design() {
+		$.get('/pages/design.html', function(data) {
+			$('#design').html(data);	
+		});
+	}
+
+
+// Language switcher
+$(document).ready(function() {
+  $(".switch-language").on("click", function() {
+    var switchTo = $(this).attr("id");
+    $(".language").removeClass('active');
+    $(".language#" + switchTo).addClass('active');
   });
 });
+// dark_mode 
+window.onload = function(){ 
+var toggle = document.getElementById("theme-toggle");
+	
+var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (storedTheme)
+    document.documentElement.setAttribute('data-theme', storedTheme);
+toggle.onclick = function() {
+    var currentTheme = document.documentElement.getAttribute("data-theme");
+    var targetTheme = "light";
+    if (currentTheme === "light") {
+        targetTheme = "dark";
+    }
+	
+    document.documentElement.setAttribute('data-theme', targetTheme);
+    localStorage.setItem('theme', targetTheme);
+};
+};
 
-// AJAX Loader für Lightbox-Inhalte
-function ajaxLoad(target, url) {
-  $.get(url, function (data) {
-    $(target).html(data);
-  });
+// color switcher
+function getRandomColor() {
+var letters = "0123456789ABCDEF";
+var color = "#";
+for (var i = 0; i < 6; i++) {
+color += letters[Math.floor(Math.random() * 13)];
 }
-function kb_source_2_datenschutz() { ajaxLoad('#datenschutz', '/pages/datenschutz.html'); }
-function kb_source_2_impressum()   { ajaxLoad('#impressum',   '/pages/impressum.html'); }
-function kb_source_2_cv()          { ajaxLoad('#cv',          '/pages/cv.html'); }
-function kb_source_2_profil()      { ajaxLoad('#profil',      '/pages/profil.html'); }
-function kb_source_2_leistungen()  { ajaxLoad('#leistungen',  '/pages/leistungen.html'); }
-function kb_source_2_portfolio()   { ajaxLoad('#projekte',    '/pages/projekte.html'); }
-function kb_source_2_bauenimbestand() { ajaxLoad('#bauenimbestand', '/pages/bauenimbestand.html'); }
+return color;
+}
+
+var r = document.querySelector(':root');
+// Create a function for setting a variable value
+function myFunction_set() {
+
+  r.style.setProperty('--primary_r', getRandomColor());
+}
+
+// Dark Mode/ Light Mode switcher
+
+function darkmode() {
+    var currentTheme = document.documentElement.getAttribute("data-theme");
+    var targetTheme = "light";
+    if (currentTheme === "light") {
+        targetTheme = "dark";
+    }
+	
+    document.documentElement.setAttribute('data-theme', targetTheme);
+}
+
+// Lightbox Hider on any click outside
+
+$(document).ready(function(outside_closer) {
+
+$('#fade').on('click', function(event) {
+    $(".white_content, #fade").hide();
+});	
+	
+	});
+
+// Radio Button Closer
+$(document).ready(function(){
+    $("input:radio:checked").data("chk",true);
+    $("input:radio").click(function(){
+        $("input[name='"+$(this).attr("name")+"']:radio").not(this).removeData("chk");
+        $(this).data("chk",!$(this).data("chk"));
+        $(this).prop("checked",$(this).data("chk"));
+        $(this).button('refresh'); // in case you change the radio elements dynamically
+    });
+});
