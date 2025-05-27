@@ -5,52 +5,19 @@
 * www.schels.info
 *******************************************************/
 
-/* === Zentrale Variablen für Farben, Akzent und Schrift === */
+/* ========== Zentrale Variablen ========== */
 :root {
   color-scheme: light dark;
-  --primary: #000;                              /* Hauptfarbe: Schwarz */
-  --bg: #fff;                                   /* Seitenhintergrund */
-  --body: #000;                                 /* Textfarbe Standard */
-  --accent: blue;                            /* Blau für Header- & Icon-Hover */
-  --hover-bg: #000;                             /* Hover-Hintergrund für normale Links: Schwarz */
-  --hover-text: #fff;                           /* Hover-Schriftfarbe für normale Links: Weiß */
-  --font-main: 'Montserrat', 'Arial', sans-serif; /* Zentrale Schriftfamilie */
+  --primary: #000;
+  --bg: #fff;
+  --body: #000;
+  --accent: blue;
+  --hover-bg: #000;
+  --hover-text: #fff;
+  --font-main: 'Montserrat', 'Arial', sans-serif;
 }
 
-/* === Formulareingaben resetten (iOS etc.) === */
-input[type=text], input[type=button] {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
-}
-
-/* === Basis-Layout: Schrift, Breite, Ausrichtung === */
-body {
-  background: var(--bg);
-  color: var(--body);
-  font-family: var(--font-main);
-  font-weight: 300;
-  width: 70%;
-  max-width: 590px;
-  min-width: 200px;
-  min-height: 1000px;
-  margin: auto;
-  padding-bottom: 2%;
-  font-size: 1em;
-  text-align: left;
-  hyphens: manual;
-}
-
-/* Header/Main/Footer-Innenabstände */
-header, main, footer {
-  background-color: var(--bg);
-  padding-left: 8%;
-  padding-right: 8%;
-}
-header { padding-bottom: 0; padding-top: 1em;}
-main   { padding-top: 0; padding-bottom: 0; }
-footer { padding-bottom: 2%; }
-
-/* === Schriftarten-Einbindung (Montserrat) === */
+/* ========== Schriftarten-Einbindung ========== */
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
@@ -80,11 +47,57 @@ footer { padding-bottom: 2%; }
        url('../fonts/montserrat-v24-latin-italic.woff') format('woff');
 }
 
-/* === Navigation und Sprache === */
-.top_nav         { margin: 0; }
-.language-select { float: left; }
+/* ========== Grundlayout & Body ========== */
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 300;
+  width: 70%;
+  max-width: 590px;
+  min-width: 200px;
+  min-height: 1000px;
+  margin: auto;
+  padding-bottom: 2%;
+  font-size: 1em;
+  text-align: left;
+  hyphens: manual;
+}
 
-/* === Accordion/Kategorien (z.B. für Bereiche/Projekte) === */
+header, main, footer {
+  background-color: var(--bg);
+  padding-left: 8%;
+  padding-right: 8%;
+}
+header { padding-bottom: 0; padding-top: 1em; }
+main   { padding-top: 0; padding-bottom: 0; }
+footer { padding-bottom: 2%; }
+
+/* ========== Header: Zeile mit Flexbox ========== */
+.header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;   /* sorgt für Ausrichtung unten */
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.2em;
+}
+.title-wrapper {
+  margin-bottom: 0;
+}
+.header-lang {
+  display: flex;
+  align-items: flex-end;
+}
+.language-select {
+  float: none; /* alten float aufheben */
+}
+
+/* ========== Sprachumschalter ========== */
+.language        { display: none; }
+.language.active { display: block; }
+
+/* ========== Accordion/Kategorien ========== */
 .cat {
   cursor: pointer;
   font-weight: 400;
@@ -105,44 +118,7 @@ label {
   margin: 0;
 }
 
-/* === Sprachumschalter für mehrsprachige Seiten === */
-.language        { display: none; }
-.language.active { display: block; }
-
-/* === Profilbild und Bilder-Style === */
-.top {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-.profile {
-  float: right;
-  position: absolute;
-  right: 2%;
-  width: 20%;
-  border-radius: 50%;
-  transition: 0.2s;
-  opacity: 1;
-  cursor: pointer;
-}
-
-/* === Tabellen für Übersichtlichkeit === */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  hyphens: manual;
-  text-align: left;
-}
-td {
-  vertical-align: top;
-  hyphens: manual;
-  text-align: left;
-  padding: 0.2em 0;
-}
-tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
-
-/* === Typografie: Überschriften, Listen, Auszeichnung === */
+/* ========== Typografie ========== */
 h1 {
   font-weight: 300;
   text-align: left;
@@ -162,21 +138,54 @@ ol              { list-style-type: upper-roman; text-align: left; }
 li              { list-style-type: square; }
 .small          { text-align: center; margin: 0; padding: 0; }
 .content        { font-size: 1.2em; margin: 4% 0 2% 0; padding: 0; }
-blockquote {
-  font-style: italic;
-  text-align: center;
-  padding: 0 5%;
-  hyphens: manual;
-}
+blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
 blockquote p         { text-align: right;  hyphens: manual; }
 blockquote p.says    { text-align: center; hyphens: manual; }
 
-/* === Links, Kategorien, Accordion-Labels: Standard Hover (schwarz/weiß) === */
+/* ========== Tabellen für Übersichtlichkeit ========== */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  hyphens: manual;
+  text-align: left;
+}
+td {
+  vertical-align: top;
+  hyphens: manual;
+  text-align: left;
+  padding: 0.2em 0;
+}
+tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
+
+/* ========== Formulareingaben resetten ========== */
+input[type=text], input[type=button] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+/* ========== Bilder und Profilbild ========== */
+.top {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.profile {
+  float: right;
+  position: absolute;
+  right: 2%;
+  width: 20%;
+  border-radius: 50%;
+  transition: 0.2s;
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* ========== Links und Hover-Styles ========== */
 a:link, a:visited {
   text-decoration-style: dotted;
   color: var(--body);
 }
-/* Alle normalen Links & Label & Kategorien beim Hover: weiß auf schwarz */
 a:hover,
 .cat-link:hover,
 .lb-link:hover,
@@ -186,9 +195,7 @@ label:hover {
   transition: color .2s, background .2s;
 }
 
-/* === Header-Link und Social-Icons (Footer & rechts unten): Blau beim Hover, KEIN schwarzer Hintergrund === */
-
-/* Header-Link (z.B. große Überschrift oder Markenlogo im Header-Bereich) */
+/* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
 .title-link,
 .logo,
 .logo-ru,
@@ -196,22 +203,16 @@ label:hover {
 .footer_l .logo {
   transition: color 0.3s, background 0.3s;
 }
-
-/* Blau beim Hover im Header */
 .title-link:hover,
 .logo:hover {
   color: var(--accent) !important;
   background-color: transparent !important;
 }
-
-/* Blau beim Hover für Social-Icons im Footer */
 .footer_l .logo:hover,
 .footer_l .logo:focus {
   color: var(--accent) !important;
   background: transparent !important;
 }
-
-/* Blau beim Hover für das rechts unten Logo & Titel (nur Desktop) */
 @media (min-width: 768px) {
   .logo-ru:hover,
   .mini-title-link:hover {
@@ -220,8 +221,7 @@ label:hover {
   }
 }
 
-/* === Restliche Link-Gruppen (Button, Kategorie etc.) brauchen keinen extra Style mehr, sind oben abgedeckt === */
-
+/* ========== Restliche Link-Gruppen ========== */
 .cat-link, .lb-link {
   text-transform: uppercase;
   margin: 0;
@@ -233,7 +233,7 @@ label:hover {
 }
 .logo { padding-left: 4%; padding-right: 4%; text-align: center; }
 
-/* === SVG & Icons (z.B. Social, Pfeile) === */
+/* ========== SVG & Icons ========== */
 svg, .switcher_color, .switcher_theme {
   width: 100%;
   height: 100%;
@@ -256,7 +256,7 @@ svg, .switcher_color, .switcher_theme {
 .arrow:hover::before    { border-left: 0.5em solid var(--hover-text);}
 .arrow-nohover:hover::before { border-left: 0.5em solid var(--primary); }
 
-/* === Footer, Lightbox/Overlay, modale Inhalte === */
+/* ========== Footer, Lightbox, Overlay ========== */
 .lb_footer {
   font-size: 150%;
   text-transform: uppercase;
@@ -277,11 +277,12 @@ svg, .switcher_color, .switcher_theme {
 }
 .footer_l { display: flex; flex-flow: row nowrap; justify-content: center; margin: 2%; }
 .footer_t { display: flex; flex-flow: row nowrap; justify-content: center; margin-top: 4%; }
-.footer_l .logo svg   { fill: currentColor; transition: fill 0.3s; vertical-align: middle; }
+.footer_l .logo svg { fill: currentColor; transition: fill 0.3s; vertical-align: middle; }
 
 .black_overlay {
   display: none;
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
   background-color: var(--bg);
   opacity: .8;
   filter: alpha(opacity=80);
@@ -302,7 +303,7 @@ svg, .switcher_color, .switcher_theme {
   overflow: auto;
 }
 
-/* === Tooltip für Hinweise === */
+/* ========== Tooltip ========== */
 .tooltip { position: relative; display: inline-block; }
 .tooltip .tooltiptext {
   visibility: hidden;
@@ -329,7 +330,7 @@ svg, .switcher_color, .switcher_theme {
 }
 .tooltip:hover .tooltiptext { visibility: visible; }
 
-/* === Responsive Bereich: Logo & Titel unten rechts ab 768px === */
+/* ========== Responsive: Logo & Titel unten rechts ab 768px ========== */
 .logo-ru { display: none; }
 @media (min-width: 768px) {
   .logo-ru {
@@ -354,16 +355,8 @@ svg, .switcher_color, .switcher_theme {
   }
 }
 
-/* === Titelbereich & horizontale Linien === */
+/* ========== Titelbereich & horizontale Linien ========== */
 .title-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 1em;
-}
-.title-link { text-decoration: none; color: var(--primary); pointer-events: auto; }
-.title-text {
   display: inline-block;
   text-align: left;
   font-weight: 400;
@@ -371,6 +364,7 @@ svg, .switcher_color, .switcher_theme {
   letter-spacing: 0.3em;
   line-height: 1.2;
 }
+.title-link { text-decoration: none; color: var(--primary); pointer-events: auto; }
 .title-text span { display: block; }
 hr { margin: 0; }
 hr.y { height: 1.6em; border: none; background: var(--bg); }
