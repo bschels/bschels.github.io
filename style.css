@@ -46,7 +46,7 @@ header, main, footer {
   padding-left: 8%;
   padding-right: 8%;
 }
-header { padding-bottom: 0; }
+header { padding-bottom: 0; padding-top: 1em;}
 main   { padding-top: 0; padding-bottom: 0; }
 footer { padding-bottom: 2%; }
 
