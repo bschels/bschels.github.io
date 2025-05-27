@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <!-- Grundlegende Meta-Angaben -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Architekturbüro Schels - Benjamin Schels Architekt M.A.</title>
+    <meta name="description" content="Architekturbüro in Wolnzach von Benjamin Schels, Architekt M.A.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+
+    <!-- Stylesheet & Skripte -->
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const fade = document.getElementById('fade');
+        // Lightbox öffnen
+        document.querySelectorAll('[data-lightbox]').forEach(el => {
+          el.addEventListener('click', e => {
+            e.preventDefault();
+            const id = el.dataset.lightbox;
+            // bestehende kb_source_2_* Funktion aufrufen, falls vorhanden
+            const fn = window['kb_source_2_' + id.replace(/-/g, '_')];
+            if (typeof fn === 'function') fn();
+            document.getElementById(id).style.display = 'block';
+            fade.style.display = 'block';
+          });
+        });
+        // Lightbox schließen
+        document.querySelectorAll('.lb_close a').forEach(el => {
+          el.addEventListener('click', e => {
+            e.preventDefault();
+            el.closest('.white_content').style.display = 'none';
+            fade.style.display = 'none';
+          });
+        });
+        // Sprachumschaltung
+        document.querySelectorAll('.switch-language').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const lang = btn.dataset.lang;
+            document.querySelectorAll('.language').forEach(el => el.classList.toggle('active', el.id === lang));
+          });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- Preloader (optional) -->
+    <div id="preloader">
+      <div id="status"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="title-wrapper">
+        <a href="index.html" class="title-link">
+          <h1 class="title-text">
+            archi&shy;tektur&shy;büro<br>
+            <span>schels</span>
+          </h1>
+        </a>
+      </div>
+
+      <!-- Sprachumschalter -->
+      <nav class="language-switcher">
+        <button class="switch-language" data-lang="de">DE</button>
+        <button class="switch-language" data-lang="en">EN</button>
+      </nav>
+
+      <hr class="y">
+      <hr class="z">
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <!-- PROFIL -->
+      <section id="profil">
+        <h2 class="cat">Profil</h2>
+        <div class="cat_text"></div>
+        <div class="cat-link">
+          <a href="#" data-lightbox="cv">Vita</a>
+          <a href="#" data-lightbox="office-profile">Büroprofil</a>
+        </div>
+      </section>
+
+      <!-- LEISTUNGEN -->
+      <section id="leistungen">
+        <h2 class="cat">Leistungen</h2>
+        <div class="cat_text"></div>
+        <div class="cat-link">
+          <a href="#" data-lightbox="uebersicht">Übersicht</a>
+          <a href="#" data-lightbox="schwerpunkte">Schwerpunkte</a>
+        </div>
+      </section>
+
+      <!-- REFERENZEN -->
+      <section id="referenzen">
+        <h2 class="cat">Referenzen</h2>
+        <div class="cat_text"></div>
+        <div class="cat-link">
+          <a href="#" data-lightbox="projekte">Projekte</a>
+        </div>
+      </section>
+
+      <!-- KONTAKT -->
+      <section id="kontakt">
+        <h2 class="cat">Kontakt</h2>
+        <p class="content">Wir freuen uns auf Ihre Kontaktanfrage.</p>
+        <p>Email: <a href="mailto:hello@schels.info">hello@schels.info</a></p>
+        <p>Telefon: <a href="tel:+4984429292291">+49 8442 929 229 1</a></p>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <hr class="z">
+
+      <!-- Soziale Icons -->
+      <div class="footer_l">
+        <a href="mailto:hello@schels.info" class="logo" title="mail">
+          <svg class="l_envelope" viewBox="0 0 512 512"><!-- ... --></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/schels/" target="_blank" class="logo" title="linkedin">
+          <svg class="l_linkedin-in" viewBox="0 0 448 512"><!-- ... --></svg>
+        </a>
+      </div>
+
+      <!-- Adresse -->
+      <address class="small">
+        architekturbüro schels<br>
+        Benjamin Schels – Architekt M.A.<br>
+        Schlachterstraße 9 – D‑85283 Wolnzach
+      </address>
+
+      <!-- Impressum & Datenschutz -->
+      <div class="footer_t">
+        <a href="#" data-lightbox="impressum">Impressum</a>
+        <a href="#" data-lightbox="datenschutz">Datenschutz</a>
+      </div>
+
+      <!-- Logo unten rechts -->
+      <div class="logo-ru">
+        <a href="index.html" class="mini-title-link">
+          architekturbüro<br><span class="mini-second-line">schels</span>
+        </a>
+      </div>
+    </footer>
+
+    <!-- LIGHTBOX OVERLAYS -->
+    <div id="fade" class="black_overlay"></div>
+    <div id="cv" class="white_content"></div>
+    <div id="office-profile" class="white_content"></div>
+    <div id="uebersicht" class="white_content"></div>
+    <div id="schwerpunkte" class="white_content"></div>
+    <div id="projekte" class="white_content"></div>
+    <div id="impressum" class="white_content"></div>
+    <div id="datenschutz" class="white_content"></div>
+  </body>
+</html>
