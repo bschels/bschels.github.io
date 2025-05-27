@@ -1,29 +1,33 @@
 /*******************************************************
 * Theme Name:    Architekturbüro Schels
 * Author:        Benjamin Schels
-* Version:       3.0
+* Version:       3.3
 * www.schels.info
 *******************************************************/
 
-/* === Zentrale Farb- und Font-Variablen === */
+/* === Zentrale Variablen für Farben, Akzent und Schrift === */
 :root {
-  color-scheme: light dark;    /* Für systemweiten Theme-Support, kein JS-Umschalter */
-  --primary: #000;             /* Hauptakzentfarbe */
-  --bg: #fff;                  /* Grundhintergrund */
-  --body: #000;                /* Standardtext */
+  color-scheme: light dark;
+  --primary: #000;                              /* Hauptfarbe: Schwarz */
+  --bg: #fff;                                   /* Seitenhintergrund */
+  --body: #000;                                 /* Textfarbe Standard */
+  --accent: #002fa7;                            /* Blau für Header- & Icon-Hover */
+  --hover-bg: #002fa7;                             /* Hover-Hintergrund für normale Links: Schwarz */
+  --hover-text: #fff;                           /* Hover-Schriftfarbe für normale Links: Weiß */
+  --font-main: 'Montserrat', 'Arial', sans-serif; /* Zentrale Schriftfamilie */
 }
 
-/* === Basis-Reset für Formulareingaben (iOS-Korrektur) === */
+/* === Formulareingaben resetten (iOS etc.) === */
 input[type=text], input[type=button] {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
 }
 
-/* === Grundlayout für Seite und Hauptbereiche === */
+/* === Basis-Layout: Schrift, Breite, Ausrichtung === */
 body {
   background: var(--bg);
   color: var(--body);
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-main);
   font-weight: 300;
   width: 70%;
   max-width: 590px;
@@ -34,9 +38,9 @@ body {
   font-size: 1em;
   text-align: left;
   hyphens: manual;
-  /* Optionale Linien für Raster, auskommentiert */
-  /* background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px ); */
 }
+
+/* Header/Main/Footer-Innenabstände */
 header, main, footer {
   background-color: var(--bg);
   padding-left: 8%;
@@ -46,7 +50,7 @@ header { padding-bottom: 0; }
 main   { padding-top: 0; padding-bottom: 0; }
 footer { padding-bottom: 2%; }
 
-/* === Montserrat-Fonts (leicht, regular, italic) === */
+/* === Schriftarten-Einbindung (Montserrat) === */
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
@@ -76,11 +80,11 @@ footer { padding-bottom: 2%; }
        url('../fonts/montserrat-v24-latin-italic.woff') format('woff');
 }
 
-/* === Navigation & Sprachauswahl (nur das, was du nutzt) === */
-.top_nav       { margin: 0; }
+/* === Navigation und Sprache === */
+.top_nav         { margin: 0; }
 .language-select { float: left; }
 
-/* === Accordion für Kategorien/Abschnitte === */
+/* === Accordion/Kategorien (z.B. für Bereiche/Projekte) === */
 .cat {
   cursor: pointer;
   font-weight: 400;
@@ -88,7 +92,6 @@ footer { padding-bottom: 2%; }
   margin: 0;
   letter-spacing: 0.3em;
 }
-/* Versteckt Toggle-Checkboxen für Accordion-Mechanik */
 [id^="tog"] { display: none; }
 .cat_text {
   max-height: 0;
@@ -101,16 +104,12 @@ label {
   display: block;
   margin: 0;
 }
-label:hover {
-  background-color: var(--primary);
-  color: var(--bg);
-}
 
-/* === Sprachumschalter (einfach für 2 Sprachen) === */
+/* === Sprachumschalter für mehrsprachige Seiten === */
 .language        { display: none; }
 .language.active { display: block; }
 
-/* === Profilbild/Bilder === */
+/* === Profilbild und Bilder-Style === */
 .top {
   display: block;
   margin-left: auto;
@@ -128,7 +127,7 @@ label:hover {
   cursor: pointer;
 }
 
-/* === Tabellen-Design === */
+/* === Tabellen für Übersichtlichkeit === */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -143,7 +142,7 @@ td {
 }
 tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
 
-/* === Typografie: Überschriften, Listen, Textauszeichnung === */
+/* === Typografie: Überschriften, Listen, Auszeichnung === */
 h1 {
   font-weight: 300;
   text-align: left;
@@ -172,15 +171,57 @@ blockquote {
 blockquote p         { text-align: right;  hyphens: manual; }
 blockquote p.says    { text-align: center; hyphens: manual; }
 
-/* === Links & Buttons === */
+/* === Links, Kategorien, Accordion-Labels: Standard Hover (schwarz/weiß) === */
 a:link, a:visited {
   text-decoration-style: dotted;
   color: var(--body);
 }
-a:hover {
-  color: var(--bg);
-  background-color: var(--primary);
+/* Alle normalen Links & Label & Kategorien beim Hover: weiß auf schwarz */
+a:hover,
+.cat-link:hover,
+.lb-link:hover,
+label:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  transition: color .2s, background .2s;
 }
+
+/* === Header-Link und Social-Icons (Footer & rechts unten): Blau beim Hover, KEIN schwarzer Hintergrund === */
+
+/* Header-Link (z.B. große Überschrift oder Markenlogo im Header-Bereich) */
+.title-link,
+.logo,
+.logo-ru,
+.mini-title-link,
+.footer_l .logo {
+  transition: color 0.3s, background 0.3s;
+}
+
+/* Blau beim Hover im Header */
+.title-link:hover,
+.logo:hover {
+  color: var(--accent) !important;
+  background-color: transparent !important;
+}
+
+/* Blau beim Hover für Social-Icons im Footer */
+.footer_l .logo:hover,
+.footer_l .logo:focus {
+  color: var(--accent) !important;
+  background: transparent !important;
+}
+
+/* Blau beim Hover für das rechts unten Logo & Titel (nur Desktop) */
+@media (min-width: 768px) {
+  .logo-ru:hover,
+  .mini-title-link:hover {
+    color: var(--accent) !important;
+    background: transparent !important;
+  }
+}
+
+/* === Restliche Link-Gruppen (Button, Kategorie etc.) brauchen keinen extra Style mehr, sind oben abgedeckt === */
+
 .cat-link, .lb-link {
   text-transform: uppercase;
   margin: 0;
@@ -190,13 +231,9 @@ a:hover {
   margin-bottom: 4%;
   list-style-position: inside;
 }
-.cat-link:hover, .lb-link:hover {
-  background-color: var(--primary);
-  color: var(--bg);
-}
 .logo { padding-left: 4%; padding-right: 4%; text-align: center; }
 
-/* === Icons & SVG (Footer, Kontakt, Pfeile) === */
+/* === SVG & Icons (z.B. Social, Pfeile) === */
 svg, .switcher_color, .switcher_theme {
   width: 100%;
   height: 100%;
@@ -216,10 +253,10 @@ svg, .switcher_color, .switcher_theme {
   display: inline-block;
   margin: 0 .1em 0 .2em;
 }
-.arrow:hover::before    { border-left: 0.5em solid var(--bg);}
+.arrow:hover::before    { border-left: 0.5em solid var(--hover-text);}
 .arrow-nohover:hover::before { border-left: 0.5em solid var(--primary); }
 
-/* === Footer & Lightbox/Overlay (Copyright, Popup, Tooltip) === */
+/* === Footer, Lightbox/Overlay, modale Inhalte === */
 .lb_footer {
   font-size: 150%;
   text-transform: uppercase;
@@ -235,23 +272,13 @@ svg, .switcher_color, .switcher_theme {
   text-transform: lowercase;
 }
 .white:hover {
-  color: var(--bg);
-  background-color: var(--primary);
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
 }
-/* Social-Icons & Links im Footer */
 .footer_l { display: flex; flex-flow: row nowrap; justify-content: center; margin: 2%; }
 .footer_t { display: flex; flex-flow: row nowrap; justify-content: center; margin-top: 4%; }
-.footer_l .logo {
-  color: #000;
-  text-decoration: none;
-  background: transparent;
-  transition: color 0.3s;
-  display: inline-block;
-}
-.footer_l .logo:hover { color: blue; background: transparent; }
 .footer_l .logo svg   { fill: currentColor; transition: fill 0.3s; vertical-align: middle; }
 
-/* Lightbox/Overlay für Popups */
 .black_overlay {
   display: none;
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -275,7 +302,7 @@ svg, .switcher_color, .switcher_theme {
   overflow: auto;
 }
 
-/* Tooltip-Element für Hilfetexte */
+/* === Tooltip für Hinweise === */
 .tooltip { position: relative; display: inline-block; }
 .tooltip .tooltiptext {
   visibility: hidden;
@@ -325,15 +352,9 @@ svg, .switcher_color, .switcher_theme {
     transition: color 0.3s;
     background: transparent;
   }
-  .mini-title-link:hover {
-    color: #002fa7;
-    background: transparent;
-  }
-  .logo-ru:hover { background: transparent; }
-  .mini-second-line { display: block; }
 }
 
-/* === Titelbereich und horizontale Linien === */
+/* === Titelbereich & horizontale Linien === */
 .title-wrapper {
   display: flex;
   justify-content: center;
@@ -341,8 +362,7 @@ svg, .switcher_color, .switcher_theme {
   text-align: center;
   margin-bottom: 1em;
 }
-.title-link { text-decoration: none; color: blue; pointer-events: auto; }
-.title-link:hover { color: blue; background: none; }
+.title-link { text-decoration: none; color: var(--primary); pointer-events: auto; }
 .title-text {
   display: inline-block;
   text-align: left;
