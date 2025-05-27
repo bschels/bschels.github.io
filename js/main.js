@@ -1,128 +1,110 @@
 //Preloader
-		$(window).on('load', function() { // makes sure the whole site is loaded 
-			$('#status').fadeOut(); // will first fade out the loading animation 
-            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
-            $('body').delay(550).css({'overflow':'visible'});
-		});
+$(window).on('load', function() {
+  $('#status').fadeOut();
+  $('#preloader').delay(350).fadeOut('slow');
+  $('body').delay(550).css({'overflow':'visible'});
+});
 
 // AJAX Load 
 function kb_source_2_datenschutz() {
-		$.get('/pages/datenschutz.html', function(data) {
-			$('#datenschutz').html(data);	
-		});
-	}
+  $.get('/pages/datenschutz.html', function(data) {
+    $('#datenschutz').html(data);	
+  });
+}
 function kb_source_2_impressum() {
-		$.get('/pages/impressum.html', function(data) {
-			$('#impressum').html(data);	
-		});
-	}
+  $.get('/pages/impressum.html', function(data) {
+    $('#impressum').html(data);	
+  });
+}
 function kb_source_2_cv() {
-		$.get('/pages/cv.html', function(data) {
-			$('#cv').html(data);	
-		});
-	}
+  $.get('/pages/cv.html', function(data) {
+    $('#cv').html(data);	
+  });
+}
 function kb_source_2_profil() {
-		$.get('/pages/profil.html', function(data) {
-			$('#profil').html(data);	
-		});
-
+  $.get('/pages/profil.html', function(data) {
+    $('#profil').html(data);	
+  });
 }
 function kb_source_2_leistungen() {
-		$.get('/pages/leistungen.html', function(data) {
-			$('#leistungen').html(data);	
-		});
-
-	}
+  $.get('/pages/leistungen.html', function(data) {
+    $('#leistungen').html(data);	
+  });
+}
 function kb_source_2_portfolio() {
-		$.get('/pages/projekte.html', function(data) {
-			$('#projekte').html(data);	
-		});
-	}
+  $.get('/pages/projekte.html', function(data) {
+    $('#projekte').html(data);	
+  });
+}
 function kb_source_2_bauenimbestand() {
-		$.get('/pages/bauenimbestand.html', function(data) {
-			$('#bauenimbestand').html(data);	
-		});
-	}
+  $.get('/pages/bauenimbestand.html', function(data) {
+    $('#bauenimbestand').html(data);	
+  });
+}
 function kb_source_2_design() {
-		$.get('/pages/design.html', function(data) {
-			$('#design').html(data);	
-		});
-	}
+  $.get('/pages/design.html', function(data) {
+    $('#design').html(data);	
+  });
+}
 
-
-// Language switcher
+// Language switcher (using unique IDs)
 $(document).ready(function() {
   $(".switch-language").on("click", function() {
     var switchTo = $(this).attr("id");
+    // all "language" blocks in the DOM (with unique IDs)
     $(".language").removeClass('active');
-    $(".language#" + switchTo).addClass('active');
+    if (switchTo === "lang-german") {
+      $(".language[id$='german']").addClass('active');
+    } else if (switchTo === "lang-english") {
+      $(".language[id$='english']").addClass('active');
+    }
   });
 });
+
 // dark_mode 
 window.onload = function(){ 
-var toggle = document.getElementById("theme-toggle");
-	
-var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-if (storedTheme)
+  // Darkmode via data-theme attribute on html
+  var toggle = document.getElementById("theme-toggle");
+  var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  if (storedTheme)
     document.documentElement.setAttribute('data-theme', storedTheme);
-toggle.onclick = function() {
-    var currentTheme = document.documentElement.getAttribute("data-theme");
-    var targetTheme = "light";
-    if (currentTheme === "light") {
-        targetTheme = "dark";
-    }
-	
-    document.documentElement.setAttribute('data-theme', targetTheme);
-    localStorage.setItem('theme', targetTheme);
-};
+  if(toggle){
+    toggle.onclick = function() {
+      var currentTheme = document.documentElement.getAttribute("data-theme");
+      var targetTheme = (currentTheme === "light") ? "dark" : "light";
+      document.documentElement.setAttribute('data-theme', targetTheme);
+      localStorage.setItem('theme', targetTheme);
+    };
+  }
 };
 
-// color switcher
+// color switcher (keine Verwendung im Frontend, bleibt als Funktion erhalten)
 function getRandomColor() {
-var letters = "0123456789ABCDEF";
-var color = "#";
-for (var i = 0; i < 6; i++) {
-color += letters[Math.floor(Math.random() * 13)];
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 13)];
+  }
+  return color;
 }
-return color;
-}
-
 var r = document.querySelector(':root');
-// Create a function for setting a variable value
 function myFunction_set() {
-
   r.style.setProperty('--primary_r', getRandomColor());
 }
 
-// Dark Mode/ Light Mode switcher
-
-function darkmode() {
-    var currentTheme = document.documentElement.getAttribute("data-theme");
-    var targetTheme = "light";
-    if (currentTheme === "light") {
-        targetTheme = "dark";
-    }
-	
-    document.documentElement.setAttribute('data-theme', targetTheme);
-}
-
 // Lightbox Hider on any click outside
-
-$(document).ready(function(outside_closer) {
-
-$('#fade').on('click', function(event) {
+$(document).ready(function() {
+  $('#fade').on('click', function(event) {
     $(".white_content, #fade").hide();
-});	
-	
-	});
+  });	
+});
 
-// Radio Button Closer
+// Radio Button Closer: Accordion
 $(document).ready(function(){
-    $("input:radio:checked").data("chk",true);
-    $("input:radio").click(function(){
-        $("input[name='"+$(this).attr("name")+"']:radio").not(this).removeData("chk");
-        $(this).data("chk",!$(this).data("chk"));
-        $(this).prop("checked",$(this).data("chk"));
-        $(this).button('refresh'); // in case you change the radio elements dynamically
-    });
+  $("input:radio:checked").data("chk",true);
+  $("input:radio").click(function(){
+    $("input[name='"+$(this).attr("name")+"']:radio").not(this).removeData("chk");
+    $(this).data("chk",!$(this).data("chk"));
+    $(this).prop("checked",$(this).data("chk"));
+  });
 });
