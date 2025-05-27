@@ -11,8 +11,8 @@
   --primary: #000;                              /* Hauptfarbe: Schwarz */
   --bg: #fff;                                   /* Seitenhintergrund */
   --body: #000;                                 /* Textfarbe Standard */
-  --accent: #002fa7;                            /* Blau für Header- & Icon-Hover */
-  --hover-bg: #002fa7;                             /* Hover-Hintergrund für normale Links: Schwarz */
+  --accent: blue;                            /* Blau für Header- & Icon-Hover */
+  --hover-bg: #0000;                             /* Hover-Hintergrund für normale Links: Schwarz */
   --hover-text: #fff;                           /* Hover-Schriftfarbe für normale Links: Weiß */
   --font-main: 'Montserrat', 'Arial', sans-serif; /* Zentrale Schriftfamilie */
 }
