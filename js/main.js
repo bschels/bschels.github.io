@@ -1,69 +1,63 @@
-//Preloader
-$(window).on('load', function() {
-  $('#status').fadeOut();
-  $('#preloader').delay(350).fadeOut('slow');
+// Preloader
+$(window).on('load', function() { // makes sure the whole site is loaded 
+  $('#status').fadeOut(); // will first fade out the loading animation 
+  $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website. 
   $('body').delay(550).css({'overflow':'visible'});
 });
 
 // AJAX Load 
 function kb_source_2_datenschutz() {
   $.get('/pages/datenschutz.html', function(data) {
-    $('#datenschutz').html(data);	
+    $('#datenschutz').html(data);  
   });
 }
 function kb_source_2_impressum() {
   $.get('/pages/impressum.html', function(data) {
-    $('#impressum').html(data);	
+    $('#impressum').html(data);  
   });
 }
 function kb_source_2_cv() {
   $.get('/pages/cv.html', function(data) {
-    $('#cv').html(data);	
+    $('#cv').html(data);  
   });
 }
 function kb_source_2_profil() {
   $.get('/pages/profil.html', function(data) {
-    $('#profil').html(data);	
+    $('#profil').html(data);  
   });
 }
 function kb_source_2_leistungen() {
   $.get('/pages/leistungen.html', function(data) {
-    $('#leistungen').html(data);	
+    $('#leistungen').html(data);  
   });
 }
 function kb_source_2_portfolio() {
   $.get('/pages/projekte.html', function(data) {
-    $('#projekte').html(data);	
+    $('#projekte').html(data);  
   });
 }
 function kb_source_2_bauenimbestand() {
   $.get('/pages/bauenimbestand.html', function(data) {
-    $('#bauenimbestand').html(data);	
+    $('#bauenimbestand').html(data);  
   });
 }
 function kb_source_2_design() {
   $.get('/pages/design.html', function(data) {
-    $('#design').html(data);	
+    $('#design').html(data);  
   });
 }
 
-// Language switcher (using unique IDs)
+// Language switcher
 $(document).ready(function() {
   $(".switch-language").on("click", function() {
     var switchTo = $(this).attr("id");
-    // all "language" blocks in the DOM (with unique IDs)
     $(".language").removeClass('active');
-    if (switchTo === "lang-german") {
-      $(".language[id$='german']").addClass('active');
-    } else if (switchTo === "lang-english") {
-      $(".language[id$='english']").addClass('active');
-    }
+    $(".language#" + switchTo).addClass('active');
   });
 });
 
 // dark_mode 
 window.onload = function(){ 
-  // Darkmode via data-theme attribute on html
   var toggle = document.getElementById("theme-toggle");
   var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme)
@@ -96,15 +90,19 @@ function myFunction_set() {
 $(document).ready(function() {
   $('#fade').on('click', function(event) {
     $(".white_content, #fade").hide();
-  });	
+  }); 
 });
 
-// Radio Button Closer: Accordion
+// Radio Button Closer: Accordion (erneut klicken = zu/auf)
 $(document).ready(function(){
   $("input:radio:checked").data("chk",true);
   $("input:radio").click(function(){
+    var wasChecked = $(this).data("chk");
     $("input[name='"+$(this).attr("name")+"']:radio").not(this).removeData("chk");
-    $(this).data("chk",!$(this).data("chk"));
-    $(this).prop("checked",$(this).data("chk"));
+    if(wasChecked){
+      $(this).prop("checked", false).data("chk",false);
+    } else {
+      $(this).data("chk",true);
+    }
   });
 });
