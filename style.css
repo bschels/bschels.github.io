@@ -55,8 +55,7 @@ body {
   font-weight: 300;
   width: 70%;
   max-width: 900px;
-  min-width: 200px;
-  min-height: 1000px;
+  min-width: 180px;
   margin: auto;
   padding-bottom: 2%;
   font-size: 1em;
@@ -332,7 +331,7 @@ svg, .switcher_color, .switcher_theme {
 
 /* ========== Responsive: Logo & Titel unten rechts ab 768px ========== */
 .logo-ru { display: none; }
-@media (min-width: 768px) {
+@media (min-width: 830px) {
   .logo-ru {
     position: fixed;
     bottom: 2%; right: 2%;
@@ -370,9 +369,9 @@ hr { margin: 0; }
 hr.y { height: 1.6em; border: none; background: var(--bg); }
 hr.z { height: 1px; border: none; background: var(--body); }
 /* ========== Responsive für Smartphones & Tablets ========== */
-@media (max-width: 600px) {
+@media (max-width: 630px) {
   body {
-    width: 96%;
+    width: 90%;
     padding-left: 2%;
     padding-right: 2%;
     font-size: 1em;
@@ -408,12 +407,7 @@ hr.z { height: 1px; border: none; background: var(--body); }
     font-size: 1.05em;
     letter-spacing: 0.18em;
   }
-  /* Footer kleiner, Adressen mittig */
-  .footer_l, .footer_t {
-    flex-direction: column;
-    align-items: center;
-    margin: 1em 0;
-  }
+
   .logo-ru {
     display: none !important;
   }
