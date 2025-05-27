@@ -281,4 +281,82 @@
       <div class="tooltip">
         <a href="mailto:HELLO@SCHELS.INFO" class="logo">
           <svg class="l_envelope" viewBox="0 0 512 512">
-            <path fill="
+            <path fill="currentColor" d="M0 128c0-35 29-64 64-64h384c35 0 64 29 64 64v256c0 35-29 64-64 64H64c-35 0-64-29-64-64V128zm48 0v22l173 142c20 17 50 17 71 0l172-142v-23c0-8-7-16-16-16H64c-9 0-16 8-16 16v1zm0 84v172c0 9 7 16 16 16h384c9 0 16-7 16-16V212L322 329c-38 31-94 31-133 0L48 212z"/>
+          </svg>
+        </a>
+        <span class="tooltiptext">mail</span>
+      </div>
+      <div class="tooltip">
+        <a href="https://www.linkedin.com/in/schels/" target="_blank" class="logo" padding-right="1%">
+          <svg class="l_linkedin-in" viewBox="0 0 448 512">
+            <path fill="currentColor" d="M100 448H7V149h93zM54 108C24 108 0 84 0 54a54 54 0 0 1 108 0c0 29-25 54-54 54zm394 340h-93V302c0-34 0-79-48-79s-56 38-56 77v148h-93V149h90v41h1c12-24 43-49 88-49 94 0 111 62 111 143v164z"/>
+          </svg>
+        </a>
+        <span class="tooltiptext">linkedin</span>
+      </div>
+    </div>
+    <!-- Büro-Info -->
+    <p class="small">
+      architekturbüro&nbsp;schels<br>
+      Benjamin&nbsp;Schels - <wbr>Architekt&nbsp;M.A.<br>
+      Schlachterstraße&nbsp;9 - <wbr>D&#8209;85283&nbsp;Wolnzach<br>
+    </p>
+    <!-- Footer Links -->
+    <div class="footer_t">
+      <div class="lb-link">
+        <a href="javascript:void(0);" onclick="kb_source_2_impressum();document.getElementById('impressum-p').style.display='block';document.getElementById('fade').style.display='block'">
+          <div class="language language-en"><span class="white">Imprint</span></div>
+          <div class="language language-de active"><span class="white">Impressum</span></div>
+        </a>
+      </div>
+      <div class="datenschutz-b">
+        <a href="javascript:void(0);" onclick="kb_source_2_datenschutz();document.getElementById('datenschutz-p').style.display='block';document.getElementById('fade').style.display='block'">
+          <div class="language language-en"><span class="white">Privacy Policy</span></div>
+          <div class="language language-de active"><span class="white">Datenschutz</span></div>
+        </a>
+      </div>
+    </div>
+    <!-- Logo rechts unten -->
+    <div class="logo-ru">
+      <a href="index.html" class="mini-title-link">
+        architekturbüro<br><span class="mini-second-line">schels</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ==================== LIGHTBOX OVERLAY & POPUPS ==================== -->
+  <div id="fade" class="black_overlay"></div>
+
+  <!-- Lightbox: CV, Profil, Leistungen, BauenImBestand, Projekte -->
+  <!-- (siehe oben für Beispiele, alle gleich aufgebaut wie in den Main-Blocks) -->
+
+  <!-- Lightbox: Impressum -->
+  <div id="impressum-p" class="white_content">
+    <div class="lb_footer">
+      <div class="lb_close">
+        <div class="language language-en"><a href="javascript:void(0)" onclick="document.getElementById('impressum-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a></div>
+        <div class="language language-de active"><a href="javascript:void(0)" onclick="document.getElementById('impressum-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a></div>
+      </div>
+      <div class="lb_language">
+        <a href="javascript:void(0);" class="switch-language" data-lang="de"><span class="white">DE</span></a>
+        <a href="javascript:void(0);" class="switch-language" data-lang="en"><span class="white">EN</span></a>
+      </div>
+    </div>
+    <div class="lightbox" id="impressum"></div>
+  </div>
+  <!-- Lightbox: Datenschutz -->
+  <div id="datenschutz-p" class="white_content">
+    <div class="lb_footer">
+      <div class="lb_close">
+        <div class="language language-en"><a href="javascript:void(0)" onclick="document.getElementById('datenschutz-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a></div>
+        <div class="language language-de active"><a href="javascript:void(0)" onclick="document.getElementById('datenschutz-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a></div>
+      </div>
+      <div class="lb_language">
+        <a href="javascript:void(0);" class="switch-language" data-lang="de"><span class="white">DE</span></a>
+        <a href="javascript:void(0);" class="switch-language" data-lang="en"><span class="white">EN</span></a>
+      </div>
+    </div>
+    <div class="lightbox" id="datenschutz"></div>
+  </div>
+</body>
+</html>
