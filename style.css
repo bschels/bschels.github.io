@@ -54,8 +54,7 @@ body {
   font-family: var(--font-main);
   font-weight: 300;
   width: 70%;
-  max-width: 900px;
-  min-width: 180px;
+  max-width: 60em; min-width: 10em;
   margin: auto;
   padding-bottom: 2%;
   font-size: 1em;
@@ -261,7 +260,7 @@ svg, .switcher_color, .switcher_theme {
   text-transform: uppercase;
   position: fixed;
   margin: 0 auto;
-  left: 4%; right: 4%; top: 73%; bottom: 25%;
+  left: 4%; right: 4%; top: 85%; bottom: 30%;
   max-width: 27em; z-index: 2;
 }
 .lb_close    { float: right; }
@@ -293,10 +292,10 @@ svg, .switcher_color, .switcher_theme {
   hyphens: auto;
   -webkit-hyphens: auto;
   margin: 0 auto;
-  top: 25%; left: 2%; right: 2%;
-  max-width: 40em; min-width: 10em; min-height: 10em; height: 50%;
+  top: 15%; left: 2%; right: 2%;
+  max-width: 50em; min-width: 10em; min-height: 10em; height: 72%;
   padding: 8px;
-  border: 0.3em solid var(--primary);
+  border: 0.2em solid var(--primary);
   background-color: var(--bg);
   z-index: 1;
   overflow: auto;
