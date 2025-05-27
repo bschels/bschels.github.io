@@ -1,50 +1,122 @@
 /*******************************************************
 *
-Theme Name:    Architekturbüro Schels
-Theme URI:     http://schels.info
-Description:
-Version:       3.0
-Author:        Benjamin Schels
-License:       MIT License (see schels.info/license.txt)
-Tags:          Onepager, responsive, Portfolio 
+* Theme Name:    Architekturbüro Schels
+* Theme URI:     http://schels.info
+* Description:
+* Version:       3.0
+* Author:        Benjamin Schels
+* License:       MIT License (see schels.info/license.txt)
+* Tags:          Onepager, responsive, Portfolio 
 *
 *******************************************************/
-/* Stop iOS from changing the styles */
 
+/* =====================================================
+   1. BASE RESET & GRUNDWERTE
+===================================================== */
+
+/* iOS Style Fix */
 input[type=text], input[type=button] {
--webkit-appearance: none;
--webkit-border-radius: 0;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
+/* Farbvariablen und Theme */
 :root {
   color-scheme: light dark; /* both supported */
-}
-
-:root {
   --primary: #000000; 
   --bg: #FFF; 
   --body: #000; 
 }
-/*
-:root[data-theme='light'] {
-  --primary: var(--primary_r); 
-  --bg: var(--bg_r); 
+
+/* Basis Body-Stile */
+body {
+  background-attachment: fixed;
+  background-size: auto auto;
+  background-color: var(--bg);
+  /* Hintergrundlinien können hier aktiviert werden
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px );
+  */
+  margin:auto;
+  color:var(--body);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  width:70%;
+  max-width:590px;
+  min-width: 200px;
+  min-height:1000px;
+  padding-bottom:2%;
+  font-size:1em;
+  text-align: left;
+  hyphens: manual;
 }
 
-:root[data-theme='dark'] {
-  --primary: var(--bg_r); 
-  --bg: var(--primary_r); 
+/* =====================================================
+   2. FONTS & SCHRIFTARTEN
+===================================================== */
+
+/* Montserrat - Verschiedene Schnitte & Stile */
+@font-face { /* 300 normal */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/montserrat-v24-latin-300.eot');
+  src: local(''),
+       url('../fonts/montserrat-v24-latin-300.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/montserrat-v24-latin-300.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-300.woff') format('woff'),
+       url('../fonts/montserrat-v24-latin-300.ttf') format('truetype'),
+       url('../fonts/montserrat-v24-latin-300.svg#Montserrat') format('svg');
 }
-*/
+
+@font-face { /* 400 normal */
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/montserrat-v24-latin-regular.eot');
+  src: local(''),
+       url('../fonts/montserrat-v24-latin-regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/montserrat-v24-latin-regular.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-regular.woff') format('woff'),
+       url('../fonts/montserrat-v24-latin-regular.ttf') format('truetype'),
+       url('../fonts/montserrat-v24-latin-regular.svg#Montserrat') format('svg');
+}
+
+@font-face { /* 300 italic */
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 300;
+  src: url('../fonts/montserrat-v24-latin-300italic.eot');
+  src: local(''),
+       url('../fonts/montserrat-v24-latin-300italic.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/montserrat-v24-latin-300italic.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-300italic.woff') format('woff'),
+       url('../fonts/montserrat-v24-latin-300italic.ttf') format('truetype'),
+       url('../fonts/montserrat-v24-latin-300italic.svg#Montserrat') format('svg');
+}
+
+@font-face { /* 400 italic */
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/montserrat-v24-latin-italic.eot');
+  src: local(''),
+       url('../fonts/montserrat-v24-latin-italic.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/montserrat-v24-latin-italic.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-italic.woff') format('woff'),
+       url('../fonts/montserrat-v24-latin-italic.ttf') format('truetype'),
+       url('../fonts/montserrat-v24-latin-italic.svg#Montserrat') format('svg');
+}
+
+/* =====================================================
+   3. LAYOUT-GRUNDELEMENTE
+===================================================== */
+
 header {
   background-color: var(--bg);
   padding: 8%;
   padding-bottom: 0;
 }
-footer {
-    background-color: var(--bg);
-    padding: 0 8% 2% 8%;
-}
+
 main {
   background-color: var(--bg);
   padding: 8%;
@@ -52,245 +124,84 @@ main {
   padding-bottom: 0; 
 }
 
-body {
-background-attachment: fixed;
-background-size: auto auto;
-background-color: var(--bg);
-	
-/* disable background lines
-background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 12px );
-*/
-margin:auto;
-color:var(--body);
-font-family: 'Montserrat', sans-serif;
-font-weight: 300;
-width:70%;
-max-width:590px;
-min-width: 200px;
-min-height:1000px;
-padding-bottom:2%;
-font-size:1em;
-text-align: left;
-hyphens: manual;
-}
-/* fonts */
-/* montserrat-300 - latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 300;
-  src: url('../fonts/montserrat-v24-latin-300.eot'); /* IE9 Compat Modes */
-  src: local(''),
-       url('../fonts/montserrat-v24-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../fonts/montserrat-v24-latin-300.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/montserrat-v24-latin-300.woff') format('woff'), /* Modern Browsers */
-       url('../fonts/montserrat-v24-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/montserrat-v24-latin-300.svg#Montserrat') format('svg'); /* Legacy iOS */
+footer {
+  background-color: var(--bg);
+  padding: 0 8% 2% 8%;
 }
 
-/* montserrat-regular - latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/montserrat-v24-latin-regular.eot'); /* IE9 Compat Modes */
-  src: local(''),
-       url('../fonts/montserrat-v24-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../fonts/montserrat-v24-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/montserrat-v24-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('../fonts/montserrat-v24-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/montserrat-v24-latin-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
+/* =====================================================
+   4. NAVIGATION & BUTTONS
+===================================================== */
+
+.top_nav {
+  margin:0%;
 }
 
-/* montserrat-300italic - latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 300;
-  src: url('../fonts/montserrat-v24-latin-300italic.eot'); /* IE9 Compat Modes */
-  src: local(''),
-       url('../fonts/montserrat-v24-latin-300italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../fonts/montserrat-v24-latin-300italic.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/montserrat-v24-latin-300italic.woff') format('woff'), /* Modern Browsers */
-       url('../fonts/montserrat-v24-latin-300italic.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/montserrat-v24-latin-300italic.svg#Montserrat') format('svg'); /* Legacy iOS */
+/* Toggle Buttons (Theme, Color) */
+#theme-toggle, #color-toggle {
+  cursor: pointer;
+  background-color:var(--bg);
+  border-radius: 0;
+  border: none;
+  float: right;
+}
+#color-toggle { margin-right: 0; }
+
+#theme-toggle:hover, #color-toggle:hover, .theme-toggle:hover {
+  background-color:var(--primary);
+  text-align: center;
+  float: right;
 }
 
-/* montserrat-italic - latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 400;
-  src: url('../fonts/montserrat-v24-latin-italic.eot'); /* IE9 Compat Modes */
-  src: local(''),
-       url('../fonts/montserrat-v24-latin-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../fonts/montserrat-v24-latin-italic.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/montserrat-v24-latin-italic.woff') format('woff'), /* Modern Browsers */
-       url('../fonts/montserrat-v24-latin-italic.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/montserrat-v24-latin-italic.svg#Montserrat') format('svg'); /* Legacy iOS */
+/* Sprachumschalter */
+.language-select { float: left; }
+
+/* Theme-abhängige Sichtbarkeit */
+[data-theme='dark'] .d-block-dark { display: block !important; }
+[data-theme='dark'] .d-block-light { display: none !important; }
+[data-theme='light'] .d-block-light { display: block !important; }
+[data-theme='light'] .d-block-dark { display: none !important; }
+
+/* =====================================================
+   5. SVGs & ICONS
+===================================================== */
+
+svg { width: 100%; height: 100%; }
+#logo_bottom, #logo_top { fill: var(--primary); }
+.switcher_color, .switcher_theme {
+  fill: var(--primary);
+  stroke: var(--primary); 
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap:round;
+  width:1.5em;
+}
+.switcher_theme:hover { fill: var(--bg); stroke: var(--bg); }
+.switcher_color:hover { fill: var(--primary); stroke: var(--bg); }
+
+.l_linkedin-in, .l_envelope, .l_heart {
+  width: 1.2em;
+  margin-left: .6em;
+  margin-right: .6em;
 }
 
-/*** Lines ***/
-hr {
-margin:0
-}
-
-hr.y {
-height:1.6em;
-border:none;
-background:var(--bg)
-}
-
-hr.z {
-height:1px;
-border:none;
-background:var(--body)
-}
-
-/*** button ***/
-
-[data-theme='dark'] .d-block-dark 
-{
-    display: block !important;
-
-}
-[data-theme='dark'] .d-block-light 
-{
-    display: none !important;
-
-}
-
-[data-theme='light'] .d-block-light
-{
-    display: block !important;
-}
-[data-theme='light'] .d-block-dark
-{
-    display: none !important;
-}
-
-.top_nav
-{
-margin:0%;
-}
-
-#theme-toggle, #color-toggle
-{
-cursor: pointer;
-background-color:var(--bg);
-border-radius: 0;
-border: none;
-float: right;
-}
-
-#color-toggle
-{
-margin-right: 0;
-}
-
-#theme-toggle:hover, #color-toggle:hover
-{
-background-color:var(--primary);
-text-align: center;
-float: right;
-}
-
-.theme-toggle:hover
-{
-background-color:var(--primary);
-text-align: center;
-float: right;
-}
-
-.language-select
-{
-float: left;
-}
-
-/*** SVG ***/
-
-svg {
-width: 100%;
-height: 100%;
-}
-
-#logo_bottom, #logo_top {
-fill: var(--primary);
- 
-}
-
-.switcher_color {
-fill: var(--primary);
-stroke: var(--primary); 
-stroke-width: 2;
-stroke-linejoin: round;
-stroke-linecap:round;
-width:1.5em;
-}
-
-.arrow {
-margin: 0;
-font-size:1em;
-}
-
-.arrow-nohover::before {
+/* Arrow Icons */
+.arrow, .arrow-nohover { margin: 0; font-size:1em; }
+.arrow::before, .arrow-nohover::before {
   content: '';
   border-top: 0.3em solid transparent;
   border-bottom: 0.3em solid transparent;
   border-left: 0.5em solid var(--primary);
   display: inline-block;
-    margin-left: 0.2em;
+  margin-left: 0.2em;
   margin-right: 0.1em;
 }
+.arrow-nohover:hover::before { border-left: 0.5em solid var(--primary); }
+.arrow:hover::before { border-left: 0.5em solid var(--bg); }
 
-.arrow-nohover:hover::before {
-border-left: 0.5em solid var(--primary);
-}
-
-.arrow::before {
-  content: '';
-  border-top: 0.3em solid transparent;
-  border-bottom: 0.3em solid transparent;
-  border-left: 0.5em solid var(--primary);
-  display: inline-block;
-    margin-left: 0.2em;
-  margin-right: 0.1em;
-}
-
-
-.arrow:hover::before {
-  border-left: 0.5em solid var(--bg);
-}
-
-.switcher_theme {
-fill: var(--primary);
-stroke: var(--primary); 
-stroke-width: 2;
-stroke-linejoin: round;
-stroke-linecap:round;
-width:1.5em;
-}
-
-.switcher_theme:hover  {
-fill: var(--bg);
-stroke: var(--bg); 
-}
-
-.switcher_color:hover  {
-fill: var(--primary);
-stroke: var(--bg); 
-}
-
-.l_linkedin-in, .l_envelope, .l_heart 
-{
-width: 1.2em;
-margin-left: .6em;
-margin-right: .6em;
-}
-	
-
-
-/***Image Styles***/
+/* =====================================================
+   6. BILDER & PROFILE
+===================================================== */
 
 .top {
   display: block;
@@ -298,266 +209,181 @@ margin-right: .6em;
   margin-right: auto;
   width: 100%;
 }
-
+.profile, .profile-large {
+  float: right;
+  position: absolute;
+  border-radius: 50%;
+  transition:0.2s ease-out;
+  opacity:1;
+  cursor: pointer;
+}
 .profile {
-float: right;
-position: block;
-position: absolute;
-right: 2%;
-width: 20%;
-border-radius: 50%;
-transition:0.2s ease-out;
-opacity:1;
-cursor: pointer;
+  right: 2%;
+  width: 20%;
 }
-
 .profile-large {
-float: right;
-position: absolute;
-right: 20%;
-width: 60%;
-border-radius: 50%;
-transition:0.2s ease-out;
-opacity:1;
-cursor: pointer;
+  right: 20%;
+  width: 60%;
 }
 
-/*** Translator new ***/
+/* =====================================================
+   7. SPRACH- & INHALTSUMSCHALTER
+===================================================== */
 
-div.language {
-  display: none;
-}
+div.language { display: none; }
+div.language.active { display: block; }
 
-div.language.active 
-{
-display: block;
-}
-
-
-/*** Accordion ***/
+/* =====================================================
+   8. ACCORDION (KATEGORIEN ETC.)
+===================================================== */
 
 .cat {
-cursor: pointer;
-font-weight:400;
-font-size:1.2em;
-margin: 0;
-padding: 0;
-letter-spacing: 0.3em;
+  cursor: pointer;
+  font-weight:400;
+  font-size:1.2em;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.3em;
 }
-
-#tog1, #tog2, #tog3, #tog4 {
-  display: none;
-}
-
+#tog1, #tog2, #tog3, #tog4 { display: none; }
 .cat_text {
-max-height: 0;
-overflow: hidden;
-transition: max-height .5s ease;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s ease;
 }
-
 input[type=radio]:checked ~ .cat_text{
-max-height: 1000px;
-transition: max-height .5s ease;
+  max-height: 1000px;
+  transition: max-height .5s ease;
 }
-
-
 label {
   cursor: pointer;
   display: block;
-  margin: 0
+  margin: 0;
 }
-
 label:hover {
   background-color: var(--primary);
-  color:var(--bg)
+  color:var(--bg);
 }
 
-/***Table***/
-profile_top {
-background-color: hsla(0,0%,0%,0)!important;
-}
+/* =====================================================
+   9. TABELLEN
+===================================================== */
 
+profile_top { background-color: hsla(0,0%,0%,0)!important; }
 table {
-vertical-align: top;
-border-collapse: collapse;
-width: 100%;
-hyphens: manual;
-text-align: left;
+  vertical-align: top;
+  border-collapse: collapse;
+  width: 100%;
+  hyphens: manual;
+  text-align: left;
 }
-
 td {
-vertical-align: top;
-hyphens: manual;
-text-align: left;
-padding: 0.2em 0 0.2em 0;
+  vertical-align: top;
+  hyphens: manual;
+  text-align: left;
+  padding: 0.2em 0 0.2em 0;
 }
-
 tr:nth-child(odd){
-background-color: hsla(360,0%,80%,0.2);
+  background-color: hsla(360,0%,80%,0.2);
 }
 
-/***Text Styles***/
+/* =====================================================
+   10. TYPOGRAFIE & TEXTSTILE
+===================================================== */
 
-.small {
-text-align:center;
-margin: 0;
-padding: 0;
-}
-
-.content {
-font-size:1.2em;
-margin: 4% 0 2% 0;
-padding: 0;
-}
-
-
+.small { text-align:center; margin: 0; padding: 0; }
+.content { font-size:1.2em; margin: 4% 0 2% 0; padding: 0; }
 h1 {
-font-weight:300;
-text-align:left;
-letter-spacing: 0.3em;
+  font-weight:300;
+  text-align:left;
+  letter-spacing: 0.3em;
 }
-
 h2 {
-font-weight:400;
-margin-top: 0;
-margin-bottom: 0;
-text-align:left;
-letter-spacing: 0.3em;
+  font-weight:400;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align:left;
+  letter-spacing: 0.3em;
 }
-
-h3, h4, h5, h6 {
-font-weight:400;
-text-align:left
-}
-
-
-em {
-font-weight:400;
-font-style: italic;
-}
-
-
-i {
-font-style: italic;
-}
-
-
-strong {
-font-weight:400;
-}
-
-li {
-list-style-type: square;
-}
-
+h3, h4, h5, h6 { font-weight:400; text-align:left }
+em { font-weight:400; font-style: italic; }
+i { font-style: italic; }
+strong { font-weight:400; }
+li { list-style-type: square; }
 ul {
-list-style-type: square;
-text-align:left;
+  list-style-type: square;
+  text-align:left;
 }
-
 ol {
-list-style-type: upper-roman;
-text-align:left;
+  list-style-type: upper-roman;
+  text-align:left;
 }
-
 blockquote {
-	font-style: italic;
-  	text-align:center;
-	padding:0 5% 0 5%;
-	hyphens: manual;
+  font-style: italic;
+  text-align:center;
+  padding:0 5% 0 5%;
+  hyphens: manual;
 }
+blockquote p { text-align:right; hyphens: manual; }
+blockquote p.says { text-align:center; hyphens: manual; }
+il { list-style-type: upper-roman; }
 
-blockquote p {
-	text-align:right;
-		hyphens: manual;
-}
+/* =====================================================
+   11. LINKS & BUTTONS
+===================================================== */
 
-blockquote p.says {
-	text-align:center;
-	hyphens: manual;
+a:link, a:visited {
+  text-decoration-style: dotted;
+  color: var(--body);
 }
+a:hover {
+  color: var(--bg);
+  background-color: var(--primary);
+}
+a.hoverless:hover { background-color: var(--bg); }
+.cat-link, .lb-link {
+  text-transform: uppercase;
+  margin:0;
+}
+.cat-link:hover, .lb-link:hover {
+  background-color: var(--primary);
+  color: var(--bg);
+}
+.lb-link {
+  margin-right:4%;
+  margin-top:0;
+  margin-bottom:4%;
+  list-style-position: inside;
+}
+.logo { padding-left:4%; padding-right:4%; text-align:center; }
 
-il {
-list-style-type: upper-roman;
-}
+/* =====================================================
+   12. FOOTER
+===================================================== */
 
 .lb_footer {
-font-size:150%;
-text-transform:uppercase;
-position:fixed;
-margin: 0 auto;
-left:4%;
-right:4%;
-top:73%;
-bottom:25%;
-max-width:27em;
-z-index: 2;
+  font-size:150%;
+  text-transform:uppercase;
+  position:fixed;
+  margin: 0 auto;
+  left:4%;
+  right:4%;
+  top:73%;
+  bottom:25%;
+  max-width:27em;
+  z-index: 2;
 }
-
-.lb_close {
-float:right;
-}
-
-.lb_language {
-float:left;
-}
-
+.lb_close { float:right; }
+.lb_language { float:left; }
 .white {
-background-color: var(--bg);
-text-transform:lowercase
+  background-color: var(--bg);
+  text-transform:lowercase
 }
-
-.white:hover {
-color: var(--bg);
-background-color:var(--primary);
-}
-
-.cat-link {
-text-transform: uppercase;
-margin:0;
-}
-
-.cat-link:hover {
-background-color: var(--primary);
-color: var(--bg);
-}
-
-.lb-link {
-text-transform: uppercase;
-margin-right:4%;
-margin-top:0;
-margin-bottom:4%;
-list-style-position: inside;
-}
-
-.lb-link:hover {
-background-color: var(--primary);
-color: var(--bg);
-}
-
-.logo {
-padding-left:4%;
-padding-right:4%;
-text-align:center
-}
-
-a:link,a:visited {
-text-decoration-style: dotted;
-color: var(--body)
-}
-
-a:hover {
-color: var(--bg);
-background-color: var(--primary);
-}
-
-a.hoverless:hover {
-background-color: var(--bg);
-}
+.white:hover { color: var(--bg); background-color:var(--primary); }
 
 /* Footer Logos */
 .footer_l .logo {
-  color: #000; /* normale Iconfarbe */
+  color: #000;
   text-decoration: none;
   border: none;
   background: transparent;
@@ -566,57 +392,64 @@ background-color: var(--bg);
   transition: color 0.3s ease;
   display: inline-block;
 }
-
-.footer_l .logo:hover {
-  color: blue; /* kräftiges Blau nur für Icons beim Hover */
-  background: transparent;
-}
-
+.footer_l .logo:hover { color: blue; background: transparent; }
 .footer_l .logo svg {
   fill: currentColor;
   transition: fill 0.3s ease;
   vertical-align: middle;
 }
-/* Lightbox */
-.black_overlay {
-display:none;
-position: fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background-color: var(--bg);
--moz-opacity:.8;
-opacity:.8;
-filter:alpha(opacity=80)
+
+/* Footer Icons Container */
+.footer_l { 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  margin: 2%;
+}
+/* Footer Links Container */
+.footer_t { 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  margin-top:4%;
 }
 
+/* =====================================================
+   13. LIGHTBOX, OVERLAY & TOOLTIP
+===================================================== */
+
+.black_overlay {
+  display:none;
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background-color: var(--bg);
+  -moz-opacity:.8;
+  opacity:.8;
+  filter:alpha(opacity=80)
+}
 .white_content {
-display:none;
-position: fixed;
-text-align: justify;
-hyphens: auto;
--webkit-hyphens: auto;
-margin: 0 auto;
-top:25%;
-left:2%;
-right:2%;
-max-width:40em;
-min-width:10em;
-min-height:10em;
-height:50%;
-padding:8px;
-border:0.3em solid var(--primary);
-background-color: var(--bg);
-z-index:1;
-overflow:auto
+  display:none;
+  position: fixed;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  margin: 0 auto;
+  top:25%; left:2%; right:2%;
+  max-width:40em;
+  min-width:10em;
+  min-height:10em;
+  height:50%;
+  padding:8px;
+  border:0.3em solid var(--primary);
+  background-color: var(--bg);
+  z-index:1;
+  overflow:auto
 }
 
 .tooltip {
   position: relative;
   display: inline-block;
 }
-
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 7.5em;
@@ -630,7 +463,6 @@ overflow:auto
   left: 50%;
   margin-left: -3.7em;
 }
-
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
@@ -641,49 +473,27 @@ overflow:auto
   border-style: solid;
   border-color: var(--primary) transparent transparent transparent;
 }
+.tooltip:hover .tooltiptext { visibility: visible; }
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
+/* =====================================================
+   14. LOGO RECHTS UNTEN (nur auf großen Bildschirmen)
+===================================================== */
 
-
-/* Footer Icons Container */
-.footer_l { 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  margin: 2%;
-}
-
-/* Footer Links Container */
-.footer_t { 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  margin-top:4%;
-}
-
-
-/* Logo rechts unten */
-.logo-ru {
-  display: none; /* Standard: nicht anzeigen */
-}
-
+.logo-ru { display: none; }
 @media (min-width: 768px) {
   .logo-ru {
     position: fixed;
     bottom: 2%;
     right: 2%;
     z-index: 1;
-    background: transparent;     /* Kein Hintergrund beim Hover */
+    background: transparent;
     padding: 0.5em;
     text-align: left;
     font-size: 0.8em;
     line-height: 1.1;
     letter-spacing: 0.1em;
-    display: block; /* nur ab 768px */
+    display: block;
   }
-
   .mini-title-link {
     text-decoration: none;
     color: var(--body);
@@ -692,49 +502,40 @@ overflow:auto
     transition: color 0.3s ease;
     background: transparent;
   }
-
   .mini-title-link:hover {
-    color: #002fa7;          /* Blau beim Hover */
-    background: transparent; /* Kein Hover-Hintergrund */
+    color: #002fa7;
+    background: transparent;
   }
-
-  .logo-ru:hover {
-    background: transparent; /* Sicher kein Hover-Hintergrund */
-  }
-
-  .mini-second-line {
-    display: block;
-  }
+  .logo-ru:hover { background: transparent; }
+  .mini-second-line { display: block; }
 }
 
-/* Preloader */
+/* =====================================================
+   15. PRELOADER
+===================================================== */
+
 #preloader {
-	position: fixed;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	background-color:#fff;/* change if the mask should be a color other than white */
-	z-index:99; /* makes sure it stays on top */
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background-color:#fff;
+  z-index:99;
 }
-
 #status {
-	width:200px;
-	height:200px;
-	position:absolute;
-	left:50%; /* centers the loading animation horizontally on the screen */
-	top:50%; /* centers the loading animation vertically on the screen */
-
-	/* background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvkXciXd_bcjuWYuJTgHML765AeIo5zqaGJEWHkYz0Yq5j0PBB'); 
-	
-	path to your loading animation 
-	
-	*/
-	
-	background-repeat:no-repeat;
-	background-position:center;
-	margin:-100px 0 0 -100px; /* is width and height divided by two */
+  width:200px; height:200px;
+  position:absolute;
+  left:50%; top:50%;
+  /* Hintergrundbild für Lade-Animation 
+  background-image:url('...');
+  */
+  background-repeat:no-repeat;
+  background-position:center;
+  margin:-100px 0 0 -100px;
 }
+
+/* =====================================================
+   16. TITELBEREICH
+===================================================== */
+
 .title-wrapper {
   display: flex;
   justify-content: center;
@@ -742,18 +543,15 @@ overflow:auto
   text-align: center;
   margin-bottom: 1em;
 }
-
 .title-link {
   text-decoration: none;
   color: blue;
   pointer-events: auto;
 }
-
 .title-link:hover {
   color: blue;
   background: none;
 }
-
 .title-text {
   display: inline-block;
   text-align: left;
@@ -762,7 +560,24 @@ overflow:auto
   letter-spacing: 0.3em;
   line-height: 1.2;
 }
+.title-text span { display: block; }
 
-.title-text span {
-  display: block;
+/* =====================================================
+   17. HORIZONTALE LINIEN
+===================================================== */
+
+hr { margin:0 }
+hr.y {
+  height:1.6em;
+  border:none;
+  background:var(--bg)
 }
+hr.z {
+  height:1px;
+  border:none;
+  background:var(--body)
+}
+
+/* =====================================================
+   ENDE – Alle Regeln wie im Original, nur sortiert und kommentiert!
+===================================================== */
