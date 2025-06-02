@@ -359,7 +359,7 @@ svg, .switcher_color, .switcher_theme {
   text-align: left;
   font-weight: 400;
   font-size: 1.6em;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
   line-height: 1.2;
 }
 .title-link { text-decoration: none; color: var(--primary); pointer-events: auto; }
