@@ -56,20 +56,26 @@ body {
   width: 70%;
   max-width: 60em; min-width: 10em;
   margin: auto;
-  padding-bottom: 2%; /* Etwas Platz lassen, damit die fixed links nicht über den Body-Padding hinausragen */
+  padding-bottom: 2%;
   font-size: 1em;
   text-align: left;
   hyphens: manual;
 }
 
-header, main, footer {
+header, main { /* Footer hat sein eigenes Padding unten */
   background-color: var(--bg);
   padding-left: 8%;
   padding-right: 8%;
 }
+footer { /* Haupt-Footer Styling */
+  background-color: var(--bg);
+  padding-left: 8%; /* Behält Seitenabstände bei */
+  padding-right: 8%;
+  padding-bottom: 2%; /* Sorgt für Abstand ganz am Ende der Seite */
+}
 header { padding-bottom: 0; padding-top: 1em; }
 main   { padding-top: 0; padding-bottom: 0; }
-/* footer { padding-bottom: 2%; } /* Haupt-Footer-Padding ist ggf. nicht mehr so relevant */
+
 
 /* ========== Header: Zeile mit Flexbox ========== */
 .header-row {
@@ -169,7 +175,7 @@ strong          { font-weight: 400; }
 ul              { list-style-type: square; text-align: left; }
 ol              { list-style-type: upper-roman; text-align: left; }
 li              { list-style-type: square; }
-.small          { text-align: center; margin: 0; padding: 0; }
+.small          { text-align: center; margin: 0; padding: 0; } /* Bleibt für p.small falls es woanders genutzt wird */
 .content        { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
 blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
 blockquote p        { text-align: right;  hyphens: manual; }
@@ -222,7 +228,7 @@ a:link, a:visited {
 }
 a:hover,
 .cat-link:hover,
-.lb-link:hover, /* Gilt auch für .fixed-footer-links .lb-link, falls nicht überschrieben */
+.lb-link:hover,
 label:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
@@ -231,24 +237,16 @@ label:hover {
 
 /* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
 .title-link,
-.logo, /* .logo Klasse wird nicht mehr im Footer für Mail/LinkedIn verwendet */
+.logo,
 .logo-ru,
-.mini-title-link
-/* , .footer_l .logo entfernt, da .footer_l entfernt wird */ {
+.mini-title-link {
   transition: color 0.3s, background 0.3s;
 }
 .title-link:hover,
-.logo:hover { /* Falls .logo noch woanders genutzt wird */
+.logo:hover {
   color: var(--accent) !important;
   background-color: transparent !important;
 }
-/*
-.footer_l .logo:hover,
-.footer_l .logo:focus {
-  color: var(--accent) !important;
-  background: transparent !important;
-}
-*/ /* Auskommentiert, da .footer_l und .logo darin entfernt wurden */
 
 @media (min-width: 768px) {
   .logo-ru:hover,
@@ -259,16 +257,16 @@ label:hover {
 }
 
 /* ========== Restliche Link-Gruppen ========== */
-.cat-link, .lb-link { /* .lb-link wird in .fixed-footer-links wiederverwendet */
+.cat-link { /* .lb-link wird unten spezifischer behandelt */
   text-transform: uppercase;
-  margin: 0; /* Wird für .fixed-footer-links .lb-link ggf. unten überschrieben */
+  margin: 0;
 }
-.lb-link { /* Allgemeine .lb-link Stile */
+.lb-link { /* Allgemeine .lb-link Stile, falls noch woanders verwendet */
+  text-transform: uppercase; /* Hinzugefügt für Konsistenz mit .cat-link */
   margin-right: 4%;
-  margin-bottom: 4%;
+  margin-bottom: 4%; /* Wird für Footer-Links unten überschrieben */
   list-style-position: inside;
 }
-/* .logo { padding-left: 4%; padding-right: 4%; text-align: center; } */ /* Ggf. nicht mehr relevant, wenn .logo nicht mehr genutzt */
 
 /* ========== SVG & Icons ========== */
 svg, .switcher_color, .switcher_theme {
@@ -280,7 +278,6 @@ svg, .switcher_color, .switcher_theme {
   stroke-linejoin: round;
   stroke-linecap: round;
 }
-/* .l_linkedin-in, .l_envelope, .l_heart { width: 1.2em; margin: 0 .6em; } */ /* Nicht mehr im Footer, ggf. woanders noch? */
 
 .arrow, .arrow-nohover {
   margin: 0;
@@ -307,7 +304,7 @@ svg, .switcher_color, .switcher_theme {
 }
 
 /* ========== Footer, Lightbox, Overlay ========== */
-.lb_footer { /* Dies ist für die Lightbox-Footer */
+.lb_footer {
   font-size: 150%;
   text-transform: uppercase;
   position: fixed;
@@ -316,24 +313,15 @@ svg, .switcher_color, .switcher_theme {
   max-width: 27em; z-index: 2;
 }
 .lb_close    { float: right; }
-.lb_language { float: left; } /* Dies ist für die Lightbox-Sprachumschaltung */
+.lb_language { float: left; }
 
-.white { /* Wird von den Footer-Links (Impressum/Datenschutz) in span-Tags verwendet */
+.white {
   background-color: var(--bg);
   text-transform: lowercase;
-  /* color: var(--body); /* Erbt Farbe von a, was var(--body) ist */
 }
-.white:hover { /* Wird von den spans in den Links nicht direkt erreicht, der Hover ist auf <a> */
-  color: var(--hover-text);
-  background-color: var(--hover-bg);
-}
+/* .white:hover wird unten spezifischer für die Footer-Links behandelt */
 
-/* Alte .footer_l und .footer_t Regeln entfernen/auskommentieren */
-/*
-.footer_l { display: flex; flex-flow: row nowrap; justify-content: center; margin: 2%; }
-.footer_t { display: flex; flex-flow: row nowrap; justify-content: center; margin-top: 4%; }
-.footer_l .logo svg { fill: currentColor; transition: fill 0.3s; vertical-align: middle; }
-*/
+/* CSS für .footer_l und .footer_t entfernt, da diese Divs im Hauptfooter entfernt wurden */
 
 .black_overlay {
   display: none;
@@ -359,38 +347,40 @@ svg, .switcher_color, .switcher_theme {
   overflow: auto;
 }
 
-/* ========== NEU: Fixierte Footer-Links (Impressum/Datenschutz) ========== */
-.fixed-footer-links {
-  position: fixed;
-  bottom: 1em; /* Abstand von unten, anpassen nach Bedarf */
-  right: 1em;  /* Abstand von rechts, anpassen nach Bedarf */
-  z-index: 100;  /* Stellt sicher, dass es über anderem Inhalt liegt */
-  text-align: right; /* Richtet die Links innerhalb des Containers rechts aus */
+/* ========== Footer-Links (Impressum/Datenschutz) im normalen Fluss ========== */
+.footer-bottom-links {
+  text-align: right;  /* Richtet die inline-block Link-Container rechts aus */
+  padding: 1em 0;     /* Abstand oben zur hr.z und unten zum Footer-Ende */
 }
 
-.fixed-footer-links .lb-link,
-.fixed-footer-links .datenschutz-b { /* .datenschutz-b ist die Klasse für den Datenschutz-Link-Container */
-  display: block; /* Damit die Links untereinander stehen */
-  margin: 0 0 0.3em 0; /* Oben 0, Rechts 0, Unten kleiner Abstand, Links 0 */
-  /* Alte .lb-link margins werden hier effektiv überschrieben/ignoriert durch display:block und text-align:right im Parent */
+.footer-bottom-links > div { /* Zielt auf .lb-link und .datenschutz-b direkt in .footer-bottom-links */
+  display: inline-block;      /* Damit sie nebeneinander stehen können */
+  vertical-align: middle;
+  margin-left: 1.5em;         /* Abstand zwischen den Links */
+  text-transform: uppercase;  /* Wie .lb-link ursprünglich war */
 }
 
-.fixed-footer-links a {
-  text-decoration: none; /* Keine Unterstreichung für diese speziellen Links */
+.footer-bottom-links > div:first-child {
+  margin-left: 0; /* Kein linker Rand für das erste Element in der Reihe */
 }
 
-.fixed-footer-links a span.white {
-  font-size: 0.8em; /* Kleinere Schrift für diese Footer-Links */
-  padding: 0.3em 0.6em; /* Innenabstand für bessere Klickbarkeit und Optik */
-  border-radius: 3px; /* Optional: leicht abgerundete Ecken */
-  display: inline-block; /* Damit Padding und Hintergrund korrekt angewendet werden */
-  /* background-color und text-transform:lowercase kommen von .white */
-  /* color wird von a geerbt oder kann hier gesetzt werden */
+.footer-bottom-links a {
+  text-decoration: none; /* Entfernt die gepunktete Linie der Standard-Links */
 }
 
-.fixed-footer-links a:hover span.white { /* Spezifischer Hover für die Spans in den fixierten Links */
-    color: var(--hover-text);
-    background-color: var(--hover-bg);
+.footer-bottom-links a span.white {
+  font-size: 0.8em;        /* Kleinere Schrift */
+  padding: 0.3em 0.6em;    /* Innenabstand */
+  border-radius: 3px;      /* Optionale abgerundete Ecken */
+  display: inline-block;   /* Für korrekte Darstellung von Padding/Hintergrund */
+  background-color: var(--bg); /* Stellt sicher, dass der Hintergrund von .white greift */
+  color: var(--body);      /* Stellt die Textfarbe sicher */
+  transition: color .2s, background .2s; /* Für Hover-Effekt aus allgemeinem a:hover */
+}
+
+.footer-bottom-links a:hover span.white { /* Spezifischer Hover-Effekt */
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
 }
 
 
@@ -422,12 +412,12 @@ svg, .switcher_color, .switcher_theme {
 .tooltip:hover .tooltiptext { visibility: visible; }
 
 /* ========== Responsive: Logo & Titel unten rechts ab 768px ========== */
-.logo-ru { display: none; } /* Dies ist Ihr zweiter Footer-Logo-Bereich */
+.logo-ru { display: none; }
 @media (min-width: 830px) {
   .logo-ru {
     position: fixed;
     bottom: 2%; right: 2%;
-    z-index: 1; /* Liegt unter .fixed-footer-links (z-index: 100), falls Überschneidung */
+    z-index: 1;
     background: transparent;
     padding: 0.5em;
     text-align: left;
@@ -471,7 +461,7 @@ hr.z { height: 1px; border: none; background: var(--body); }
     min-width: 0;
     max-width: none;
   }
-  header, main, footer {
+  header, main, footer { /* Gilt auch für den Haupt-Footer */
     padding-left: 0;
     padding-right: 0;
   }
@@ -505,13 +495,19 @@ hr.z { height: 1px; border: none; background: var(--body); }
     display: none !important;
   }
 
-  /* Anpassung für fixierte Footer-Links auf kleinen Bildschirmen */
-  .fixed-footer-links {
-    bottom: 0.5em;
-    right: 0.5em;
+  /* Footer-Links auf kleinen Bildschirmen: untereinander und zentriert oder links? */
+  /* Aktuell würden sie durch text-align:right im .footer-bottom-links rechts bleiben. */
+  /* Wenn sie auf Mobilgeräten anders ausgerichtet sein sollen: */
+  .footer-bottom-links {
+    text-align: center; /* Oder left, oder width: 100% und die Items zentrieren */
   }
-  .fixed-footer-links a span.white {
-    font-size: 0.7em; /* Noch etwas kleiner auf Mobilgeräten */
-    padding: 0.2em 0.4em;
+  .footer-bottom-links > div {
+    display: block; /* Untereinander auf Mobilgeräten */
+    margin-left: auto;  /* Zentriert die Blöcke, wenn sie eine feste Breite haben */
+    margin-right: auto; /* Zentriert die Blöcke */
+    margin-bottom: 0.5em; /* Abstand zwischen den gestapelten Links */
+  }
+   .footer-bottom-links a span.white {
+    font-size: 0.75em; /* Ggf. Schriftgröße anpassen */
   }
 }
