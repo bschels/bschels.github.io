@@ -95,11 +95,9 @@ footer { padding-bottom: 2%; }
 .language         { display: none; }
 .language.active { display: block; }
 
-/* NEU: Schriftgröße für DE/EN Sprachumschalter anpassen */
 .language-select a.switch-language {
-  font-size: 0.85em; /* Verkleinert die Schrift von DE/EN */
-  text-decoration: none; /* Entfernt ggf. die gepunktete Unterstreichung */
-  /* padding: 0.1em 0.3em; */ /* Optional: kleinen Innenabstand hinzufügen, falls gewünscht */
+  text-transform: lowercase;
+  text-decoration: none;
 }
 
 /* ========== Accordion/Kategorien ========== */
@@ -214,6 +212,7 @@ input[type=text], input[type=button] {
   transition: 0.2s;
   opacity: 1;
   cursor: pointer;
+  display: none; /* HIER hinzugefügt: Profilbild ausblenden */
 }
 
 /* ========== Links und Hover-Styles ========== */
@@ -410,7 +409,7 @@ svg, .switcher_color, .switcher_theme {
   text-align: left;
   font-weight: 400;
   font-size: 1.6em;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   line-height: 1.2;
 }
 .title-link { text-decoration: none; color: var(--primary); pointer-events: auto; }
