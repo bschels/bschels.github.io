@@ -103,11 +103,19 @@ main   { padding-top: 0; padding-bottom: 0; }
 
 .language-select a.switch-language {
   text-transform: lowercase;
-  text-decoration: none;
+  text-decoration: none; /* Standard-Unterstreichung entfernen */
+  border-bottom: 1px dotted var(--body); /* Gepunktete Linie hinzufügen */
+  padding-bottom: 1px; /* Kleiner Abstand für die Linie */
+}
+.language-select a.switch-language:hover { /* Hover-Effekt für Sprachlinks anpassen */
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  border-bottom-color: var(--hover-text); /* Farbe der Linie im Hover anpassen */
 }
 
+
 /* ========== Accordion/Kategorien ========== */
-.cat {
+.cat { /* Kategorie-Titel in den Labels */
   cursor: pointer;
   font-weight: 400;
   font-size: 1.2em;
@@ -122,15 +130,27 @@ main   { padding-top: 0; padding-bottom: 0; }
 }
 input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
 
-label {
+label { /* Allgemeine Label Stile */
   cursor: pointer;
   display: block;
   margin: 0;
 }
 
-label.cat[for^="tog"] {
+label.cat[for^="tog"] { /* Spezifisch für Akkordeon-Label */
   position: relative;
+  /* text-decoration-style: dotted; /* Wird jetzt über a:link, a:visited globaler gemacht */
+  /* border-bottom: 1px dotted var(--body); /* Gepunktete Linie wie bei anderen Links, falls gewünscht direkt am Label */
+  /* padding-bottom: 0.1em; */
 }
+/* Wenn die Kategorie-Label selbst unterpunktelt sein sollen (wie a-Tags) */
+/* label.cat[for^="tog"] {
+  border-bottom: 1px dotted currentColor;
+  padding-bottom: 2px;
+}
+label.cat[for^="tog"]:hover {
+  border-bottom-color: var(--hover-text);
+} */
+
 
 label.cat[for^="tog"]::before {
   content: "+";
@@ -163,7 +183,7 @@ h1 {
   text-align: left;
   letter-spacing: 0.2em;
 }
-h2 {
+h2 { /* Gilt auch für .cat in h2 */
   font-weight: 400;
   margin: 0;
   text-align: left;
@@ -175,7 +195,6 @@ strong          { font-weight: 400; }
 ul              { list-style-type: square; text-align: left; }
 ol              { list-style-type: upper-roman; text-align: left; }
 li              { list-style-type: square; }
-/* .small wird nicht mehr im Footer verwendet, aber vielleicht woanders? Behalte es vorerst. */
 .small          { text-align: center; margin: 0; padding: 0; }
 .content        { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
 blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
@@ -224,27 +243,36 @@ input[type=text], input[type=button] {
 
 /* ========== Links und Hover-Styles ========== */
 a:link, a:visited {
-  text-decoration-style: dotted;
+  text-decoration-style: dotted; /* Standard für alle Links */
+  text-decoration-line: underline; /* Sicherstellen, dass Unterstreichung da ist */
+  text-decoration-color: var(--body); /* Farbe der gepunkteten Linie */
   color: var(--body);
 }
-a:hover,
-.cat-link:hover,
-/* .lb-link:hover, /* Wird unten spezifischer für Footer-Links behandelt */
-label:hover {
+a:hover { /* Haupt-Hover für Links */
   color: var(--hover-text);
   background-color: var(--hover-bg);
-  transition: color .2s, background .2s;
+  text-decoration-color: var(--hover-text); /* Linie färbt sich mit */
 }
+/* Spezifische Hover für .cat-link, .lb-link (alt) und label: */
+.cat-link:hover, /* Diese haben eigene Hover-Logik, wenn a darin ist */
+/* .lb-link:hover, auskommentiert da .lb-link im Footer anders behandelt wird */
+label:hover { /* Gilt für Akkordeon-Label */
+  color: var(--hover-text); /* Textfarbe */
+  background-color: var(--hover-bg); /* Hintergrund */
+  /* Keine eigene Border hier, Unterpunktelung kommt von a oder spezifischen Regeln */
+}
+
 
 /* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
 .title-link,
-.logo, /* Falls .logo woanders noch genutzt wird */
+.logo,
 .logo-ru,
 .mini-title-link {
   transition: color 0.3s, background 0.3s;
+  text-decoration: none; /* Titel-Links sollen keine Unterstreichung haben */
 }
 .title-link:hover,
-.logo:hover {
+.logo:hover { /* Falls .logo woanders noch genutzt wird */
   color: var(--accent) !important;
   background-color: transparent !important;
 }
@@ -258,14 +286,20 @@ label:hover {
 }
 
 /* ========== Restliche Link-Gruppen ========== */
-.cat-link {
+.cat-link { /* Container für Links in Akkordeon-Inhalten */
   text-transform: uppercase;
   margin: 0;
+  margin-bottom: 1.5em; /* MEHR ABSTAND UNTER DEN KATEGORIELINKS */
 }
-.lb-link { /* Allgemeine .lb-link Stile, falls noch woanders verwendet */
+.cat-link a { /* Die Links selbst innerhalb von .cat-link */
+   /* text-decoration: none; /* Entfernt die globale gepunktete Linie, falls gewünscht */
+   /* Wenn sie unterpunktelt sein sollen wie andere Links, diese Zeile entfernen oder anpassen */
+}
+
+.lb-link { /* Allgemeine .lb-link Stile, jetzt nur noch für Footer relevant */
   text-transform: uppercase;
-  /* margin-right und margin-bottom werden für Footer-Links unten spezifisch gesetzt oder nicht gebraucht */
   list-style-position: inside;
+  /* margin-right und margin-bottom werden im Footer spezifisch gesetzt */
 }
 
 /* ========== SVG & Icons ========== */
@@ -279,10 +313,13 @@ svg, .switcher_color, .switcher_theme {
   stroke-linecap: round;
 }
 
-.arrow, .arrow-nohover {
+.arrow, .arrow-nohover { /* Wird für Unterkategorie-Links und Kontaktinfos verwendet */
   margin: 0;
   font-size: 1em;
   font-weight: 400;
+}
+.arrow a, .arrow-nohover a { /* Falls Links in .arrow/-nohover sind, Unterpunktelung von globalem a */
+   /* Hier keine spezielle text-decoration, erbt von a:link */
 }
 
 .arrow::before {
@@ -304,7 +341,7 @@ svg, .switcher_color, .switcher_theme {
 }
 
 /* ========== Footer, Lightbox, Overlay ========== */
-.lb_footer {
+.lb_footer { /* Dies ist für die Lightbox-Footer */
   font-size: 150%;
   text-transform: uppercase;
   position: fixed;
@@ -313,9 +350,22 @@ svg, .switcher_color, .switcher_theme {
   max-width: 27em; z-index: 2;
 }
 .lb_close    { float: right; }
-.lb_language { float: left; }
+.lb_language { float: left; } /* Dies ist für die Lightbox-Sprachumschaltung */
+.lb_language a.switch-language { /* Sprachumschalter in Lightbox-Footern auch unterpunkteln */
+  text-transform: lowercase;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--body);
+  padding-bottom: 1px;
+  margin: 0 0.2em; /* Kleiner Abstand zwischen DE/EN in Lightbox */
+}
+.lb_language a.switch-language:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  border-bottom-color: var(--hover-text);
+}
 
-.white {
+
+.white { /* Wird von den Footer-Links (Impressum/Datenschutz) in span-Tags verwendet UND Lightbox close/lang */
   background-color: var(--bg);
   text-transform: lowercase;
 }
@@ -344,171 +394,45 @@ svg, .switcher_color, .switcher_theme {
   overflow: auto;
 }
 
-/* ========== NEU: Footer-Inhalt (Name + Links) ========== */
+/* ========== Footer-Inhalt (Name + Links) ========== */
 .footer-content-centered {
-  padding: 1em 0;     /* Vertikaler Abstand im Footer */
-  text-align: center; /* Zentriert den Namen und den Block der Links */
+  padding: 1em 0;
+  text-align: center;
 }
 
 .footer-name {
-  margin-bottom: 0.75em; /* Abstand zwischen Name und den Links darunter */
-  font-size: 0.9em;      /* Kleinere Schrift für den Namen */
-  /* color: var(--body); /* Erbt Textfarbe */
+  margin-bottom: 0.75em;
+  font-size: 0.9em;
 }
 
 .footer-legal-links-centered {
-  /* Dieser Container wird durch text-align:center auf .footer-content-centered zentriert.
-     Um die Links darin nebeneinander und als Gruppe zentriert zu haben: */
-  display: inline-block; /* Passt die Breite des Containers an seinen Inhalt an */
+  display: inline-block;
 }
 
 .footer-legal-links-centered > div { /* Zielt auf .lb-link und .datenschutz-b */
-  display: inline-block;      /* Links nebeneinander */
+  display: inline-block;
   vertical-align: middle;
-  margin: 0 0.75em;           /* Horizontaler Abstand um jeden Link-Block */
+  margin: 0 0.75em;
   text-transform: uppercase;
 }
 
-.footer-legal-links-centered a {
-  text-decoration: none;
+.footer-legal-links-centered a { /* Links für Impressum/Datenschutz unterpunkteln */
+  text-decoration: none; /* Standard-Unterstreichung entfernen für saubere gepunktete Linie */
+  border-bottom: 1px dotted var(--body);
+  padding-bottom: 1px; /* Kleiner Abstand zur Linie */
+  color: var(--body); /* Sicherstellen, dass die Textfarbe stimmt */
+}
+.footer-legal-links-centered a:hover {
+  border-bottom-color: var(--hover-text); /* Farbe der Linie im Hover */
+  color: var(--hover-text); /* Textfarbe Hover geerbt von global a:hover */
+  background-color: var(--hover-bg); /* Hintergrund Hover geerbt von global a:hover */
 }
 
-.footer-legal-links-centered a span.white {
-  font-size: 0.8em;
-  padding: 0.3em 0.6em;
-  border-radius: 3px;
-  display: inline-block;
-  background-color: var(--bg);
-  color: var(--body);
-  transition: color .2s, background .2s;
-}
-
-.footer-legal-links-centered a:hover span.white {
-  color: var(--hover-text);
-  background-color: var(--hover-bg);
-}
-
-
-/* ========== Tooltip ========== */
-.tooltip { position: relative; display: inline-block; }
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 7.5em;
-  background-color: var(--primary);
-  color: var(--bg);
-  text-align: center;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 3;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -3.7em;
-}
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -0.6em;
-  border-width: 0.6em;
-  border-style: solid;
-  border-color: var(--primary) transparent transparent transparent;
-}
-.tooltip:hover .tooltiptext { visibility: visible; }
-
-/* ========== Responsive: Logo & Titel unten rechts ab 768px ========== */
-.logo-ru { display: none; }
-@media (min-width: 830px) {
-  .logo-ru {
-    position: fixed;
-    bottom: 2%; right: 2%;
-    z-index: 1;
-    background: transparent;
-    padding: 0.5em;
-    text-align: left;
-    font-size: 0.8em;
-    line-height: 1.1;
-    letter-spacing: 0.1em;
-    display: block;
-  }
-  .mini-title-link {
-    text-decoration: none;
-    color: var(--body);
-    font-weight: 400;
-    display: inline-block;
-    transition: color 0.3s;
-    background: transparent;
-  }
-}
-
-/* ========== Titelbereich & horizontale Linien ========== */
-.title-wrapper {
-  display: inline-block;
-  text-align: left;
-  font-weight: 400;
-  font-size: 1.6em;
-  letter-spacing: 0.2em;
-  line-height: 1.2;
-}
-.title-link { text-decoration: none; color: var(--primary); pointer-events: auto; }
-.title-text span { display: block; }
-hr { margin: 0; }
-hr.y { height: 1.6em; border: none; background: var(--bg); }
-hr.z { height: 1px; border: none; background: var(--body); }
-
-/* ========== Responsive für Smartphones & Tablets ========== */
-@media (max-width: 630px) {
-  body {
-    width: 90%;
-    padding-left: 2%;
-    padding-right: 2%;
-    font-size: 1em;
-    min-width: 0;
-    max-width: none;
-  }
-  header, main, footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .header-row {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 0.6em;
-    gap: 0.2em;
-  }
-  .header-lang {
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 0.2em;
-  }
-  .title-wrapper {
-    width: 100%;
-    margin-bottom: 0;
-  }
-  .title-text {
-    font-size: 1.3em;
-    line-height: 1.15;
-    letter-spacing: 0.18em;
-  }
-  /* Accordion und Labels besser lesbar */
-  .cat, label {
-    font-size: 1.05em;
-    letter-spacing: 0.18em;
-  }
-
-  .logo-ru {
-    display: none !important;
-  }
-
-  /* Footer-Anpassungen für kleine Bildschirme */
-  .footer-name {
-    font-size: 0.8em; /* Ggf. Name noch etwas kleiner */
-  }
-  .footer-legal-links-centered > div {
-    display: block; /* Impressum/Datenschutz untereinander */
-    margin: 0.5em auto; /* Zentriert und mit vertikalem Abstand */
-  }
-   .footer-legal-links-centered a span.white {
-    font-size: 0.75em;
-  }
-}
+.footer-legal-links-centered a span.white { /* Spans in den Links */
+  font-size: 0.8em; /* Behält die kleinere Schrift bei */
+  /* padding: 0.3em 0.6em; /* Padding wird jetzt vom a-Tag oder hier direkt kontrolliert */
+  /* border-radius: 3px; /* Entfernt, da die Unterstreichung am Text sein soll */
+  display: inline; /* Damit es sich wie normaler Text verhält für die Unterstreichung */
+  background-color: transparent; /* Kein eigener Hintergrund mehr für das Span, Hover-Effekt auf <a> */
+  color: inherit; /* Farbe vom Elternelement <a> erben */
+  /*
