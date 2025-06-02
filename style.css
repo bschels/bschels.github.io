@@ -135,7 +135,7 @@ ul              { list-style-type: square; text-align: left; }
 ol              { list-style-type: upper-roman; text-align: left; }
 li              { list-style-type: square; }
 .small          { text-align: center; margin: 0; padding: 0; }
-.content        { font-size: 1.2em; margin: 4% 0 2% 0; padding: 0; }
+.content        { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
 blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
 blockquote p         { text-align: right;  hyphens: manual; }
 blockquote p.says    { text-align: center; hyphens: manual; }
