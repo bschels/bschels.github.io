@@ -92,8 +92,15 @@ footer { padding-bottom: 2%; }
 }
 
 /* ========== Sprachumschalter ========== */
-.language        { display: none; }
+.language         { display: none; }
 .language.active { display: block; }
+
+/* NEU: Schriftgröße für DE/EN Sprachumschalter anpassen */
+.language-select a.switch-language {
+  font-size: 0.85em; /* Verkleinert die Schrift von DE/EN */
+  text-decoration: none; /* Entfernt ggf. die gepunktete Unterstreichung */
+  /* padding: 0.1em 0.3em; */ /* Optional: kleinen Innenabstand hinzufügen, falls gewünscht */
+}
 
 /* ========== Accordion/Kategorien ========== */
 .cat {
@@ -110,10 +117,40 @@ footer { padding-bottom: 2%; }
   transition: max-height .5s;
 }
 input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
+
 label {
   cursor: pointer;
   display: block;
   margin: 0;
+}
+
+label.cat[for^="tog"] {
+  position: relative;
+}
+
+label.cat[for^="tog"]::before {
+  content: "+";
+  display: inline-block;
+  font-weight: bold;
+  color: currentColor;
+  margin-right: 0.3em;
+  vertical-align: middle;
+  letter-spacing: normal;
+}
+
+label.cat[for^="tog"] > div.language.active {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+label.cat[for^="tog"] > div.language.active > h2.cat,
+label.cat[for^="tog"] > div.language.active > p.cat {
+  display: inline;
+  margin: 0;
+}
+
+label.cat[for^="tog"].expanded::before {
+  content: "−";
 }
 
 /* ========== Typografie ========== */
@@ -137,8 +174,8 @@ li              { list-style-type: square; }
 .small          { text-align: center; margin: 0; padding: 0; }
 .content        { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
 blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
-blockquote p         { text-align: right;  hyphens: manual; }
-blockquote p.says    { text-align: center; hyphens: manual; }
+blockquote p        { text-align: right;  hyphens: manual; }
+blockquote p.says   { text-align: center; hyphens: manual; }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
 table {
@@ -242,17 +279,31 @@ svg, .switcher_color, .switcher_theme {
   stroke-linecap: round;
 }
 .l_linkedin-in, .l_envelope, .l_heart { width: 1.2em; margin: 0 .6em; }
-.arrow, .arrow-nohover { margin: 0; font-size: 1em; }
-.arrow::before, .arrow-nohover::before {
-  content: '';
-  border-top: 0.3em solid transparent;
-  border-bottom: 0.3em solid transparent;
-  border-left: 0.5em solid var(--primary);
-  display: inline-block;
-  margin: 0 .1em 0 .2em;
+
+.arrow, .arrow-nohover {
+  margin: 0;
+  font-size: 1em;
 }
-.arrow:hover::before    { border-left: 0.5em solid var(--hover-text);}
-.arrow-nohover:hover::before { border-left: 0.5em solid var(--primary); }
+
+.arrow::before {
+  content: '+';
+  display: inline-block;
+  margin-right: 0.3em;
+  font-weight: normal;
+  color: currentColor;
+  vertical-align: middle;
+  letter-spacing: normal;
+}
+
+.arrow-nohover::before {
+  content: '+';
+  display: inline-block;
+  margin-right: 0.3em;
+  font-weight: normal;
+  color: var(--body);
+  vertical-align: middle;
+  letter-spacing: normal;
+}
 
 /* ========== Footer, Lightbox, Overlay ========== */
 .lb_footer {
@@ -367,6 +418,7 @@ svg, .switcher_color, .switcher_theme {
 hr { margin: 0; }
 hr.y { height: 1.6em; border: none; background: var(--bg); }
 hr.z { height: 1px; border: none; background: var(--body); }
+
 /* ========== Responsive für Smartphones & Tablets ========== */
 @media (max-width: 630px) {
   body {
@@ -411,4 +463,3 @@ hr.z { height: 1px; border: none; background: var(--body); }
     display: none !important;
   }
 }
-
