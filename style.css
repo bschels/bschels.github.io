@@ -62,16 +62,16 @@ body {
   hyphens: manual;
 }
 
-header, main { /* Footer hat sein eigenes Padding unten */
+header, main {
   background-color: var(--bg);
   padding-left: 8%;
   padding-right: 8%;
 }
 footer { /* Haupt-Footer Styling */
   background-color: var(--bg);
-  padding-left: 8%; /* Behält Seitenabstände bei */
+  padding-left: 8%;
   padding-right: 8%;
-  padding-bottom: 2%; /* Sorgt für Abstand ganz am Ende der Seite */
+  padding-bottom: 2%;
 }
 header { padding-bottom: 0; padding-top: 1em; }
 main   { padding-top: 0; padding-bottom: 0; }
@@ -175,7 +175,8 @@ strong          { font-weight: 400; }
 ul              { list-style-type: square; text-align: left; }
 ol              { list-style-type: upper-roman; text-align: left; }
 li              { list-style-type: square; }
-.small          { text-align: center; margin: 0; padding: 0; } /* Bleibt für p.small falls es woanders genutzt wird */
+/* .small wird nicht mehr im Footer verwendet, aber vielleicht woanders? Behalte es vorerst. */
+.small          { text-align: center; margin: 0; padding: 0; }
 .content        { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
 blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
 blockquote p        { text-align: right;  hyphens: manual; }
@@ -228,7 +229,7 @@ a:link, a:visited {
 }
 a:hover,
 .cat-link:hover,
-.lb-link:hover,
+/* .lb-link:hover, /* Wird unten spezifischer für Footer-Links behandelt */
 label:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
@@ -237,7 +238,7 @@ label:hover {
 
 /* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
 .title-link,
-.logo,
+.logo, /* Falls .logo woanders noch genutzt wird */
 .logo-ru,
 .mini-title-link {
   transition: color 0.3s, background 0.3s;
@@ -257,14 +258,13 @@ label:hover {
 }
 
 /* ========== Restliche Link-Gruppen ========== */
-.cat-link { /* .lb-link wird unten spezifischer behandelt */
+.cat-link {
   text-transform: uppercase;
   margin: 0;
 }
 .lb-link { /* Allgemeine .lb-link Stile, falls noch woanders verwendet */
-  text-transform: uppercase; /* Hinzugefügt für Konsistenz mit .cat-link */
-  margin-right: 4%;
-  margin-bottom: 4%; /* Wird für Footer-Links unten überschrieben */
+  text-transform: uppercase;
+  /* margin-right und margin-bottom werden für Footer-Links unten spezifisch gesetzt oder nicht gebraucht */
   list-style-position: inside;
 }
 
@@ -319,9 +319,6 @@ svg, .switcher_color, .switcher_theme {
   background-color: var(--bg);
   text-transform: lowercase;
 }
-/* .white:hover wird unten spezifischer für die Footer-Links behandelt */
-
-/* CSS für .footer_l und .footer_t entfernt, da diese Divs im Hauptfooter entfernt wurden */
 
 .black_overlay {
   display: none;
@@ -347,38 +344,46 @@ svg, .switcher_color, .switcher_theme {
   overflow: auto;
 }
 
-/* ========== Footer-Links (Impressum/Datenschutz) im normalen Fluss ========== */
-.footer-bottom-links {
-  text-align: right;  /* Richtet die inline-block Link-Container rechts aus */
-  padding: 1em 0;     /* Abstand oben zur hr.z und unten zum Footer-Ende */
+/* ========== NEU: Footer-Inhalt (Name + Links) ========== */
+.footer-content-centered {
+  padding: 1em 0;     /* Vertikaler Abstand im Footer */
+  text-align: center; /* Zentriert den Namen und den Block der Links */
 }
 
-.footer-bottom-links > div { /* Zielt auf .lb-link und .datenschutz-b direkt in .footer-bottom-links */
-  display: inline-block;      /* Damit sie nebeneinander stehen können */
+.footer-name {
+  margin-bottom: 0.75em; /* Abstand zwischen Name und den Links darunter */
+  font-size: 0.9em;      /* Kleinere Schrift für den Namen */
+  /* color: var(--body); /* Erbt Textfarbe */
+}
+
+.footer-legal-links-centered {
+  /* Dieser Container wird durch text-align:center auf .footer-content-centered zentriert.
+     Um die Links darin nebeneinander und als Gruppe zentriert zu haben: */
+  display: inline-block; /* Passt die Breite des Containers an seinen Inhalt an */
+}
+
+.footer-legal-links-centered > div { /* Zielt auf .lb-link und .datenschutz-b */
+  display: inline-block;      /* Links nebeneinander */
   vertical-align: middle;
-  margin-left: 1.5em;         /* Abstand zwischen den Links */
-  text-transform: uppercase;  /* Wie .lb-link ursprünglich war */
+  margin: 0 0.75em;           /* Horizontaler Abstand um jeden Link-Block */
+  text-transform: uppercase;
 }
 
-.footer-bottom-links > div:first-child {
-  margin-left: 0; /* Kein linker Rand für das erste Element in der Reihe */
+.footer-legal-links-centered a {
+  text-decoration: none;
 }
 
-.footer-bottom-links a {
-  text-decoration: none; /* Entfernt die gepunktete Linie der Standard-Links */
+.footer-legal-links-centered a span.white {
+  font-size: 0.8em;
+  padding: 0.3em 0.6em;
+  border-radius: 3px;
+  display: inline-block;
+  background-color: var(--bg);
+  color: var(--body);
+  transition: color .2s, background .2s;
 }
 
-.footer-bottom-links a span.white {
-  font-size: 0.8em;        /* Kleinere Schrift */
-  padding: 0.3em 0.6em;    /* Innenabstand */
-  border-radius: 3px;      /* Optionale abgerundete Ecken */
-  display: inline-block;   /* Für korrekte Darstellung von Padding/Hintergrund */
-  background-color: var(--bg); /* Stellt sicher, dass der Hintergrund von .white greift */
-  color: var(--body);      /* Stellt die Textfarbe sicher */
-  transition: color .2s, background .2s; /* Für Hover-Effekt aus allgemeinem a:hover */
-}
-
-.footer-bottom-links a:hover span.white { /* Spezifischer Hover-Effekt */
+.footer-legal-links-centered a:hover span.white {
   color: var(--hover-text);
   background-color: var(--hover-bg);
 }
@@ -461,7 +466,7 @@ hr.z { height: 1px; border: none; background: var(--body); }
     min-width: 0;
     max-width: none;
   }
-  header, main, footer { /* Gilt auch für den Haupt-Footer */
+  header, main, footer {
     padding-left: 0;
     padding-right: 0;
   }
@@ -495,19 +500,15 @@ hr.z { height: 1px; border: none; background: var(--body); }
     display: none !important;
   }
 
-  /* Footer-Links auf kleinen Bildschirmen: untereinander und zentriert oder links? */
-  /* Aktuell würden sie durch text-align:right im .footer-bottom-links rechts bleiben. */
-  /* Wenn sie auf Mobilgeräten anders ausgerichtet sein sollen: */
-  .footer-bottom-links {
-    text-align: center; /* Oder left, oder width: 100% und die Items zentrieren */
+  /* Footer-Anpassungen für kleine Bildschirme */
+  .footer-name {
+    font-size: 0.8em; /* Ggf. Name noch etwas kleiner */
   }
-  .footer-bottom-links > div {
-    display: block; /* Untereinander auf Mobilgeräten */
-    margin-left: auto;  /* Zentriert die Blöcke, wenn sie eine feste Breite haben */
-    margin-right: auto; /* Zentriert die Blöcke */
-    margin-bottom: 0.5em; /* Abstand zwischen den gestapelten Links */
+  .footer-legal-links-centered > div {
+    display: block; /* Impressum/Datenschutz untereinander */
+    margin: 0.5em auto; /* Zentriert und mit vertikalem Abstand */
   }
-   .footer-bottom-links a span.white {
-    font-size: 0.75em; /* Ggf. Schriftgröße anpassen */
+   .footer-legal-links-centered a span.white {
+    font-size: 0.75em;
   }
 }
