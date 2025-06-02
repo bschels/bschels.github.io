@@ -103,15 +103,18 @@ main   { padding-top: 0; padding-bottom: 0; }
 
 .language-select a.switch-language {
   text-transform: lowercase;
-  text-decoration: none;
-  border-bottom: 1px dotted var(--body);
-  padding-bottom: 3px; /* Mehr Abstand für die Linie */
   color: var(--body);
+  font-size: 0.85em; /* Einheitliche kleinere Größe */
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 3px; /* Abstand der Linie zum Text */
+  padding: 0.1em 0.2em; /* Etwas Klickfläche */
 }
 .language-select a.switch-language:hover {
   color: var(--hover-text);
-  background-color: var(--hover-bg); /* Hintergrund schwarz */
-  border-bottom-color: var(--hover-text); /* Linie weiß */
+  background-color: var(--hover-bg);
+  text-decoration-color: var(--hover-text);
 }
 
 
@@ -235,6 +238,7 @@ a:link, a:visited {
   text-decoration-style: dotted;
   text-decoration-line: underline;
   text-decoration-color: var(--body);
+  text-underline-offset: 2px; /* Globaler Offset für gepunktete Linien */
   color: var(--body);
 }
 a:hover { /* Globaler Hover für Links */
@@ -248,7 +252,6 @@ label.cat[for^="tog"]:hover { /* Hover für Akkordeon-Label (nicht die Links dar
   background-color: var(--hover-bg);
 }
 
-
 /* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
 .title-link,
 .logo,
@@ -256,7 +259,7 @@ label.cat[for^="tog"]:hover { /* Hover für Akkordeon-Label (nicht die Links dar
 .mini-title-link {
   transition: color 0.3s, background 0.3s;
   text-decoration: none !important;
-  border-bottom: none !important;
+  border-bottom: none !important; /* Sicherstellen, dass keine Border als Unterstreichung wirkt */
 }
 .title-link:hover,
 .logo:hover {
@@ -275,23 +278,22 @@ label.cat[for^="tog"]:hover { /* Hover für Akkordeon-Label (nicht die Links dar
 /* ========== Restliche Link-Gruppen ========== */
 .cat-link { /* Container für Links in Akkordeon-Inhalten (Unterkategorielinks) */
   text-transform: uppercase;
-  margin: 0; /* Kein margin-bottom hier, wird über hr.z gesteuert */
-  transition: background-color .2s; /* Für den Hover-Effekt des Containers */
+  margin: 0; /* Kein margin-bottom, Abstand wird über hr.z gesteuert */
+  transition: background-color .2s;
 }
-.cat-link a { /* Die Links selbst innerhalb von .cat-link */
-  display: block; /* Damit der Link den Container ausfüllt für Hover */
-  padding: 0.2em 0; /* Etwas Innenabstand für den Link */
+.cat-link a {
+  display: block;
+  padding: 0.2em 0;
   /* Erbt die gepunktete Unterstreichung von globalem a:link */
-  /* Hover-Effekt wird spezifisch unten definiert */
 }
 
 .cat-link:hover { /* Wenn der .cat-link Container gehovert wird */
-  background-color: var(--hover-bg); /* Container bekommt schwarzen Hintergrund */
+  background-color: var(--hover-bg);
 }
 .cat-link:hover a { /* Der Link im gehoverten .cat-link Container */
-  color: var(--hover-text);           /* Link-Text wird weiß */
-  background-color: transparent;      /* Eigener Hintergrund des Links ist transparent */
-  text-decoration-color: var(--hover-text); /* Unterstreichungslinie wird weiß */
+  color: var(--hover-text);
+  background-color: transparent; /* Wichtig, damit der Hintergrund vom Link selbst nicht stört */
+  text-decoration-color: var(--hover-text); /* Unterstreichungslinie wird mitgefärbt */
 }
 
 
@@ -313,12 +315,14 @@ svg, .switcher_color, .switcher_theme {
 
 .arrow, .arrow-nohover {
   margin: 0;
-  font-size: 1em;
+  font-size: 1em; /* Basis für die Adresszeile im Kontakt */
   font-weight: 400;
 }
-.arrow a, .arrow-nohover a {
-   /* Erbt die gepunktete Unterstreichung von globalem a:link */
+/* Adresse im Kontaktbereich, die .arrow-nohover nutzt, soll auch die kleinere Schriftgröße bekommen */
+#content4 .arrow-nohover {
+    font-size: 0.85em; /* Einheitliche kleinere Größe */
 }
+
 
 .arrow::before {
   content: '+';
@@ -351,20 +355,23 @@ svg, .switcher_color, .switcher_theme {
 .lb_language { float: left; }
 .lb_language a.switch-language {
   text-transform: lowercase;
-  text-decoration: none;
-  border-bottom: 1px dotted var(--body);
-  padding-bottom: 3px;
-  margin: 0 0.2em;
   color: var(--body);
+  font-size: 0.85em; /* Einheitliche kleinere Größe */
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 3px;
+  padding: 0.1em 0.2em;
+  margin: 0 0.2em;
 }
 .lb_language a.switch-language:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
-  border-bottom-color: var(--hover-text);
+  text-decoration-color: var(--hover-text);
 }
 
 
-.white {
+.white { /* Wird von Spans in Footer-Links und Lightbox-Links verwendet */
   background-color: var(--bg);
   text-transform: lowercase;
 }
@@ -397,27 +404,27 @@ svg, .switcher_color, .switcher_theme {
 .footer-bottom-container {
   display: flex;
   justify-content: space-between;
-  align-items: baseline; /* Oder center, je nach gewünschter vertikaler Ausrichtung */
+  align-items: baseline;
   padding: 1em 0;
-  flex-wrap: wrap; /* Erlaubt Umbruch auf kleinen Bildschirmen */
+  flex-wrap: wrap;
 }
 
 .footer-info-left {
-  font-size: 0.8em; /* Kleinere Schrift für den Namen/Adresse */
+  font-size: 0.85em; /* Einheitliche kleinere Größe */
   color: var(--body);
-  margin-right: 1em; /* Etwas Abstand zu den rechten Links */
-  flex-shrink: 0; /* Verhindert, dass dieser Teil zu stark schrumpft */
+  margin-right: 1em; /* Abstand zu den rechten Links */
+  flex-shrink: 0;
 }
 
 .footer-legal-links {
-  text-align: right; /* Richtet die Gruppe der Links rechts aus */
+  text-align: right;
   flex-shrink: 0;
 }
 
 .footer-legal-links > div { /* Zielt auf .lb-link und .datenschutz-b */
   display: inline-block;
   vertical-align: middle;
-  margin-left: 1em; /* Abstand zwischen Impressum und Datenschutz */
+  margin-left: 1em;
   text-transform: uppercase;
 }
 
@@ -426,31 +433,30 @@ svg, .switcher_color, .switcher_theme {
 }
 
 .footer-legal-links a {
-  text-decoration: none;
-  border-bottom: 1px dotted var(--body);
-  padding-bottom: 3px; /* Mehr Abstand für die gepunktete Linie */
+  font-size: 0.85em; /* Einheitliche kleinere Größe für den Link-Text selbst */
   color: var(--body);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 3px; /* Abstand der Linie zum Text */
   display: inline-block;
-  padding-top: 0.2em; /* Etwas Innenabstand oben/unten für den Hover-Hintergrund */
-  padding-bottom: calc(0.2em + 3px); /* Padding unten + Platz für border */
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding: 0.3em 0.6em; /* Innenabstand für Hover-Effekt */
   border-radius: 3px;
-  transition: color .2s, background-color .2s, border-color .2s;
+  transition: color .2s, background-color .2s, text-decoration-color .2s;
 }
 
 .footer-legal-links a:hover {
   color: var(--hover-text);
-  background-color: var(--hover-bg); /* Schwarz hinterlegt */
-  border-bottom-color: var(--hover-text); /* Linienfarbe auch anpassen */
+  background-color: var(--hover-bg);
+  text-decoration-color: var(--hover-text);
 }
 
-.footer-legal-links a span.white { /* Der Text in den Links */
-  font-size: 1em; /* Relativ zur Schriftgröße des <a>-Tags (0.8em von oben) */
-  background-color: transparent !important; /* Wichtig, damit der Hintergrund des <a> durchscheint */
-  color: inherit !important; /* Erbt die Farbe vom <a> (normal und hover) */
+.footer-legal-links a span.white { /* Text-Span innerhalb der Footer-Links */
+  /* font-size erbt von a oder kann hier angepasst werden, wenn nötig. 1em = Schriftgröße des a-Tags */
+  background-color: transparent !important; /* Damit Hintergrund von <a> sichtbar ist */
+  color: inherit !important; /* Erbt Farbe (normal und hover) von <a> */
   padding: 0;
-  display: inline; /* Verhält sich wie normaler Text für die Unterstreichung des <a> */
+  display: inline; /* Stört nicht die text-decoration des <a> */
   /* text-transform: lowercase; kommt von .white Klasse */
 }
 
@@ -518,8 +524,8 @@ svg, .switcher_color, .switcher_theme {
   line-height: 1.2;
 }
 .title-link {
-   text-decoration: none !important; /* Sicherstellen keine Unterstreichung */
-   border-bottom: none !important;   /* Sicherstellen keine Border-Unterstreichung */
+   text-decoration: none !important;
+   border-bottom: none !important;
    color: var(--primary);
    pointer-events: auto;
 }
@@ -532,8 +538,9 @@ hr.z {
     background: var(--body);
     margin: 0;
 }
-.cat_text > hr.z { /* Spezifisch für hr.z direkt in .cat_text */
-    margin-top: 1.5em; /* Abstand ÜBER der Linie, unter den .cat-link Blöcken */
+/* Abstand über der Linie in den aufgeklappten Akkordeon-Bereichen */
+.cat_text > hr.z {
+    margin-top: 1.5em;
 }
 
 
@@ -583,24 +590,26 @@ hr.z {
 
   /* Footer-Anpassungen für kleine Bildschirme */
   .footer-bottom-container {
-    flex-direction: column; /* Stack items vertically */
-    align-items: center;   /* Center items when stacked */
+    flex-direction: column;
+    align-items: center;
   }
   .footer-info-left {
-    margin-bottom: 0.75em; /* Space below the info text when stacked */
-    margin-right: 0;       /* No right margin when stacked */
-    text-align: center;    /* Center text in this block */
-    width: 100%;
+    margin-bottom: 0.75em;
+    margin-right: 0;
+    text-align: center;
+    width: 100%; /* Nimmt volle Breite für Zentrierung ein */
+    font-size: 0.8em; /* Etwas kleiner auf Mobilgeräten, falls gewünscht */
   }
   .footer-legal-links {
-    text-align: center; /* Center the links block */
+    text-align: center;
     width: 100%;
   }
-  .footer-legal-links > div { /* Impressum/Datenschutz untereinander */
+  .footer-legal-links > div {
     display: block;
     margin: 0.5em auto; /* Zentriert und mit vertikalem Abstand */
   }
-   .footer-legal-links a span.white {
-    font-size: 0.75em;
+   .footer-legal-links a { /* Ggf. Schriftgröße der Links anpassen */
+    font-size: 0.8em; /* Etwas kleiner, passend zu .footer-info-left */
   }
+  /* Die spans darin erben die Schriftgröße vom a-Tag */
 }
