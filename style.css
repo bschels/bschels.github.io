@@ -163,7 +163,7 @@ h2 {
   text-align: left;
   letter-spacing: 0.2em;
 }
-h3, h4, h5, h6 { font-weight: 400; text-align: left; }
+h3, h4, h5, h6 { font-weight: 400; text-align: left; } /* h3 bekommt hier font-weight 400 */
 em, i           { font-style: italic; font-weight: 400; }
 strong          { font-weight: 400; }
 ul              { list-style-type: square; text-align: left; }
@@ -212,7 +212,7 @@ input[type=text], input[type=button] {
   transition: 0.2s;
   opacity: 1;
   cursor: pointer;
-  display: none; /* HIER hinzugefügt: Profilbild ausblenden */
+  display: none;
 }
 
 /* ========== Links und Hover-Styles ========== */
@@ -282,13 +282,14 @@ svg, .switcher_color, .switcher_theme {
 .arrow, .arrow-nohover {
   margin: 0;
   font-size: 1em;
+  font-weight: 400; /* NEU: Einheitliche Schriftstärke für .arrow und .arrow-nohover */
 }
 
 .arrow::before {
   content: '+';
   display: inline-block;
   margin-right: 0.3em;
-  font-weight: normal;
+  /* font-weight: normal; /* Wird jetzt von .arrow geerbt oder kann hier spezifisch sein falls nötig */
   color: currentColor;
   vertical-align: middle;
   letter-spacing: normal;
@@ -298,7 +299,7 @@ svg, .switcher_color, .switcher_theme {
   content: '+';
   display: inline-block;
   margin-right: 0.3em;
-  font-weight: normal;
+  /* font-weight: normal; /* Wird jetzt von .arrow-nohover geerbt */
   color: var(--body);
   vertical-align: middle;
   letter-spacing: normal;
