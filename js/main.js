@@ -18,45 +18,52 @@ $(function() {
     $(".white_content, #fade").hide();
   });
 
-  // Radio Button Closer: Accordion (Ihre bestehende Logik)
-  $("input:radio:checked").data("chk", true);
-  $("input:radio").click(function() {
-    // Ihre Logik, um das erneute Klicken zum Abwählen zu ermöglichen
-    $("input[name='" + $(this).attr("name") + "']:radio").not(this).removeData("chk");
-    $(this).data("chk", !$(this).data("chk"));
-    $(this).prop("checked", $(this).data("chk"));
-    // Der 'change'-Handler (unten hinzugefügt) wird die Label-Klassen aktualisieren
-  });
-
-  // ---- START: NEUER CODE für Akkordeon Plus/Minus Label Updater ----
+  // --- START: Akkordeon Plus/Minus Label Updater Funktion ---
+  // Diese Funktion aktualisiert die 'expanded'-Klasse auf den Labels
+  // basierend auf dem 'checked'-Status der zugehörigen Radio-Buttons.
   function updateAccordionLabels() {
-    // Gehe durch jeden Radio-Button, der zum Akkordeon gehört (name="rdo")
+    // console.log("updateAccordionLabels wird aufgerufen"); // Für Debugging-Zwecke
     $('input[type="radio"][name="rdo"]').each(function() {
-      var radioId = $(this).attr('id'); // z.B. "tog1"
-      // Finde das zugehörige Label (hat Klasse "cat" und das 'for'-Attribut passend zur Radio-ID)
+      var radioId = $(this).attr('id');
       var $label = $('label.cat[for="' + radioId + '"]');
 
-      if ($label.length) { // Sicherstellen, dass das Label existiert
+      if ($label.length) {
         if ($(this).is(':checked')) {
-          // Wenn der Radio-Button ausgewählt ist, füge die Klasse 'expanded' zum Label hinzu
+          // console.log("Label für " + radioId + " bekommt 'expanded'"); // Für Debugging
           $label.addClass('expanded');
         } else {
-          // Sonst entferne die Klasse 'expanded'
+          // console.log("Label für " + radioId + " verliert 'expanded'"); // Für Debugging
           $label.removeClass('expanded');
         }
       }
     });
   }
+  // --- ENDE: Akkordeon Plus/Minus Label Updater Funktion ---
 
-  // Rufe die Funktion einmal beim Laden der Seite auf, um den initialen Zustand zu setzen
+  // Radio Button Closer: Accordion (Ihre bestehende Logik, leicht angepasst)
+  $("input:radio:checked").data("chk", true); // Initial für bereits ausgewählte Radio-Buttons
+  $("input:radio").click(function() {         // Gilt für ALLE Radio-Buttons auf der Seite
+    var $clickedRadio = $(this); // jQuery-Objekt des geklickten Radio-Buttons
+    var radioName = $clickedRadio.attr("name"); // Name des Radio-Buttons (z.B. "rdo")
+
+    // Ihre ursprüngliche Logik, um das Abwählen per Klick zu ermöglichen
+    $("input[name='" + radioName + "']:radio").not($clickedRadio).removeData("chk");
+    $clickedRadio.data("chk", !$clickedRadio.data("chk"));
+    $clickedRadio.prop("checked", $clickedRadio.data("chk"));
+
+    // NEU: Wenn der geklickte Radio-Button zur Akkordeon-Gruppe "rdo" gehört,
+    // dann rufe updateAccordionLabels auf, um die Plus-/Minus-Zeichen zu aktualisieren.
+    if (radioName === "rdo") {
+      updateAccordionLabels();
+    }
+  });
+
+  // Rufe die Funktion einmal beim Laden der Seite auf, um den initialen Zustand korrekt zu setzen
   updateAccordionLabels();
 
-  // Füge einen Event-Listener hinzu, der die Funktion aufruft, wenn sich ein Akkordeon-Radio-Button ändert
-  // Das 'change'-Event ist hier gut, da es nach der Zustandsänderung des Radio-Buttons feuert.
-  $('input[type="radio"][name="rdo"]').on('change', function() {
-    updateAccordionLabels();
-  });
-  // ---- ENDE: NEUER CODE für Akkordeon Plus/Minus Label Updater ----
+  // Der separate 'change'-Listener für input[name="rdo"] ist jetzt nicht mehr unbedingt nötig,
+  // da der .click()-Handler oben den Aufruf für die "rdo"-Gruppe übernimmt.
+  // $('input[type="radio"][name="rdo"]').on('change', updateAccordionLabels); // Kann auskommentiert oder entfernt werden
 
   // AJAX Loader (Ihre bestehenden Funktionen)
   window.kb_source_2_datenschutz = function() {
@@ -103,14 +110,6 @@ $(function() {
 
 // dark_mode (Ihre bestehende Funktion)
 window.onload = function() {
-  // HINWEIS: $(function() { ... }) ist $(document).ready().
-  // window.onload feuert, NACHDEM alle Inhalte (inkl. Bilder) geladen sind.
-  // Es ist generell besser, DOM-manipulierenden Code, der nicht auf das Laden aller Bilder etc.
-  // warten muss, in $(document).ready() zu halten. Ihr Preloader ist in $(window).on('load'),
-  // was korrekt ist, da er auf das Laden aller Ressourcen wartet.
-  // Ihr Dark-Mode-Code kann hier bleiben, oder auch in $(function(){}) integriert werden,
-  // falls er keine Abhängigkeit zum vollständigen Laden aller Bilder hat.
-
   var toggle = document.getElementById("theme-toggle");
   var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme)
