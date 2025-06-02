@@ -101,7 +101,7 @@ footer { padding-bottom: 2%; }
   font-weight: 400;
   font-size: 1.2em;
   margin: 0;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
 }
 [id^="tog"] { display: none; }
 .cat_text {
@@ -120,13 +120,13 @@ label {
 h1 {
   font-weight: 300;
   text-align: left;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
 }
 h2 {
   font-weight: 400;
   margin: 0;
   text-align: left;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
 }
 h3, h4, h5, h6 { font-weight: 400; text-align: left; }
 em, i           { font-style: italic; font-weight: 400; }
