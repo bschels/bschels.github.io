@@ -662,4 +662,67 @@ hr.z {
     padding-left: 0;
   }
   label.cat[for^="tog"]::before {
-    margin-left: 0.1em
+    margin-left: 0.1em;
+    margin-right: 0.2em;
+  }
+
+  .logo-ru {
+    display: none !important;
+  }
+
+  /* Footer-Anpassungen für diesen Breakpoint */
+  .footer-bottom-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-info-left {
+    margin-bottom: 0.75em;
+    margin-right: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 0.85em;
+  }
+  .footer-info-left .footer-name-title,
+  .footer-info-left .footer-address-line {
+    display: block;
+    text-align: center;
+    white-space: normal;
+  }
+  .footer-info-left .footer-name-title::after {
+    content: "";
+  }
+  .footer-info-left .footer-name-title {
+     margin-bottom: 0.2em;
+  }
+
+  .footer-legal-links {
+    width: auto;
+    text-align: center;
+    margin-top: 0.5em;
+  }
+  .footer-legal-links > div {
+    display: inline-block;
+    margin: 0.2em 0.4em;
+    vertical-align: middle;
+  }
+   .footer-legal-links a {
+    font-size: 0.85em;
+    padding: 0.2em 0.4em;
+  }
+
+  /* Lightbox Footer auf Mobilgeräten anpassen */
+  .lb_footer {
+    /* Behält Desktop-zentrierte-Block-Optik bei, aber max-width und font-size ggf. anpassen */
+    max-width: 90%; /* Passt sich besser an schmale Bildschirme an */
+    font-size: 1.2em; /* Etwas kleiner als Desktop 1.5em für Mobil */
+    bottom: 1em; /* Etwas weniger Abstand als Desktop */
+    top: auto; /* Wichtig um top:85% zu überschreiben */
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto; /* Für die transform-Zentrierung */
+  }
+  .lb_language a.switch-language,
+  .lb_close a.white {
+    font-size: 0.7em; /* Relativ zur .lb_footer Größe von 1.2em mobil */
+  }
+}
