@@ -1,0 +1,696 @@
+/*******************************************************
+* Theme Name:    Architekturbüro Schels
+* Author:        Benjamin Schels
+* Version:       3.3
+* www.schels.info
+*******************************************************/
+
+/* ========== Zentrale Variablen ========== */
+:root {
+  color-scheme: light dark;
+  --primary: #000;
+  --bg: #fff;
+  --body: #000;
+  --accent: blue;
+  --hover-bg: #000;
+  --hover-text: #fff;
+  --font-main: 'Montserrat', 'Arial', sans-serif;
+}
+
+/* ========== Schriftarten-Einbindung ========== */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/montserrat-v24-latin-300.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-300.woff') format('woff');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/montserrat-v24-latin-regular.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 300;
+  src: url('../fonts/montserrat-v24-latin-300italic.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-300italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/montserrat-v24-latin-italic.woff2') format('woff2'),
+       url('../fonts/montserrat-v24-latin-italic.woff') format('woff');
+}
+
+/* ========== Grundlayout & Body ========== */
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 300;
+  width: 70%;
+  max-width: 60em; min-width: 10em;
+  margin: auto;
+  padding-bottom: 2%;
+  font-size: 1em;
+  text-align: left;
+  hyphens: manual;
+}
+
+header, main {
+  background-color: var(--bg);
+  padding-left: 8%;
+  padding-right: 8%;
+}
+footer { /* Haupt-Footer Styling */
+  background-color: var(--bg);
+  padding-left: 8%;
+  padding-right: 8%;
+  padding-bottom: 2%;
+}
+header { padding-bottom: 0; padding-top: 1em; }
+main   { padding-top: 0; padding-bottom: 0; }
+
+
+/* ========== Header: Zeile mit Flexbox ========== */
+.header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.2em;
+}
+.title-wrapper {
+  margin-bottom: 0;
+  flex-grow: 1; /* Titel kann wachsen */
+  flex-shrink: 1; /* Titel kann schrumpfen */
+  min-width: 0;   /* Erlaubt dem Titel zu schrumpfen, auch wenn Text umbrechen muss */
+}
+.header-lang {
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0; /* Verhindert, dass der Sprachumschalter schrumpft */
+}
+.language-select {
+  float: none;
+}
+
+/* ========== Sprachumschalter ========== */
+.language         { display: none; }
+.language.active { display: block; }
+
+.language-select a.switch-language {
+  text-transform: lowercase;
+  color: var(--body);
+  font-size: 1.2em; /* Angepasst auf Hauptkategorie-Größe */
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 4px; /* Mehr Abstand für die Linie */
+  padding: 0.1em 0.2em;
+}
+.language-select a.switch-language:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  text-decoration-color: var(--hover-text);
+}
+
+
+/* ========== Accordion/Kategorien ========== */
+.cat { /* Hauptkategorie-Titel Text (in h2) */
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1.2em;
+  margin: 0;
+  letter-spacing: 0.2em;
+}
+[id^="tog"] { display: none; }
+.cat_text {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s;
+}
+input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
+
+label {
+  cursor: pointer;
+  display: block;
+  margin: 0;
+}
+
+label.cat[for^="tog"] { /* Das klickbare Label der Hauptkategorie */
+  position: relative;
+  padding-left: 0.4em; /* Einrückung für Plus/Minus und Hover-Effekt */
+}
+
+label.cat[for^="tog"]::before {
+  content: "+";
+  display: inline-block;
+  font-weight: bold;
+  color: currentColor;
+  margin-right: 0.2em; /* Reduzierter Abstand nach dem Plus */
+  vertical-align: middle;
+  letter-spacing: normal;
+}
+
+label.cat[for^="tog"] > div.language.active {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+label.cat[for^="tog"] > div.language.active > h2.cat,
+label.cat[for^="tog"] > div.language.active > p.cat { /* p.cat ist jetzt auch h2.cat */
+  display: inline;
+  margin: 0;
+}
+
+label.cat[for^="tog"].expanded::before {
+  content: "−";
+}
+
+/* ========== Typografie ========== */
+h1 {
+  font-weight: 300;
+  text-align: left;
+  letter-spacing: 0.2em;
+}
+h2 { /* Gilt für .cat in h2 (Hauptkategorien) */
+  font-weight: 400;
+  margin: 0;
+  text-align: left;
+  letter-spacing: 0.2em;
+  /* font-size wird von .cat (1.2em) gesetzt */
+}
+h3 { /* Gilt für .arrow in h3 (Unterkategorien) */
+  font-weight: 400;
+  text-align: left;
+  /* font-size wird von .arrow (1.2em) gesetzt */
+  margin:0; /* explizit für h3.arrow */
+}
+h4, h5, h6 { font-weight: 400; text-align: left; }
+em, i           { font-style: italic; font-weight: 400; }
+strong          { font-weight: 400; }
+ul              { list-style-type: square; text-align: left; }
+ol              { list-style-type: upper-roman; text-align: left; }
+li              { list-style-type: square; }
+.small          { text-align: center; margin: 0; padding: 0; }
+.content        { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
+blockquote      { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
+blockquote p        { text-align: right;  hyphens: manual; }
+blockquote p.says   { text-align: center; hyphens: manual; }
+
+/* ========== Tabellen für Übersichtlichkeit ========== */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  hyphens: manual;
+  text-align: left;
+}
+td {
+  vertical-align: top;
+  hyphens: manual;
+  text-align: left;
+  padding: 0.2em 0;
+}
+tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
+
+/* ========== Formulareingaben resetten ========== */
+input[type=text], input[type=button] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+/* ========== Bilder und Profilbild ========== */
+.top {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.profile {
+  float: right;
+  position: absolute;
+  right: 2%;
+  width: 20%;
+  border-radius: 50%;
+  transition: 0.2s;
+  opacity: 1;
+  cursor: pointer;
+  display: none;
+}
+
+/* ========== Links und Hover-Styles ========== */
+a:link, a:visited {
+  text-decoration-style: dotted;
+  text-decoration-line: underline;
+  text-decoration-color: var(--body);
+  text-underline-offset: 2px; /* Globaler Offset */
+  color: var(--body);
+}
+a:hover { /* Globaler Hover für die meisten Links */
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  text-decoration-color: var(--hover-text);
+}
+
+label.cat[for^="tog"]:hover { /* Hover für Akkordeon-Label */
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+}
+
+
+/* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
+.title-link,
+.logo,
+.logo-ru,
+.mini-title-link {
+  transition: color 0.3s, background 0.3s;
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+.title-link:hover,
+.logo:hover {
+  color: var(--accent) !important;
+  background-color: transparent !important;
+}
+
+@media (min-width: 768px) {
+  .logo-ru:hover,
+  .mini-title-link:hover {
+    color: var(--accent) !important;
+    background: transparent !important;
+  }
+}
+
+/* ========== Restliche Link-Gruppen ========== */
+.cat-link { /* Container für Unterkategorielinks */
+  text-transform: uppercase;
+  margin: 0;
+  transition: background-color .2s;
+}
+.cat-link a { /* Links in .cat-link */
+  display: block;
+  padding: 0.2em 0; /* Vertikales Padding für bessere Klickfläche */
+  /* Erbt die globale gepunktete Unterstreichung */
+}
+
+.cat-link:hover { /* Hover-Effekt für den Container der Unterkategorielinks */
+  background-color: var(--hover-bg);
+}
+.cat-link:hover a { /* Link-Text und Linie im gehoverten Container */
+  color: var(--hover-text);
+  background-color: transparent; /* Damit der Hintergrund vom .cat-link durchscheint */
+  text-decoration-color: var(--hover-text);
+}
+
+
+.lb-link { /* Wird für Footer-Links verwendet */
+  text-transform: uppercase;
+  list-style-position: inside;
+}
+
+/* ========== SVG & Icons ========== */
+svg, .switcher_color, .switcher_theme {
+  width: 100%;
+  height: 100%;
+  fill: var(--primary);
+  stroke: var(--primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.arrow, .arrow-nohover { /* Für Unterkategorielinks (h3.arrow) und Kontaktinfos (div.arrow-nohover) */
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.2em;   /* Einheitliche Größe, wie Hauptkategorie-Reiter */
+}
+/* Die Regel #content4 .arrow-nohover { font-size: ... } wurde entfernt. */
+
+
+.arrow::before {
+  content: '+';
+  display: inline-block;
+  margin-right: 0.3em;
+  color: currentColor;
+  vertical-align: middle;
+  letter-spacing: normal;
+  font-weight: normal; /* Pluszeichen selbst nicht fett, wenn der Text 400 ist */
+}
+
+.arrow-nohover::before {
+  content: '+';
+  display: inline-block;
+  margin-right: 0.3em;
+  color: var(--body);
+  vertical-align: middle;
+  letter-spacing: normal;
+  font-weight: normal; /* Pluszeichen selbst nicht fett */
+}
+
+/* ========== Footer, Lightbox, Overlay ========== */
+.lb_footer {
+  font-size: 1.2em; /* Angepasst an neue "Meta-Info" Größe */
+  text-transform: uppercase;
+  position: fixed;
+  bottom: 1em; /* Klarere Positionierung am unteren Rand */
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 0.5em 2%; /* Seitenabstand, kleiner als body-padding */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1002; /* Über white_content und black_overlay */
+  background-color: var(--bg); /* Hintergrund für Sichtbarkeit */
+  border-top: 1px solid var(--primary); /* Optionale Trennlinie */
+}
+.lb_close    { /* float: right; /* Flex regelt das jetzt */ }
+.lb_language { /* float: left; /* Flex regelt das jetzt */ }
+
+.lb_language a.switch-language {
+  text-transform: lowercase;
+  color: var(--body);
+  font-size: 1em; /* Relativ zur .lb_footer font-size (also 1.2em final) */
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 3px;
+  padding: 0.1em 0.3em; /* Etwas Padding */
+  margin: 0 0.3em; /* Abstand zwischen DE/EN */
+  background-color: transparent; /* Kein eigener Hintergrund */
+}
+.lb_language a.switch-language:hover {
+  color: var(--accent); /* Akzentfarbe Text */
+  background-color: transparent; /* Kein Hintergrundwechsel */
+  text-decoration-color: var(--accent); /* Linie in Akzentfarbe */
+}
+.lb_language a.switch-language span.white,
+.lb_close a.white { /* Stellt sicher, dass .white in Lightbox-Links korrekt aussieht */
+    background-color: transparent !important; /* Damit Link-Hover durchkommt */
+    color: inherit !important; /* Farbe vom Link erben */
+    padding:0;
+    display: inline;
+}
+.lb_close a.white:hover { /* Spezifischer Hover für den Schließen-Link in Lightboxen */
+    color: var(--hover-text);
+    background-color: var(--hover-bg); /* Standard-Hover, falls gewünscht */
+    text-decoration-color: var(--hover-text);
+}
+
+
+.white { /* Allgemeine .white Klasse */
+  background-color: var(--bg);
+  text-transform: lowercase;
+}
+
+.black_overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: var(--bg);
+  opacity: .8;
+  filter: alpha(opacity=80);
+  z-index: 1000; /* Unter Lightbox-Inhalt und -Footer */
+}
+.white_content {
+  display: none;
+  position: fixed;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  margin: 0 auto;
+  top: 10%; /* Etwas mehr Platz oben */
+  left: 5%; right: 5%; /* Etwas mehr Seitenabstand */
+  width: 90%;
+  max-width: 50em; min-width: 10em;
+  min-height: 10em; max-height: 80vh; /* Max-Höhe, damit Scrollen innerhalb der Box bleibt */
+  padding: 1em; /* Mehr Padding */
+  border: 0.2em solid var(--primary);
+  background-color: var(--bg);
+  z-index: 1001; /* Über Overlay, unter Lightbox-Footer */
+  overflow: auto;
+}
+
+/* ========== Footer-Inhalt (Name links, Links rechts) ========== */
+.footer-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1em 0;
+  flex-wrap: wrap;
+}
+
+.footer-info-left {
+  font-size: 1.2em; /* Angepasst an Hauptkategorie-Größe */
+  color: var(--body);
+  margin-right: 1em;
+  flex-shrink: 0;
+}
+.footer-info-left .footer-name-title,
+.footer-info-left .footer-address-line {
+  display: inline;
+}
+.footer-info-left .footer-name-title::after {
+  content: " - ";
+  white-space: pre;
+}
+
+
+.footer-legal-links {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.footer-legal-links > div {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1em;
+  text-transform: uppercase;
+}
+
+.footer-legal-links > div:first-child {
+  margin-left: 0;
+}
+
+.footer-legal-links a {
+  font-size: 1.2em; /* Angepasst an Hauptkategorie-Größe */
+  color: var(--body);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 4px; /* Mehr Abstand für die Linie */
+  display: inline-block;
+  padding: 0.2em 0.4em; /* Etwas Padding für Klickfläche und Hover */
+  border-radius: 3px;
+  transition: color .2s, background-color .2s, text-decoration-color .2s;
+}
+
+.footer-legal-links a:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  text-decoration-color: var(--hover-text);
+}
+
+.footer-legal-links a span.white {
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0;
+  display: inline;
+}
+
+
+/* ========== Tooltip ========== */
+.tooltip { position: relative; display: inline-block; }
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 7.5em;
+  background-color: var(--primary);
+  color: var(--bg);
+  text-align: center;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 3;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -3.7em;
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -0.6em;
+  border-width: 0.6em;
+  border-style: solid;
+  border-color: var(--primary) transparent transparent transparent;
+}
+.tooltip:hover .tooltiptext { visibility: visible; }
+
+/* ========== Responsive: Logo & Titel unten rechts ab 768px ========== */
+@media (min-width: 830px) { /* Bleibt für .logo-ru spezifisch */
+  .logo-ru {
+    position: fixed;
+    bottom: 2%; right: 2%;
+    z-index: 10; /* Unter Lightbox-Footer, falls Überschneidung */
+    background: transparent;
+    padding: 0.5em;
+    text-align: left;
+    font-size: 0.8em;
+    line-height: 1.1;
+    letter-spacing: 0.1em;
+    display: block;
+  }
+  .mini-title-link {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: var(--body);
+    font-weight: 400;
+    display: inline-block;
+    transition: color 0.3s;
+    background: transparent;
+  }
+}
+
+/* ========== Titelbereich & horizontale Linien ========== */
+.title-wrapper {
+  display: inline-block;
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.6em;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+}
+.title-link {
+   text-decoration: none !important;
+   border-bottom: none !important;
+   color: var(--primary);
+   pointer-events: auto;
+}
+.title-text span { display: block; }
+hr { margin: 0; }
+hr.y { height: 1.6em; border: none; background: var(--bg); }
+hr.z {
+    height: 1px;
+    border: none;
+    background: var(--body);
+    margin: 0;
+}
+.cat_text > hr.z { /* Abstand ÜBER der Linie in den aufgeklappten Akkordeon-Bereichen */
+    margin-top: 1.5em;
+}
+
+
+/* ========== Responsive für Smartphones & Tablets ========== */
+@media (max-width: 810px) {
+  body {
+    width: 90%;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-size: 1em;
+    min-width: 0;
+    max-width: none;
+  }
+  header, main, footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start; /* Titel links, Sprache darunter links */
+    /* justify-content: flex-start; */ /* Nicht mehr space-between */
+    gap: 0.5em; /* Abstand zwischen Titelblock und Sprachblock */
+  }
+  .header-lang { /* Sprache nimmt volle Breite und richtet Inhalt rechts aus */
+    width: 100%;
+    justify-content: flex-end;
+    /* margin-top: 0; /* Wird durch gap im parent geregelt */
+  }
+  .language-select a.switch-language,
+  .lb_language a.switch-language { /* Sprachlinks mobil, Schriftgröße bleibt 1.2em (Basis) */
+    font-size: 1.2em; /* Behält die neue Standardgröße bei */
+  }
+
+  .title-wrapper {
+    width: 100%; /* Titelblock nimmt volle Breite */
+    margin-bottom: 0;
+  }
+  .title-text { /* Text im Titelblock */
+    font-size: 1.3em; /* Wie vorher für Mobil */
+    line-height: 1.15;
+    letter-spacing: 0.18em;
+  }
+  .cat, label.cat[for^="tog"] { /* Hauptkategorie-Titel */
+    font-size: 1.05em; /* Wie vorher für Mobil */
+    letter-spacing: 0.18em;
+  }
+  label.cat[for^="tog"] {
+    padding-left: 0.3em; /* Etwas weniger Einrückung mobil */
+  }
+  label.cat[for^="tog"]::before {
+    margin-right: 0.2em;
+  }
+
+
+  .logo-ru {
+    display: none !important;
+  }
+
+  /* Footer-Anpassungen für diesen Breakpoint */
+  .footer-bottom-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-info-left {
+    margin-bottom: 0.5em;
+    margin-right: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 1.2em; /* Einheitliche Größe */
+  }
+  .footer-info-left .footer-name-title,
+  .footer-info-left .footer-address-line {
+    display: block;
+    text-align: center;
+  }
+  .footer-info-left .footer-name-title::after {
+    content: ""; /* Kein Trennzeichen mobil */
+  }
+  .footer-info-left .footer-name-title {
+     margin-bottom: 0.2em;
+  }
+
+  .footer-legal-links {
+    width: 100%; /* Volle Breite für den Container der Links */
+    display: flex; /* Flex für die Links darin */
+    flex-direction: column; /* Links untereinander */
+    align-items: center; /* Links zentrieren */
+    margin-top: 0.5em;
+  }
+  .footer-legal-links > div { /* .lb-link und .datenschutz-b */
+    display: block; /* Sicherstellen, dass sie Blöcke sind für margin auto */
+    margin: 0.3em auto; /* Zentriert und mit vertikalem Abstand */
+  }
+   .footer-legal-links a {
+    font-size: 1.2em; /* Einheitliche Größe */
+    padding: 0.2em 0.4em;
+  }
+
+  /* Lightbox Footer auf Mobilgeräten anpassen */
+  .lb_footer {
+    padding: 0.5em 5%; /* Mehr Seitenabstand */
+    font-size: 1em; /* Kleinere Schrift für Lightbox Footer mobil */
+    bottom: 0.5em; /* Näher am unteren Rand */
+  }
+  .lb_language a.switch-language {
+    font-size: 1em; /* Relativ zu .lb_footer Schriftgröße */
+  }
+
+}
