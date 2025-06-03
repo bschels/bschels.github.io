@@ -90,12 +90,12 @@ main   { padding-top: 0; padding-bottom: 0; }
   margin-bottom: 0;
   flex-grow: 1;
   flex-shrink: 1;
-  min-width: 0; /* Erlaubt dem Titel zu schrumpfen und umzubrechen */
+  min-width: 0;
 }
 .header-lang {
   display: flex;
   align-items: flex-end;
-  flex-shrink: 0; /* Verhindert Schrumpfen des Sprachumschalters */
+  flex-shrink: 0;
 }
 .language-select {
   float: none;
@@ -105,14 +105,14 @@ main   { padding-top: 0; padding-bottom: 0; }
 .language         { display: none; }
 .language.active { display: block; }
 
-.language-select a.switch-language { /* Gilt für Header DE/EN */
+.language-select a.switch-language {
   text-transform: lowercase;
   color: var(--body);
-  font-size: 0.85em; /* Kleinere, einheitliche Größe */
+  font-size: 0.85em;
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
-  text-underline-offset: 4px; /* Mehr Abstand Linie zu Text */
+  text-underline-offset: 4px;
   padding: 0.1em 0.2em;
 }
 .language-select a.switch-language:hover {
@@ -135,6 +135,9 @@ main   { padding-top: 0; padding-bottom: 0; }
   max-height: 0;
   overflow: hidden;
   transition: max-height .5s;
+  padding: 0;
+  margin: 0;
+  border: none;
 }
 input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
 
@@ -146,7 +149,6 @@ label {
 
 label.cat[for^="tog"] {
   position: relative;
-  /* padding-left: 0.4em; /* Entfernt für alternative Plus-Positionierung */
 }
 
 label.cat[for^="tog"]::before {
@@ -154,8 +156,8 @@ label.cat[for^="tog"]::before {
   display: inline-block;
   font-weight: bold;
   color: currentColor;
-  margin-left: 0.1em;  /* Minimaler Abstand links vom Plus */
-  margin-right: 0.1em; /* Minimaler Abstand rechts vom Plus */
+  margin-left: 0.1em;
+  margin-right: 0.1em;
   vertical-align: middle;
   letter-spacing: normal;
 }
@@ -166,7 +168,7 @@ label.cat[for^="tog"] > div.language.active {
 }
 
 label.cat[for^="tog"] > div.language.active > h2.cat,
-label.cat[for^="tog"] > div.language.active > p.cat {
+label.cat[for^="tog"] > div.language.active > p.cat { /* Sollte jetzt immer h2.cat sein */
   display: inline;
   margin: 0;
 }
@@ -187,7 +189,13 @@ h2 {
   text-align: left;
   letter-spacing: 0.2em;
 }
-h3, h4, h5, h6 { font-weight: 400; text-align: left; }
+h3 {
+  font-weight: 400;
+  text-align: left;
+  margin:0;
+  font-size: 1em; /* Wird von .arrow unten auf 1em gesetzt */
+}
+h4, h5, h6 { font-weight: 400; text-align: left; }
 
 
 em, i           { font-style: italic; font-weight: 400; }
@@ -287,13 +295,12 @@ label.cat[for^="tog"]:hover {
 /* ========== Restliche Link-Gruppen ========== */
 .cat-link {
   text-transform: uppercase;
-  margin: 0; /* margin-bottom entfernt, Abstand wird durch hr.z geregelt */
+  margin: 0;
   transition: background-color .2s;
 }
 .cat-link a {
   display: block;
   padding: 0.2em 0;
-  /* Erbt die globale gepunktete Unterstreichung */
 }
 
 .cat-link:hover {
@@ -306,7 +313,7 @@ label.cat[for^="tog"]:hover {
 }
 
 
-.lb-link { /* Wird für Footer-Links verwendet */
+.lb-link {
   text-transform: uppercase;
   list-style-position: inside;
 }
@@ -322,15 +329,12 @@ svg, .switcher_color, .switcher_theme {
   stroke-linecap: round;
 }
 
-.arrow, .arrow-nohover { /* Für Unterkategorielinks (h3.arrow) und Kontaktinfos (div.arrow-nohover) */
+.arrow, .arrow-nohover, h3.arrow {
   margin: 0;
   font-weight: 400;
-  font-size: 1em;   /* Einheitliche "normale" Größe für diese Elemente */
+  font-size: 1em;   /* Einheitliche Größe für diese Elemente */
 }
-h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
-    font-size: 1em;
-    margin: 0; /* Standard h3 margin entfernen */
-}
+
 
 .arrow::before {
   content: '+';
@@ -370,13 +374,17 @@ h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
   background-color: var(--bg);
   border-top: 1px solid var(--primary);
 }
-.lb_close {}
-.lb_language {}
+.lb_language {
+  order: 1;
+}
+.lb_close {
+  order: 2;
+}
 
 .lb_language a.switch-language {
   text-transform: lowercase;
   color: var(--body);
-  font-size: 1em; /* Relativ zur .lb_footer font-size (also 1.2em final) */
+  font-size: 0.85em;
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
@@ -396,6 +404,14 @@ h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
     color: inherit !important;
     padding:0;
     display: inline;
+}
+.lb_close a.white {
+  font-size: 0.85em;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 3px;
+  padding: 0.1em 0.3em;
 }
 .lb_close a.white:hover {
     color: var(--hover-text);
@@ -443,15 +459,15 @@ h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
   justify-content: space-between;
   align-items: baseline;
   padding: 1em 0;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; /* Entfernt, Umbruch wird rein durch Media Query gesteuert */
 }
 
 .footer-info-left {
-  font-size: 0.85em; /* Wieder kleiner für bessere Zeilenaufteilung */
+  font-size: 0.85em;
   color: var(--body);
   margin-right: 1em;
-  flex-shrink: 1; /* Erlaubt Schrumpfen */
-  min-width: 0; /* Hilft bei Flex und Umbruch */
+  flex-shrink: 1;
+  min-width: 0;
 }
 .footer-info-left .footer-name-title,
 .footer-info-left .footer-address-line {
@@ -465,7 +481,7 @@ h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
 
 .footer-legal-links {
   text-align: right;
-  flex-shrink: 1; /* Erlaubt Schrumpfen */
+  flex-shrink: 1;
   min-width: 0;
 }
 
@@ -481,12 +497,12 @@ h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
 }
 
 .footer-legal-links a {
-  font-size: 0.85em; /* Wieder kleiner für bessere Zeilenaufteilung */
+  font-size: 0.85em;
   color: var(--body);
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
-  text-underline-offset: 3px; /* Konsistenter Abstand */
+  text-underline-offset: 3px;
   display: inline-block;
   padding: 0.2em 0.4em;
   border-radius: 3px;
@@ -576,19 +592,18 @@ h3.arrow { /* Sicherstellen, dass h3 die gleiche Größe annimmt */
 }
 .title-text span { display: block; }
 hr { margin: 0; }
-hr.y { height: 1.6em; border: none; background: var(--bg); }
+hr.y { height: 1.6em; border: none; background: var(--bg); margin:0; }
 hr.z {
     height: 1px;
     border: none;
     background: var(--body);
     margin: 0;
 }
-/* Abstand ÜBER der Linie in den aufgeklappten Akkordeon-Bereichen */
-/* Gilt auch für hr.z in label.cat für tog1-4 */
-label.cat[for^="tog"] > hr.z,
+/* Abstand ÜBER der Linie am Ende von .cat_text und die Linie im Label selbst */
 .cat_text > hr.z {
     margin-top: 1.5em;
 }
+/* label.cat[for^="tog"] > hr.z hat margin:0 von der globalen hr.z Regel */
 
 
 /* ========== Responsive für Smartphones & Tablets ========== */
@@ -616,7 +631,7 @@ label.cat[for^="tog"] > hr.z,
   }
   .language-select a.switch-language,
   .lb_language a.switch-language {
-    font-size: 0.85em; /* Behält die kleinere Größe für Meta-Infos mobil */
+    font-size: 0.85em;
   }
 
   .title-wrapper {
@@ -633,9 +648,10 @@ label.cat[for^="tog"] > hr.z,
     letter-spacing: 0.18em;
   }
   label.cat[for^="tog"] {
-    padding-left: 0.3em;
+    padding-left: 0;
   }
   label.cat[for^="tog"]::before {
+    margin-left: 0.1em;
     margin-right: 0.2em;
   }
 
@@ -653,7 +669,7 @@ label.cat[for^="tog"] > hr.z,
     margin-right: 0;
     text-align: center;
     width: 100%;
-    font-size: 0.85em; /* Schriftgröße für Mobil */
+    font-size: 0.85em;
   }
   .footer-info-left .footer-name-title,
   .footer-info-left .footer-address-line {
@@ -661,26 +677,24 @@ label.cat[for^="tog"] > hr.z,
     text-align: center;
   }
   .footer-info-left .footer-name-title::after {
-    content: ""; /* Kein Trennzeichen mobil */
+    content: "";
   }
   .footer-info-left .footer-name-title {
      margin-bottom: 0.2em;
   }
 
   .footer-legal-links {
-    width: 100%;
-    display: flex;
-    flex-direction: column; /* Erzwingt Stapeln der Link-Container */
-    align-items: center; /* Zentriert die gestapelten Link-Container */
+    width: auto; /* Passt sich Inhalt an */
+    text-align: center; /* Zentriert die inline-block Kinder */
     margin-top: 0.5em;
   }
   .footer-legal-links > div { /* .lb-link und .datenschutz-b */
-    display: inline-block; /* Lässt sie ihre natürliche Breite nehmen, werden durch align-items zentriert */
-    margin: 0.3em 0;    /* Vertikaler Abstand, horizontaler ist auto durch Flex-Zentrierung */
-    /* text-align: center; /* Text innerhalb des Links selbst zentrieren, falls der Link breiter ist als der Text */
+    display: inline-block;  /* IMMER nebeneinander */
+    margin: 0.2em 0.4em;    /* Horizontaler Abstand, vertikal minimal */
+    vertical-align: middle;
   }
    .footer-legal-links a {
-    font-size: 0.85em; /* Schriftgröße für Mobil */
+    font-size: 0.85em;
     padding: 0.2em 0.4em;
   }
 
@@ -691,6 +705,6 @@ label.cat[for^="tog"] > hr.z,
     bottom: 0.5em;
   }
   .lb_language a.switch-language {
-    font-size: 1em; /* Relativ zu .lb_footer Schriftgröße */
+    font-size: 1em;
   }
 }
