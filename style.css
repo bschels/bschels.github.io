@@ -116,7 +116,7 @@ main   { padding-top: 0; padding-bottom: 0; }
   text-underline-offset: 4px;
   padding: 0.1em 0.2em;
 }
-.language-select a.switch-language:hover { /* Standard-Hover für diese Links */
+.language-select a.switch-language:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
@@ -259,7 +259,7 @@ a:link, a:visited {
   text-underline-offset: 2px;
   color: var(--body);
 }
-a:hover {
+a:hover { /* Globaler Link-Hover */
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
@@ -315,7 +315,7 @@ label.cat[for^="tog"]:hover {
 }
 
 
-.lb-link { /* Für Footer-Links (Impressum) */
+.lb-link { /* Wird für Footer-Links (Impressum) verwendet */
   text-transform: uppercase;
   list-style-position: inside;
 }
@@ -359,66 +359,89 @@ svg, .switcher_color, .switcher_theme {
 }
 
 /* ========== Footer, Lightbox, Overlay ========== */
-/* Lightbox Footer - EXAKT WIEDERHERGESTELLT wie von Ihnen ursprünglich bereitgestellt + minimale Anpassungen */
-.lb_footer {
-  font-size: 150%; /* Original User-Wert */
-  text-transform: uppercase;
+/* Lightbox .white_content wird zum Flex-Container */
+.white_content {
+  display: none; /* Wird von JS auf 'flex' gesetzt, wenn sichtbar */
+  flex-direction: column; /* Kinder (Inhalt und Footer) untereinander */
+  overflow: hidden; /* Scrollen wird vom .lightbox-content-scrollable übernommen */
   position: fixed;
-  margin: 0 auto; /* Zentriert den Block horizontal */
-  left: 4%;       /* Original User-Wert */
-  right: 4%;      /* Original User-Wert */
-  top: 85%;       /* Original User-Wert für vertikale Positionierung */
-  bottom: 30%;    /* Original User-Wert für vertikale Positionierung */
-  max-width: 27em; /* Original User-Wert */
-  z-index: 1002;   /* Sicherer z-index, Original war 2 */
-  /* background-color: var(--bg); /* Optional: Hintergrund, falls gewünscht */
-  /* padding: 0.4em 0.8em; /* Optional: Innenabstand */
-  /* box-sizing: border-box; /* Optional */
-  /* overflow: hidden; /* Optional: als Clearfix oder bei Content-Überlauf */
-}
-.lb_footer::after { /* Clearfix für die gefloateten Elemente darin, falls overflow:hidden nicht verwendet wird */
-  content: "";
-  clear: both;
-  display: table;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  margin: 0 auto;
+  top: 10%;
+  left: 5%; right: 5%;
+  width: 90%;
+  max-width: 50em; min-width: 10em;
+  min-height: 10em; max-height: 80vh; /* Wichtig, damit Lightbox nicht zu hoch wird */
+  padding: 0; /* Padding wird von inneren Elementen gesteuert */
+  border: 0.2em solid var(--primary);
+  background-color: var(--bg);
+  z-index: 1001;
 }
 
-.lb_close {
-  float: right; /* Original User-Wert */
+/* Scrollbarer Hauptinhalt der Lightbox */
+.white_content .lightbox { /* Dies ist Ihr div mit id="cv", "impressum" etc. */
+  flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
+  overflow-y: auto; /* Nur dieser Bereich scrollt */
+  padding: 1em; /* Innenabstand für den Inhalt */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Lightbox Footer - als normaler Block am Ende des .white_content Flex-Containers */
+.lb_footer {
+  /* position: fixed; /* ENTFERNT */
+  width: 100%; /* Nimmt volle Breite des .white_content ein */
+  flex-shrink: 0; /* Footer soll nicht schrumpfen */
+  padding: 0.5em 1em; /* Innenabstand, passend zu .lightbox Padding */
+  box-sizing: border-box;
+  background-color: var(--bg);
+  border-top: 1px solid var(--primary); /* Trennlinie zum Inhalt */
+  font-size: 1em; /* Angepasste Basisgröße für Lightbox-Footer-Elemente */
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* z-index nicht mehr relevant für nicht-fixed Element */
 }
 .lb_language {
-  float: left; /* Original User-Wert */
+  order: 1; /* Sprache links */
+}
+.lb_close {
+  order: 2; /* Schließen rechts */
 }
 
-/* Links im Lightbox-Footer: Original-Schriftgröße von .lb_language a.switch-language,
-   .lb_close a.white erbt von .lb_footer. Hover soll nicht "komisch" sein. */
+/* Links im Lightbox-Footer: Hover "schwarz mit weißem Text" */
 .lb_language a.switch-language,
 .lb_close a.white {
-  font-size: 0.85em; /* Aus Ihrem letzten CSS für .lb_language a.switch-language, relativ zu 150% von .lb_footer */
+  font-size: 1em; /* Relativ zur .lb_footer font-size */
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
-  text-underline-offset: 2px; /* Vom globalen a-Stil */
+  text-underline-offset: 2px;
   color: var(--body);
-  background-color: transparent; /* Sicherstellen, dass kein eigener Hintergrund von .white stört */
-  padding: 0.1em 0.2em; /* Minimales Padding */
+  padding: 0.1em 0.3em;
+  background-color: var(--bg); /* Expliziter Hintergrund für das a-Tag (normal) */
+  border-radius: 2px;
+  display: inline-block; /* Damit Padding und Hintergrund wirken */
 }
-.lb_language a.switch-language:hover, /* DE/EN Links in Lightbox */
-.lb_close a.white:hover { /* Schließen Link in Lightbox */
-  color: var(--accent); /* Nur Farbwechsel zur Akzentfarbe */
-  background-color: transparent !important; /* Kein Hintergrund bei Hover */
-  text-decoration-color: var(--accent); /* Unterstrichfarbe auch Akzent */
+.lb_language a.switch-language:hover,
+.lb_close a.white:hover {
+  color: var(--hover-text) !important; /* Wichtig, um .white zu überschreiben */
+  background-color: var(--hover-bg) !important; /* Wichtig, um .white zu überschreiben */
+  text-decoration-color: var(--hover-text);
 }
-.lb_language a.switch-language span.white { /* Span innerhalb der Sprachlinks */
-  background-color: transparent !important; /* Muss transparent sein */
-  color: inherit !important; /* Farbe von <a> erben */
+.lb_language a.switch-language span.white {
+  background-color: transparent !important; /* Span muss transparent sein */
+  color: inherit !important; /* Farbe vom Link erben */
   padding: 0;
   display: inline;
-  text-transform: lowercase; /* von .white */
+  text-transform: lowercase;
 }
-.lb_close a.white { /* Der <a> Tag des Schließen-Links */
-  text-transform: lowercase; /* von .white */
-  /* .white Klasse gibt ihm var(--bg) Hintergrund, der beim Hover von a:hover überschrieben wird */
+.lb_close a.white {
+  text-transform: lowercase;
 }
+
 
 .white { /* Allgemeine .white Klasse */
   background-color: var(--bg);
@@ -434,25 +457,6 @@ svg, .switcher_color, .switcher_theme {
   filter: alpha(opacity=80);
   z-index: 1000;
 }
-.white_content {
-  display: none;
-  position: fixed;
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  margin: 0 auto;
-  top: 10%;
-  left: 5%; right: 5%;
-  width: 90%;
-  max-width: 50em; min-width: 10em;
-  min-height: 10em; max-height: 80vh;
-  padding: 1em;
-  padding-bottom: 1em;
-  border: 0.2em solid var(--primary);
-  background-color: var(--bg);
-  z-index: 1001;
-  overflow: auto;
-}
 
 /* ========== Footer-Inhalt (Name links, Links rechts) ========== */
 .footer-bottom-container {
@@ -460,7 +464,6 @@ svg, .switcher_color, .switcher_theme {
   justify-content: space-between;
   align-items: baseline;
   padding: 1em 0;
-  /* flex-wrap: wrap; /* Wird durch Media Query gesteuert */
 }
 
 .footer-info-left {
@@ -473,7 +476,7 @@ svg, .switcher_color, .switcher_theme {
 .footer-info-left .footer-name-title,
 .footer-info-left .footer-address-line {
   display: inline;
-  white-space: normal; /* Erlaubt internen Umbruch */
+  white-space: normal;
 }
 .footer-info-left .footer-name-title::after {
   content: " - ";
@@ -587,7 +590,7 @@ svg, .switcher_color, .switcher_theme {
   line-height: 1.2;
 }
 .title-text {
-  font-size: 1em; /* Relativ zu .title-wrapper */
+  font-size: 1em;
   line-height: inherit;
   letter-spacing: inherit;
 }
@@ -607,10 +610,9 @@ hr.z {
     background: var(--body);
     margin: 0;
 }
-.cat_text > hr.z { /* Nur Linien am Ende des Akkordeon-Inhalts bekommen oberen Abstand */
+.cat_text > hr.z {
     margin-top: 1.5em;
 }
-/* label.cat[for^="tog"] > hr.z hat margin:0 von der globalen hr.z Regel */
 
 
 /* ========== Responsive für Smartphones & Tablets ========== */
@@ -644,11 +646,11 @@ hr.z {
   }
   .title-text { /* Spezifische Anpassungen für den Text im Titel */
     font-size: 1em; /* Bleibt 1em relativ zum .title-wrapper (also 1.3em effektiv) */
-    line-height: 1.15; /* Wie vom User bereitgestellt für Mobil */
-    letter-spacing: 0.18em; /* Wie vom User bereitgestellt für Mobil */
+    line-height: 1.15;
+    letter-spacing: 0.18em;
   }
   .language-select a.switch-language { /* Header DE/EN mobil */
-    font-size: 0.75em; /* Deutlich kleiner als Desktop 0.85em */
+    font-size: 0.75em; /* Kleiner als Desktop 0.85em */
   }
 
 
@@ -660,71 +662,4 @@ hr.z {
     padding-left: 0;
   }
   label.cat[for^="tog"]::before {
-    margin-left: 0.1em;
-    margin-right: 0.2em;
-  }
-
-  .logo-ru {
-    display: none !important;
-  }
-
-  /* Footer-Anpassungen für diesen Breakpoint */
-  .footer-bottom-container {
-    flex-direction: column;
-    align-items: center; /* Zentriert die gestapelten Blöcke (Name/Adresse und Links) */
-  }
-  .footer-info-left {
-    margin-bottom: 0.75em;
-    margin-right: 0;
-    text-align: center;
-    width: 100%;
-    font-size: 0.85em;
-  }
-  .footer-info-left .footer-name-title,
-  .footer-info-left .footer-address-line {
-    display: block; /* Name/Titel und Adresse untereinander */
-    text-align: center; /* Jede Zeile zentriert */
-    white-space: normal;
-  }
-  .footer-info-left .footer-name-title::after {
-    content: "";
-  }
-  .footer-info-left .footer-name-title {
-     margin-bottom: 0.2em;
-  }
-
-  .footer-legal-links {
-    width: auto;
-    text-align: center;
-    margin-top: 0.5em;
-  }
-  .footer-legal-links > div {
-    display: inline-block;  /* IMMER nebeneinander */
-    margin: 0.2em 0.4em;
-    vertical-align: middle;
-  }
-   .footer-legal-links a {
-    font-size: 0.85em;
-    padding: 0.2em 0.4em;
-  }
-
-  /* Lightbox Footer auf Mobilgeräten anpassen */
-  .lb_footer {
-    max-width: 90%; /* Passt sich besser an schmale Bildschirme an */
-    padding: 0.4em 0.8em;
-    font-size: 1.2em; /* Etwas kleiner als Desktop 1.5em für Mobil */
-    bottom: 1em; /* Etwas weniger Abstand als Desktop */
-    /* Originale top/bottom/left/right/max-width/margin bleiben für die Basispositionierung,
-       aber max-width: 90% kann helfen, dass es nicht über den Rand geht auf kleinen Screens.
-       Wenn die top/bottom %-Werte Probleme machen, ist eine klare 'bottom' besser.
-       Die `left: 50%; transform: translateX(-50%)` Regel für Zentrierung
-       wird hier nicht angewendet, da die originalen `left:4%; right:4%; margin:0 auto; max-width:27em`
-       bereits die Zentrierung eines Blocks mit maximaler Breite bewirken.
-       Wir behalten das Original bei.
-    */
-  }
-  .lb_language a.switch-language,
-  .lb_close a.white {
-    font-size: 0.7em; /* Relativ zur .lb_footer Größe von 1.2em mobil */
-  }
-}
+    margin-left: 0.1em
