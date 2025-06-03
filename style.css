@@ -86,16 +86,16 @@ main   { padding-top: 0; padding-bottom: 0; }
   width: 100%;
   margin-bottom: 0.2em;
 }
-.title-wrapper {
+.title-wrapper { /* Bleibt bei allen Größen gleich, es sei denn Media Query überschreibt es */
   margin-bottom: 0;
   flex-grow: 1;
   flex-shrink: 1;
-  min-width: 0;
+  min-width: 0; /* Erlaubt Schrumpfen unterhalb der Inhaltsbreite für Umbruch */
 }
-.header-lang {
+.header-lang { /* Bleibt bei allen Größen gleich, es sei denn Media Query überschreibt es */
   display: flex;
   align-items: flex-end;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Verhindert, dass Sprachumschalter schrumpft */
 }
 .language-select {
   float: none;
@@ -105,10 +105,10 @@ main   { padding-top: 0; padding-bottom: 0; }
 .language         { display: none; }
 .language.active { display: block; }
 
-.language-select a.switch-language {
+.language-select a.switch-language { /* Gilt für Header DE/EN */
   text-transform: lowercase;
   color: var(--body);
-  font-size: 0.85em;
+  font-size: 1.2em; /* Desktop-Größe, wird mobil angepasst */
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
@@ -154,10 +154,10 @@ label.cat[for^="tog"] {
 label.cat[for^="tog"]::before {
   content: "+";
   display: inline-block;
-  font-weight: bold;
+  font-weight: 400; /* Wie Text */
   color: currentColor;
-  margin-left: 0.1em;
-  margin-right: 0.1em;
+  margin-left: 0.1em; /* Kleiner Abstand links vom Plus */
+  margin-right: 0.1em; /* Kleiner Abstand rechts vom Plus */
   vertical-align: middle;
   letter-spacing: normal;
 }
@@ -168,7 +168,7 @@ label.cat[for^="tog"] > div.language.active {
 }
 
 label.cat[for^="tog"] > div.language.active > h2.cat,
-label.cat[for^="tog"] > div.language.active > p.cat { /* Sollte jetzt immer h2.cat sein */
+label.cat[for^="tog"] > div.language.active > p.cat {
   display: inline;
   margin: 0;
 }
@@ -188,12 +188,13 @@ h2 {
   margin: 0;
   text-align: left;
   letter-spacing: 0.2em;
+  font-size: 1.2em;
 }
 h3 {
   font-weight: 400;
   text-align: left;
   margin:0;
-  font-size: 1em; /* Wird von .arrow unten auf 1em gesetzt */
+  font-size: 1em; /* Standard für h3, wird von .arrow auf 1em gesetzt */
 }
 h4, h5, h6 { font-weight: 400; text-align: left; }
 
@@ -332,7 +333,7 @@ svg, .switcher_color, .switcher_theme {
 .arrow, .arrow-nohover, h3.arrow {
   margin: 0;
   font-weight: 400;
-  font-size: 1em;   /* Einheitliche Größe für diese Elemente */
+  font-size: 1em;   /* Einheitliche Größe für Unterkategorielinks und Kontaktinfos */
 }
 
 
@@ -357,70 +358,74 @@ svg, .switcher_color, .switcher_theme {
 }
 
 /* ========== Footer, Lightbox, Overlay ========== */
+/* Lightbox Footer - Wiederherstellung des ursprünglichen Stils */
 .lb_footer {
-  font-size: 1.2em;
+  font-size: 1.5em; /* Ursprüngliche Größe */
   text-transform: uppercase;
   position: fixed;
-  bottom: 1em;
-  left: 0;
-  right: 0;
-  width: 100%;
-  padding: 0.5em 2%;
+  /* Originale top/bottom Werte aus User CSS. Höhe ergibt sich aus Inhalt und Padding. */
+  top: 85%;
+  bottom: 30%; /* ACHTUNG: Diese Kombination ist unüblich und kann je nach Browser variieren. */
+               /* Sie definiert einen festen vertikalen Bereich. */
+  left: 4%;
+  right: 4%;
+  max-width: 27em;   /* Maximale Breite wie im Original */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.4em 0.8em; /* Innenabstand */
   box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   z-index: 1002;
   background-color: var(--bg);
-  border-top: 1px solid var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  overflow: hidden; /* Verhindert, dass Inhalt bei seltsamer top/bottom-Kalkulation überläuft */
 }
-.lb_language {
-  order: 1;
-}
-.lb_close {
-  order: 2;
+.lb_footer::after { /* Clearfix für die gefloateten Elemente darin */
+  content: "";
+  clear: both;
+  display: table;
 }
 
-.lb_language a.switch-language {
-  text-transform: lowercase;
-  color: var(--body);
-  font-size: 0.85em;
+.lb_language {
+  float: left;
+}
+.lb_close {
+  float: right;
+}
+
+/* Links im Lightbox-Footer - neutraler Hover */
+.lb_language a.switch-language,
+.lb_close a.white {
+  font-size: 0.7em; /* Relativ zu .lb_footer (1.5em * 0.7 = 1.05em final) */
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
   text-underline-offset: 3px;
-  padding: 0.1em 0.3em;
-  margin: 0 0.3em;
+  color: var(--body);
+  padding: 0.1em 0.2em; /* Kleiner Klickbereich */
   background-color: transparent;
+  border-radius: 2px;
 }
-.lb_language a.switch-language:hover {
-  color: var(--accent);
-  background-color: transparent;
-  text-decoration-color: var(--accent);
+.lb_language a.switch-language:hover,
+.lb_close a.white:hover { /* Einheitlicher, neutraler Hover */
+  color: var(--accent); /* Akzentfarbe Text beim Hover */
+  background-color: transparent; /* Kein Hintergrundwechsel */
+  text-decoration-color: var(--accent); /* Linienfarbe auch in Akzentfarbe */
 }
-.lb_language a.switch-language span.white,
-.lb_close a.white {
+/* span.white in Lightbox-Links (nur für DE/EN in .lb_language) */
+.lb_language a.switch-language span.white {
     background-color: transparent !important;
     color: inherit !important;
     padding:0;
     display: inline;
+    text-transform: lowercase; /* von .white */
 }
-.lb_close a.white {
-  font-size: 0.85em;
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: var(--body);
-  text-underline-offset: 3px;
-  padding: 0.1em 0.3em;
-}
-.lb_close a.white:hover {
-    color: var(--hover-text);
-    background-color: var(--hover-bg);
-    text-decoration-color: var(--hover-text);
+.lb_close a.white { /* Der "Schließen"-Link selbst */
+    text-transform: lowercase; /* von .white */
 }
 
 
-.white {
+.white { /* Allgemeine .white Klasse */
   background-color: var(--bg);
   text-transform: lowercase;
 }
@@ -447,6 +452,7 @@ svg, .switcher_color, .switcher_theme {
   max-width: 50em; min-width: 10em;
   min-height: 10em; max-height: 80vh;
   padding: 1em;
+  padding-bottom: 1em; /* Standard-Padding unten, Lightbox-Footer ist jetzt separat */
   border: 0.2em solid var(--primary);
   background-color: var(--bg);
   z-index: 1001;
@@ -459,7 +465,6 @@ svg, .switcher_color, .switcher_theme {
   justify-content: space-between;
   align-items: baseline;
   padding: 1em 0;
-  /* flex-wrap: wrap; /* Entfernt, Umbruch wird rein durch Media Query gesteuert */
 }
 
 .footer-info-left {
@@ -472,6 +477,7 @@ svg, .switcher_color, .switcher_theme {
 .footer-info-left .footer-name-title,
 .footer-info-left .footer-address-line {
   display: inline;
+  white-space: nowrap; /* Verhindert internen Umbruch */
 }
 .footer-info-left .footer-name-title::after {
   content: " - ";
@@ -508,18 +514,18 @@ svg, .switcher_color, .switcher_theme {
   border-radius: 3px;
   transition: color .2s, background-color .2s, text-decoration-color .2s;
 }
+.footer-legal-links a span.white { /* Der Textcontainer in den Links */
+  white-space: nowrap; /* Verhindert Umbruch von Impressum/Datenschutz */
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0;
+  display: inline;
+}
 
 .footer-legal-links a:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
-}
-
-.footer-legal-links a span.white {
-  background-color: transparent !important;
-  color: inherit !important;
-  padding: 0;
-  display: inline;
 }
 
 
@@ -599,11 +605,10 @@ hr.z {
     background: var(--body);
     margin: 0;
 }
-/* Abstand ÜBER der Linie am Ende von .cat_text und die Linie im Label selbst */
-.cat_text > hr.z {
+.cat_text > hr.z { /* Nur Linien am Ende des Akkordeon-Inhalts bekommen oberen Abstand */
     margin-top: 1.5em;
 }
-/* label.cat[for^="tog"] > hr.z hat margin:0 von der globalen hr.z Regel */
+/* label.cat[for^="tog"] > hr.z (Linie im Label) erbt margin:0 von der globalen hr.z Regel */
 
 
 /* ========== Responsive für Smartphones & Tablets ========== */
@@ -620,6 +625,7 @@ hr.z {
     padding-left: 0;
     padding-right: 0;
   }
+  /* Header wird bei 810px responsiv */
   .header-row {
     flex-direction: column;
     align-items: flex-start;
@@ -629,20 +635,21 @@ hr.z {
     width: 100%;
     justify-content: flex-end;
   }
-  .language-select a.switch-language,
-  .lb_language a.switch-language {
-    font-size: 0.85em;
-  }
-
   .title-wrapper {
     width: 100%;
     margin-bottom: 0;
+    /* font-size wird nicht direkt hier gesetzt, sondern im .title-text */
   }
-  .title-text {
-    font-size: 1.3em;
+  .title-text { /* Schriftgröße des Titels mobil */
+    font-size: 1.3em; /* Kleiner als Desktop 1.6em */
     line-height: 1.15;
     letter-spacing: 0.18em;
   }
+  .language-select a.switch-language { /* Header DE/EN mobil */
+    font-size: 1.05em; /* Proportional kleiner, wie Kategorien mobil */
+  }
+
+
   .cat, label.cat[for^="tog"] {
     font-size: 1.05em;
     letter-spacing: 0.18em;
@@ -675,23 +682,27 @@ hr.z {
   .footer-info-left .footer-address-line {
     display: block;
     text-align: center;
+    white-space: normal; /* Erlaubt Umbruch der einzelnen Zeilen auf Mobilgeräten */
   }
   .footer-info-left .footer-name-title::after {
-    content: "";
+    content: ""; /* Kein Trennzeichen mobil */
   }
   .footer-info-left .footer-name-title {
      margin-bottom: 0.2em;
   }
 
   .footer-legal-links {
-    width: auto; /* Passt sich Inhalt an */
-    text-align: center; /* Zentriert die inline-block Kinder */
+    width: auto; /* Passt sich Inhalt an für Zentrierung */
+    text-align: center; /* Zentriert die inline-block Kinder darin */
     margin-top: 0.5em;
   }
   .footer-legal-links > div { /* .lb-link und .datenschutz-b */
-    display: inline-block;  /* IMMER nebeneinander */
-    margin: 0.2em 0.4em;    /* Horizontaler Abstand, vertikal minimal */
+    display: inline-block;  /* IMMER nebeneinander, wenn Platz */
+    margin: 0.2em 0.4em;
     vertical-align: middle;
+  }
+  .footer-legal-links > div a span.white { /* Text in den Links */
+    white-space: nowrap; /* Sicherstellen, dass Impressum/Datenschutz nicht umbrechen */
   }
    .footer-legal-links a {
     font-size: 0.85em;
@@ -700,11 +711,18 @@ hr.z {
 
   /* Lightbox Footer auf Mobilgeräten anpassen */
   .lb_footer {
-    padding: 0.5em 5%;
-    font-size: 1em;
-    bottom: 0.5em;
+    max-width: 90%; /* Passt sich besser an schmale Bildschirme an */
+    padding: 0.4em 0.8em;
+    font-size: 1.2em; /* Etwas kleiner als Desktop 1.5em */
+    bottom: 1em; /* Etwas weniger Abstand als Desktop */
+    /* top, bottom % Werte entfernt */
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto; /* Überschreibt Desktop right:4% */
+    /* margin: 0 auto; /* Nicht nötig mit transform */
   }
-  .lb_language a.switch-language {
-    font-size: 1em;
+  .lb_language a.switch-language,
+  .lb_close a.white {
+    font-size: 0.75em; /* Relativ zur .lb_footer Größe von 1.2em */
   }
 }
