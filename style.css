@@ -99,7 +99,7 @@ main   { padding-top: 0; padding-bottom: 0; }
   flex-shrink: 0;
 }
 .language-select {
-  float: none;
+  float: none; /* alten float aufheben aus Ihrem Original-CSS */
 }
 
 /* ========== Sprachumschalter ========== */
@@ -109,14 +109,14 @@ main   { padding-top: 0; padding-bottom: 0; }
 .language-select a.switch-language { /* Gilt für Header DE/EN */
   text-transform: lowercase;
   color: var(--body);
-  font-size: 0.85em; /* Kleinere Schriftgröße für Header DE/EN */
+  font-size: 0.85em; /* Desktop-Größe, wird mobil angepasst */
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
   text-underline-offset: 4px;
   padding: 0.1em 0.2em;
 }
-.language-select a.switch-language:hover {
+.language-select a.switch-language:hover { /* Standard-Hover für diese Links */
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
@@ -155,7 +155,7 @@ label.cat[for^="tog"] {
 label.cat[for^="tog"]::before {
   content: "+";
   display: inline-block;
-  font-weight: 400; /* Wie Text */
+  font-weight: 400;
   color: currentColor;
   margin-left: 0.1em;
   margin-right: 0.1em;
@@ -169,7 +169,7 @@ label.cat[for^="tog"] > div.language.active {
 }
 
 label.cat[for^="tog"] > div.language.active > h2.cat,
-label.cat[for^="tog"] > div.language.active > p.cat { /* p.cat sollte jetzt h2.cat sein */
+label.cat[for^="tog"] > div.language.active > p.cat {
   display: inline;
   margin: 0;
 }
@@ -184,18 +184,18 @@ h1 {
   text-align: left;
   letter-spacing: 0.2em;
 }
-h2 { /* Gilt für h2.cat in den Labels */
+h2 {
   font-weight: 400;
   margin: 0;
   text-align: left;
   letter-spacing: 0.2em;
-  font-size: 1.2em; /* Wird von .cat Klasse gesetzt */
+  font-size: 1.2em;
 }
-h3 { /* Wird von .arrow Klasse für Größe und andere Stile beeinflusst */
+h3 {
   font-weight: 400;
   text-align: left;
   margin:0;
-  font-size: 1em; /* Basis, .arrow setzt es auf 1em */
+  font-size: 1em; /* Wird von .arrow auf 1em gesetzt */
 }
 h4, h5, h6 { font-weight: 400; text-align: left; }
 
@@ -315,7 +315,7 @@ label.cat[for^="tog"]:hover {
 }
 
 
-.lb-link { /* Wird für Footer-Links verwendet */
+.lb-link { /* Für Footer-Links (Impressum) */
   text-transform: uppercase;
   list-style-position: inside;
 }
@@ -334,7 +334,7 @@ svg, .switcher_color, .switcher_theme {
 .arrow, .arrow-nohover, h3.arrow {
   margin: 0;
   font-weight: 400;
-  font-size: 1em;   /* Einheitliche Größe für Unterkategorielinks und Kontaktinfos */
+  font-size: 1em;
 }
 
 
@@ -359,68 +359,69 @@ svg, .switcher_color, .switcher_theme {
 }
 
 /* ========== Footer, Lightbox, Overlay ========== */
-/* Lightbox Footer - Exakt wie vom Nutzer ursprünglich bereitgestellt */
+/* Lightbox Footer - EXAKT WIEDERHERGESTELLT wie von Ihnen ursprünglich bereitgestellt + minimale Anpassungen */
 .lb_footer {
-  font-size: 150%; /* = 1.5em des Elternelements */
+  font-size: 150%; /* Original User-Wert */
   text-transform: uppercase;
   position: fixed;
-  margin: 0 auto; /* Zentriert bei gesetztem left, right, max-width */
-  left: 4%;
-  right: 4%;
-  top: 85%;    /* Ursprüngliche Werte für vertikale Positionierung */
-  bottom: 30%; /* Ursprüngliche Werte für vertikale Positionierung */
-  max-width: 27em;
-  z-index: 1002; /* Sicherer z-index */
-  background-color: var(--bg); /* Hintergrund, damit es nicht transparent ist */
-  padding: 0.4em 0.8em; /* Innenabstand, damit Inhalt nicht am Rand klebt */
-  border: 1px solid var(--primary); /* Sichtbarer Rahmen */
-  border-radius: 3px; /* Leichte Abrundung */
-  box-sizing: border-box; /* Padding und Border in Breite/Höhe einrechnen */
-  overflow: hidden; /* Verhindert, dass Inhalt bei seltsamer top/bottom-Kalkulation überläuft */
+  margin: 0 auto; /* Zentriert den Block horizontal */
+  left: 4%;       /* Original User-Wert */
+  right: 4%;      /* Original User-Wert */
+  top: 85%;       /* Original User-Wert für vertikale Positionierung */
+  bottom: 30%;    /* Original User-Wert für vertikale Positionierung */
+  max-width: 27em; /* Original User-Wert */
+  z-index: 1002;   /* Sicherer z-index, Original war 2 */
+  /* background-color: var(--bg); /* Optional: Hintergrund, falls gewünscht */
+  /* padding: 0.4em 0.8em; /* Optional: Innenabstand */
+  /* box-sizing: border-box; /* Optional */
+  /* overflow: hidden; /* Optional: als Clearfix oder bei Content-Überlauf */
 }
-.lb_footer::after { /* Clearfix für die gefloateten Elemente darin */
+.lb_footer::after { /* Clearfix für die gefloateten Elemente darin, falls overflow:hidden nicht verwendet wird */
   content: "";
   clear: both;
   display: table;
 }
+
 .lb_close {
-  float: right;
+  float: right; /* Original User-Wert */
 }
 .lb_language {
-  float: left;
+  float: left; /* Original User-Wert */
 }
-/* Links im Lightbox-Footer - Hover-Effekt angepasst */
+
+/* Links im Lightbox-Footer: Original-Schriftgröße von .lb_language a.switch-language,
+   .lb_close a.white erbt von .lb_footer. Hover soll nicht "komisch" sein. */
 .lb_language a.switch-language,
 .lb_close a.white {
-  font-size: 0.7em; /* Relativ zur lb_footer font-size (1.5em * 0.7 = 1.05em final) */
+  font-size: 0.85em; /* Aus Ihrem letzten CSS für .lb_language a.switch-language, relativ zu 150% von .lb_footer */
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
-  text-underline-offset: 3px;
+  text-underline-offset: 2px; /* Vom globalen a-Stil */
   color: var(--body);
-  padding: 0.1em 0.2em;
-  background-color: transparent; /* Kein eigener Hintergrund für das a-Tag */
-  display: inline-block; /* Für Padding und korrekte Darstellung */
+  background-color: transparent; /* Sicherstellen, dass kein eigener Hintergrund von .white stört */
+  padding: 0.1em 0.2em; /* Minimales Padding */
 }
-.lb_language a.switch-language:hover,
-.lb_close a.white:hover { /* Einheitlicher, neutraler Hover */
-  color: var(--accent); /* Akzentfarbe Text beim Hover */
-  background-color: transparent; /* Sicherstellen, kein Hintergrund */
-  text-decoration-color: var(--accent); /* Linienfarbe auch in Akzentfarbe */
+.lb_language a.switch-language:hover, /* DE/EN Links in Lightbox */
+.lb_close a.white:hover { /* Schließen Link in Lightbox */
+  color: var(--accent); /* Nur Farbwechsel zur Akzentfarbe */
+  background-color: transparent !important; /* Kein Hintergrund bei Hover */
+  text-decoration-color: var(--accent); /* Unterstrichfarbe auch Akzent */
 }
-.lb_language a.switch-language span.white { /* span.white in DE/EN Links */
-  background-color: transparent !important;
-  color: inherit !important;
+.lb_language a.switch-language span.white { /* Span innerhalb der Sprachlinks */
+  background-color: transparent !important; /* Muss transparent sein */
+  color: inherit !important; /* Farbe von <a> erben */
   padding: 0;
   display: inline;
   text-transform: lowercase; /* von .white */
 }
-.lb_close a.white { /* Der "Schließen"-Link selbst (a-Tag) */
+.lb_close a.white { /* Der <a> Tag des Schließen-Links */
   text-transform: lowercase; /* von .white */
+  /* .white Klasse gibt ihm var(--bg) Hintergrund, der beim Hover von a:hover überschrieben wird */
 }
 
 .white { /* Allgemeine .white Klasse */
-  background-color: var(--bg); /* Standardhintergrund */
+  background-color: var(--bg);
   text-transform: lowercase;
 }
 
@@ -446,7 +447,7 @@ svg, .switcher_color, .switcher_theme {
   max-width: 50em; min-width: 10em;
   min-height: 10em; max-height: 80vh;
   padding: 1em;
-  padding-bottom: 1em; /* Genug Platz lassen, falls lb_footer überlappt */
+  padding-bottom: 1em;
   border: 0.2em solid var(--primary);
   background-color: var(--bg);
   z-index: 1001;
@@ -459,7 +460,7 @@ svg, .switcher_color, .switcher_theme {
   justify-content: space-between;
   align-items: baseline;
   padding: 1em 0;
-  /* flex-wrap: wrap; /* Entfernt, Umbruch nur durch Media Query */
+  /* flex-wrap: wrap; /* Wird durch Media Query gesteuert */
 }
 
 .footer-info-left {
@@ -471,8 +472,8 @@ svg, .switcher_color, .switcher_theme {
 }
 .footer-info-left .footer-name-title,
 .footer-info-left .footer-address-line {
-  display: inline; /* Bleiben nebeneinander auf Desktop */
-  white-space: normal; /* Erlaubt internen Umbruch, falls nötig */
+  display: inline;
+  white-space: normal; /* Erlaubt internen Umbruch */
 }
 .footer-info-left .footer-name-title::after {
   content: " - ";
@@ -509,8 +510,8 @@ svg, .switcher_color, .switcher_theme {
   border-radius: 3px;
   transition: color .2s, background-color .2s, text-decoration-color .2s;
 }
-.footer-legal-links a span.white { /* Text in Impressum/Datenschutz */
-  white-space: nowrap; /* Verhindert Umbruch der Wörter "Impressum", "Datenschutz" */
+.footer-legal-links a span.white {
+  white-space: nowrap;
   background-color: transparent !important;
   color: inherit !important;
   padding: 0;
@@ -577,18 +578,18 @@ svg, .switcher_color, .switcher_theme {
 }
 
 /* ========== Titelbereich & horizontale Linien ========== */
-.title-wrapper { /* Desktop-Größe für Titel-Basis */
-  font-size: 1.6em;
+.title-wrapper {
+  font-size: 1.6em; /* Desktop Basis-Schriftgröße */
   display: inline-block;
   text-align: left;
   font-weight: 400;
   letter-spacing: 0.2em;
   line-height: 1.2;
 }
-.title-text { /* Relative Schriftgröße zum .title-wrapper */
-  font-size: 1em; /* Also 1.6em auf Desktop */
-  line-height: 1.2; /* Geerbt oder hier spezifisch, falls .title-wrapper anders */
-  letter-spacing: inherit; /* Geerbt von .title-wrapper */
+.title-text {
+  font-size: 1em; /* Relativ zu .title-wrapper */
+  line-height: inherit;
+  letter-spacing: inherit;
 }
 .title-text span { display: block; }
 
@@ -609,7 +610,7 @@ hr.z {
 .cat_text > hr.z { /* Nur Linien am Ende des Akkordeon-Inhalts bekommen oberen Abstand */
     margin-top: 1.5em;
 }
-/* hr.z in label.cat[for^="tog"] hat margin:0 von der globalen hr.z Regel */
+/* label.cat[for^="tog"] > hr.z hat margin:0 von der globalen hr.z Regel */
 
 
 /* ========== Responsive für Smartphones & Tablets ========== */
@@ -641,17 +642,17 @@ hr.z {
     margin-bottom: 0;
     font-size: 1.3em; /* Kleiner als Desktop 1.6em */
   }
-  .title-text { /* Spezifische Anpassungen für den Text im Titel, erbt font-size vom Wrapper */
+  .title-text { /* Spezifische Anpassungen für den Text im Titel */
     font-size: 1em; /* Bleibt 1em relativ zum .title-wrapper (also 1.3em effektiv) */
-    line-height: 1.15;
-    letter-spacing: 0.18em;
+    line-height: 1.15; /* Wie vom User bereitgestellt für Mobil */
+    letter-spacing: 0.18em; /* Wie vom User bereitgestellt für Mobil */
   }
   .language-select a.switch-language { /* Header DE/EN mobil */
-    font-size: 1.05em; /* Kleiner, proportional zu mobilen Kategorien */
+    font-size: 0.75em; /* Deutlich kleiner als Desktop 0.85em */
   }
 
 
-  .cat, label.cat[for^="tog"] { /* Hauptkategorie-Titel mobil */
+  .cat, label.cat[for^="tog"] {
     font-size: 1.05em;
     letter-spacing: 0.18em;
   }
@@ -670,7 +671,7 @@ hr.z {
   /* Footer-Anpassungen für diesen Breakpoint */
   .footer-bottom-container {
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Zentriert die gestapelten Blöcke (Name/Adresse und Links) */
   }
   .footer-info-left {
     margin-bottom: 0.75em;
@@ -681,9 +682,9 @@ hr.z {
   }
   .footer-info-left .footer-name-title,
   .footer-info-left .footer-address-line {
-    display: block;
-    text-align: center;
-    white-space: normal; /* Erlaubt Umbruch auf Mobilgeräten */
+    display: block; /* Name/Titel und Adresse untereinander */
+    text-align: center; /* Jede Zeile zentriert */
+    white-space: normal;
   }
   .footer-info-left .footer-name-title::after {
     content: "";
@@ -697,8 +698,8 @@ hr.z {
     text-align: center;
     margin-top: 0.5em;
   }
-  .footer-legal-links > div { /* .lb-link und .datenschutz-b */
-    display: inline-block;  /* IMMER nebeneinander, wenn Platz */
+  .footer-legal-links > div {
+    display: inline-block;  /* IMMER nebeneinander */
     margin: 0.2em 0.4em;
     vertical-align: middle;
   }
@@ -709,14 +710,21 @@ hr.z {
 
   /* Lightbox Footer auf Mobilgeräten anpassen */
   .lb_footer {
-    max-width: 90%;
+    max-width: 90%; /* Passt sich besser an schmale Bildschirme an */
     padding: 0.4em 0.8em;
-    font-size: 1.2em;
-    bottom: 1em;
-    /* top, left, right, margin, transform bleiben wie Desktop für zentrierten Block */
+    font-size: 1.2em; /* Etwas kleiner als Desktop 1.5em für Mobil */
+    bottom: 1em; /* Etwas weniger Abstand als Desktop */
+    /* Originale top/bottom/left/right/max-width/margin bleiben für die Basispositionierung,
+       aber max-width: 90% kann helfen, dass es nicht über den Rand geht auf kleinen Screens.
+       Wenn die top/bottom %-Werte Probleme machen, ist eine klare 'bottom' besser.
+       Die `left: 50%; transform: translateX(-50%)` Regel für Zentrierung
+       wird hier nicht angewendet, da die originalen `left:4%; right:4%; margin:0 auto; max-width:27em`
+       bereits die Zentrierung eines Blocks mit maximaler Breite bewirken.
+       Wir behalten das Original bei.
+    */
   }
   .lb_language a.switch-language,
   .lb_close a.white {
-    font-size: 0.75em;
+    font-size: 0.7em; /* Relativ zur .lb_footer Größe von 1.2em mobil */
   }
 }
