@@ -88,32 +88,27 @@ main   { padding-top: 0; padding-bottom: 0; }
 }
 .title-wrapper {
   margin-bottom: 0;
-  flex-grow: 1;
-  flex-shrink: 1;
-  min-width: 0;
-  font-size: 1.6em; /* Desktop Basis-Schriftgröße für Titeltext */
 }
 .header-lang {
   display: flex;
   align-items: flex-end;
-  flex-shrink: 0;
 }
 .language-select {
-  float: none; /* alten float aufheben aus Ihrem Original-CSS */
+  float: none; /* alten float aufheben */
 }
 
 /* ========== Sprachumschalter ========== */
 .language         { display: none; }
 .language.active { display: block; }
 
-.language-select a.switch-language { /* Gilt für Header DE/EN */
+.language-select a.switch-language {
   text-transform: lowercase;
   color: var(--body);
-  font-size: 0.85em; /* Desktop-Größe, wird mobil angepasst */
+  font-size: 0.85em;
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   padding: 0.1em 0.2em;
 }
 .language-select a.switch-language:hover {
@@ -136,9 +131,6 @@ main   { padding-top: 0; padding-bottom: 0; }
   max-height: 0;
   overflow: hidden;
   transition: max-height .5s;
-  padding: 0;
-  margin: 0;
-  border: none;
 }
 input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
 
@@ -155,10 +147,9 @@ label.cat[for^="tog"] {
 label.cat[for^="tog"]::before {
   content: "+";
   display: inline-block;
-  font-weight: 400;
+  font-weight: bold;
   color: currentColor;
-  margin-left: 0.1em;
-  margin-right: 0.1em;
+  margin-right: 0.3em;
   vertical-align: middle;
   letter-spacing: normal;
 }
@@ -189,17 +180,8 @@ h2 {
   margin: 0;
   text-align: left;
   letter-spacing: 0.2em;
-  font-size: 1.2em;
 }
-h3 {
-  font-weight: 400;
-  text-align: left;
-  margin:0;
-  font-size: 1em; /* Wird von .arrow auf 1em gesetzt */
-}
-h4, h5, h6 { font-weight: 400; text-align: left; }
-
-
+h3, h4, h5, h6 { font-weight: 400; text-align: left; }
 em, i           { font-style: italic; font-weight: 400; }
 strong          { font-weight: 400; }
 ul              { list-style-type: square; text-align: left; }
@@ -259,7 +241,7 @@ a:link, a:visited {
   text-underline-offset: 2px;
   color: var(--body);
 }
-a:hover { /* Globaler Link-Hover */
+a:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
@@ -315,7 +297,7 @@ label.cat[for^="tog"]:hover {
 }
 
 
-.lb-link { /* Wird für Footer-Links (Impressum) verwendet */
+.lb-link {
   text-transform: uppercase;
   list-style-position: inside;
 }
@@ -331,10 +313,13 @@ svg, .switcher_color, .switcher_theme {
   stroke-linecap: round;
 }
 
-.arrow, .arrow-nohover, h3.arrow {
+.arrow, .arrow-nohover {
   margin: 0;
-  font-weight: 400;
   font-size: 1em;
+  font-weight: 400;
+}
+#content4 .arrow-nohover { /* Adresse im Kontaktbereich */
+    font-size: 0.85em;
 }
 
 
@@ -345,7 +330,6 @@ svg, .switcher_color, .switcher_theme {
   color: currentColor;
   vertical-align: middle;
   letter-spacing: normal;
-  font-weight: normal;
 }
 
 .arrow-nohover::before {
@@ -355,95 +339,38 @@ svg, .switcher_color, .switcher_theme {
   color: var(--body);
   vertical-align: middle;
   letter-spacing: normal;
-  font-weight: normal;
 }
 
 /* ========== Footer, Lightbox, Overlay ========== */
-/* Lightbox .white_content wird zum Flex-Container */
-.white_content {
-  display: none; /* Wird von JS auf 'flex' gesetzt, wenn sichtbar */
-  flex-direction: column; /* Kinder (Inhalt und Footer) untereinander */
-  overflow: hidden; /* Scrollen wird vom .lightbox-content-scrollable übernommen */
-  position: fixed;
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  margin: 0 auto;
-  top: 10%;
-  left: 5%; right: 5%;
-  width: 90%;
-  max-width: 50em; min-width: 10em;
-  min-height: 10em; max-height: 80vh; /* Wichtig, damit Lightbox nicht zu hoch wird */
-  padding: 0; /* Padding wird von inneren Elementen gesteuert */
-  border: 0.2em solid var(--primary);
-  background-color: var(--bg);
-  z-index: 1001;
-}
-
-/* Scrollbarer Hauptinhalt der Lightbox */
-.white_content .lightbox { /* Dies ist Ihr div mit id="cv", "impressum" etc. */
-  flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
-  overflow-y: auto; /* Nur dieser Bereich scrollt */
-  padding: 1em; /* Innenabstand für den Inhalt */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Lightbox Footer - als normaler Block am Ende des .white_content Flex-Containers */
 .lb_footer {
-  /* position: fixed; /* ENTFERNT */
-  width: 100%; /* Nimmt volle Breite des .white_content ein */
-  flex-shrink: 0; /* Footer soll nicht schrumpfen */
-  padding: 0.5em 1em; /* Innenabstand, passend zu .lightbox Padding */
-  box-sizing: border-box;
-  background-color: var(--bg);
-  border-top: 1px solid var(--primary); /* Trennlinie zum Inhalt */
-  font-size: 1em; /* Angepasste Basisgröße für Lightbox-Footer-Elemente */
+  font-size: 150%;
   text-transform: uppercase;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* z-index nicht mehr relevant für nicht-fixed Element */
+  position: fixed;
+  margin: 0 auto;
+  left: 4%; right: 4%; top: 85%; bottom: 30%;
+  max-width: 27em; z-index: 2;
 }
-.lb_language {
-  order: 1; /* Sprache links */
-}
-.lb_close {
-  order: 2; /* Schließen rechts */
-}
-
-/* Links im Lightbox-Footer: Hover "schwarz mit weißem Text" */
-.lb_language a.switch-language,
-.lb_close a.white {
-  font-size: 1em; /* Relativ zur .lb_footer font-size */
+.lb_close    { float: right; }
+.lb_language { float: left; }
+.lb_language a.switch-language {
+  text-transform: lowercase;
+  color: var(--body);
+  font-size: 0.85em;
   text-decoration-line: underline;
   text-decoration-style: dotted;
   text-decoration-color: var(--body);
-  text-underline-offset: 2px;
-  color: var(--body);
-  padding: 0.1em 0.3em;
-  background-color: var(--bg); /* Expliziter Hintergrund für das a-Tag (normal) */
-  border-radius: 2px;
-  display: inline-block; /* Damit Padding und Hintergrund wirken */
+  text-underline-offset: 3px;
+  padding: 0.1em 0.2em;
+  margin: 0 0.2em;
 }
-.lb_language a.switch-language:hover,
-.lb_close a.white:hover {
-  color: var(--hover-text) !important; /* Wichtig, um .white zu überschreiben */
-  background-color: var(--hover-bg) !important; /* Wichtig, um .white zu überschreiben */
+.lb_language a.switch-language:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
 }
-.lb_language a.switch-language span.white {
-  background-color: transparent !important; /* Span muss transparent sein */
-  color: inherit !important; /* Farbe vom Link erben */
-  padding: 0;
-  display: inline;
-  text-transform: lowercase;
-}
-.lb_close a.white {
-  text-transform: lowercase;
-}
 
 
-.white { /* Allgemeine .white Klasse */
+.white {
   background-color: var(--bg);
   text-transform: lowercase;
 }
@@ -455,7 +382,21 @@ svg, .switcher_color, .switcher_theme {
   background-color: var(--bg);
   opacity: .8;
   filter: alpha(opacity=80);
-  z-index: 1000;
+}
+.white_content {
+  display: none;
+  position: fixed;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  margin: 0 auto;
+  top: 15%; left: 2%; right: 2%;
+  max-width: 50em; min-width: 10em; min-height: 10em; height: 72%;
+  padding: 8px;
+  border: 0.2em solid var(--primary);
+  background-color: var(--bg);
+  z-index: 1;
+  overflow: auto;
 }
 
 /* ========== Footer-Inhalt (Name links, Links rechts) ========== */
@@ -464,33 +405,32 @@ svg, .switcher_color, .switcher_theme {
   justify-content: space-between;
   align-items: baseline;
   padding: 1em 0;
+  flex-wrap: wrap;
 }
 
 .footer-info-left {
   font-size: 0.85em;
   color: var(--body);
-  margin-right: 1em;
-  flex-shrink: 1;
-  min-width: 0;
+  margin-right: 1em; /* Abstand zu den rechten Links auf großen Bildschirmen */
+  flex-shrink: 0;
 }
+/* Stile für die neuen Spans innerhalb von .footer-info-left */
 .footer-info-left .footer-name-title,
 .footer-info-left .footer-address-line {
-  display: inline;
-  white-space: normal;
+  display: inline; /* Standardmäßig nebeneinander */
 }
 .footer-info-left .footer-name-title::after {
-  content: " - ";
-  white-space: pre;
+  content: " - "; /* Trennzeichen für Desktop-Ansicht */
+  white-space: pre; /* Erhält das Leerzeichen um den Bindestrich */
 }
 
 
 .footer-legal-links {
   text-align: right;
-  flex-shrink: 1;
-  min-width: 0;
+  flex-shrink: 0;
 }
 
-.footer-legal-links > div {
+.footer-legal-links > div { /* .lb-link und .datenschutz-b */
   display: inline-block;
   vertical-align: middle;
   margin-left: 1em;
@@ -509,22 +449,22 @@ svg, .switcher_color, .switcher_theme {
   text-decoration-color: var(--body);
   text-underline-offset: 3px;
   display: inline-block;
-  padding: 0.2em 0.4em;
+  padding: 0.3em 0.6em;
   border-radius: 3px;
   transition: color .2s, background-color .2s, text-decoration-color .2s;
-}
-.footer-legal-links a span.white {
-  white-space: nowrap;
-  background-color: transparent !important;
-  color: inherit !important;
-  padding: 0;
-  display: inline;
 }
 
 .footer-legal-links a:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
+}
+
+.footer-legal-links a span.white {
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0;
+  display: inline;
 }
 
 
@@ -560,7 +500,7 @@ svg, .switcher_color, .switcher_theme {
   .logo-ru {
     position: fixed;
     bottom: 2%; right: 2%;
-    z-index: 10;
+    z-index: 1;
     background: transparent;
     padding: 0.5em;
     text-align: left;
@@ -582,28 +522,22 @@ svg, .switcher_color, .switcher_theme {
 
 /* ========== Titelbereich & horizontale Linien ========== */
 .title-wrapper {
-  font-size: 1.6em; /* Desktop Basis-Schriftgröße */
   display: inline-block;
   text-align: left;
   font-weight: 400;
+  font-size: 1.6em;
   letter-spacing: 0.2em;
   line-height: 1.2;
 }
-.title-text {
-  font-size: 1em;
-  line-height: inherit;
-  letter-spacing: inherit;
-}
-.title-text span { display: block; }
-
 .title-link {
    text-decoration: none !important;
    border-bottom: none !important;
    color: var(--primary);
    pointer-events: auto;
 }
+.title-text span { display: block; }
 hr { margin: 0; }
-hr.y { height: 1.6em; border: none; background: var(--bg); margin:0; }
+hr.y { height: 1.6em; border: none; background: var(--bg); }
 hr.z {
     height: 1px;
     border: none;
@@ -616,7 +550,7 @@ hr.z {
 
 
 /* ========== Responsive für Smartphones & Tablets ========== */
-@media (max-width: 810px) {
+@media (max-width: 810px) { /* Breakpoint geändert auf 810px */
   body {
     width: 90%;
     padding-left: 2%;
@@ -629,41 +563,29 @@ hr.z {
     padding-left: 0;
     padding-right: 0;
   }
-  /* Header wird bei 810px responsiv */
   .header-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5em;
+    margin-bottom: 0.6em;
+    gap: 0.2em;
   }
   .header-lang {
     width: 100%;
     justify-content: flex-end;
+    margin-top: 0.2em;
   }
-  .title-wrapper { /* Basis-Schriftgröße für den Titel mobil */
+  .title-wrapper {
     width: 100%;
     margin-bottom: 0;
-    font-size: 1.3em; /* Kleiner als Desktop 1.6em */
   }
-  .title-text { /* Spezifische Anpassungen für den Text im Titel */
-    font-size: 1em; /* Bleibt 1em relativ zum .title-wrapper (also 1.3em effektiv) */
+  .title-text {
+    font-size: 1.3em;
     line-height: 1.15;
     letter-spacing: 0.18em;
   }
-  .language-select a.switch-language { /* Header DE/EN mobil */
-    font-size: 0.75em; /* Kleiner als Desktop 0.85em */
-  }
-
-
-  .cat, label.cat[for^="tog"] {
+  .cat, label {
     font-size: 1.05em;
     letter-spacing: 0.18em;
-  }
-  label.cat[for^="tog"] {
-    padding-left: 0;
-  }
-  label.cat[for^="tog"]::before {
-    margin-left: 0.1em;
-    margin-right: 0.2em;
   }
 
   .logo-ru {
@@ -676,53 +598,36 @@ hr.z {
     align-items: center;
   }
   .footer-info-left {
-    margin-bottom: 0.75em;
+    margin-bottom: 0.5em; /* Etwas weniger Abstand als zuvor, da Name/Titel und Adresse jetzt getrennt werden können */
     margin-right: 0;
     text-align: center;
     width: 100%;
-    font-size: 0.85em;
+    font-size: 0.85em; /* Einheitliche Größe */
   }
+  /* NEU: Stile für die unterteilten Info-Zeilen im Footer bei schmaler Ansicht */
   .footer-info-left .footer-name-title,
   .footer-info-left .footer-address-line {
-    display: block;
-    text-align: center;
-    white-space: normal;
+    display: block; /* Untereinander anordnen */
+    text-align: center; /* Sicherstellen, dass jede Zeile zentriert ist */
   }
   .footer-info-left .footer-name-title::after {
-    content: "";
+    content: ""; /* Trennzeichen im mobilen Layout entfernen */
   }
   .footer-info-left .footer-name-title {
-     margin-bottom: 0.2em;
+     margin-bottom: 0.2em; /* Kleiner Abstand zwischen Name/Titel und Adresse */
   }
+
 
   .footer-legal-links {
-    width: auto;
     text-align: center;
-    margin-top: 0.5em;
+    width: 100%;
   }
-  .footer-legal-links > div {
-    display: inline-block;
-    margin: 0.2em 0.4em;
-    vertical-align: middle;
+  .footer-legal-links > div { /* Impressum/Datenschutz Blöcke */
+    display: block;
+    margin: 0.4em auto; /* Etwas weniger Abstand zwischen den gestapelten Links */
   }
    .footer-legal-links a {
-    font-size: 0.85em;
-    padding: 0.2em 0.4em;
-  }
-
-  /* Lightbox Footer auf Mobilgeräten anpassen */
-  .lb_footer {
-    /* Behält Desktop-zentrierte-Block-Optik bei, aber max-width und font-size ggf. anpassen */
-    max-width: 90%; /* Passt sich besser an schmale Bildschirme an */
-    font-size: 1.2em; /* Etwas kleiner als Desktop 1.5em für Mobil */
-    bottom: 1em; /* Etwas weniger Abstand als Desktop */
-    top: auto; /* Wichtig um top:85% zu überschreiben */
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto; /* Für die transform-Zentrierung */
-  }
-  .lb_language a.switch-language,
-  .lb_close a.white {
-    font-size: 0.7em; /* Relativ zur .lb_footer Größe von 1.2em mobil */
+    font-size: 0.85em; /* Einheitliche Größe */
+    padding: 0.2em 0.4em; /* Ggf. Padding anpassen für mobile Ansicht */
   }
 }
