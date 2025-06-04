@@ -1,12 +1,18 @@
-// Globale Hilfsfunktion zum Laden von Lightbox-Inhalten via AJAX
-function loadContent(pageFilename, targetElementId) {
+// Globale Hilfsfunktion zum Laden von Inhalten via AJAX
+function loadContent(pageFilename, targetElementId, callback) {
   $.get('/pages/' + pageFilename + '.html')
     .done(function(data) {
       $('#' + targetElementId).html(data);
+      if (typeof callback === 'function') {
+        callback(); // Callback aufrufen, nachdem der Inhalt geladen wurde
+      }
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.error("Failed to load content for: " + pageFilename, textStatus, errorThrown);
       $('#' + targetElementId).html('<p>Error loading content. Please try again later.</p>');
+      if (typeof callback === 'function') {
+        callback(); // Auch bei Fehler den Callback aufrufen
+      }
     });
 }
 
@@ -80,17 +86,24 @@ $(function() { // Entspricht $(document).ready()
     var $arrowIcon = $this.find('.arrow');
 
     // Close all other open accordion sub-contents and reset their arrows
-    $('.accordion-content.active').not($targetContent).removeClass('active').html('');
+    // Set max-height to 0 explicitly for closing other elements
+    $('.accordion-content.active').not($targetContent).css('max-height', '0px').removeClass('active').html('');
     $('.accordion-sub-toggle .arrow.expanded').not($arrowIcon).removeClass('expanded');
+
 
     if ($targetContent.hasClass('active')) {
       // If currently active, close it
-      $targetContent.removeClass('active').html('');
+      $targetContent.css('max-height', '0px').removeClass('active').html('');
       $arrowIcon.removeClass('expanded');
     } else {
       // If not active, open it and load content
-      loadContent(pageFilename, targetElementId);
-      $targetContent.addClass('active');
+      loadContent(pageFilename, targetElementId, function() {
+          // Callback-Funktion wird ausgeführt, nachdem der Inhalt geladen wurde
+          $targetContent.addClass('active'); // Fügen Sie die 'active'-Klasse hinzu, um padding zu aktivieren
+          // Berechnen Sie die tatsächliche Höhe des Inhalts
+          var contentHeight = $targetContent.prop('scrollHeight');
+          $targetContent.css('max-height', contentHeight + 'px'); // Setzen Sie die max-height auf die tatsächliche Höhe
+      });
       $arrowIcon.addClass('expanded');
     }
   });
