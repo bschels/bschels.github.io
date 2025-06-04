@@ -641,3 +641,35 @@ hr.z {
     padding: 0.2em 0.4em; /* Ggf. Padding anpassen für mobile Ansicht */
   }
 }
+
+/* pagination-controls */
+.pagination-controls {
+    text-align: center;
+    margin-top: 1.5em; /* Abstand zum Inhalt */
+    padding-top: 0.5em; /* Etwas Puffer über den Buttons */
+    border-top: 1px solid var(--body); /* Trennlinie */
+}
+
+.pagination-controls .page-link {
+    display: inline-block;
+    padding: 0.5em 0.8em;
+    margin: 0 0.2em;
+    background-color: var(--bg);
+    color: var(--body);
+    text-decoration: none;
+    border: 1px solid var(--body);
+    border-radius: 3px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination-controls .page-link:hover {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+}
+
+.pagination-controls .page-link.active {
+    background-color: var(--primary); /* Oder deine Akzentfarbe */
+    color: var(--bg);
+    border-color: var(--primary);
+    font-weight: bold;
+}
