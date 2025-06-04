@@ -1,7 +1,7 @@
 /*******************************************************
-* Theme Name:     Architekturbüro Schels
-* Author:         Benjamin Schels
-* Version:        3.3
+* Theme Name:      Architekturbüro Schels
+* Author:          Benjamin Schels
+* Version:         3.3
 * www.schels.info
 *******************************************************/
 
@@ -11,7 +11,7 @@
   --primary: #000;
   --bg: #fff;
   --body: #000;
-  --accent: blue;
+  --accent: blue; /* Dies ist deine Akzentfarbe, die für die blauen Hover-Effekte verwendet wird */
   --hover-bg: #000;
   --hover-text: #fff;
   --font-main: 'Montserrat', 'Arial', sans-serif;
@@ -103,20 +103,34 @@ main    { padding-top: 0; padding-bottom: 0; }
 
 .language-select a.switch-language {
   text-transform: lowercase;
-  color: var(--body);
+  color: var(--body); /* Standardfarbe (Schwarz) */
   font-size: 0.85em;
   text-decoration-line: underline;
   text-decoration-style: dotted;
-  text-decoration-color: var(--body);
+  text-decoration-color: var(--body); /* Standardfarbe (Schwarz) */
   text-underline-offset: 3px;
   padding: 0.1em 0.2em;
 }
-/* NEU: Aktiv-Status für Sprachlinks im Header */
-.language-select a.switch-language:hover,
+
+/* NEU: Sprachenumschalter im Header - Hover-Zustand (Schwarz hinterlegt, weißer Text) */
+.language-select a.switch-language:hover {
+  color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+  background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+  text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
+}
+
+/* NEU: Sprachenumschalter im Header - Aktiver Zustand (Normal Schwarz) */
 .language-select a.switch-language.active-lang-link {
-  color: var(--hover-text);
-  background-color: var(--hover-bg);
-  text-decoration-color: var(--hover-text);
+  color: var(--body) !important; /* Text normal schwarz */
+  background-color: transparent !important; /* Hintergrund transparent */
+  text-decoration-color: var(--body) !important; /* Unterstreichung normal schwarz */
+}
+
+/* NEU: Sprachenumschalter im Header - Aktiver Zustand im Hover-Zustand (Soll sich wie Hover verhalten) */
+.language-select a.switch-language.active-lang-link:hover {
+  color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+  background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+  text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
 }
 
 
@@ -152,11 +166,13 @@ label.cat[for^="tog"] {
 label.cat[for^="tog"]::before {
   content: "+";
   display: inline-block;
-  font-weight: bold;
   color: currentColor;
   margin-right: 0.3em;
   vertical-align: middle;
   letter-spacing: normal;
+  /* Deine Anpassung für die +/- Ausrichtung und Schriftstärke */
+  font-size: 1.2em; /* Gleich der .cat-Schriftgröße */
+  font-weight: 400; /* Jetzt wie normaler Text (nicht fett) */
 }
 
 label.cat[for^="tog"] > div.language.active {
@@ -362,21 +378,35 @@ svg, .switcher_color, .switcher_theme {
 .lb_language { float: left; }
 .lb_language a.switch-language {
   text-transform: lowercase;
-  color: var(--body);
+  color: var(--body); /* Standardfarbe (Schwarz) */
   font-size: 0.85em;
   text-decoration-line: underline;
   text-decoration-style: dotted;
-  text-decoration-color: var(--body);
+  text-decoration-color: var(--body); /* Standardfarbe (Schwarz) */
   text-underline-offset: 3px;
   padding: 0.1em 0.2em;
   margin: 0 0.2em;
 }
-/* NEU: Aktiv-Status für Sprachlinks in der Lightbox */
-.lb_language a.switch-language:hover,
+
+/* NEU: Sprachenumschalter in der Lightbox - Hover-Zustand (Schwarz hinterlegt, weißer Text) */
+.lb_language a.switch-language:hover {
+  color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+  background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+  text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
+}
+
+/* NEU: Sprachenumschalter in der Lightbox - Aktiver Zustand (Normal Schwarz) */
 .lb_language a.switch-language.active-lang-link {
-  color: var(--hover-text);
-  background-color: var(--hover-bg);
-  text-decoration-color: var(--hover-text);
+  color: var(--body) !important; /* Text normal schwarz */
+  background-color: transparent !important; /* Hintergrund transparent */
+  text-decoration-color: var(--body) !important; /* Unterstreichung normal schwarz */
+}
+
+/* NEU: Sprachenumschalter in der Lightbox - Aktiver Zustand im Hover-Zustand (Soll sich wie Hover verhalten) */
+.lb_language a.switch-language.active-lang-link:hover {
+  color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+  background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+  text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
 }
 
 
@@ -672,4 +702,65 @@ hr.z {
     color: var(--bg);
     border-color: var(--primary);
     font-weight: bold;
+}
+
+
+/* ========== GEZIELTE ANPASSUNGEN (vom Kunden gewünscht) ========== */
+
+/* Header Schriftzug (Titel oben) - Hover-Effekt auf Blau */
+.title-link:hover {
+    color: var(--accent) !important; /* Text blau machen */
+    background-color: transparent !important; /* Hintergrund entfernen */
+    text-decoration-color: var(--accent) !important; /* Unterstrich blau machen */
+}
+
+/* Schriftzug rechts unten (Mini-Titel im Footer) - Hover-Effekt auf Blau */
+.mini-title-link:hover {
+    color: var(--accent) !important; /* Text blau machen */
+    background-color: transparent !important; /* Hintergrund entfernen */
+    text-decoration-color: var(--accent) !important; /* Unterstrich blau machen */
+}
+
+/* WICHTIG: DE/EN Sprachenumschalter im Header - Hover-Zustand und Aktiver Zustand jetzt getrennt */
+/* Hover-Zustand (Schwarz hinterlegt, weißer Text) */
+.language-select a.switch-language:hover {
+    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
+}
+
+/* Aktiver Zustand (Normal Schwarz) */
+.language-select a.switch-language.active-lang-link {
+    color: var(--body) !important; /* Text normal schwarz */
+    background-color: transparent !important; /* Hintergrund transparent */
+    text-decoration-color: var(--body) !important; /* Unterstreichung normal schwarz */
+}
+
+/* Aktiver Zustand im Hover-Zustand (Soll sich wie Hover verhalten) */
+.language-select a.switch-language.active-lang-link:hover {
+    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
+}
+
+/* Lightbox DE/EN Sprachenumschalter - Hover-Zustand und Aktiver Zustand jetzt getrennt */
+/* Hover-Zustand (Schwarz hinterlegt, weißer Text) */
+.lb_language a.switch-language:hover {
+    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
+}
+
+/* Aktiver Zustand (Normal Schwarz) */
+.lb_language a.switch-language.active-lang-link {
+    color: var(--body) !important; /* Text normal schwarz */
+    background-color: transparent !important; /* Hintergrund transparent */
+    text-decoration-color: var(--body) !important; /* Unterstreichung normal schwarz */
+}
+
+/* Aktiver Zustand im Hover-Zustand (Soll sich wie Hover verhalten) */
+.lb_language a.switch-language.active-lang-link:hover {
+    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
+    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
+    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
 }
