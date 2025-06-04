@@ -409,6 +409,11 @@ svg, .switcher_color, .switcher_theme {
   text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
 }
 
+/* NEU: Transparenter Hintergrund für SPAN.white innerhalb von Lightbox-Sprachlinks */
+.lb_language a.switch-language span.white {
+    background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
+}
+
 
 .white {
   background-color: var(--bg);
@@ -763,4 +768,9 @@ hr.z {
     color: var(--hover-text) !important; /* Weißer Text beim Hovern */
     background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
     text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
+}
+
+/* NEU: Transparenter Hintergrund für SPAN.white innerhalb von Lightbox-Sprachlinks */
+.lb_language a.switch-language span.white {
+    background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
 }
