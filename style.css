@@ -202,7 +202,7 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
     overflow-y: hidden; /* Sicherstellen, dass kein temporärer Scrollbalken erscheint */
     transition: max-height 0.5s ease-out, padding 0.5s ease-out;
     padding: 0 1em; /* Initial padding when closed */
-    font-size: 1.2em; /* Set a consistent font size for accordion content */
+    font-size: 1.05 em; /* Set a consistent font size for accordion content */
 }
 
 .accordion-content.active {
@@ -600,7 +600,7 @@ hr.z {
     width: 90%;
     padding-left: 2%;
     padding-right: 2%;
-    font-size: 1em;
+    font-size: 0.9em;
     min-width: 0;
     max-width: none;
   }
@@ -624,15 +624,18 @@ hr.z {
     margin-bottom: 0;
   }
   .title-text {
-    font-size: 1.3em;
+    font-size: 1.5em;
     line-height: 1.15;
     letter-spacing: 0.18em;
   }
   .cat, label {
     font-size: 1.05em;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
   }
-
+  .h1, h2, h3 {
+    font-size: 1.05em;
+    letter-spacing: 0.2em;
+  }
   .logo-ru {
     display: none !important;
   }
