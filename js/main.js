@@ -1,6 +1,8 @@
 // Global helper function to load content via AJAX
 function loadContent(pageFilename, targetElementId, callback) {
-  $.get('/pages/' + pageFilename + '.html')
+  // Add a cache-busting timestamp to the URL to force reload
+  var cacheBuster = "?_t=" + new Date().getTime(); 
+  $.get('/pages/' + pageFilename + '.html' + cacheBuster) // <<< --- GEÄNDERTE ZEILE HIER
     .done(function(data) {
       $('#' + targetElementId).html(data);
       if (typeof callback === 'function') {
@@ -137,7 +139,9 @@ $(function() { // Equivalent to $(document).ready()
           // Callback function executes after content is loaded
 
           // --- Pagination logic for Projects (pageFilename === 'projekte') ---
-          if (pageFilename === 'projekte') {
+          // NOTE: This now also applies to 'bauenimbestand.html' if it contains '.project-page' divs,
+          // which was the user's explicit request.
+          if (pageFilename === 'projekte' || pageFilename === 'bauenimbestand') { // Added 'bauenimbestand' here
               const $projectPages = $targetContent.find('.project-page');
               if ($projectPages.length > 0) {
                   // Hide all project pages
@@ -177,7 +181,7 @@ $(function() { // Equivalent to $(document).ready()
                   });
               } else {
                  // If no .project-page found, treat as single page content for height calculation
-                 console.warn("No .project-page elements found in projekte.html. Pagination will not be applied.");
+                 console.warn("No .project-page elements found in " + pageFilename + ".html. Pagination will not be applied.");
               }
           }
           // --- END OF Pagination Logic ---
