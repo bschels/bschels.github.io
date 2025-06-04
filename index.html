@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
+ <html lang="de">
+ <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="initial-scale=1">
   <title>architekturbüro schels - Benjamin Schels Architekt M.A.</title>
@@ -15,12 +15,12 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="/js/jquery-3.5.1.min.js"></script>
   <script src="/js/main.js" type="text/javascript"></script>
-</head>
-<body>
+ </head>
+ <body>
   <div id="preloader">
     <div id="status">&nbsp;</div>
   </div>
-  <header>
+ <header>
   <div class="header-row">
     <div class="title-wrapper">
       <a href="./" class="title-link">
@@ -58,7 +58,7 @@
   </div>
   <hr class="y">
   <hr class="z">
-</header>
+ </header>
   <main>
     <div>
       <label class="cat" for="tog1">
@@ -79,49 +79,50 @@
           <p class="content"></p>
         </div>
         <div>
-          <div>
-            <label class="cat cat-sub" for="tog1-1">
+          <div class="cat-link">
+            <a href="#" class="accordion-sub-toggle" data-page="cv" data-target-id="cv-accordion-content">
               <div id="english" class="language"><h3 class="arrow">Vita</h3></div>
               <div id="german" class="language active"><h3 class="arrow">Vita</h3></div>
-            </label>
-            <input type="radio" name="rdo-sub" id="tog1-1">
-            <div class="cat_text cat_text-sub" id="content1-1">
-              <p>
-                <b>Benjamin Schels Architekt M.A.</b><br>
-                geb. 1982 in München<br>
-                <br>
-                <b>2010</b><br>
-                Master of Arts (M.A.) Architektur<br>
-                Technische Universität München<br>
-                <br>
-                <b>2010 - 2015</b><br>
-                Angestellter Architekt in verschiedenen Büros<br>
-                <br>
-                <b>2015</b><br>
-                Eintragung in die Bayerische Architektenkammer<br>
-                <br>
-                <b>Seit 2015</b><br>
-                Selbständigkeit als Architekt
-              </p>
-              <hr class="z">
+            </a>
+          </div>
+          <div id="cv-accordion-content" class="accordion-content"></div> <div id="cv-p" class="white_content"> <div class="lb_footer">
+              <div class="lb_close">
+                <div id="english" class="language">
+                  <a href="javascript:void(0)" onclick="document.getElementById('cv-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+                </div>
+                <div id="german" class="language active">
+                  <a href="javascript:void(0)" onclick="document.getElementById('cv-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+                </div>
+              </div>
+              <div class="lb_language">
+                <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+                <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
+              </div>
+            </div>
+            <div class="lightbox" id="cv"></div>
+          </div>
+        </div>
+        <div class="cat-link">
+          <a href="#" class="accordion-sub-toggle" data-page="profil" data-target-id="profil-accordion-content">
+            <div id="english" class="language"><h3 class="arrow">Office Profile</h3></div>
+            <div id="german" class="language active"><h3 class="arrow">Büroprofil</h3></div>
+          </a>
+        </div>
+        <div id="profil-accordion-content" class="accordion-content"></div> <div id="profil-p" class="white_content"> <div class="lb_footer">
+            <div class="lb_close">
+              <div id="english" class="language">
+                <a href="javascript:void(0)" onclick="document.getElementById('profil-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+              </div>
+              <div id="german" class="language active">
+                <a href="javascript:void(0)" onclick="document.getElementById('profil-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+              </div>
+            </div>
+            <div class="lb_language">
+              <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+              <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
             </div>
           </div>
-          <div>
-            <label class="cat cat-sub" for="tog1-2">
-              <div id="english" class="language"><h3 class="arrow">Office Profile</h3></div>
-              <div id="german" class="language active"><h3 class="arrow">Büroprofil</h3></div>
-            </label>
-            <input type="radio" name="rdo-sub" id="tog1-2">
-            <div class="cat_text cat_text-sub" id="content1-2">
-              <p>
-                <b>Das Architekturbüro Schels</b> bietet umfassende Leistungen in allen Bereichen der Architektur.
-                Wir legen Wert auf individuelle und nachhaltige Lösungen, die Ästhetik und Funktionalität vereinen.
-                Unser Fokus liegt auf der Entwicklung maßgeschneiderter Konzepte, die den Bedürfnissen und Wünschen
-                unserer Bauherren gerecht werden.
-              </p>
-              <hr class="z">
-            </div>
-          </div>
+          <div class="lightbox" id="profil"></div>
         </div>
         <hr class="z">
       </div>
@@ -145,42 +146,49 @@
           <p class="content"> Bearbeitung aller Leistungsphasen nach HOAI.</p>
         </div>
         <div>
-          <div>
-            <label class="cat cat-sub" for="tog2-1">
+          <div class="cat-link">
+            <a href="#" class="accordion-sub-toggle" data-page="leistungen" data-target-id="leistungen-accordion-content">
               <div id="english" class="language"><h3 class="arrow">Overview</h3></div>
               <div id="german" class="language active"><h3 class="arrow">Übersicht</h3></div>
-            </label>
-            <input type="radio" name="rdo-sub" id="tog2-1">
-            <div class="cat_text cat_text-sub" id="content2-1">
-              <table>
-                <tr><td>Leistungsphase 1</td><td>Grundlagenermittlung</td></tr>
-                <tr><td>Leistungsphase 2</td><td>Vorplanung</td></tr>
-                <tr><td>Leistungsphase 3</td><td>Entwurfsplanung</td></tr>
-                <tr><td>Leistungsphase 4</td><td>Genehmigungsplanung</td></tr>
-                <tr><td>Leistungsphase 5</td><td>Ausführungsplanung</td></tr>
-                <tr><td>Leistungsphase 6</td><td>Vorbereitung der Vergabe</td></tr>
-                <tr><td>Leistungsphase 7</td><td>Mitwirkung bei der Vergabe</td></tr>
-                <tr><td>Leistungsphase 8</td><td>Objektüberwachung (Bauleitung)</td></tr>
-                <tr><td>Leistungsphase 9</td><td>Objektbetreuung</td></tr>
-              </table>
-              <hr class="z">
-            </div>
+            </a>
           </div>
-          <div>
-            <label class="cat cat-sub" for="tog2-2">
+          <div id="leistungen-accordion-content" class="accordion-content"></div> <div id="leistungen-p" class="white_content"> <div class="lb_footer">
+              <div class="lb_close">
+                <div id="english" class="language">
+                  <a href="javascript:void(0)" onclick="document.getElementById('leistungen-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+                </div>
+                <div id="german" class="language active">
+                  <a href="javascript:void(0)" onclick="document.getElementById('leistungen-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+                </div>
+              </div>
+              <div class="lb_language">
+                <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+                <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
+              </div>
+            </div>
+            <div class="lightbox" id="leistungen"></div>
+          </div>
+          <div class="cat-link">
+            <a href="#" class="accordion-sub-toggle" data-page="bauenimbestand" data-target-id="bauenimbestand-accordion-content">
               <div id="english" class="language"><h3 class="arrow">Main Emphasis</h3></div>
               <div id="german" class="language active"><h3 class="arrow">Schwerpunkte</h3></div>
-            </label>
-            <input type="radio" name="rdo-sub" id="tog2-2">
-            <div class="cat_text cat_text-sub" id="content2-2">
-              <ul>
-                <li>Bauen im Bestand (Umbau, Sanierung, Erweiterung)</li>
-                <li>Neubau von Ein- und Mehrfamilienhäusern</li>
-                <li>Gewerbliche Bauten</li>
-                <li>Denkmalschutz</li>
-              </ul>
-              <hr class="z">
+            </a>
+          </div>
+          <div id="bauenimbestand-accordion-content" class="accordion-content"></div> <div id="bauenimbestand-p" class="white_content"> <div class="lb_footer">
+              <div class="lb_close">
+                <div id="english" class="language">
+                  <a href="javascript:void(0)" onclick="document.getElementById('bauenimbestand-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+                </div>
+                <div id="german" class="language active">
+                  <a href="javascript:void(0)" onclick="document.getElementById('bauenimbestand-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+                </div>
+              </div>
+              <div class="lb_language">
+                <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+                <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
+              </div>
             </div>
+            <div class="lightbox" id="bauenimbestand"></div>
           </div>
         </div>
         <hr class="z">
@@ -205,19 +213,27 @@
           <p class="content">Ausgewählte Referenzen.</p>
         </div>
         <div>
-          <div>
-            <label class="cat cat-sub" for="tog3-1">
+          <div class="cat-link">
+            <a href="#" class="accordion-sub-toggle" data-page="projekte" data-target-id="projekte-accordion-content">
               <div id="english" class="language"><h3 class="arrow">Projects</h3></div>
               <div id="german" class="language active"><h3 class="arrow">Projekte</h3></div>
-            </label>
-            <input type="radio" name="rdo-sub" id="tog3-1">
-            <div class="cat_text cat_text-sub" id="content3-1">
-              <h4>Haus E. Wolnzach</h4>
-              <p>Neubau eines Einfamilienhauses mit Doppelgarage.</p>
-              <h4>Umbau A. München</h4>
-              <p>Energetische Sanierung und Umbau eines Mehrfamilienhauses.</p>
-              <hr class="z">
+            </a>
+          </div>
+          <div id="projekte-accordion-content" class="accordion-content"></div> <div id="projekte-p" class="white_content"> <div class="lb_footer">
+              <div class="lb_close">
+                <div id="english" class="language">
+                  <a href="javascript:void(0)" onclick="document.getElementById('projekte-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+                </div>
+                <div id="german" class="language active">
+                  <a href="javascript:void(0)" onclick="document.getElementById('projekte-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+                </div>
+              </div>
+              <div class="lb_language">
+                <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+                <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
+              </div>
             </div>
+            <div class="lightbox" id="projekte"></div>
           </div>
         </div>
         <hr class="z">
@@ -258,46 +274,58 @@
         <span class="footer-name-title">Benjamin Schels, Architekt M.A.</span><span class="footer-address-line">Schlachterstrasse 9, D-85283 Wolnzach</span>
       </div>
       <div class="footer-legal-links">
-        <div>
-          <label class="cat cat-sub" for="tog5-1">
+        <div class="lb-link">
+          <a href="javascript:void(0);" onclick="kb_source_2_impressum();document.getElementById('impressum-p').style.display='block';document.getElementById('fade').style.display='block'">
             <div id="english" class="language"><span class="white">Imprint</span></div>
             <div id="german" class="language active"><span class="white">Impressum</span></div>
-          </label>
-          <input type="radio" name="rdo-sub" id="tog5-1">
-          <div class="cat_text cat_text-sub" id="content5-1">
-            <p>
-              Angaben gemäß § 5 TMG:<br>
-              Benjamin Schels<br>
-              Schlachterstrasse 9<br>
-              85283 Wolnzach
-            </p>
-            <p>
-              Kontakt:<br>
-              Telefon: +49 8442 929 229 1<br>
-              E-Mail: hello@schels.info
-            </p>
-            <hr class="z">
-          </div>
+          </a>
         </div>
-        <div>
-          <label class="cat cat-sub" for="tog5-2">
+        <div class="datenschutz-b">
+          <a href="javascript:void(0);" onclick="kb_source_2_datenschutz();document.getElementById('datenschutz-p').style.display='block';document.getElementById('fade').style.display='block'">
             <div id="english" class="language"><span class="white">Privacy Policy</span></div>
             <div id="german" class="language active"><span class="white">Datenschutz</span></div>
-          </label>
-          <input type="radio" name="rdo-sub" id="tog5-2">
-          <div class="cat_text cat_text-sub" id="content5-2">
-            <h3>Datenschutzerklärung</h3>
-            <p>Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer Privatsphäre ist für uns sehr wichtig. Nachfolgend informieren wir Sie ausführlich über den Umgang mit Ihren Daten.</p>
-            <h4>Erhebung und Verarbeitung von Daten</h4>
-            <p>Wir erheben und speichern keinerlei persönliche Daten von Besuchern unserer Website. Es werden keine Cookies gesetzt, und es findet keine Analyse des Nutzerverhaltens statt.</p>
-            <h4>Recht auf Auskunft</h4>
-            <p>Sie haben jederzeit das Recht auf Auskunft über die bezüglich Ihrer Person gespeicherten Daten, deren Herkunft und Empfänger sowie den Zweck der Speicherung.</p>
-            <hr class="z">
-          </div>
+          </a>
         </div>
       </div>
     </div>
   </footer>
+
+  <div id="fade" class="black_overlay"></div>
+
+  <div id="impressum-p" class="white_content">
+    <div class="lb_footer">
+      <div class="lb_language">
+        <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+        <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
+      </div>
+      <div class="lb_close">
+        <div id="english" class="language">
+          <a href="javascript:void(0)" onclick="document.getElementById('impressum-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+        </div>
+        <div id="german" class="language active">
+          <a href="javascript:void(0)" onclick="document.getElementById('impressum-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+        </div>
+      </div>
+    </div>
+    <div class="lightbox" id="impressum"></div>
+  </div>
+  <div id="datenschutz-p" class="white_content">
+    <div class="lb_footer">
+      <div class="lb_language">
+        <a href="javascript:void(0);" id="german" class="switch-language"><span class="white">DE</span></a>
+        <a href="javascript:void(0);" id="english" class="switch-language"><span class="white">EN</span></a>
+      </div>
+      <div class="lb_close">
+        <div id="english" class="language">
+          <a href="javascript:void(0)" onclick="document.getElementById('datenschutz-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">close</a>
+        </div>
+        <div id="german" class="language active">
+          <a href="javascript:void(0)" onclick="document.getElementById('datenschutz-p').style.display='none';document.getElementById('fade').style.display='none'" class="white">schließen</a>
+        </div>
+      </div>
+    </div>
+    <div class="lightbox" id="datenschutz"></div>
+  </div>
 
   <footer>
     <div class="logo-ru">
@@ -305,5 +333,5 @@
       </a>
     </div>
   </footer>
-</body>
-</html>
+ </body>
+ </html>
