@@ -1,7 +1,7 @@
 /*******************************************************
-* Theme Name:    Architekturbüro Schels
-* Author:        Benjamin Schels
-* Version:       3.3
+* Theme Name:     Architekturbüro Schels
+* Author:         Benjamin Schels
+* Version:        3.3
 * www.schels.info
 *******************************************************/
 
@@ -126,30 +126,12 @@ main    { padding-top: 0; padding-bottom: 0; }
   margin: 0;
   letter-spacing: 0.2em;
 }
-
-/* Stil für Unterkategorien */
-label.cat.cat-sub {
-  padding-left: 1.5em; /* Einzug für Unterkategorien */
-  font-size: 1.1em; /* Etwas kleinere Schrift als Hauptkategorien */
-  letter-spacing: 0.15em; /* Leichter angepasster Buchstabenabstand */
-}
-
 [id^="tog"] { display: none; }
 .cat_text {
   max-height: 0;
   overflow: hidden;
   transition: max-height .5s;
 }
-
-/* Stil für Inhalte der Unterkategorien */
-.cat_text.cat_text-sub {
-  padding-left: 2em; /* Einzug für den Inhalt der Unterkategorien */
-  padding-right: 2em; /* Eventuell auch rechts einziehen */
-  margin-top: 0.5em; /* Etwas Abstand nach oben */
-  margin-bottom: 1em; /* Etwas Abstand nach unten */
-}
-
-
 input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
 
 label {
@@ -162,23 +144,12 @@ label.cat[for^="tog"] {
   position: relative;
 }
 
-/* Plus-Symbol für Hauptkategorien */
 label.cat[for^="tog"]::before {
   content: "+";
   display: inline-block;
   font-weight: bold;
   color: currentColor;
   margin-right: 0.3em;
-  vertical-align: middle;
-  letter-spacing: normal;
-}
-
-/* Pfeil-Symbol für Unterkategorien */
-label.cat.cat-sub .arrow::before {
-  content: '→'; /* Anderes Symbol für Unterkategorien */
-  display: inline-block;
-  margin-right: 0.3em;
-  color: currentColor; /* Farbe vom Elternelement erben */
   vertical-align: middle;
   letter-spacing: normal;
 }
@@ -194,16 +165,22 @@ label.cat[for^="tog"] > div.language.active > p.cat {
   margin: 0;
 }
 
-/* Minus-Symbol für geöffnete Hauptkategorien */
 label.cat[for^="tog"].expanded::before {
   content: "−";
 }
 
-/* Pfeil-Symbol für geöffnete Unterkategorien */
-label.cat.cat-sub.expanded .arrow::before {
-  content: '↓'; /* Symbol für geöffneten Zustand der Unterkategorien */
+/* New CSS for Accordion Subcontent */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* Added padding transition */
+    padding: 0 1em; /* Initial padding */
 }
 
+.accordion-content.active {
+    max-height: 2000px; /* Adjust as needed, large enough to contain content */
+    padding: 1em; /* Expanded padding */
+}
 
 /* ========== Typografie ========== */
 h1 {
@@ -227,7 +204,7 @@ li             { list-style-type: square; }
 .content       { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
 blockquote     { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
 blockquote p         { text-align: right;  hyphens: manual; }
-blockquote p.says   { text-align: center; hyphens: manual; }
+blockquote p.says    { text-align: center; hyphens: manual; }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
 table {
@@ -312,8 +289,8 @@ label.cat[for^="tog"]:hover {
   }
 }
 
-/* ========== Restliche Link-Gruppen (entfernt, da jetzt Labels) ========== */
-/* .cat-link {
+/* ========== Restliche Link-Gruppen ========== */
+.cat-link {
   text-transform: uppercase;
   margin: 0;
   transition: background-color .2s;
@@ -330,7 +307,7 @@ label.cat[for^="tog"]:hover {
   color: var(--hover-text);
   background-color: transparent;
   text-decoration-color: var(--hover-text);
-} */
+}
 
 
 .lb-link {
@@ -358,18 +335,19 @@ svg, .switcher_color, .switcher_theme {
     font-size: 0.85em;
 }
 
-/* Die spezifischen Pfeile für Hauptkategorien und Unterkategorien werden
-   jetzt durch die label.cat[for^="tog"]::before und label.cat.cat-sub .arrow::before
-   Regeln definiert. Diese hier sind jetzt generischer.
-*/
-/* .arrow::before {
+
+.arrow::before {
   content: '+';
   display: inline-block;
   margin-right: 0.3em;
   color: currentColor;
   vertical-align: middle;
   letter-spacing: normal;
-} */
+}
+/* New rule for expanded arrow */
+.arrow.expanded::before {
+    content: '−'; /* Minus sign */
+}
 
 .arrow-nohover::before {
   content: '+';
@@ -380,8 +358,8 @@ svg, .switcher_color, .switcher_theme {
   letter-spacing: normal;
 }
 
-/* ========== Footer, Lightbox, Overlay (entfernt) ========== */
-/* .lb_footer {
+/* ========== Footer, Lightbox, Overlay ========== */
+.lb_footer {
   font-size: 150%;
   text-transform: uppercase;
   position: fixed;
@@ -389,7 +367,7 @@ svg, .switcher_color, .switcher_theme {
   left: 4%; right: 4%; top: 85%; bottom: 30%;
   max-width: 27em; z-index: 2;
 }
-.lb_close     { float: right; }
+.lb_close    { float: right; }
 .lb_language { float: left; }
 .lb_language a.switch-language {
   text-transform: lowercase;
@@ -436,7 +414,7 @@ svg, .switcher_color, .switcher_theme {
   background-color: var(--bg);
   z-index: 1;
   overflow: auto;
-} */
+}
 
 /* ========== Footer-Inhalt (Name links, Links rechts) ========== */
 .footer-bottom-container {
@@ -467,24 +445,21 @@ svg, .switcher_color, .switcher_theme {
 .footer-legal-links {
   text-align: right;
   flex-shrink: 0;
-  /* Anpassung für die neuen Footer-Links, da sie jetzt Labels sind */
-  display: flex; /* Um sie nebeneinander zu halten, wenn Platz ist */
-  gap: 1em; /* Abstand zwischen den Links */
 }
 
 .footer-legal-links > div { /* .lb-link und .datenschutz-b */
-  display: block; /* Machen wir sie zu Blöcken für den Label-Click-Bereich */
-  /* margin-left: 1em; -- wird jetzt durch gap gesetzt */
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1em;
   text-transform: uppercase;
 }
 
-/* Entfernt, da wir jetzt Labels und nicht Anker haben */
-/* .footer-legal-links > div:first-child {
+.footer-legal-links > div:first-child {
   margin-left: 0;
-} */
+}
 
-.footer-legal-links label.cat { /* Direkte Ansprache der Labels im Footer */
-  font-size: 0.85em; /* Einheitliche Größe */
+.footer-legal-links a {
+  font-size: 0.85em;
   color: var(--body);
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -494,35 +469,19 @@ svg, .switcher_color, .switcher_theme {
   padding: 0.3em 0.6em;
   border-radius: 3px;
   transition: color .2s, background-color .2s, text-decoration-color .2s;
-  letter-spacing: normal; /* Normaler Buchstabenabstand hier */
 }
 
-/* Hover-Effekt für die Footer-Labels */
-.footer-legal-links label.cat:hover {
+.footer-legal-links a:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
 }
 
-/* Die Spans mit Klasse white sollten ihren Hintergrund nicht ändern,
-   da sie nur für die Textfarbe der Lightbox-Buttons gedacht waren */
-.footer-legal-links label.cat span.white {
+.footer-legal-links a span.white {
   background-color: transparent !important;
-  color: inherit !important; /* Farbe vom Elternelement erben */
+  color: inherit !important;
   padding: 0;
   display: inline;
-}
-
-/* Plus/Minus Symbol für die Footer-Labels */
-.footer-legal-links label.cat::before {
-    content: '+'; /* Standard Plus-Symbol */
-    margin-right: 0.3em;
-    font-weight: bold;
-    color: currentColor;
-}
-
-.footer-legal-links label.cat.expanded::before {
-    content: '−'; /* Minus-Symbol wenn geöffnet */
 }
 
 
@@ -588,10 +547,10 @@ svg, .switcher_color, .switcher_theme {
   line-height: 1.2;
 }
 .title-link {
-   text-decoration: none !important;
-   border-bottom: none !important;
-   color: var(--primary);
-   pointer-events: auto;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: var(--primary);
+    pointer-events: auto;
 }
 .title-text span { display: block; }
 hr { margin: 0; }
@@ -646,17 +605,6 @@ hr.z {
     letter-spacing: 0.18em;
   }
 
-  /* Anpassung für Unterkategorien auf mobilen Geräten */
-  label.cat.cat-sub {
-    padding-left: 0.5em; /* Weniger Einzug mobil */
-    font-size: 1em; /* Passende Schriftgröße */
-  }
-
-  .cat_text.cat_text-sub {
-    padding-left: 1em; /* Weniger Einzug mobil */
-    padding-right: 1em;
-  }
-
   .logo-ru {
     display: none !important;
   }
@@ -683,21 +631,19 @@ hr.z {
     content: ""; /* Trennzeichen im mobilen Layout entfernen */
   }
   .footer-info-left .footer-name-title {
-       margin-bottom: 0.2em; /* Kleiner Abstand zwischen Name/Titel und Adresse */
+      margin-bottom: 0.2em; /* Kleiner Abstand zwischen Name/Titel und Adresse */
   }
 
 
   .footer-legal-links {
     text-align: center;
     width: 100%;
-    flex-direction: column; /* Auch im Footer die Links untereinander */
-    gap: 0.4em; /* Abstand zwischen den gestapelten Links */
   }
   .footer-legal-links > div { /* Impressum/Datenschutz Blöcke */
     display: block;
     margin: 0.4em auto; /* Etwas weniger Abstand zwischen den gestapelten Links */
   }
-    .footer-legal-links label.cat { /* Direkte Ansprache der Labels im Footer */
+    .footer-legal-links a {
     font-size: 0.85em; /* Einheitliche Größe */
     padding: 0.2em 0.4em; /* Ggf. Padding anpassen für mobile Ansicht */
   }
