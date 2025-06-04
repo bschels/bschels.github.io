@@ -1,5 +1,14 @@
-// Globale Hilfsfunktion zum Laden von Lightbox-Inhalten via AJAX (ENTFERNT)
-// function loadLightboxContent(pageFilename, targetElementId) { ... }
+// Globale Hilfsfunktion zum Laden von Lightbox-Inhalten via AJAX
+function loadContent(pageFilename, targetElementId) {
+  $.get('/pages/' + pageFilename + '.html')
+    .done(function(data) {
+      $('#' + targetElementId).html(data);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      console.error("Failed to load content for: " + pageFilename, textStatus, errorThrown);
+      $('#' + targetElementId).html('<p>Error loading content. Please try again later.</p>');
+    });
+}
 
 $(function() { // Entspricht $(document).ready()
 
@@ -17,16 +26,16 @@ $(function() { // Entspricht $(document).ready()
     $(".language#" + switchTo).addClass('active');
   });
 
-  // Lightbox Hider on any click outside (ENTFERNT)
-  // $('#fade').on('click', function(event) { ... });
+  // Lightbox Hider on any click outside
+  $('#fade').on('click', function(event) {
+    $(".white_content, #fade").hide();
+  });
 
   // --- START: Akkordeon Plus/Minus Label Updater Funktion ---
   function updateAccordionLabels() {
-    // Wählt alle Radios, deren Name mit "rdo" beginnt (also rdo und rdo-sub)
-    $('input[type="radio"][name^="rdo"]').each(function() {
+    $('input[type="radio"][name="rdo"]').each(function() {
       var radioId = $(this).attr('id');
-      var $label = $('label.cat[for="' + radioId + '"]'); // Muss weiterhin die .cat Klasse haben
-
+      var $label = $('label.cat[for="' + radioId + '"]');
       if ($label.length) {
         if ($(this).is(':checked')) {
           $label.addClass('expanded');
@@ -38,28 +47,20 @@ $(function() { // Entspricht $(document).ready()
   }
   // --- ENDE: Akkordeon Plus/Minus Label Updater Funktion ---
 
-  // Radio Button Closer: Jetzt für Haupt- und Unterkategorien (name="rdo" und name="rdo-sub")
-  // Initialisiere den "chk" Status basierend auf dem geladenen Zustand
-  $('input[type="radio"][name^="rdo"]').each(function() {
-    if ($(this).is(':checked')) {
-      $(this).data("chk", true);
-    }
+  // Radio Button Closer: Nur für Akkordeon-Radio-Buttons (name="rdo")
+  $('input[type="radio"][name="rdo"]').each(function() {
+      $(this).data("chk", $(this).is(':checked')); // Initialize data-chk
   });
-
-  $('input[type="radio"][name^="rdo"]').click(function() {
+  $('input[type="radio"][name="rdo"]').on('click', function() {
     var $clickedRadio = $(this);
-    var radioName = $clickedRadio.attr("name");
+    var wasChecked = $clickedRadio.data("chk");
 
-    // Überprüfe, ob der angeklickte Radio-Button bereits gecheckt war (durch das .data("chk") markiert)
-    if ($clickedRadio.data("chk")) {
-        // Wenn er gecheckt war, mache ihn ungecheckt und setze den chk-Status zurück
-        $clickedRadio.prop("checked", false).removeData("chk");
-    } else {
-        // Wenn er nicht gecheckt war, setze alle anderen Radios in dieser Gruppe auf ungecheckt
-        $('input[type="radio"][name="' + radioName + '"]').not($clickedRadio).prop("checked", false).removeData("chk");
-        // Setze den geklickten Radio-Button auf gecheckt und markiere den chk-Status
-        $clickedRadio.prop("checked", true).data("chk", true);
-    }
+    // Deselect all other radio buttons in the group
+    $('input[type="radio"][name="rdo"]').not($clickedRadio).prop("checked", false).data("chk", false);
+
+    // Toggle the clicked radio button
+    $clickedRadio.prop("checked", !wasChecked);
+    $clickedRadio.data("chk", !wasChecked);
 
     // Akkordeon-Label-Zustand direkt nach der Änderung aktualisieren
     updateAccordionLabels();
@@ -68,18 +69,44 @@ $(function() { // Entspricht $(document).ready()
   // Rufe die Funktion einmal beim Laden der Seite auf, um den initialen Zustand korrekt zu setzen
   updateAccordionLabels();
 
-  // AJAX Loader Funktionen - jetzt unter Verwendung der Hilfsfunktion loadLightboxContent (ENTFERNT)
-  // Die Funktionen werden global im window-Objekt zugänglich gemacht für onclick-Attribute im HTML (ENTFERNT)
-  // window.kb_source_2_datenschutz = function() { loadLightboxContent('datenschutz', 'datenschutz'); };
-  // ... und alle anderen kb_source_2_... Funktionen
+  // Accordion for subcategories (Vita, Büroprofil, Leistungen, Schwerpunkte, Projekte)
+  $('.accordion-sub-toggle').on('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
 
-  // Dark-Mode Logik (bleibt unverändert)
-  var toggle = document.getElementById("theme-toggle"); // Beachte: Dein HTML hat keinen 'theme-toggle' Button mehr
+    var $this = $(this);
+    var pageFilename = $this.data('page');
+    var targetElementId = $this.data('target-id');
+    var $targetContent = $('#' + targetElementId);
+    var $arrowIcon = $this.find('.arrow');
+
+    // Close all other open accordion sub-contents and reset their arrows
+    $('.accordion-content.active').not($targetContent).removeClass('active').html('');
+    $('.accordion-sub-toggle .arrow.expanded').not($arrowIcon).removeClass('expanded');
+
+    if ($targetContent.hasClass('active')) {
+      // If currently active, close it
+      $targetContent.removeClass('active').html('');
+      $arrowIcon.removeClass('expanded');
+    } else {
+      // If not active, open it and load content
+      loadContent(pageFilename, targetElementId);
+      $targetContent.addClass('active');
+      $arrowIcon.addClass('expanded');
+    }
+  });
+
+
+  // Lightbox functions (Impressum, Datenschutz) - these remain as lightboxes
+  window.kb_source_2_datenschutz = function() { loadContent('datenschutz', 'datenschutz'); document.getElementById('datenschutz-p').style.display='block';document.getElementById('fade').style.display='block'; };
+  window.kb_source_2_impressum = function() { loadContent('impressum', 'impressum'); document.getElementById('impressum-p').style.display='block';document.getElementById('fade').style.display='block'; };
+
+  // Dark-Mode Logik
+  var toggle = document.getElementById("theme-toggle"); // Assuming this toggle exists somewhere in the HTML
   var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme) {
     document.documentElement.setAttribute('data-theme', storedTheme);
   }
-  if (toggle) { // Dieser Block wird nur ausgeführt, wenn #theme-toggle existiert
+  if (toggle) {
     toggle.onclick = function() {
       var currentTheme = document.documentElement.getAttribute("data-theme");
       var targetTheme = (currentTheme === "light") ? "dark" : "light";
