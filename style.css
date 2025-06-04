@@ -118,7 +118,7 @@ main    { padding-top: 0; padding-bottom: 0; }
 }
 
 
-/* ========== Accordion/Kategorien ========== */
+/* ========== Accordion/Kategorien (Haupt-Akkordeons) ========== */
 .cat {
   cursor: pointer;
   font-weight: 400;
@@ -132,7 +132,10 @@ main    { padding-top: 0; padding-bottom: 0; }
   overflow: hidden;
   transition: max-height .5s;
 }
-input[type=radio]:checked ~ .cat_text { max-height: 1000px; }
+input[type=radio]:checked ~ .cat_text {
+    max-height: 9999px; /* Erhöht, damit der Haupt-Akkordeon bei Bedarf scrollen kann */
+    overflow-y: auto; /* Vertikales Scrollen im Haupt-Akkordeon ermöglichen */
+}
 
 label {
   cursor: pointer;
@@ -169,18 +172,27 @@ label.cat[for^="tog"].expanded::before {
   content: "−";
 }
 
-/* New CSS for Accordion Subcontent */
+/* New CSS for Accordion Subcontent (Unter-Akkordeons) */
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* Added padding transition */
-    padding: 0 1em; /* Initial padding */
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    padding: 0 1em; /* Initial padding when closed */
+    font-size: 1.2em; /* Set a consistent font size for accordion content */
 }
 
 .accordion-content.active {
-    max-height: 2000px; /* Adjust as needed, large enough to contain content */
-    padding: 1em; /* Expanded padding */
+    max-height: 9999px; /* Sehr großer Wert, um sicherzustellen, dass nichts abgeschnitten wird */
+    overflow-y: auto; /* Vertikale Scrollleiste nur bei Bedarf */
+    padding: 1em; /* Padding when active */
 }
+
+/* Anpassung der Schriftgröße für P-Tags in den Akkordeons, falls diese speziell betroffen sind */
+.accordion-content p {
+    font-size: 1em; /* 1em relative zum Parent (.accordion-content), also effektiv 1.2em insgesamt */
+    margin: 0.5em 0; /* Beispiel: Etwas vertikaler Abstand für Absätze */
+}
+
 
 /* ========== Typografie ========== */
 h1 {
@@ -201,7 +213,7 @@ ul             { list-style-type: square; text-align: left; }
 ol             { list-style-type: upper-roman; text-align: left; }
 li             { list-style-type: square; }
 .small         { text-align: center; margin: 0; padding: 0; }
-.content       { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; }
+.content       { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; } /* Standardtext für die Haupt-Akkordeons */
 blockquote     { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
 blockquote p         { text-align: right;  hyphens: manual; }
 blockquote p.says    { text-align: center; hyphens: manual; }
@@ -328,11 +340,12 @@ svg, .switcher_color, .switcher_theme {
 
 .arrow, .arrow-nohover {
   margin: 0;
-  font-size: 1em;
+  font-size: 1em; /* Standardgröße für Pfeile, falls nicht überschrieben */
   font-weight: 400;
 }
-#content4 .arrow-nohover { /* Adresse im Kontaktbereich */
-    font-size: 0.85em;
+/* Anpassung der Schriftgröße für die Kontakteinträge, damit sie nicht kleiner sind */
+#content4 .arrow-nohover {
+    font-size: 1em; /* Setzt die Größe auf den Standard des Elternelements (.cat_text -> 1.2em) */
 }
 
 
