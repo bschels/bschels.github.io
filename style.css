@@ -111,7 +111,9 @@ main    { padding-top: 0; padding-bottom: 0; }
   text-underline-offset: 3px;
   padding: 0.1em 0.2em;
 }
-.language-select a.switch-language:hover {
+/* NEU: Aktiv-Status für Sprachlinks im Header */
+.language-select a.switch-language:hover,
+.language-select a.switch-language.active-lang-link {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
@@ -168,21 +170,27 @@ label.cat[for^="tog"] > div.language.active > p.cat {
   margin: 0;
 }
 
-label.cat[for^="tog"].expanded::before {
+/* Geändert: Haupt-Akkordeon-Labels bleiben NICHT schwarz, nur Hover-Effekt */
+label.cat[for^="tog"]:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+}
+label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
   content: "−";
 }
+
 
 /* New CSS for Accordion Subcontent (Unter-Akkordeons) */
 .accordion-content {
     max-height: 0;
-    overflow: hidden;
+    overflow-y: hidden; /* Sicherstellen, dass kein temporärer Scrollbalken erscheint */
     transition: max-height 0.5s ease-out, padding 0.5s ease-out;
     padding: 0 1em; /* Initial padding when closed */
     font-size: 1.2em; /* Set a consistent font size for accordion content */
 }
 
 .accordion-content.active {
-    max-height: 9999px; /* Sehr großer Wert, um sicherzustellen, dass nichts abgeschnitten wird */
+    /* max-height wird jetzt dynamisch per JS gesetzt, daher hier kein fester Wert mehr */
     overflow-y: auto; /* Vertikale Scrollleiste nur bei Bedarf */
     padding: 1em; /* Padding when active */
 }
@@ -272,52 +280,22 @@ a:hover {
   text-decoration-color: var(--hover-text);
 }
 
+/* Geändert: Haupt-Akkordeon-Labels bleiben NICHT schwarz, nur Hover-Effekt */
 label.cat[for^="tog"]:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
 }
 
 
-/* ========== Header-Link und Social-Icons: Blau beim Hover ========== */
-.title-link,
-.logo,
-.logo-ru,
-.mini-title-link {
-  transition: color 0.3s, background 0.3s;
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-.title-link:hover,
-.logo:hover {
-  color: var(--accent) !important;
-  background-color: transparent !important;
-}
-
-@media (min-width: 768px) {
-  .logo-ru:hover,
-  .mini-title-link:hover {
-    color: var(--accent) !important;
-    background: transparent !important;
-  }
-}
-
-/* ========== Restliche Link-Gruppen ========== */
-.cat-link {
-  text-transform: uppercase;
-  margin: 0;
-  transition: background-color .2s;
-}
-.cat-link a {
-  display: block;
-  padding: 0.2em 0;
-}
-
-.cat-link:hover {
+/* NEU: Aktiv-Status für Unter-Akkordeon-Links */
+.cat-link:hover,
+.cat-link.active-sub-link { /* active-sub-link wird auf das .cat-link div gesetzt */
   background-color: var(--hover-bg);
 }
-.cat-link:hover a {
+.cat-link:hover a,
+.cat-link.active-sub-link a { /* a-Tag innerhalb von .cat-link */
   color: var(--hover-text);
-  background-color: transparent;
+  background-color: transparent; /* Verhindert doppelte Hintergrundfarbe auf dem a-Tag */
   text-decoration-color: var(--hover-text);
 }
 
@@ -393,7 +371,9 @@ svg, .switcher_color, .switcher_theme {
   padding: 0.1em 0.2em;
   margin: 0 0.2em;
 }
-.lb_language a.switch-language:hover {
+/* NEU: Aktiv-Status für Sprachlinks in der Lightbox */
+.lb_language a.switch-language:hover,
+.lb_language a.switch-language.active-lang-link {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
