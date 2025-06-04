@@ -1,22 +1,22 @@
-// Globale Hilfsfunktion zum Laden von Inhalten via AJAX
+// Global helper function to load content via AJAX
 function loadContent(pageFilename, targetElementId, callback) {
   $.get('/pages/' + pageFilename + '.html')
     .done(function(data) {
       $('#' + targetElementId).html(data);
       if (typeof callback === 'function') {
-        callback(); // Callback aufrufen, nachdem der Inhalt geladen wurde
+        callback(); // Call callback after content is loaded
       }
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.error("Failed to load content for: " + pageFilename, textStatus, errorThrown);
       $('#' + targetElementId).html('<p>Error loading content. Please try again later.</p>');
       if (typeof callback === 'function') {
-        callback(); // Auch bei Fehler den Callback aufrufen
+        callback(); // Call callback even on error
       }
     });
 }
 
-$(function() { // Entspricht $(document).ready()
+$(function() { // Equivalent to $(document).ready()
 
   // Preloader
   $(window).on('load', function() {
@@ -27,17 +27,34 @@ $(function() { // Entspricht $(document).ready()
 
   // Language switcher
   $(".switch-language").on("click", function() {
-    var switchTo = $(this).attr("id");
+    var switchTo = $(this).attr("id"); // e.g., 'german' or 'english'
+
+    // Remove 'active' from all language parent divs
     $(".language").removeClass('active');
+    // Set 'active' on the selected language parent div
     $(".language#" + switchTo).addClass('active');
+
+    // Remove 'active-lang-link' from ALL language switch links
+    $(".switch-language").removeClass('active-lang-link');
+
+    // Add 'active-lang-link' to the clicked language link (both header and lightbox)
+    $('.switch-language#' + switchTo).addClass('active-lang-link');
   });
+
+  // Set initial active language link on page load
+  // Find the active language div based on the HTML initially set
+  var initialActiveLangId = $('.language.active').attr('id');
+  if (initialActiveLangId) {
+      $('.switch-language#' + initialActiveLangId).addClass('active-lang-link');
+  }
+
 
   // Lightbox Hider on any click outside
   $('#fade').on('click', function(event) {
     $(".white_content, #fade").hide();
   });
 
-  // --- START: Akkordeon Plus/Minus Label Updater Funktion ---
+  // --- START: Accordion Plus/Minus Label Updater Function ---
   function updateAccordionLabels() {
     $('input[type="radio"][name="rdo"]').each(function() {
       var radioId = $(this).attr('id');
@@ -45,15 +62,17 @@ $(function() { // Entspricht $(document).ready()
       if ($label.length) {
         if ($(this).is(':checked')) {
           $label.addClass('expanded');
+          // Removed: $label.addClass('active-cat-label'); - Main categories only highlight on hover
         } else {
           $label.removeClass('expanded');
+          // Removed: $label.removeClass('active-cat-label');
         }
       }
     });
   }
-  // --- ENDE: Akkordeon Plus/Minus Label Updater Funktion ---
+  // --- ENDE: Accordion Plus/Minus Label Updater Function ---
 
-  // Radio Button Closer: Nur für Akkordeon-Radio-Buttons (name="rdo")
+  // Radio Button Closer: Only for accordion radio buttons (name="rdo")
   $('input[type="radio"][name="rdo"]').each(function() {
       $(this).data("chk", $(this).is(':checked')); // Initialize data-chk
   });
@@ -68,12 +87,25 @@ $(function() { // Entspricht $(document).ready()
     $clickedRadio.prop("checked", !wasChecked);
     $clickedRadio.data("chk", !wasChecked);
 
-    // Akkordeon-Label-Zustand direkt nach der Änderung aktualisieren
+    // Update accordion label state immediately after change
     updateAccordionLabels();
   });
 
-  // Rufe die Funktion einmal beim Laden der Seite auf, um den initialen Zustand korrekt zu setzen
+  // Call the function once on page load to set the initial state correctly
   updateAccordionLabels();
+
+  // Function to generate pagination
+  function generatePagination($contentContainer, totalPages, currentPageIndex) {
+      // Remove any existing pagination controls first
+      $contentContainer.find('.pagination-controls').remove();
+
+      let paginationHtml = '<div class="pagination-controls">';
+      for (let i = 0; i < totalPages; i++) {
+          paginationHtml += `<a href="#" class="page-link ${i === currentPageIndex ? 'active' : ''}" data-page-index="${i}">${i + 1}</a>`;
+      }
+      paginationHtml += '</div>';
+      $contentContainer.append(paginationHtml); // Appends pagination at the end of accordion content
+  }
 
   // Accordion for subcategories (Vita, Büroprofil, Leistungen, Schwerpunkte, Projekte)
   $('.accordion-sub-toggle').on('click', function(event) {
@@ -84,27 +116,85 @@ $(function() { // Entspricht $(document).ready()
     var targetElementId = $this.data('target-id');
     var $targetContent = $('#' + targetElementId);
     var $arrowIcon = $this.find('.arrow');
+    var $parentCatLink = $this.closest('.cat-link'); // The parent div with the .cat-link class
 
-    // Close all other open accordion sub-contents and reset their arrows
-    // Set max-height to 0 explicitly for closing other elements
-    $('.accordion-content.active').not($targetContent).css('max-height', '0px').removeClass('active').html('');
+
+    // Close all other open accordion sub-contents and reset their highlights/arrows
+    // Temporarily set overflow-y to hidden for all closing accordions to prevent flickers
+    $('.accordion-content.active').not($targetContent).css('max-height', '0px').removeClass('active').html('').css('overflow-y', 'hidden');
     $('.accordion-sub-toggle .arrow.expanded').not($arrowIcon).removeClass('expanded');
+    $('.cat-link.active-sub-link').not($parentCatLink).removeClass('active-sub-link'); // Remove highlight from all other links
 
 
     if ($targetContent.hasClass('active')) {
       // If currently active, close it
-      $targetContent.css('max-height', '0px').removeClass('active').html('');
+      $targetContent.css('max-height', '0px').removeClass('active').html('').css('overflow-y', 'hidden');
       $arrowIcon.removeClass('expanded');
+      $parentCatLink.removeClass('active-sub-link'); // Remove highlight
     } else {
       // If not active, open it and load content
       loadContent(pageFilename, targetElementId, function() {
-          // Callback-Funktion wird ausgeführt, nachdem der Inhalt geladen wurde
-          $targetContent.addClass('active'); // Fügen Sie die 'active'-Klasse hinzu, um padding zu aktivieren
-          // Berechnen Sie die tatsächliche Höhe des Inhalts
-          var contentHeight = $targetContent.prop('scrollHeight');
-          $targetContent.css('max-height', contentHeight + 'px'); // Setzen Sie die max-height auf die tatsächliche Höhe
+          // Callback function executes after content is loaded
+
+          // --- Pagination logic for Projects (pageFilename === 'projekte') ---
+          if (pageFilename === 'projekte') {
+              const $projectPages = $targetContent.find('.project-page');
+              if ($projectPages.length > 0) {
+                  // Hide all project pages
+                  $projectPages.hide();
+                  // Display the first page
+                  $projectPages.first().show();
+
+                  // Generate pagination
+                  generatePagination($targetContent, $projectPages.length, 0); // 0 is the index of the first page
+
+                  // Event Listener for pagination buttons
+                  // Using .off().on() to prevent multiple bindings if accordion is opened multiple times
+                  $targetContent.off('click', '.pagination-controls .page-link').on('click', '.pagination-controls .page-link', function(e) {
+                      e.preventDefault();
+                      const pageIndex = $(this).data('page-index');
+
+                      // Hide all pages
+                      $projectPages.hide();
+                      // Show the clicked page
+                      $projectPages.eq(pageIndex).show();
+
+                      // Highlight active pagination button
+                      $('.pagination-controls .page-link').removeClass('active');
+                      $(this).addClass('active');
+
+                      // Adjust max-height for the new content
+                      // Crucial: Must be done after displaying the page, as scrollHeight is otherwise incorrect
+                      const currentPageElement = $projectPages.eq(pageIndex)[0]; // Get native DOM element for scrollHeight
+                      const currentProjectPageHeight = currentPageElement ? currentPageElement.scrollHeight : 0;
+                      const paginationHeight = $targetContent.find('.pagination-controls').outerHeight(true) || 0; // Height of pagination controls
+
+                      // Apply max-height and re-enable overflow-y after a brief delay for smooth transition
+                      $targetContent.css('max-height', (currentProjectPageHeight + paginationHeight + 20) + 'px'); // +20px buffer
+                      setTimeout(function() {
+                          $targetContent.css('overflow-y', 'auto');
+                      }, 500); // Matches CSS transition duration
+                  });
+              } else {
+                 // If no .project-page found, treat as single page content for height calculation
+                 console.warn("No .project-page elements found in projekte.html. Pagination will not be applied.");
+              }
+          }
+          // --- END OF Pagination Logic ---
+
+          // --- Standard accordion height adjustment (also applies to pagination if no .project-page found) ---
+          $targetContent.addClass('active'); // Add 'active' class to enable padding
+          $targetContent.outerHeight(); // Force reflow/repaint to get correct scrollHeight immediately
+
+          const contentHeight = $targetContent.prop('scrollHeight');
+          $targetContent.css('max-height', contentHeight + 'px');
+
+          setTimeout(function() {
+              $targetContent.css('overflow-y', 'auto');
+          }, 500); // Matches CSS transition duration
       });
       $arrowIcon.addClass('expanded');
+      $parentCatLink.addClass('active-sub-link'); // Add highlight
     }
   });
 
@@ -113,7 +203,7 @@ $(function() { // Entspricht $(document).ready()
   window.kb_source_2_datenschutz = function() { loadContent('datenschutz', 'datenschutz'); document.getElementById('datenschutz-p').style.display='block';document.getElementById('fade').style.display='block'; };
   window.kb_source_2_impressum = function() { loadContent('impressum', 'impressum'); document.getElementById('impressum-p').style.display='block';document.getElementById('fade').style.display='block'; };
 
-  // Dark-Mode Logik
+  // Dark Mode Logic
   var toggle = document.getElementById("theme-toggle"); // Assuming this toggle exists somewhere in the HTML
   var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme) {
@@ -128,4 +218,4 @@ $(function() { // Entspricht $(document).ready()
     };
   }
 
-}); // Ende von $(function() { ... })
+}); // End of $(function() { ... })
