@@ -238,16 +238,22 @@ ol             { list-style-type: upper-roman; text-align: left; }
 li             { list-style-type: square; }
 .small         { text-align: center; margin: 0; padding: 0; }
 .content       { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; } /* Standardtext für die Haupt-Akkordeons */
+/* Zitat rechtsbündig, kursiv; Autor normal */
 blockquote {
   text-align: right;
-  padding: 0 5%;
-  hyphens: manual;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 0;
 }
 
-blockquote p,
-blockquote p.says {
-  text-align: right;
-  hyphens: manual;
+/* nur die eigentliche Aussage kursiv */
+blockquote .says {
+  font-style: italic;
+}
+
+/* Autor normal (falls er irgendwo kursiv geerbt hat) */
+blockquote p:not(.says) {
+  font-style: normal;
 }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
@@ -784,18 +790,4 @@ hr.z {
 /* NEU: Transparenter Hintergrund für SPAN.white innerhalb von Lightbox-Sprachlinks */
 .lb_language a.switch-language span.white {
     background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
-}
-
-/* Rechtsbündige Zitate */
-blockquote.quote-right {
-  text-align: right;
-  padding-right: 1em;
-  font-style: italic;
-}
-blockquote.quote-right p.says {
-  text-align: right;
-}
-blockquote.quote-right p {
-  text-align: right;
-  font-style: normal;
 }
