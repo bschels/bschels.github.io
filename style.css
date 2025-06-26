@@ -777,3 +777,17 @@ hr.z {
 .lb_language a.switch-language span.white {
     background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
 }
+
+/* Rechtsbündige Zitate */
+blockquote.quote-right {
+  text-align: right;
+  padding-right: 1em;
+  font-style: italic;
+}
+blockquote.quote-right p.says {
+  text-align: right;
+}
+blockquote.quote-right p {
+  text-align: right;
+  font-style: normal;
+}
