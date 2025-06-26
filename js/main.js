@@ -1,6 +1,6 @@
 // Global helper function to load content via AJAX
 function loadContent(pageFilename, targetElementId, callback) {
-  var cacheBuster = "?_t=" + new Date().getTime(); 
+  var cacheBuster = "?_t=" + new Date().getTime();
   $.get('/pages/' + pageFilename + '.html' + cacheBuster)
     .done(function(data) {
       $('#' + targetElementId).html(data);
@@ -24,17 +24,18 @@ $(function() {
     $('body').delay(550).css({'overflow':'visible'});
   });
 
+  // Language switcher (robust: works with id or data-lang)
   $(document).on("click", ".switch-language", function() {
-    var switchTo = $(this).data("lang");
+    var switchTo = $(this).data("lang") || $(this).attr("id"); // fallback to id
     $(".language").removeClass('active');
     $(".language#" + switchTo).addClass('active');
     $(".switch-language").removeClass('active-lang-link');
-    $('.switch-language[data-lang="' + switchTo + '"]').addClass('active-lang-link');
+    $('.switch-language[data-lang="' + switchTo + '"], .switch-language#' + switchTo).addClass('active-lang-link');
   });
 
   var initialActiveLangId = $('.language.active').attr('id');
   if (initialActiveLangId) {
-    $('.switch-language[data-lang="' + initialActiveLangId + '"]').addClass('active-lang-link');
+    $('.switch-language[data-lang="' + initialActiveLangId + '"], .switch-language#' + initialActiveLangId).addClass('active-lang-link');
   }
 
   $('#fade').on('click', function() {
@@ -138,14 +139,14 @@ $(function() {
 
   window.kb_source_2_datenschutz = function() {
     loadContent('datenschutz', 'datenschutz');
-    document.getElementById('datenschutz-p').style.display='block';
-    document.getElementById('fade').style.display='block';
+    document.getElementById('datenschutz-p').style.display = 'block';
+    document.getElementById('fade').style.display = 'block';
   };
 
   window.kb_source_2_impressum = function() {
     loadContent('impressum', 'impressum');
-    document.getElementById('impressum-p').style.display='block';
-    document.getElementById('fade').style.display='block';
+    document.getElementById('impressum-p').style.display = 'block';
+    document.getElementById('fade').style.display = 'block';
   };
 
   var toggle = document.getElementById("theme-toggle");
