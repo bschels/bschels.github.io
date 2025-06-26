@@ -238,9 +238,17 @@ ol             { list-style-type: upper-roman; text-align: left; }
 li             { list-style-type: square; }
 .small         { text-align: center; margin: 0; padding: 0; }
 .content       { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; } /* Standardtext für die Haupt-Akkordeons */
-blockquote     { font-style: italic; text-align: center; padding: 0 5%; hyphens: manual; }
-blockquote p         { text-align: right;  hyphens: manual; }
-blockquote p.says    { text-align: center; hyphens: manual; }
+blockquote {
+  text-align: right;
+  padding: 0 5%;
+  hyphens: manual;
+}
+
+blockquote p,
+blockquote p.says {
+  text-align: right;
+  hyphens: manual;
+}
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
 table {
