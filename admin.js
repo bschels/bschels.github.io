@@ -732,13 +732,48 @@ function generateContactHTML(contactData) {
   const textDE = contactData.textDE || '';
   const textEN = contactData.textEN || '';
   
-  // Format phone for display (replace spaces with &nbsp;)
-  const phoneDisplay = phone.replace(/\s/g, '&nbsp;');
+  // Format phone for display
+  // German format: 08442 / 929 229 1
+  // English format: +49 8442 929 229 1
+  let phoneDisplayDE = phone;
+  let phoneDisplayEN = phone;
+  
+  // Remove all non-digits to get clean number
+  const cleanPhone = phone.replace(/\D/g, '');
+  
+  // Format for German display: 08442 / 929 229 1
+  if (cleanPhone.startsWith('4984429292291')) {
+    phoneDisplayDE = '08442 / 929 229 1';
+  } else if (cleanPhone.startsWith('84429292291')) {
+    phoneDisplayDE = '08442 / 929 229 1';
+  } else if (cleanPhone.length >= 11) {
+    // Generic formatting: try to format as 0XXXX / XXX XXX X
+    const areaCode = cleanPhone.substring(cleanPhone.length - 11, cleanPhone.length - 7);
+    const number = cleanPhone.substring(cleanPhone.length - 7);
+    phoneDisplayDE = `0${areaCode} / ${number.substring(0, 3)} ${number.substring(3, 6)} ${number.substring(6)}`;
+  }
+  
+  // Format for English display: +49 8442 929 229 1
+  if (cleanPhone.startsWith('4984429292291')) {
+    phoneDisplayEN = '+49 8442 929 229 1';
+  } else if (cleanPhone.startsWith('84429292291')) {
+    phoneDisplayEN = '+49 8442 929 229 1';
+  } else if (cleanPhone.length >= 11) {
+    // Generic formatting: try to format as +49 XXXX XXX XXX X
+    const countryCode = cleanPhone.substring(0, cleanPhone.length - 11);
+    const areaCode = cleanPhone.substring(cleanPhone.length - 11, cleanPhone.length - 7);
+    const number = cleanPhone.substring(cleanPhone.length - 7);
+    phoneDisplayEN = `+${countryCode || '49'} ${areaCode} ${number.substring(0, 3)} ${number.substring(3, 6)} ${number.substring(6)}`;
+  }
+  
+  // Replace spaces with &nbsp; for proper display
+  phoneDisplayDE = phoneDisplayDE.replace(/\s/g, '&nbsp;');
+  phoneDisplayEN = phoneDisplayEN.replace(/\s/g, '&nbsp;');
   
   const germanHTML = `
         <p class="content">${escapeHtml(textDE)}</p>
           <div class="arrow-nohover">Email: <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
-          <div class="arrow-nohover">Telefon: <a href="tel:${escapeHtml(phone)}">${phoneDisplay}</a></div>
+          <div class="arrow-nohover">Telefon: <a href="tel:${escapeHtml(phone)}">${phoneDisplayDE}</a></div>
           <div class="arrow-nohover">Adresse: ${escapeHtml(addressDE)}</div>
           <br>
           <hr class="z">`;
@@ -746,7 +781,7 @@ function generateContactHTML(contactData) {
   const englishHTML = `
         <p class="content">${escapeHtml(textEN)}</p>
           <div class="arrow-nohover">Email: <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
-          <div class="arrow-nohover">Phone: <a href="tel:${escapeHtml(phone)}">${phoneDisplay}</a></div>
+          <div class="arrow-nohover">Phone: <a href="tel:${escapeHtml(phone)}">${phoneDisplayEN}</a></div>
           <div class="arrow-nohover">Address: ${escapeHtml(addressEN)}</div>
           <br>
           <hr class="z">`;
@@ -4254,13 +4289,48 @@ function generateContactHTML(contactData) {
   const textDE = contactData.textDE || '';
   const textEN = contactData.textEN || '';
   
-  // Format phone for display (replace spaces with &nbsp;)
-  const phoneDisplay = phone.replace(/\s/g, '&nbsp;');
+  // Format phone for display
+  // German format: 08442 / 929 229 1
+  // English format: +49 8442 929 229 1
+  let phoneDisplayDE = phone;
+  let phoneDisplayEN = phone;
+  
+  // Remove all non-digits to get clean number
+  const cleanPhone = phone.replace(/\D/g, '');
+  
+  // Format for German display: 08442 / 929 229 1
+  if (cleanPhone.startsWith('4984429292291')) {
+    phoneDisplayDE = '08442 / 929 229 1';
+  } else if (cleanPhone.startsWith('84429292291')) {
+    phoneDisplayDE = '08442 / 929 229 1';
+  } else if (cleanPhone.length >= 11) {
+    // Generic formatting: try to format as 0XXXX / XXX XXX X
+    const areaCode = cleanPhone.substring(cleanPhone.length - 11, cleanPhone.length - 7);
+    const number = cleanPhone.substring(cleanPhone.length - 7);
+    phoneDisplayDE = `0${areaCode} / ${number.substring(0, 3)} ${number.substring(3, 6)} ${number.substring(6)}`;
+  }
+  
+  // Format for English display: +49 8442 929 229 1
+  if (cleanPhone.startsWith('4984429292291')) {
+    phoneDisplayEN = '+49 8442 929 229 1';
+  } else if (cleanPhone.startsWith('84429292291')) {
+    phoneDisplayEN = '+49 8442 929 229 1';
+  } else if (cleanPhone.length >= 11) {
+    // Generic formatting: try to format as +49 XXXX XXX XXX X
+    const countryCode = cleanPhone.substring(0, cleanPhone.length - 11);
+    const areaCode = cleanPhone.substring(cleanPhone.length - 11, cleanPhone.length - 7);
+    const number = cleanPhone.substring(cleanPhone.length - 7);
+    phoneDisplayEN = `+${countryCode || '49'} ${areaCode} ${number.substring(0, 3)} ${number.substring(3, 6)} ${number.substring(6)}`;
+  }
+  
+  // Replace spaces with &nbsp; for proper display
+  phoneDisplayDE = phoneDisplayDE.replace(/\s/g, '&nbsp;');
+  phoneDisplayEN = phoneDisplayEN.replace(/\s/g, '&nbsp;');
   
   const germanHTML = `
         <p class="content">${escapeHtml(textDE)}</p>
           <div class="arrow-nohover">Email: <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
-          <div class="arrow-nohover">Telefon: <a href="tel:${escapeHtml(phone)}">${phoneDisplay}</a></div>
+          <div class="arrow-nohover">Telefon: <a href="tel:${escapeHtml(phone)}">${phoneDisplayDE}</a></div>
           <div class="arrow-nohover">Adresse: ${escapeHtml(addressDE)}</div>
           <br>
           <hr class="z">`;
@@ -4268,7 +4338,7 @@ function generateContactHTML(contactData) {
   const englishHTML = `
         <p class="content">${escapeHtml(textEN)}</p>
           <div class="arrow-nohover">Email: <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
-          <div class="arrow-nohover">Phone: <a href="tel:${escapeHtml(phone)}">${phoneDisplay}</a></div>
+          <div class="arrow-nohover">Phone: <a href="tel:${escapeHtml(phone)}">${phoneDisplayEN}</a></div>
           <div class="arrow-nohover">Address: ${escapeHtml(addressEN)}</div>
           <br>
           <hr class="z">`;
