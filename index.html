@@ -105,8 +105,6 @@
      - Unter "Abdeckung" sehen Sie indexierte Seiten und Fehler
   -->
   <!-- Critical CSS inline would be better, but for now we use preload -->
-  <link rel="preload" href="/fonts/montserrat-v24-latin-300.woff2" as="font" type="font/woff2" crossorigin="" />
-  <link rel="preload" href="/fonts/montserrat-v24-latin-regular.woff2" as="font" type="font/woff2" crossorigin="" />
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
@@ -125,16 +123,21 @@
   <div id="preloader">
     <div id="status"> </div>
   </div>
- <header>
-  <div class="header-row">
-    <div class="title-wrapper">
-      <a href="./" class="title-link">
-        <h1 class="title-text">
-          archi­tektur­büro<br /><span>schels</span>
-        </h1>
-      </a>
-    </div>
-    <div class="header-lang">
+         <header>
+          <div class="header-row">
+            <div class="title-wrapper">
+              <a href="./" class="title-link">
+                <h1 class="title-text">
+                  archi­tektur­büro<br /><span>schels</span>
+                </h1>
+              </a>
+            </div>
+            <div class="header-actions-wrapper">
+              <button id="theme-toggle" class="theme-toggle" aria-label="Dark Mode umschalten" title="Dark Mode">
+                <span id="theme-toggle-icon">🌙</span>
+              </button>
+            </div>
+            <div class="header-lang">
       <div id="english" class="language">
         <div class="language-select">
           <div class="tooltip">

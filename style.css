@@ -14,37 +14,17 @@
   --accent: blue; /* Dies ist deine Akzentfarbe, die für die blauen Hover-Effekte verwendet wird */
   --hover-bg: #000;
   --hover-text: #fff;
-  --font-main: 'Montserrat', 'Arial', sans-serif;
+  --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* ========== Schriftarten-Einbindung ========== */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 300;
-  src: url('../fonts/montserrat-v24-latin-300.woff2') format('woff2'),
-       url('../fonts/montserrat-v24-latin-300.woff') format('woff');
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/montserrat-v24-latin-regular.woff2') format('woff2'),
-       url('../fonts/montserrat-v24-latin-regular.woff') format('woff');
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 300;
-  src: url('../fonts/montserrat-v24-latin-300italic.woff2') format('woff2'),
-       url('../fonts/montserrat-v24-latin-300italic.woff') format('woff');
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 400;
-  src: url('../fonts/montserrat-v24-latin-italic.woff2') format('woff2'),
-       url('../fonts/montserrat-v24-latin-italic.woff') format('woff');
+/* Dark Mode Variablen */
+[data-theme="dark"] {
+  --primary: #fff;
+  --bg: #1a1a1a;
+  --body: #e0e0e0;
+  --accent: #888888;
+  --hover-bg: #333333;
+  --hover-text: #fff;
 }
 
 /* ========== Grundlayout & Body ========== */
@@ -88,6 +68,39 @@ main    { padding-top: 0; padding-bottom: 0; }
 .title-wrapper {
   margin-bottom: 0;
 }
+.header-actions-wrapper {
+  display: flex;
+  align-items: flex-end;
+  margin-right: 1rem;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--body);
+  color: var(--body);
+  font-size: 1.2em;
+  padding: 0.3em 0.6em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  border-color: var(--hover-bg);
+}
+
+.theme-toggle:focus {
+  outline: none;
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  border-color: var(--hover-bg);
+}
+
 .header-lang {
   display: flex;
   align-items: flex-end;
@@ -567,7 +580,7 @@ svg {
   text-underline-offset: 3px;
   display: inline-block;
   padding: 0.3em 0.6em;
-  border-radius: 3px;
+  border-radius: 0;
   transition: color .2s, background-color .2s, text-decoration-color .2s;
 }
 

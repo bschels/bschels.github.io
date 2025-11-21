@@ -186,9 +186,13 @@ $(function() {
   });
 
   var toggle = document.getElementById("theme-toggle");
+  var toggleIcon = document.getElementById("theme-toggle-icon");
   var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme) {
     document.documentElement.setAttribute('data-theme', storedTheme);
+    if (toggleIcon) {
+      toggleIcon.textContent = storedTheme === "dark" ? "☀️" : "🌙";
+    }
   }
   if (toggle) {
     toggle.onclick = function() {
@@ -196,6 +200,9 @@ $(function() {
       var targetTheme = (currentTheme === "light") ? "dark" : "light";
       document.documentElement.setAttribute('data-theme', targetTheme);
       localStorage.setItem('theme', targetTheme);
+      if (toggleIcon) {
+        toggleIcon.textContent = targetTheme === "dark" ? "☀️" : "🌙";
+      }
     };
   }
 });
