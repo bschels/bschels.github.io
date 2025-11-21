@@ -260,10 +260,15 @@ function loadStoredConfig() {
 // Update repository information display
 function updateRepoInfo() {
   const repoInfo = document.getElementById('repo-info');
-  if (!repoInfo) return;
+  if (!repoInfo) {
+    console.warn('repo-info element not found');
+    return;
+  }
   
   const config = AppState.githubConfig || ADMIN_CONFIG.repository;
   const token = AppState.githubToken;
+  
+  console.log('Updating repo info:', { config, hasToken: !!token });
   
   // Update info fields
   const infoRepo = document.getElementById('info-repo');
@@ -272,13 +277,21 @@ function updateRepoInfo() {
   const infoTokenStatus = document.getElementById('info-token-status');
   const repoLink = document.getElementById('repo-link');
   
-  if (infoRepo) infoRepo.textContent = config.repo || '-';
-  if (infoOwner) infoOwner.textContent = config.owner || '-';
-  if (infoBranch) infoBranch.textContent = config.branch || 'main';
+  if (infoRepo) {
+    infoRepo.textContent = config.repo || ADMIN_CONFIG.repository.repo || '-';
+  }
+  if (infoOwner) {
+    infoOwner.textContent = config.owner || ADMIN_CONFIG.repository.owner || '-';
+  }
+  if (infoBranch) {
+    infoBranch.textContent = config.branch || ADMIN_CONFIG.repository.branch || 'main';
+  }
   
   if (infoTokenStatus) {
     if (token) {
-      const tokenPreview = token.substring(0, 7) + '...' + token.substring(token.length - 4);
+      const tokenPreview = token.length > 11 
+        ? token.substring(0, 7) + '...' + token.substring(token.length - 4)
+        : token.substring(0, 7) + '...';
       infoTokenStatus.textContent = `✓ Konfiguriert (${tokenPreview})`;
       infoTokenStatus.style.color = '#28a745';
     } else {
@@ -287,16 +300,19 @@ function updateRepoInfo() {
     }
   }
   
-  if (repoLink && config.owner && config.repo) {
-    repoLink.href = `https://github.com/${config.owner}/${config.repo}`;
+  if (repoLink) {
+    const owner = config.owner || ADMIN_CONFIG.repository.owner;
+    const repo = config.repo || ADMIN_CONFIG.repository.repo;
+    if (owner && repo) {
+      repoLink.href = `https://github.com/${owner}/${repo}`;
+      repoLink.style.display = 'inline-block';
+    } else {
+      repoLink.style.display = 'none';
+    }
   }
   
-  // Show info section if config exists
-  if (config && (config.owner || config.repo)) {
-    repoInfo.style.display = 'block';
-  } else {
-    repoInfo.style.display = 'none';
-  }
+  // Always show info section (even if empty, to show defaults)
+  repoInfo.style.display = 'block';
 }
 
 // Navigation
@@ -349,8 +365,12 @@ function switchSection(section) {
     if (editorSections) {
       editorSections.style.display = 'none';
     }
-    // Pre-fill form with current values
-    loadStoredConfig();
+    // Pre-fill form with current values and update info
+    // Use setTimeout to ensure DOM is ready
+    setTimeout(() => {
+      loadStoredConfig();
+      updateRepoInfo();
+    }, 100);
   } else {
     loadContentForSection(section);
   }
