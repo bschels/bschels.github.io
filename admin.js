@@ -206,6 +206,10 @@ function initSetup() {
       console.log('Config gespeichert:', AppState.githubConfig);
       
       showStatus('Einstellungen gespeichert!', 'success');
+      
+      // Update repository info display
+      updateRepoInfo();
+      
       document.getElementById('setup-screen').style.display = 'none';
       loadContentForSection('profil');
     });
@@ -229,6 +233,9 @@ function loadStoredConfig() {
     AppState.githubConfig = ADMIN_CONFIG.repository;
   }
   
+  // Update repository info display
+  updateRepoInfo();
+  
   // Pre-fill setup form - use setTimeout to ensure DOM is ready
   setTimeout(() => {
     const usernameField = document.getElementById('github-username');
@@ -244,7 +251,52 @@ function loadStoredConfig() {
         tokenField.value = token;
       }
     }
+    
+    // Update repo info after form is filled
+    updateRepoInfo();
   }, 100);
+}
+
+// Update repository information display
+function updateRepoInfo() {
+  const repoInfo = document.getElementById('repo-info');
+  if (!repoInfo) return;
+  
+  const config = AppState.githubConfig || ADMIN_CONFIG.repository;
+  const token = AppState.githubToken;
+  
+  // Update info fields
+  const infoRepo = document.getElementById('info-repo');
+  const infoOwner = document.getElementById('info-owner');
+  const infoBranch = document.getElementById('info-branch');
+  const infoTokenStatus = document.getElementById('info-token-status');
+  const repoLink = document.getElementById('repo-link');
+  
+  if (infoRepo) infoRepo.textContent = config.repo || '-';
+  if (infoOwner) infoOwner.textContent = config.owner || '-';
+  if (infoBranch) infoBranch.textContent = config.branch || 'main';
+  
+  if (infoTokenStatus) {
+    if (token) {
+      const tokenPreview = token.substring(0, 7) + '...' + token.substring(token.length - 4);
+      infoTokenStatus.textContent = `✓ Konfiguriert (${tokenPreview})`;
+      infoTokenStatus.style.color = '#28a745';
+    } else {
+      infoTokenStatus.textContent = '✗ Nicht konfiguriert';
+      infoTokenStatus.style.color = '#dc3545';
+    }
+  }
+  
+  if (repoLink && config.owner && config.repo) {
+    repoLink.href = `https://github.com/${config.owner}/${config.repo}`;
+  }
+  
+  // Show info section if config exists
+  if (config && (config.owner || config.repo)) {
+    repoInfo.style.display = 'block';
+  } else {
+    repoInfo.style.display = 'none';
+  }
 }
 
 // Navigation

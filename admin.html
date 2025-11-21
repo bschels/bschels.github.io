@@ -64,12 +64,38 @@
       <main class="editor-main">
         <!-- Setup Screen (if GitHub token not configured) -->
         <div id="setup-screen" class="editor-section">
-          <h2>Ersteinrichtung</h2>
+          <h2>GitHub Einstellungen</h2>
+          
+          <!-- Repository Info Section -->
+          <div id="repo-info" class="repo-info" style="display: none;">
+            <h3>Aktuelle Konfiguration</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Repository:</strong>
+                <span id="info-repo">-</span>
+                <a id="repo-link" href="#" target="_blank" class="external-link">🔗 Auf GitHub öffnen</a>
+              </div>
+              <div class="info-item">
+                <strong>Owner:</strong>
+                <span id="info-owner">-</span>
+              </div>
+              <div class="info-item">
+                <strong>Branch:</strong>
+                <span id="info-branch">-</span>
+              </div>
+              <div class="info-item">
+                <strong>Token Status:</strong>
+                <span id="info-token-status">-</span>
+              </div>
+            </div>
+          </div>
+          
           <div class="setup-form">
+            <h3>Konfiguration ändern</h3>
             <div class="form-group">
               <label for="github-token">GitHub Personal Access Token:</label>
               <input type="password" id="github-token" placeholder="ghp_...">
-              <small>Token mit 'repo' Berechtigung. Wird lokal gespeichert.</small>
+              <small>Token mit 'repo' Berechtigung. Wird lokal im Browser gespeichert.</small>
             </div>
             <div class="form-group">
               <label for="github-username">GitHub Username:</label>
@@ -84,6 +110,20 @@
               <input type="text" id="github-branch" value="main" placeholder="main">
             </div>
             <button id="save-setup-btn" class="btn btn-primary">Einstellungen speichern</button>
+          </div>
+          
+          <div class="setup-help">
+            <h3>Hilfe</h3>
+            <p><strong>GitHub Token erstellen:</strong></p>
+            <ol>
+              <li>Gehen Sie zu <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Developer settings → Personal access tokens</a></li>
+              <li>Klicken Sie auf "Generate new token (classic)"</li>
+              <li>Geben Sie einen Namen ein (z.B. "Website Admin Panel")</li>
+              <li>Wählen Sie die Berechtigung <code>repo</code> (Full control of private repositories)</li>
+              <li>Klicken Sie auf "Generate token"</li>
+              <li><strong>WICHTIG:</strong> Kopieren Sie den Token sofort (er wird nur einmal angezeigt!)</li>
+            </ol>
+            <p><strong>Hinweis:</strong> Token und Konfiguration werden nur lokal im Browser gespeichert (localStorage).</p>
           </div>
         </div>
 

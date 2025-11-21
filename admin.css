@@ -924,6 +924,105 @@ body {
   padding: 2rem;
   border: 1px solid var(--primary);
   max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.setup-help {
+  background: var(--bg);
+  padding: 2rem;
+  border: 1px solid var(--primary);
+  max-width: 600px;
+  margin-top: 2rem;
+}
+
+.setup-help h3 {
+  margin-top: 0;
+  font-weight: 400;
+  font-size: 1.2em;
+  letter-spacing: 0.1em;
+}
+
+.setup-help ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.setup-help li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.setup-help code {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.2rem 0.4rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.setup-help a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* ========== Repository Info ========== */
+.repo-info {
+  background: var(--bg);
+  padding: 2rem;
+  border: 1px solid var(--primary);
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.repo-info h3 {
+  margin-top: 0;
+  font-weight: 400;
+  font-size: 1.2em;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-item strong {
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  font-size: 0.9em;
+  color: var(--body);
+  opacity: 0.7;
+}
+
+.info-item span {
+  font-weight: 300;
+  font-size: 1em;
+  color: var(--body);
+}
+
+.external-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9em;
+  margin-top: 0.25rem;
+  display: inline-block;
+}
+
+.external-link:hover {
+  text-decoration: underline;
 }
 
 /* ========== Responsive ========== */
