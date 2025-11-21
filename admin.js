@@ -6756,9 +6756,9 @@ async function translateHtmlPreservingStructure(html) {
   }
   
   // Serialize back to HTML - get innerHTML to preserve structure better
-  const root = doc.body || doc.documentElement;
-  if (root) {
-    return root.innerHTML;
+  const rootElement = doc.body || doc.documentElement;
+  if (rootElement) {
+    return rootElement.innerHTML;
   }
   return html; // Fallback to original
 }
