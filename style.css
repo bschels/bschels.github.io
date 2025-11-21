@@ -48,13 +48,13 @@ main    { padding-top: 0; padding-bottom: 0; }
 /* ========== Header: Zeile mit Flexbox ========== */
 .header-row {
   display: flex;
-  flex-direction: column; /* Spalte: Titel oben, dark/DE/EN darunter */
+  flex-direction: column; /* Spalte: Titel oben, DE/EN darunter */
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
   margin-bottom: 0;
   padding-bottom: 0; /* Kein Abstand */
-  gap: 0.1em; /* Kleiner Abstand zwischen Titel und dark/DE/EN */
+  gap: 0.1em; /* Kleiner Abstand zwischen Titel und DE/EN */
 }
 .title-wrapper {
   margin-bottom: 0;
@@ -63,7 +63,7 @@ main    { padding-top: 0; padding-bottom: 0; }
   display: flex;
   align-items: center !important; /* Center für perfekte visuelle Ausrichtung auf einer Linie */
   justify-content: flex-end !important; /* Nach rechts ausrichten */
-  gap: 0.4rem; /* Mehr Abstand zwischen dark, DE, EN */
+  gap: 0.4rem; /* Mehr Abstand zwischen DE, EN */
   margin-top: 0.8em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
   margin-bottom: 0;
   padding-bottom: 0;
@@ -92,7 +92,7 @@ main    { padding-top: 0; padding-bottom: 0; }
 .language          { display: none; }
 .language.active { display: block; }
 
-/* Header-Layout: Nur aktive .language anzeigen, auf einer Zeile mit dark */
+/* Header-Layout: Nur aktive .language anzeigen */
 .header-lang .language {
   display: none !important; /* Standard: versteckt - überschreibt display: block */
 }
@@ -805,7 +805,7 @@ hr.z {
     width: 100%;
     justify-content: flex-end;
     margin-top: 0.8em !important; /* Mehr Abstand nach oben - weiter runter zur Linie darunter */
-    gap: 0.4rem; /* Mehr Abstand zwischen dark, DE, EN */
+    gap: 0.4rem; /* Mehr Abstand zwischen DE, EN */
     align-items: center !important; /* Center für perfekte visuelle Ausrichtung */
   }
   .title-wrapper {
