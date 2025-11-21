@@ -167,6 +167,31 @@ main    { padding-top: 0; padding-bottom: 0; }
 input[type=radio]:checked ~ .cat_text {
     max-height: 9999px; /* Erhöht, damit der Haupt-Akkordeon bei Bedarf scrollen kann */
     overflow-y: auto; /* Vertikales Scrollen im Haupt-Akkordeon ermöglichen */
+    overflow-x: hidden; /* Kein horizontales Scrollen */
+}
+
+/* Scrollbalken-Styling für .cat_text - unsichtbar oder dezenter */
+.cat_text::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cat_text::-webkit-scrollbar-track {
+  background: transparent; /* Transparenter Hintergrund statt schwarz */
+}
+
+.cat_text::-webkit-scrollbar-thumb {
+  background: var(--body);
+  opacity: 0.3; /* Dezenter */
+  border-radius: 0;
+}
+
+.cat_text::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+.cat_text {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* Transparente Scrollbalken für Firefox */
 }
 
 label {
@@ -235,7 +260,32 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
 .accordion-content.active {
     /* max-height wird jetzt dynamisch per JS gesetzt, daher hier kein fester Wert mehr */
     overflow-y: auto; /* Vertikale Scrollleiste nur bei Bedarf */
+    overflow-x: hidden; /* Kein horizontales Scrollen */
     padding: 1em; /* Padding when active */
+}
+
+/* Scrollbalken-Styling für .accordion-content - unsichtbar oder dezenter */
+.accordion-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.accordion-content::-webkit-scrollbar-track {
+  background: transparent; /* Transparenter Hintergrund statt schwarz */
+}
+
+.accordion-content::-webkit-scrollbar-thumb {
+  background: var(--body);
+  opacity: 0.3; /* Dezenter */
+  border-radius: 0;
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+.accordion-content {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* Transparente Scrollbalken für Firefox */
 }
 
 /* Anpassung der Schriftgröße für P-Tags in den Akkordeons, falls diese speziell betroffen sind */
@@ -565,7 +615,33 @@ svg {
   border: 0.2em solid var(--primary);
   background-color: var(--bg);
   z-index: 1;
-  overflow: auto;
+  overflow-y: auto; /* Nur vertikales Scrollen, kein horizontales */
+  overflow-x: hidden; /* Kein horizontales Scrollen */
+}
+
+/* Scrollbalken-Styling für .white_content - unsichtbar oder dezenter */
+.white_content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.white_content::-webkit-scrollbar-track {
+  background: transparent; /* Transparenter Hintergrund statt schwarz */
+}
+
+.white_content::-webkit-scrollbar-thumb {
+  background: var(--body);
+  opacity: 0.3; /* Dezenter */
+  border-radius: 0;
+}
+
+.white_content::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Firefox Scrollbalken */
+.white_content {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* Transparente Scrollbalken */
 }
 
 /* ========== Footer-Inhalt (Name links, Links rechts) ========== */
