@@ -1856,7 +1856,6 @@ function renderDualLanguageEditor(section, content) {
 
 // Render leistungen editor with intro text and main content
 function renderLeistungenEditor(content) {
-  const mainContent = extractLanguageContent(content.main);
   const introContent = content.intro || { german: '', english: '' };
   
   return `
@@ -4969,7 +4968,6 @@ function renderDualLanguageEditor(section, content) {
 
 // Render leistungen editor with intro text and main content
 function renderLeistungenEditor(content) {
-  const mainContent = extractLanguageContent(content.main);
   const introContent = content.intro || { german: '', english: '' };
   
   return `
