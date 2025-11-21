@@ -6651,7 +6651,7 @@ async function translateFromGerman(section) {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              q: chunk,
+              q: chunkText,
               source: 'de',
               target: 'en',
               format: 'text'
@@ -6676,7 +6676,7 @@ async function translateFromGerman(section) {
       // Try MyMemory if LibreTranslate failed or is not available
       if (!translatedChunk || useMyMemory) {
         try {
-          const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=de|en`;
+          const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunkText)}&langpair=de|en`;
           const response = await fetch(apiUrl);
           
           if (response.ok) {
