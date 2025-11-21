@@ -3147,6 +3147,94 @@ function showEditor() {
   }
 }
 
+// Load GoatCounter statistics and display in header
+async function loadGoatCounterStats() {
+  const statsContainer = document.getElementById('header-stats');
+  if (!statsContainer) return;
+  
+  // Get API key from localStorage
+  const apiKey = localStorage.getItem('goatcounter_api_key');
+  if (!apiKey) {
+    // Hide stats if no API key is configured
+    statsContainer.style.display = 'none';
+    return;
+  }
+  
+  try {
+    // Get today's date
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    
+    // Get start of week (Monday)
+    const weekStart = new Date(today);
+    weekStart.setDate(today.getDate() - today.getDay() + 1); // Monday
+    const weekStartStr = weekStart.toISOString().split('T')[0];
+    
+    // Get start of month
+    const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+    const monthStartStr = monthStart.toISOString().split('T')[0];
+    
+    // GoatCounter API endpoint
+    const apiBase = 'https://schels.goatcounter.com/api/v0';
+    
+    // Fetch statistics using API key
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+    
+    // Fetch stats for different periods using /stats/total endpoint
+    const [todayData, weekData, monthData] = await Promise.allSettled([
+      fetch(`${apiBase}/stats/total?start=${todayStr}&end=${todayStr}`, { headers }).catch(() => null),
+      fetch(`${apiBase}/stats/total?start=${weekStartStr}&end=${todayStr}`, { headers }).catch(() => null),
+      fetch(`${apiBase}/stats/total?start=${monthStartStr}&end=${todayStr}`, { headers }).catch(() => null)
+    ]);
+    
+    let todayCount = '-';
+    let weekCount = '-';
+    let monthCount = '-';
+    
+    // Parse responses if successful
+    if (todayData.status === 'fulfilled' && todayData.value && todayData.value.ok) {
+      const data = await todayData.value.json();
+      todayCount = data.total || '-';
+    }
+    
+    if (weekData.status === 'fulfilled' && weekData.value && weekData.value.ok) {
+      const data = await weekData.value.json();
+      weekCount = data.total || '-';
+    }
+    
+    if (monthData.status === 'fulfilled' && monthData.value && monthData.value.ok) {
+      const data = await monthData.value.json();
+      monthCount = data.total || '-';
+    }
+    
+    // Update display
+    const todayEl = document.getElementById('stat-today');
+    const weekEl = document.getElementById('stat-week');
+    const monthEl = document.getElementById('stat-month');
+    
+    if (todayEl) todayEl.textContent = todayCount !== '-' ? todayCount.toLocaleString('de-DE') : '-';
+    if (weekEl) weekEl.textContent = weekCount !== '-' ? weekCount.toLocaleString('de-DE') : '-';
+    if (monthEl) monthEl.textContent = monthCount !== '-' ? monthCount.toLocaleString('de-DE') : '-';
+    
+    // Show stats container if we have any data
+    if (todayCount !== '-' || weekCount !== '-' || monthCount !== '-') {
+      statsContainer.style.display = 'flex';
+    } else {
+      statsContainer.style.display = 'none';
+    }
+    
+  } catch (error) {
+    console.error('GoatCounter stats error:', error);
+    // Hide stats on error
+    if (statsContainer) {
+      statsContainer.style.display = 'none';
+    }
+  }
+}
+
 function showLoading(show) {
   const overlay = document.getElementById('loading-overlay');
   if (overlay) {
