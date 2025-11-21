@@ -28,7 +28,9 @@
 }
 
 /* Dark Mode: Dünnerer Schrift-Schnitt (Ultra Light 100 statt Thin 200) */
+/* Diese Regel muss nach allen anderen font-weight Regeln kommen, damit sie überschreibt */
 [data-theme="dark"] body,
+[data-theme="dark"] body *,
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
 [data-theme="dark"] h3,
@@ -40,6 +42,7 @@
 [data-theme="dark"] ol,
 [data-theme="dark"] li,
 [data-theme="dark"] blockquote,
+[data-theme="dark"] blockquote *,
 [data-theme="dark"] blockquote .says,
 [data-theme="dark"] blockquote p:not(.says),
 [data-theme="dark"] strong,
@@ -51,7 +54,9 @@
 [data-theme="dark"] h3.cat,
 [data-theme="dark"] .arrow,
 [data-theme="dark"] .arrow-nohover,
-[data-theme="dark"] label.cat[for^="tog"]::before {
+[data-theme="dark"] label.cat[for^="tog"]::before,
+[data-theme="dark"] .title-wrapper,
+[data-theme="dark"] .pagination-controls .page-link.active {
   font-weight: 100 !important; /* Ultra Light - dünnerer Schnitt im Dark Mode */
 }
 
@@ -156,6 +161,16 @@ main    { padding-top: 0; padding-bottom: 0; }
 /* ========== Sprachumschalter ========== */
 .language          { display: none; }
 .language.active { display: block; }
+
+/* Überschreibe für Header-Layout: dark/DE/EN auf einer Zeile */
+.header-lang .language {
+  display: flex !important;
+  align-items: center;
+}
+
+.header-lang .language.active {
+  display: flex !important; /* Statt block, damit es richtig ausgerichtet ist */
+}
 
 /* Header .language divs richtig ausrichten */
 .header-lang .language {
