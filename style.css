@@ -22,7 +22,7 @@
   --primary: #fff; /* Weiß statt Schwarz */
   --bg: #000; /* Richtig schwarz statt weiß */
   --body: #fff; /* Weiß statt Schwarz */
-  --accent: #8888ff; /* Helleres Blau für besseren Kontrast */
+  --accent: blue; /* Gleiches Blau wie im Light Mode */
   --hover-bg: #fff; /* Weiß statt Schwarz */
   --hover-text: #000; /* Schwarz statt Weiß */
 }
