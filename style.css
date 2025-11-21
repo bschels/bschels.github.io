@@ -17,14 +17,14 @@
   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Dark Mode Variablen */
+/* Dark Mode Variablen - Vollständig invertiert */
 [data-theme="dark"] {
-  --primary: #fff;
-  --bg: #1a1a1a;
-  --body: #e0e0e0;
-  --accent: #888888;
-  --hover-bg: #333333;
-  --hover-text: #fff;
+  --primary: #fff; /* Weiß statt Schwarz */
+  --bg: #000; /* Richtig schwarz statt weiß */
+  --body: #fff; /* Weiß statt Schwarz */
+  --accent: #8888ff; /* Helleres Blau für besseren Kontrast */
+  --hover-bg: #fff; /* Weiß statt Schwarz */
+  --hover-text: #000; /* Schwarz statt Weiß */
 }
 
 /* ========== Grundlayout & Body ========== */
@@ -356,6 +356,7 @@ td {
   padding: 0.2em 0;
 }
 tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
+[data-theme="dark"] tr:nth-child(odd) { background: hsla(360,0%,20%,0.2); }
 
 /* ========== Formulareingaben resetten ========== */
 input[type=text], input[type=button] {
@@ -580,7 +581,9 @@ svg {
   text-underline-offset: 3px;
   display: inline-block;
   padding: 0.3em 0.6em;
-  border-radius: 0;
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
   transition: color .2s, background-color .2s, text-decoration-color .2s;
 }
 
