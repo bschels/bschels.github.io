@@ -872,8 +872,9 @@ hr.z {
   .header-lang {
     width: 100%;
     justify-content: flex-end;
-    margin-top: 0.2em;
-    gap: 0.3rem;
+    margin-top: 0.8em !important; /* Mehr Abstand nach oben - weiter runter zur Linie darunter */
+    gap: 0.4rem; /* Mehr Abstand zwischen dark, DE, EN */
+    align-items: center !important; /* Center für perfekte visuelle Ausrichtung */
   }
   .theme-toggle-link {
     margin-right: 0.3rem;
