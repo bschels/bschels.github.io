@@ -6592,11 +6592,52 @@ async function translateFromGerman(section) {
   }
   
   try {
+    // Split text into chunks (max 450 characters per chunk for API limits)
+    const MAX_CHUNK_LENGTH = 450;
+    const chunks = [];
+    let currentChunk = '';
+    const sentences = plainText.split(/(?<=[.!?])\s+|\n\n+/);
+    
+    for (const sentence of sentences) {
+      if ((currentChunk + sentence).length <= MAX_CHUNK_LENGTH) {
+        currentChunk += (currentChunk ? ' ' : '') + sentence;
+      } else {
+        if (currentChunk) {
+          chunks.push(currentChunk.trim());
+        }
+        currentChunk = sentence;
+      }
+    }
+    if (currentChunk) {
+      chunks.push(currentChunk.trim());
+    }
+    
+    // Fallback for very long sentences
+    const finalChunks = [];
+    for (const chunk of chunks) {
+      if (chunk.length > MAX_CHUNK_LENGTH) {
+        const words = chunk.split(' ');
+        let tempChunk = '';
+        for (const word of words) {
+          if ((tempChunk + word).length <= MAX_CHUNK_LENGTH) {
+            tempChunk += (tempChunk ? ' ' : '') + word;
+          } else {
+            if (tempChunk) finalChunks.push(tempChunk.trim());
+            tempChunk = word;
+          }
+        }
+        if (tempChunk) finalChunks.push(tempChunk.trim());
+      } else {
+        finalChunks.push(chunk);
+      }
+    }
+    
     // Translate chunks and combine
     const translatedChunks = [];
     let useMyMemory = false; // Start with LibreTranslate, fallback to MyMemory
     
-    for (let i = 0; i < chunks.length; i++) {
+    for (let i = 0; i < finalChunks.length; i++) {
+      const chunk = finalChunks[i];
       const chunk = chunks[i];
       let translatedChunk = null;
       
@@ -6646,19 +6687,19 @@ async function translateFromGerman(section) {
           }
         } catch (error) {
           console.warn('MyMemory API failed for chunk', i, ':', error);
-          throw new Error(`Fehler beim Übersetzen von Chunk ${i + 1}/${chunks.length}: ${error.message}`);
+          throw new Error(`Fehler beim Übersetzen von Chunk ${i + 1}/${finalChunks.length}: ${error.message}`);
         }
       }
       
       if (!translatedChunk) {
-        throw new Error(`Übersetzung für Chunk ${i + 1}/${chunks.length} fehlgeschlagen.`);
+        throw new Error(`Übersetzung für Chunk ${i + 1}/${finalChunks.length} fehlgeschlagen.`);
       }
       
       translatedChunks.push(translatedChunk);
       
       // Update progress
-      if (chunks.length > 1) {
-        const progress = Math.round(((i + 1) / chunks.length) * 100);
+      if (finalChunks.length > 1) {
+        const progress = Math.round(((i + 1) / finalChunks.length) * 100);
         if (translateBtn) {
           translateBtn.innerHTML = `<span>🌐</span> Übersetze... ${progress}%`;
         }
