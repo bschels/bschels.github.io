@@ -7,4 +7,9 @@ Disallow: /admin.js
 Disallow: /admin.css
 Disallow: /admin-config.js
 
+# Block GoatCounter tracking URLs (external service)
+User-agent: *
+Disallow: /count
+Disallow: /*?*goatcounter*
+
 Sitemap: https://schels.info/sitemap.xml
