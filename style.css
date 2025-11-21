@@ -87,14 +87,14 @@ main    { padding-top: 0; padding-bottom: 0; }
   justify-content: space-between;
   width: 100%;
   margin-bottom: 0;
-  padding-bottom: 0.1em; /* Kleiner Abstand zur Linie darunter */
+  padding-bottom: 0.5em; /* Mehr Abstand zur Linie darunter - dark/DE/EN weiter nach unten */
 }
 .title-wrapper {
   margin-bottom: 0;
 }
 .header-lang {
   display: flex;
-  align-items: baseline; /* Alle Elemente auf derselben Baseline */
+  align-items: center; /* Alle Elemente zentriert ausrichten */
   gap: 0.1rem; /* Kleiner Abstand zwischen dark, DE, EN */
   margin-bottom: 0;
   padding-bottom: 0;
@@ -113,7 +113,8 @@ main    { padding-top: 0; padding-bottom: 0; }
   margin: 0; /* Kein margin, gap wird verwendet */
   cursor: pointer;
   display: inline-flex; /* Sicherstellen, dass es inline ist */
-  align-items: baseline; /* Auf Baseline ausrichten */
+  align-items: center; /* Zentriert ausrichten */
+  vertical-align: middle; /* Vertikal zentrieren */
 }
 
 .theme-toggle-link:hover {
@@ -127,7 +128,14 @@ main    { padding-top: 0; padding-bottom: 0; }
   gap: 0.1rem; /* Kleiner Abstand zwischen DE und EN */
   margin: 0;
   padding: 0;
-  align-items: baseline; /* Auf Baseline ausrichten */
+  align-items: center; /* Zentriert ausrichten */
+}
+
+/* Sicherstellen, dass .language divs richtig ausgerichtet sind */
+.header-lang .language {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
 }
 
 .tooltip {
