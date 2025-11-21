@@ -3707,10 +3707,19 @@ async function saveAllSections() {
   const sections = Object.keys(ADMIN_CONFIG.contentFiles);
   let saved = 0;
   let errors = 0;
+  let skipped = 0;
   
   try {
     for (const section of sections) {
       try {
+        // Check if section is loaded before trying to save
+        const sectionDiv = document.getElementById(`section-${section}`);
+        if (!sectionDiv || sectionDiv.style.display === 'none') {
+          console.log(`Section ${section} not loaded, skipping...`);
+          skipped++;
+          continue; // Skip sections that are not loaded
+        }
+        
         // Create backup for each section
         await createBackup(section);
         
@@ -3723,13 +3732,22 @@ async function saveAllSections() {
         }
         saved++;
       } catch (error) {
-        errors++;
-        showError(`Fehler beim Speichern von ${section}: ${error.message}`);
+        // Only show error if it's not a "skip" error
+        if (!error.message.includes('not loaded') && !error.message.includes('skipping')) {
+          errors++;
+          console.error(`Fehler beim Speichern von ${section}:`, error);
+          showError(`Fehler beim Speichern von ${section}: ${error.message}`);
+        } else {
+          skipped++;
+        }
       }
     }
     
     if (errors === 0) {
-      showStatus(`Alle ${saved} Bereiche erfolgreich gespeichert!`, 'success');
+      const message = skipped > 0 
+        ? `${saved} Bereiche erfolgreich gespeichert, ${skipped} übersprungen (nicht geladen).`
+        : `Alle ${saved} Bereiche erfolgreich gespeichert!`;
+      showStatus(message, 'success');
       AppState.hasChanges = false;
       updateSaveIndicator();
     } else {
@@ -5940,10 +5958,19 @@ async function saveAllSections() {
   const sections = Object.keys(ADMIN_CONFIG.contentFiles);
   let saved = 0;
   let errors = 0;
+  let skipped = 0;
   
   try {
     for (const section of sections) {
       try {
+        // Check if section is loaded before trying to save
+        const sectionDiv = document.getElementById(`section-${section}`);
+        if (!sectionDiv || sectionDiv.style.display === 'none') {
+          console.log(`Section ${section} not loaded, skipping...`);
+          skipped++;
+          continue; // Skip sections that are not loaded
+        }
+        
         // Create backup for each section
         await createBackup(section);
         
@@ -5956,13 +5983,22 @@ async function saveAllSections() {
         }
         saved++;
       } catch (error) {
-        errors++;
-        showError(`Fehler beim Speichern von ${section}: ${error.message}`);
+        // Only show error if it's not a "skip" error
+        if (!error.message.includes('not loaded') && !error.message.includes('skipping')) {
+          errors++;
+          console.error(`Fehler beim Speichern von ${section}:`, error);
+          showError(`Fehler beim Speichern von ${section}: ${error.message}`);
+        } else {
+          skipped++;
+        }
       }
     }
     
     if (errors === 0) {
-      showStatus(`Alle ${saved} Bereiche erfolgreich gespeichert!`, 'success');
+      const message = skipped > 0 
+        ? `${saved} Bereiche erfolgreich gespeichert, ${skipped} übersprungen (nicht geladen).`
+        : `Alle ${saved} Bereiche erfolgreich gespeichert!`;
+      showStatus(message, 'success');
       AppState.hasChanges = false;
       updateSaveIndicator();
     } else {
