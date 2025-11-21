@@ -24,6 +24,12 @@ const ADMIN_CONFIG = {
     datenschutz: 'pages/datenschutz.html',
     kontakt: 'index.html', // Special: embedded in index.html
     meta: 'index.html' // Special: meta tags in index.html
+  },
+  
+  // GoatCounter Analytics
+  goatcounter: {
+    apiKey: 't3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y',
+    site: 'schels'
   }
 };
 
