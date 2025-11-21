@@ -109,8 +109,8 @@ main    { padding-top: 0; padding-bottom: 0; }
   display: flex;
   align-items: baseline !important; /* Baseline für perfekte Ausrichtung auf einer Linie */
   justify-content: flex-end !important; /* Nach rechts ausrichten */
-  gap: 0.2rem; /* Leichter Abstand zwischen dark, DE, EN */
-  margin-top: 1em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
+  gap: 0.4rem; /* Mehr Abstand zwischen dark, DE, EN */
+  margin-top: 0.3em; /* Weniger Abstand nach oben (Titel) - näher zur Linie darunter */
   margin-bottom: 0;
   padding-bottom: 0;
   flex-wrap: nowrap; /* Sicherstellen, dass alles auf einer Zeile bleibt */
