@@ -260,7 +260,7 @@ h5, h6 {
 
 p {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
   font-size: 1em;
   line-height: 1.6;
   margin: 1rem 0;
@@ -286,7 +286,7 @@ em, i {
 
 ul {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
   list-style-type: square;
   text-align: left;
   margin: 1rem 0;
@@ -295,7 +295,7 @@ ul {
 
 ol {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
   list-style-type: upper-roman;
   text-align: left;
   margin: 1rem 0;
@@ -304,14 +304,14 @@ ol {
 
 li {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
   line-height: 1.6;
   margin: 0.5em 0;
 }
 
 blockquote {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
   text-align: right;
   margin: 1.5rem 0;
   margin-left: auto;
@@ -321,12 +321,12 @@ blockquote {
 
 blockquote .says {
   font-style: italic;
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
 }
 
 blockquote p:not(.says) {
   font-style: normal;
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
 }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
