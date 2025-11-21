@@ -6139,58 +6139,81 @@ async function translateFromGerman(section) {
   }
   
   try {
-    // Try multiple translation services with fallback
-    let translatedText = null;
-    let lastError = null;
+    // Translate chunks and combine
+    const translatedChunks = [];
+    let useMyMemory = false; // Start with LibreTranslate, fallback to MyMemory
     
-    // Try 1: LibreTranslate (kostenlos, open source)
-    try {
-      const apiUrl = 'https://libretranslate.de/translate';
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          q: plainText,
-          source: 'de',
-          target: 'en',
-          format: 'text'
-        })
-      });
+    for (let i = 0; i < chunks.length; i++) {
+      const chunk = chunks[i];
+      let translatedChunk = null;
       
-      if (response.ok) {
-        const data = await response.json();
-        if (data.translatedText) {
-          translatedText = data.translatedText;
-        }
-      }
-    } catch (error) {
-      console.warn('LibreTranslate failed:', error);
-      lastError = error;
-    }
-    
-    // Try 2: MyMemory Translation API (fallback)
-    if (!translatedText) {
-      try {
-        const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(plainText)}&langpair=de|en`;
-        const response = await fetch(apiUrl);
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data.responseData && data.responseData.translatedText) {
-            translatedText = data.responseData.translatedText;
+      // Try LibreTranslate first (if not already failed)
+      if (!useMyMemory) {
+        try {
+          const apiUrl = 'https://libretranslate.de/translate';
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              q: chunk,
+              source: 'de',
+              target: 'en',
+              format: 'text'
+            })
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            if (data.translatedText) {
+              translatedChunk = data.translatedText;
+            }
+          } else if (response.status === 413 || response.status === 400) {
+            // If LibreTranslate fails due to size, switch to MyMemory
+            useMyMemory = true;
           }
+        } catch (error) {
+          console.warn('LibreTranslate failed for chunk', i, ':', error);
+          useMyMemory = true; // Switch to MyMemory on error
         }
-      } catch (error) {
-        console.warn('MyMemory API failed:', error);
-        lastError = error;
+      }
+      
+      // Try MyMemory if LibreTranslate failed or is not available
+      if (!translatedChunk || useMyMemory) {
+        try {
+          const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=de|en`;
+          const response = await fetch(apiUrl);
+          
+          if (response.ok) {
+            const data = await response.json();
+            if (data.responseData && data.responseData.translatedText) {
+              translatedChunk = data.responseData.translatedText;
+            }
+          }
+        } catch (error) {
+          console.warn('MyMemory API failed for chunk', i, ':', error);
+          throw new Error(`Fehler beim Übersetzen von Chunk ${i + 1}/${chunks.length}: ${error.message}`);
+        }
+      }
+      
+      if (!translatedChunk) {
+        throw new Error(`Übersetzung für Chunk ${i + 1}/${chunks.length} fehlgeschlagen.`);
+      }
+      
+      translatedChunks.push(translatedChunk);
+      
+      // Update progress
+      if (chunks.length > 1) {
+        const progress = Math.round(((i + 1) / chunks.length) * 100);
+        if (translateBtn) {
+          translateBtn.innerHTML = `<span>🌐</span> Übersetze... ${progress}%`;
+        }
       }
     }
     
-    if (!translatedText) {
-      throw new Error('Übersetzungsservice nicht verfügbar. Bitte versuchen Sie es später erneut oder übersetzen Sie manuell.');
-    }
+    // Combine translated chunks
+    const translatedText = translatedChunks.join(' ');
     
     // Convert back to HTML
     const translatedHtml = plainTextToHtml(translatedText);
