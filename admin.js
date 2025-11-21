@@ -3186,11 +3186,42 @@ async function loadGoatCounterStats() {
     const data = await response.json();
     console.log('GoatCounter API Response:', data); // Debug log
     
-    // GoatCounter API returns: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... }, all: { count: ... } } }
-    const today = (data.total && data.total.today && data.total.today.count) || 0;
-    const week = (data.total && data.total.week && data.total.week.count) || 0;
-    const month = (data.total && data.total.month && data.total.month.count) || 0;
-    const total = (data.total && data.total.all && data.total.all.count) || 0;
+    // GoatCounter API can return different structures, try multiple formats
+    let today = 0;
+    let week = 0;
+    let month = 0;
+    let total = 0;
+    
+    // Try different possible response structures
+    if (data.total) {
+      // Format 1: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... }, all: { count: ... } } }
+      if (data.total.today) {
+        today = data.total.today.count || data.total.today || 0;
+      }
+      if (data.total.week) {
+        week = data.total.week.count || data.total.week || 0;
+      }
+      if (data.total.month) {
+        month = data.total.month.count || data.total.month || 0;
+      }
+      if (data.total.all) {
+        total = data.total.all.count || data.total.all || 0;
+      }
+    } else if (data.today !== undefined || data.week !== undefined || data.month !== undefined) {
+      // Format 2: { today: { count: ... }, week: { count: ... }, month: { count: ... } }
+      today = data.today?.count || data.today || 0;
+      week = data.week?.count || data.week || 0;
+      month = data.month?.count || data.month || 0;
+      total = data.all?.count || data.all || data.total_count || 0;
+    } else if (data.count !== undefined) {
+      // Format 3: Simple count object
+      today = data.count || 0;
+      week = data.count || 0;
+      month = data.count || 0;
+      total = data.count || 0;
+    }
+    
+    console.log('Parsed stats:', { today, week, month, total }); // Debug log
     
     // Update display
     const todayEl = document.getElementById('stat-today');
