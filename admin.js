@@ -2411,13 +2411,20 @@ async function saveSection(section) {
     showError(errorMessage);
     
     // Show detailed alert for token permission issues
-    if (error.message.includes('not accessible') || error.message.includes('403') || error.message.includes('Berechtigungen')) {
-      alert('❌ Fehler beim Speichern!\n\n' + errorMessage + '\n\n' +
+    if (error.message.includes('not accessible') || error.message.includes('403') || error.message.includes('Berechtigungen') || error.message.includes('Fine-grained')) {
+      // Create a more readable alert with line breaks
+      const alertMessage = errorMessage.replace(/\n/g, '\n\n');
+      alert('❌ FEHLER BEIM SPEICHERN!\n\n' + 
+            '═══════════════════════════════════════\n\n' +
+            alertMessage + '\n\n' +
+            '═══════════════════════════════════════\n\n' +
             '🔗 Direktlink: https://github.com/settings/tokens\n\n' +
-            'Nach dem Erstellen des neuen Tokens:\n' +
+            '📝 Nach dem Konfigurieren des Tokens:\n' +
             '1. Gehen Sie zu "GitHub Einstellungen" im Admin-Panel\n' +
-            '2. Geben Sie den neuen Token ein\n' +
-            '3. Klicken Sie auf "Einstellungen speichern"');
+            '2. Geben Sie den Token ein (falls neu erstellt)\n' +
+            '3. Klicken Sie auf "Einstellungen speichern"\n' +
+            '4. Warten Sie 10-20 Sekunden\n' +
+            '5. Versuchen Sie erneut zu speichern');
     } else {
       alert('Fehler beim Speichern:\n' + errorMessage + '\n\nBitte Browser-Konsole (F12) für Details öffnen.');
     }
@@ -2756,17 +2763,28 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
       const isFineGrained = AppState.githubToken && AppState.githubToken.startsWith('github_pat_');
       if (errorData.message && errorData.message.includes('personal access token')) {
         if (isFineGrained) {
-          throw new Error('Fine-grained Token hat nicht die nötigen Berechtigungen!\n\n' +
-                         'Bitte konfigurieren Sie den Token:\n' +
-                         '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
-                         '2. Klicken Sie auf Ihren Token\n' +
-                         '3. Unter "Repository access" wählen Sie "Selected repositories" und wählen das Repository aus\n' +
-                         '4. Unter "Repository permissions" → "Contents" wählen Sie "Read and write"\n' +
-                         '5. Speichern Sie die Änderungen\n\n' +
-                         'ODER erstellen Sie einen Classic Token (einfacher):\n' +
-                         '1. "Generate new token (classic)"\n' +
-                         '2. Berechtigung "repo" wählen\n' +
-                         '3. Token kopieren (beginnt mit ghp_)');
+          // Very detailed instructions for fine-grained tokens
+          const detailedInstructions = 
+            '❌ Fine-grained Token hat nicht die nötigen Berechtigungen!\n\n' +
+            '🔧 SO BEHEBEN SIE ES:\n\n' +
+            '1️⃣ Gehen Sie zu: https://github.com/settings/tokens\n' +
+            '2️⃣ Klicken Sie auf Ihren Token (der mit github_pat_ beginnt)\n' +
+            '3️⃣ Scrollen Sie zu "Repository access"\n' +
+            '4️⃣ Wählen Sie "Selected repositories" aus\n' +
+            '5️⃣ Wählen Sie das Repository "bschels.github.io" aus\n' +
+            '6️⃣ Scrollen Sie zu "Repository permissions"\n' +
+            '7️⃣ Unter "Contents" wählen Sie "Read and write" (WICHTIG: nicht nur "Read"!)\n' +
+            '8️⃣ Scrollen Sie nach unten und klicken Sie auf "Save"\n\n' +
+            '🔄 Nach dem Speichern:\n' +
+            '- Warten Sie 10-20 Sekunden\n' +
+            '- Versuchen Sie erneut zu speichern\n\n' +
+            '💡 ALTERNATIVE (einfacher):\n' +
+            'Erstellen Sie einen Classic Token:\n' +
+            '1. "Generate new token (classic)"\n' +
+            '2. Berechtigung "repo" wählen\n' +
+            '3. Token kopieren (beginnt mit ghp_)';
+          
+          throw new Error(detailedInstructions);
         } else {
           throw new Error('Token hat nicht die nötigen Berechtigungen! Bitte erstellen Sie einen neuen Token mit "repo" Berechtigung.');
         }
