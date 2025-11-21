@@ -146,8 +146,8 @@ main    { padding-top: 0; padding-bottom: 0; }
   gap: 0.2rem; /* Leichter Abstand zwischen DE und EN */
   margin: 0;
   padding: 0;
-  align-items: center; /* Zentriert ausrichten */
-  height: 100%; /* Gleiche Höhe für bessere Ausrichtung */
+  align-items: baseline !important; /* Baseline für perfekte Ausrichtung */
+  height: auto; /* Automatische Höhe */
 }
 
 .tooltip {
@@ -167,8 +167,8 @@ main    { padding-top: 0; padding-bottom: 0; }
 
 .header-lang .language.active {
   display: flex !important; /* Nur aktive anzeigen, flex für Ausrichtung */
-  align-items: center;
-  height: 100%; /* Gleiche Höhe für bessere Ausrichtung */
+  align-items: baseline !important; /* Baseline für perfekte Ausrichtung */
+  height: auto; /* Automatische Höhe */
 }
 
 .language-select a.switch-language {
