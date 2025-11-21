@@ -6695,20 +6695,72 @@ async function translateHtmlPreservingStructure(html) {
     translatedChunks.push(translatedChunk);
   }
   
-  // Split translated text back to individual texts
-  const translatedCombined = translatedChunks.join('\n\n');
-  const translatedTexts = translatedCombined.split('\n\n');
-  
-  // Replace text nodes with translated text
-  textNodes.forEach((tn, index) => {
-    if (index < translatedTexts.length) {
-      tn.node.textContent = translatedTexts[index];
+  // Translate each text node individually to preserve structure
+  // This ensures each text node gets its own translation and maintains its position in the DOM
+  for (let i = 0; i < textNodes.length; i++) {
+    const textNode = textNodes[i];
+    const originalText = textNode.text;
+    
+    // Skip if text is too short (likely not translatable)
+    if (originalText.length < 2) continue;
+    
+    try {
+      // Translate this specific text node
+      let translatedText = null;
+      
+      // Try LibreTranslate first
+      try {
+        const response = await fetch('https://libretranslate.de/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ q: originalText, source: 'de', target: 'en', format: 'text' })
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.translatedText) translatedText = data.translatedText;
+        }
+      } catch (error) {
+        // Fallback to MyMemory
+      }
+      
+      // Fallback to MyMemory if LibreTranslate failed
+      if (!translatedText) {
+        try {
+          const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(originalText)}&langpair=de|en`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.responseData && data.responseData.translatedText) {
+              translatedText = data.responseData.translatedText;
+            }
+          }
+        } catch (error) {
+          console.warn('Translation failed for text node', i, ':', error);
+          // Keep original text if translation fails
+          translatedText = originalText;
+        }
+      }
+      
+      // Replace text node content with translated text
+      if (translatedText) {
+        textNode.node.textContent = translatedText;
+      }
+      
+      // Small delay to avoid rate limiting
+      if (i < textNodes.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+    } catch (error) {
+      console.warn('Error translating text node', i, ':', error);
+      // Keep original text on error
     }
-  });
+  }
   
-  // Serialize back to HTML
-  const serializer = new XMLSerializer();
-  return serializer.serializeToString(doc.body);
+  // Serialize back to HTML - get innerHTML to preserve structure better
+  const root = doc.body || doc.documentElement;
+  if (root) {
+    return root.innerHTML;
+  }
+  return html; // Fallback to original
 }
 
 // Translate from German to English using MyMemory Translation API (kostenlos, keine Kreditkarte nötig)
