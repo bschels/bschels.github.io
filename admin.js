@@ -6561,25 +6561,126 @@ function plainTextToHtml(text) {
   }).filter(p => p).join('\n');
 }
 
+// Translate HTML while preserving structure
+async function translateHtmlPreservingStructure(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  
+  // Extract all text nodes that need translation
+  const textNodes = [];
+  const walker = document.createTreeWalker(
+    doc.body,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  let node;
+  while (node = walker.nextNode()) {
+    const text = node.textContent.trim();
+    // Only translate if it's not empty and not just whitespace
+    if (text && text.length > 0) {
+      // Skip if parent is script, style, or code
+      const parent = node.parentElement;
+      if (parent && !['SCRIPT', 'STYLE', 'CODE'].includes(parent.tagName)) {
+        textNodes.push({ node, text });
+      }
+    }
+  }
+  
+  if (textNodes.length === 0) {
+    return html; // Nothing to translate
+  }
+  
+  // Collect all texts to translate
+  const textsToTranslate = textNodes.map(tn => tn.text);
+  const combinedText = textsToTranslate.join('\n\n'); // Use double newline as separator
+  
+  // Translate the combined text
+  const MAX_CHUNK_LENGTH = 450;
+  const chunks = [];
+  let currentChunk = '';
+  const sentences = combinedText.split(/(?<=[.!?])\s+|\n\n+/);
+  
+  for (const sentence of sentences) {
+    if ((currentChunk + sentence).length <= MAX_CHUNK_LENGTH) {
+      currentChunk += (currentChunk ? ' ' : '') + sentence;
+    } else {
+      if (currentChunk) chunks.push(currentChunk.trim());
+      currentChunk = sentence;
+    }
+  }
+  if (currentChunk) chunks.push(currentChunk.trim());
+  
+  // Translate all chunks
+  const translatedChunks = [];
+  let useMyMemory = false;
+  
+  for (let i = 0; i < chunks.length; i++) {
+    const chunkText = chunks[i];
+    let translatedChunk = null;
+    
+    if (!useMyMemory) {
+      try {
+        const response = await fetch('https://libretranslate.de/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ q: chunkText, source: 'de', target: 'en', format: 'text' })
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.translatedText) translatedChunk = data.translatedText;
+        } else {
+          useMyMemory = true;
+        }
+      } catch (error) {
+        useMyMemory = true;
+      }
+    }
+    
+    if (!translatedChunk || useMyMemory) {
+      try {
+        const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunkText)}&langpair=de|en`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.responseData && data.responseData.translatedText) {
+            translatedChunk = data.responseData.translatedText;
+          }
+        }
+      } catch (error) {
+        throw new Error(`Übersetzungsfehler: ${error.message}`);
+      }
+    }
+    
+    if (!translatedChunk) {
+      throw new Error(`Übersetzung für Chunk ${i + 1} fehlgeschlagen.`);
+    }
+    
+    translatedChunks.push(translatedChunk);
+  }
+  
+  // Split translated text back to individual texts
+  const translatedCombined = translatedChunks.join('\n\n');
+  const translatedTexts = translatedCombined.split('\n\n');
+  
+  // Replace text nodes with translated text
+  textNodes.forEach((tn, index) => {
+    if (index < translatedTexts.length) {
+      tn.node.textContent = translatedTexts[index];
+    }
+  });
+  
+  // Serialize back to HTML
+  const serializer = new XMLSerializer();
+  return serializer.serializeToString(doc.body);
+}
+
 // Translate from German to English using MyMemory Translation API (kostenlos, keine Kreditkarte nötig)
 async function translateFromGerman(section) {
   // Get German content
   const germanContent = getEditorContent(`${section}-de`);
   if (!germanContent || germanContent.trim() === '') {
     showError('Kein deutscher Text zum Übersetzen gefunden!');
-    return;
-  }
-  
-  // Convert HTML to plain text
-  const plainText = htmlToPlainText(germanContent);
-  if (!plainText || plainText.trim() === '') {
-    showError('Kein Text zum Übersetzen gefunden!');
-    return;
-  }
-  
-  // MyMemory API limit: 10.000 Zeichen pro Request
-  if (plainText.length > 10000) {
-    showError('Text zu lang! Bitte maximal 10.000 Zeichen auf einmal übersetzen.');
     return;
   }
   
@@ -6592,124 +6693,8 @@ async function translateFromGerman(section) {
   }
   
   try {
-    // Split text into chunks (max 450 characters per chunk for API limits)
-    const MAX_CHUNK_LENGTH = 450;
-    const chunks = [];
-    let currentChunk = '';
-    const sentences = plainText.split(/(?<=[.!?])\s+|\n\n+/);
-    
-    for (const sentence of sentences) {
-      if ((currentChunk + sentence).length <= MAX_CHUNK_LENGTH) {
-        currentChunk += (currentChunk ? ' ' : '') + sentence;
-      } else {
-        if (currentChunk) {
-          chunks.push(currentChunk.trim());
-        }
-        currentChunk = sentence;
-      }
-    }
-    if (currentChunk) {
-      chunks.push(currentChunk.trim());
-    }
-    
-    // Fallback for very long sentences
-    const finalChunks = [];
-    for (const chunk of chunks) {
-      if (chunk.length > MAX_CHUNK_LENGTH) {
-        const words = chunk.split(' ');
-        let tempChunk = '';
-        for (const word of words) {
-          if ((tempChunk + word).length <= MAX_CHUNK_LENGTH) {
-            tempChunk += (tempChunk ? ' ' : '') + word;
-          } else {
-            if (tempChunk) finalChunks.push(tempChunk.trim());
-            tempChunk = word;
-          }
-        }
-        if (tempChunk) finalChunks.push(tempChunk.trim());
-      } else {
-        finalChunks.push(chunk);
-      }
-    }
-    
-    // Translate chunks and combine
-    const translatedChunks = [];
-    let useMyMemory = false; // Start with LibreTranslate, fallback to MyMemory
-    
-    for (let i = 0; i < finalChunks.length; i++) {
-      const chunkText = finalChunks[i];
-      let translatedChunk = null;
-      
-      // Try LibreTranslate first (if not already failed)
-      if (!useMyMemory) {
-        try {
-          const apiUrl = 'https://libretranslate.de/translate';
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              q: chunkText,
-              source: 'de',
-              target: 'en',
-              format: 'text'
-            })
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.translatedText) {
-              translatedChunk = data.translatedText;
-            }
-          } else if (response.status === 413 || response.status === 400) {
-            // If LibreTranslate fails due to size, switch to MyMemory
-            useMyMemory = true;
-          }
-        } catch (error) {
-          console.warn('LibreTranslate failed for chunk', i, ':', error);
-          useMyMemory = true; // Switch to MyMemory on error
-        }
-      }
-      
-      // Try MyMemory if LibreTranslate failed or is not available
-      if (!translatedChunk || useMyMemory) {
-        try {
-          const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunkText)}&langpair=de|en`;
-          const response = await fetch(apiUrl);
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.responseData && data.responseData.translatedText) {
-              translatedChunk = data.responseData.translatedText;
-            }
-          }
-        } catch (error) {
-          console.warn('MyMemory API failed for chunk', i, ':', error);
-          throw new Error(`Fehler beim Übersetzen von Chunk ${i + 1}/${finalChunks.length}: ${error.message}`);
-        }
-      }
-      
-      if (!translatedChunk) {
-        throw new Error(`Übersetzung für Chunk ${i + 1}/${finalChunks.length} fehlgeschlagen.`);
-      }
-      
-      translatedChunks.push(translatedChunk);
-      
-      // Update progress
-      if (finalChunks.length > 1) {
-        const progress = Math.round(((i + 1) / finalChunks.length) * 100);
-        if (translateBtn) {
-          translateBtn.innerHTML = `<span>🌐</span> Übersetze... ${progress}%`;
-        }
-      }
-    }
-    
-    // Combine translated chunks
-    const translatedText = translatedChunks.join(' ');
-    
-    // Convert back to HTML
-    const translatedHtml = plainTextToHtml(translatedText);
+    // Translate HTML while preserving structure
+    const translatedHtml = await translateHtmlPreservingStructure(germanContent);
     
     // Set English content
     setEditorContent(`${section}-en`, translatedHtml);
