@@ -556,7 +556,7 @@ body {
 .editor-visual h5,
 .editor-visual h6 {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 200 !important; /* Thin - wie auf der Website */
   color: var(--primary);
   text-align: left;
   letter-spacing: 0.2em;
@@ -575,15 +575,33 @@ body {
 
 .editor-visual h1 {
   font-size: 1.6em;
-  font-weight: 300;
+  font-weight: 200 !important; /* Thin */
 }
 
 .editor-visual h2 {
   font-size: 1.4em;
+  font-weight: 200 !important; /* Thin - niemals dick */
+  text-transform: uppercase !important; /* Immer Großbuchstaben */
 }
 
 .editor-visual h3 {
   font-size: 1.2em;
+  font-weight: 200 !important; /* Thin - niemals dick */
+  text-transform: uppercase !important; /* Immer Großbuchstaben */
+}
+
+/* Hauptkategorien (h2.cat, .cat) NICHT uppercase */
+.editor-visual h2.cat,
+.editor-visual .cat {
+  text-transform: none !important; /* Hauptkategorien NICHT uppercase */
+  font-weight: 200 !important; /* Thin */
+}
+
+/* Unterkategorien (h3.arrow) uppercase */
+.editor-visual h3.arrow,
+.editor-visual .arrow {
+  text-transform: uppercase !important; /* Unterkategorien uppercase */
+  font-weight: 200 !important; /* Thin */
 }
 
 .editor-visual h4 {
@@ -642,8 +660,11 @@ body {
   background-color: var(--hover-bg);
 }
 
-.editor-visual strong {
-  font-weight: 400;
+.editor-visual strong,
+.editor-visual b {
+  font-weight: 200 !important; /* Nicht fett, sondern normal (Thin) */
+  text-transform: uppercase !important; /* Statt fett: Großbuchstaben */
+  letter-spacing: 0.1em; /* Etwas mehr Abstand für bessere Lesbarkeit */
   color: var(--body);
 }
 
@@ -758,7 +779,7 @@ body {
 .preview-panel h5,
 .preview-panel h6 {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 200 !important; /* Thin - wie auf der Website */
   color: var(--primary);
   text-align: left;
   letter-spacing: 0.2em;
@@ -774,11 +795,33 @@ body {
 
 .preview-panel h1 {
   font-size: 1.6em;
-  font-weight: 300;
+  font-weight: 200 !important; /* Thin */
 }
 
 .preview-panel h2 {
   font-size: 1.4em;
+  font-weight: 200 !important; /* Thin - niemals dick */
+  text-transform: uppercase !important; /* Immer Großbuchstaben */
+}
+
+.preview-panel h3 {
+  font-size: 1.2em;
+  font-weight: 200 !important; /* Thin - niemals dick */
+  text-transform: uppercase !important; /* Immer Großbuchstaben */
+}
+
+/* Hauptkategorien (h2.cat, .cat) NICHT uppercase */
+.preview-panel h2.cat,
+.preview-panel .cat {
+  text-transform: none !important; /* Hauptkategorien NICHT uppercase */
+  font-weight: 200 !important; /* Thin */
+}
+
+/* Unterkategorien (h3.arrow) uppercase */
+.preview-panel h3.arrow,
+.preview-panel .arrow {
+  text-transform: uppercase !important; /* Unterkategorien uppercase */
+  font-weight: 200 !important; /* Thin */
 }
 
 .preview-panel p {
@@ -816,8 +859,11 @@ body {
   line-height: 1.6;
 }
 
-.preview-panel strong {
-  font-weight: 400;
+.preview-panel strong,
+.preview-panel b {
+  font-weight: 200 !important; /* Nicht fett, sondern normal (Thin) */
+  text-transform: uppercase !important; /* Statt fett: Großbuchstaben */
+  letter-spacing: 0.1em; /* Etwas mehr Abstand für bessere Lesbarkeit */
 }
 
 .preview-panel em,
