@@ -442,6 +442,9 @@ async function loadContentForSection(section) {
     }
     
   } catch (error) {
+    // Log error to console for debugging
+    console.error('Fehler beim Laden:', error);
+    
     // Don't log to console, show error to user instead
     let errorMessage = 'Fehler beim Laden: ' + error.message;
     
@@ -452,6 +455,17 @@ async function loadContentForSection(section) {
       errorMessage = `Datei nicht gefunden: ${ADMIN_CONFIG.contentFiles[section] || section}`;
     } else if (error.message.includes('401')) {
       errorMessage = 'Authentifizierung fehlgeschlagen! Bitte Token erneuern.';
+    } else if (error.message.includes('GitHub Konfiguration fehlt') || error.message.includes('Token')) {
+      errorMessage = 'GitHub Token nicht konfiguriert! Bitte Token in den Einstellungen eingeben.';
+      // Show setup screen if token is missing
+      const setupScreen = document.getElementById('setup-screen');
+      if (setupScreen) {
+        setupScreen.style.display = 'block';
+      }
+      const editorSections = document.getElementById('editor-sections');
+      if (editorSections) {
+        editorSections.style.display = 'none';
+      }
     }
     
     showError(errorMessage);
@@ -461,8 +475,10 @@ async function loadContentForSection(section) {
       renderEditor(section, AppState.contentCache[section]);
       showStatus('Inhalt aus Cache geladen (möglicherweise veraltet)', 'info');
     } else {
-      // Show empty editor if no cache available
-      renderEditor(section, '');
+      // Show empty editor if no cache available, but only if token exists
+      if (AppState.githubToken) {
+        renderEditor(section, '');
+      }
     }
   } finally {
     showLoading(false);
@@ -2218,7 +2234,21 @@ async function saveSection(section) {
     showStatus('Erfolgreich gespeichert!', 'success');
     
   } catch (error) {
-    showError('Fehler beim Speichern: ' + error.message);
+    console.error('Fehler beim Speichern:', error);
+    let errorMessage = 'Fehler beim Speichern: ' + error.message;
+    
+    // Provide more specific error messages
+    if (error.message.includes('401') || error.message.includes('Bad credentials')) {
+      errorMessage = 'Authentifizierung fehlgeschlagen! Bitte Token erneuern.';
+    } else if (error.message.includes('403') || error.message.includes('Forbidden')) {
+      errorMessage = 'Zugriff verweigert! Bitte überprüfen Sie den GitHub Token und dessen Berechtigungen.';
+    } else if (error.message.includes('404')) {
+      errorMessage = 'Datei nicht gefunden! Bitte überprüfen Sie die Repository-Konfiguration.';
+    } else if (error.message.includes('422')) {
+      errorMessage = 'Validierungsfehler! Möglicherweise ist die Datei zu groß oder der Inhalt ungültig.';
+    }
+    
+    showError(errorMessage);
   } finally {
     savingInProgress = false;
     showLoading(false);
@@ -2455,6 +2485,20 @@ function showLogin() {
 function showEditor() {
   document.getElementById('login-screen').classList.remove('active');
   document.getElementById('editor-screen').classList.add('active');
+  
+  // Check if GitHub token is configured
+  if (!AppState.githubToken) {
+    const setupScreen = document.getElementById('setup-screen');
+    const editorSections = document.getElementById('editor-sections');
+    if (setupScreen) {
+      setupScreen.style.display = 'block';
+    }
+    if (editorSections) {
+      editorSections.style.display = 'none';
+    }
+    showStatus('Bitte GitHub Token konfigurieren!', 'info');
+    return;
+  }
   
   // Initialize dark mode toggle if not already present
   setTimeout(() => {
@@ -2933,8 +2977,12 @@ function validateContent(editor) {
     issues.push('⚠️ Script-Tags sind nicht erlaubt');
   }
   
-  // Check for unclosed tags (simple check)
-  const openTags = (content.match(/<[^/][^>]*>/g) || []).length;
+  // Check for unclosed tags (ignore self-closing tags)
+  // Self-closing tags: br, hr, img, input, meta, link, area, base, col, embed, source, track, wbr
+  const selfClosingTags = /<(br|hr|img|input|meta|link|area|base|col|embed|source|track|wbr)[^>]*>/gi;
+  const allOpenTags = content.match(/<[^/][^>]*>/g) || [];
+  const selfClosingCount = (content.match(selfClosingTags) || []).length;
+  const openTags = allOpenTags.length - selfClosingCount;
   const closeTags = (content.match(/<\/[^>]+>/g) || []).length;
   if (Math.abs(openTags - closeTags) > 2) {
     issues.push('⚠️ Mögliche ungeschlossene HTML-Tags');
@@ -5149,8 +5197,12 @@ function validateContent(editor) {
     issues.push('⚠️ Script-Tags sind nicht erlaubt');
   }
   
-  // Check for unclosed tags (simple check)
-  const openTags = (content.match(/<[^/][^>]*>/g) || []).length;
+  // Check for unclosed tags (ignore self-closing tags)
+  // Self-closing tags: br, hr, img, input, meta, link, area, base, col, embed, source, track, wbr
+  const selfClosingTags = /<(br|hr|img|input|meta|link|area|base|col|embed|source|track|wbr)[^>]*>/gi;
+  const allOpenTags = content.match(/<[^/][^>]*>/g) || [];
+  const selfClosingCount = (content.match(selfClosingTags) || []).length;
+  const openTags = allOpenTags.length - selfClosingCount;
   const closeTags = (content.match(/<\/[^>]+>/g) || []).length;
   if (Math.abs(openTags - closeTags) > 2) {
     issues.push('⚠️ Mögliche ungeschlossene HTML-Tags');
