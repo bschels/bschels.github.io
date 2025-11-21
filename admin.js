@@ -312,7 +312,16 @@ function updateRepoInfo() {
   }
   
   // Always show info section (even if empty, to show defaults)
-  repoInfo.style.display = 'block';
+  if (repoInfo) {
+    repoInfo.style.display = 'block';
+  }
+  
+  console.log('Repo info updated:', {
+    repo: infoRepo?.textContent,
+    owner: infoOwner?.textContent,
+    branch: infoBranch?.textContent,
+    tokenStatus: infoTokenStatus?.textContent
+  });
 }
 
 // Navigation
@@ -368,9 +377,36 @@ function switchSection(section) {
     // Pre-fill form with current values and update info
     // Use setTimeout to ensure DOM is ready
     setTimeout(() => {
-      loadStoredConfig();
+      // Ensure config is loaded
+      if (!AppState.githubConfig) {
+        const config = localStorage.getItem('github_config');
+        if (config) {
+          AppState.githubConfig = JSON.parse(config);
+        } else {
+          AppState.githubConfig = ADMIN_CONFIG.repository;
+        }
+      }
+      if (!AppState.githubToken) {
+        const token = localStorage.getItem('github_token');
+        if (token) {
+          AppState.githubToken = token;
+        }
+      }
+      
+      // Pre-fill form fields
+      const usernameField = document.getElementById('github-username');
+      const tokenField = document.getElementById('github-token');
+      const repoField = document.getElementById('github-repo');
+      const branchField = document.getElementById('github-branch');
+      
+      if (usernameField) usernameField.value = AppState.githubConfig.owner || '';
+      if (repoField) repoField.value = AppState.githubConfig.repo || '';
+      if (branchField) branchField.value = AppState.githubConfig.branch || 'main';
+      if (tokenField && AppState.githubToken) tokenField.value = AppState.githubToken;
+      
+      // Update repo info display
       updateRepoInfo();
-    }, 100);
+    }, 150);
   } else {
     loadContentForSection(section);
   }
