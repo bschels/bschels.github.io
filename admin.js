@@ -572,6 +572,17 @@ async function loadContentForSection(section) {
   }
 }
 
+// Helper function to get correct Authorization header for both classic and fine-grained tokens
+function getAuthHeader() {
+  if (!AppState.githubToken) {
+    throw new Error('GitHub Token fehlt!');
+  }
+  // Fine-grained tokens (github_pat_) use Bearer, classic tokens (ghp_) use token
+  return AppState.githubToken.startsWith('github_pat_') 
+    ? `Bearer ${AppState.githubToken}` 
+    : `token ${AppState.githubToken}`;
+}
+
 // Fetch file from GitHub with caching
 const fetchCache = {};
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
@@ -595,7 +606,7 @@ async function fetchGitHubFile(path, useCache = true) {
   try {
     const response = await fetch(url, {
       headers: {
-        'Authorization': `token ${AppState.githubToken}`,
+        'Authorization': getAuthHeader(),
         'Accept': 'application/vnd.github.v3+json'
       }
     });
@@ -2614,11 +2625,7 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
   const getFileUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}?ref=${config.branch}`;
   console.log('Fetching file SHA from:', getFileUrl);
   
-  // Support both classic tokens (ghp_) and fine-grained tokens (github_pat_)
-  // Both use the same Authorization header format
-  const authHeader = AppState.githubToken.startsWith('github_pat_') 
-    ? `Bearer ${AppState.githubToken}` 
-    : `token ${AppState.githubToken}`;
+  const authHeader = getAuthHeader();
   
   let getResponse;
   try {
@@ -3506,7 +3513,7 @@ async function loadLastChanges() {
     const url = `https://api.github.com/repos/${config.owner}/${config.repo}/commits?per_page=10`;
     const response = await fetch(url, {
       headers: {
-        'Authorization': `token ${AppState.githubToken}`,
+        'Authorization': getAuthHeader(),
         'Accept': 'application/vnd.github.v3+json'
       }
     });
@@ -5739,7 +5746,7 @@ async function loadLastChanges() {
     const url = `https://api.github.com/repos/${config.owner}/${config.repo}/commits?per_page=10`;
     const response = await fetch(url, {
       headers: {
-        'Authorization': `token ${AppState.githubToken}`,
+        'Authorization': getAuthHeader(),
         'Accept': 'application/vnd.github.v3+json'
       }
     });
