@@ -184,6 +184,11 @@ label.cat[for^="tog"] > div.language.active > p.cat {
   margin: 0;
 }
 
+/* Kategorien-Überschriften dünner machen */
+h2.cat, h3.cat, .cat {
+  font-weight: 100 !important; /* Ultra Light - leichterer Schnitt für Kategorien */
+}
+
 /* Geändert: Haupt-Akkordeon-Labels bleiben NICHT schwarz, nur Hover-Effekt */
 label.cat[for^="tog"]:hover {
   color: var(--hover-text);
@@ -227,7 +232,7 @@ h1 {
 
 h2 {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichterer Schnitt */
+  font-weight: 400;
   font-size: 1.4em;
   text-align: left;
   letter-spacing: 0.2em;
@@ -237,7 +242,7 @@ h2 {
 
 h3 {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichterer Schnitt */
+  font-weight: 400;
   font-size: 1.2em;
   text-align: left;
   letter-spacing: 0.2em;
@@ -247,7 +252,7 @@ h3 {
 
 h4, h5, h6 {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichterer Schnitt */
+  font-weight: 400;
   font-size: 1.1em;
   text-align: left;
   line-height: 1.4;
@@ -275,7 +280,9 @@ p.content {
 
 strong {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 100; /* Nicht fett, sondern normal */
+  text-transform: uppercase; /* Statt fett: Großbuchstaben */
+  letter-spacing: 0.1em; /* Etwas mehr Abstand für bessere Lesbarkeit */
 }
 
 em, i {
