@@ -3166,6 +3166,9 @@ async function loadGoatCounterStats() {
     // GoatCounter API endpoint - use the correct endpoint structure
     const apiUrl = `https://${siteId}.goatcounter.com/api/v0/stats/total`;
     
+    console.log('Fetching GoatCounter stats from:', apiUrl);
+    console.log('Using API key:', apiKey ? apiKey.substring(0, 10) + '...' : 'NONE');
+    
     // Fetch statistics using API key
     const headers = {
       'Content-Type': 'application/json',
@@ -3175,16 +3178,37 @@ async function loadGoatCounterStats() {
     // Fetch total stats (today, week, month)
     const response = await fetch(apiUrl, { headers });
     
+    console.log('GoatCounter API Response status:', response.status, response.statusText);
+    
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ message: response.statusText }));
+      const errorText = await response.text();
+      console.error('GoatCounter API Error Response:', errorText);
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { message: response.statusText };
+      }
       console.error('GoatCounter API Error:', response.status, errorData);
       statsContainer.innerHTML = `<span class="stats-error" title="GoatCounter API Fehler: ${errorData.message || response.statusText}">📊 Fehler</span>`;
       statsContainer.style.display = 'block';
       return;
     }
     
-    const data = await response.json();
-    console.log('GoatCounter API Response:', data); // Debug log
+    const responseText = await response.text();
+    console.log('GoatCounter API Raw Response:', responseText);
+    
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (e) {
+      console.error('Failed to parse JSON response:', e);
+      statsContainer.innerHTML = `<span class="stats-error" title="Ungültige API-Response">📊 Fehler</span>`;
+      statsContainer.style.display = 'block';
+      return;
+    }
+    
+    console.log('GoatCounter API Parsed Response:', JSON.stringify(data, null, 2)); // Debug log
     
     // GoatCounter API can return different structures, try multiple formats
     let today = 0;
@@ -3196,23 +3220,23 @@ async function loadGoatCounterStats() {
     if (data.total) {
       // Format 1: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... }, all: { count: ... } } }
       if (data.total.today) {
-        today = data.total.today.count || data.total.today || 0;
+        today = typeof data.total.today === 'object' ? (data.total.today.count || data.total.today.total || 0) : data.total.today;
       }
       if (data.total.week) {
-        week = data.total.week.count || data.total.week || 0;
+        week = typeof data.total.week === 'object' ? (data.total.week.count || data.total.week.total || 0) : data.total.week;
       }
       if (data.total.month) {
-        month = data.total.month.count || data.total.month || 0;
+        month = typeof data.total.month === 'object' ? (data.total.month.count || data.total.month.total || 0) : data.total.month;
       }
       if (data.total.all) {
-        total = data.total.all.count || data.total.all || 0;
+        total = typeof data.total.all === 'object' ? (data.total.all.count || data.total.all.total || 0) : data.total.all;
       }
     } else if (data.today !== undefined || data.week !== undefined || data.month !== undefined) {
       // Format 2: { today: { count: ... }, week: { count: ... }, month: { count: ... } }
-      today = data.today?.count || data.today || 0;
-      week = data.week?.count || data.week || 0;
-      month = data.month?.count || data.month || 0;
-      total = data.all?.count || data.all || data.total_count || 0;
+      today = typeof data.today === 'object' ? (data.today?.count || data.today?.total || 0) : (data.today || 0);
+      week = typeof data.week === 'object' ? (data.week?.count || data.week?.total || 0) : (data.week || 0);
+      month = typeof data.month === 'object' ? (data.month?.count || data.month?.total || 0) : (data.month || 0);
+      total = typeof data.all === 'object' ? (data.all?.count || data.all?.total || 0) : (data.all || data.total_count || 0);
     } else if (data.count !== undefined) {
       // Format 3: Simple count object
       today = data.count || 0;
