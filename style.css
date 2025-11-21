@@ -107,10 +107,10 @@ main    { padding-top: 0; padding-bottom: 0; }
 }
 .header-lang {
   display: flex;
-  align-items: baseline !important; /* Baseline für perfekte Ausrichtung */
+  align-items: baseline !important; /* Baseline für perfekte Ausrichtung auf einer Linie */
   justify-content: flex-end !important; /* Nach rechts ausrichten */
   gap: 0.2rem; /* Leichter Abstand zwischen dark, DE, EN */
-  margin-top: 0.8em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
+  margin-top: 1em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
   margin-bottom: 0;
   padding-bottom: 0;
   flex-wrap: nowrap; /* Sicherstellen, dass alles auf einer Zeile bleibt */
