@@ -135,7 +135,7 @@ main    { padding-top: 0; padding-bottom: 0; }
 /* ========== Accordion/Kategorien (Haupt-Akkordeons) ========== */
 .cat {
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 100; /* Ultra Light - leichterer Schnitt */
   font-size: 1.2em;
   margin: 0;
   letter-spacing: 0.2em;
@@ -170,7 +170,7 @@ label.cat[for^="tog"]::before {
   letter-spacing: normal;
   /* Deine Anpassung für die +/- Ausrichtung und Schriftstärke */
   font-size: 1.2em; /* Gleich der .cat-Schriftgröße */
-  font-weight: 400; /* Jetzt wie normaler Text (nicht fett) */
+  font-weight: 100; /* Ultra Light - leichterer Schnitt */
 }
 
 label.cat[for^="tog"] > div.language.active {
@@ -227,7 +227,7 @@ h1 {
 
 h2 {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 100; /* Ultra Light - leichterer Schnitt */
   font-size: 1.4em;
   text-align: left;
   letter-spacing: 0.2em;
@@ -237,7 +237,7 @@ h2 {
 
 h3 {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 100; /* Ultra Light - leichterer Schnitt */
   font-size: 1.2em;
   text-align: left;
   letter-spacing: 0.2em;
@@ -247,7 +247,7 @@ h3 {
 
 h4, h5, h6 {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 100; /* Ultra Light - leichterer Schnitt */
   font-size: 1.1em;
   text-align: left;
   line-height: 1.4;

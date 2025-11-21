@@ -195,8 +195,9 @@ $(function() {
     }
   }
   if (toggle) {
-    toggle.onclick = function(e) {
+    toggle.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       var currentTheme = document.documentElement.getAttribute("data-theme");
       var targetTheme = (currentTheme === "light") ? "dark" : "light";
       document.documentElement.setAttribute('data-theme', targetTheme);
@@ -204,6 +205,7 @@ $(function() {
       if (toggleText) {
         toggleText.textContent = targetTheme === "dark" ? "light" : "dark";
       }
-    };
+      return false;
+    });
   }
 });
