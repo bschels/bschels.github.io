@@ -243,7 +243,7 @@ function initSetup() {
   // Pre-fill GoatCounter API key if available
   setTimeout(() => {
     const apiKeyField = document.getElementById('goatcounter-api-key');
-    const savedApiKey = localStorage.getItem('goatcounter_api_key');
+    const savedApiKey = localStorage.getItem('goatcounter_api_key') || (ADMIN_CONFIG.goatcounter && ADMIN_CONFIG.goatcounter.apiKey);
     if (apiKeyField && savedApiKey) {
       apiKeyField.value = savedApiKey;
     }
@@ -3152,8 +3152,8 @@ async function loadGoatCounterStats() {
   const statsContainer = document.getElementById('header-stats');
   if (!statsContainer) return;
   
-  // Get API key from localStorage
-  const apiKey = localStorage.getItem('goatcounter_api_key');
+  // Get API key from localStorage or config
+  const apiKey = localStorage.getItem('goatcounter_api_key') || (ADMIN_CONFIG.goatcounter && ADMIN_CONFIG.goatcounter.apiKey);
   if (!apiKey) {
     // Hide stats if no API key is configured
     statsContainer.style.display = 'none';
