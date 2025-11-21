@@ -132,7 +132,8 @@ main    { padding-top: 0; padding-bottom: 0; }
   display: flex; /* Flex für bessere Ausrichtung */
   align-items: center; /* Zentriert ausrichten */
   line-height: 1; /* Gleiche Zeilenhöhe wie DE/EN */
-  height: 100%; /* Gleiche Höhe wie DE/EN */
+  height: auto; /* Automatische Höhe */
+  align-self: center; /* Zentriert in Flex-Container */
 }
 
 .theme-toggle-link:hover {
