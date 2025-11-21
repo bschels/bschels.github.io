@@ -2304,14 +2304,23 @@ function validateContent(editor) {
 // Save section with race condition prevention
 let savingInProgress = false;
 async function saveSection(section) {
-  console.log('saveSection called for:', section);
+  console.log('=== saveSection called ===');
+  console.log('Section:', section);
+  console.log('AppState:', {
+    hasToken: !!AppState.githubToken,
+    tokenPreview: AppState.githubToken ? AppState.githubToken.substring(0, 10) + '...' : 'none',
+    config: AppState.githubConfig,
+    savingInProgress: savingInProgress
+  });
   
   if (savingInProgress) {
+    console.warn('Save already in progress, aborting');
     showError('Speichern läuft bereits! Bitte warten...');
     return;
   }
   
   if (!AppState.githubToken) {
+    console.error('No GitHub token found!');
     showError('GitHub Token nicht konfiguriert! Bitte Token in den Einstellungen eingeben.');
     // Show setup screen
     const setupScreen = document.getElementById('setup-screen');
@@ -2322,12 +2331,14 @@ async function saveSection(section) {
   }
   
   if (!AppState.githubConfig || !AppState.githubConfig.owner || !AppState.githubConfig.repo) {
+    console.error('GitHub config incomplete:', AppState.githubConfig);
     showError('GitHub Konfiguration unvollständig! Bitte Einstellungen überprüfen.');
     return;
   }
   
   savingInProgress = true;
   showLoading(true);
+  console.log('Starting save process...');
   
   try {
     console.log('Starting save for section:', section);
