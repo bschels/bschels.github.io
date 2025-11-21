@@ -2476,6 +2476,12 @@ async function saveContentSection(section) {
   }
   
   if (!germanContent && !englishContent) {
+    // Check if section is loaded - if not, skip silently (for saveAllSections)
+    const sectionDiv = document.getElementById(`section-${section}`);
+    if (!sectionDiv || sectionDiv.style.display === 'none') {
+      console.log(`Section ${section} not loaded, skipping save`);
+      return; // Skip silently if section is not loaded
+    }
     throw new Error('Kein Inhalt zum Speichern gefunden! Bitte Inhalte in den Editoren eingeben.');
   }
   
@@ -6097,34 +6103,58 @@ async function translateFromGerman(section) {
   }
   
   try {
-    // LibreTranslate - kostenlos, open source, zuverlässig
-    // Übersetzt direkt von Deutsch (de) zu Englisch (en)
-    const apiUrl = 'https://libretranslate.de/translate';
+    // Try multiple translation services with fallback
+    let translatedText = null;
+    let lastError = null;
     
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        q: plainText,
-        source: 'de',
-        target: 'en',
-        format: 'text'
-      })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    // Try 1: LibreTranslate (kostenlos, open source)
+    try {
+      const apiUrl = 'https://libretranslate.de/translate';
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          q: plainText,
+          source: 'de',
+          target: 'en',
+          format: 'text'
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.translatedText) {
+          translatedText = data.translatedText;
+        }
+      }
+    } catch (error) {
+      console.warn('LibreTranslate failed:', error);
+      lastError = error;
     }
     
-    const data = await response.json();
-    
-    if (!data.translatedText) {
-      throw new Error('Keine Übersetzung erhalten');
+    // Try 2: MyMemory Translation API (fallback)
+    if (!translatedText) {
+      try {
+        const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(plainText)}&langpair=de|en`;
+        const response = await fetch(apiUrl);
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.responseData && data.responseData.translatedText) {
+            translatedText = data.responseData.translatedText;
+          }
+        }
+      } catch (error) {
+        console.warn('MyMemory API failed:', error);
+        lastError = error;
+      }
     }
     
-    const translatedText = data.translatedText;
+    if (!translatedText) {
+      throw new Error('Übersetzungsservice nicht verfügbar. Bitte versuchen Sie es später erneut oder übersetzen Sie manuell.');
+    }
     
     // Convert back to HTML
     const translatedHtml = plainTextToHtml(translatedText);
