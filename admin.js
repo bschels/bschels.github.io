@@ -2418,6 +2418,8 @@ async function saveSection(section) {
 
 // Save content section
 async function saveContentSection(section) {
+  console.log('saveContentSection called for:', section);
+  
   // Get content from active editor (visual or text)
   let germanContent = '';
   let englishContent = '';
@@ -2427,22 +2429,43 @@ async function saveContentSection(section) {
   const englishVisual = document.getElementById(`editor-visual-${section}-en`);
   const englishText = document.getElementById(`editor-${section}-en`);
   
+  console.log('Editor elements found:', {
+    germanVisual: !!germanVisual,
+    germanText: !!germanText,
+    englishVisual: !!englishVisual,
+    englishText: !!englishText
+  });
+  
   // Use visual editor if visible, otherwise text editor
   if (germanVisual && germanVisual.style.display !== 'none') {
     germanContent = germanVisual.innerHTML;
+    console.log('Using German visual editor, content length:', germanContent.length);
   } else if (germanText) {
     germanContent = germanText.value;
+    console.log('Using German text editor, content length:', germanContent.length);
+  } else {
+    console.warn('No German editor found!');
   }
   
   if (englishVisual && englishVisual.style.display !== 'none') {
     englishContent = englishVisual.innerHTML;
+    console.log('Using English visual editor, content length:', englishContent.length);
   } else if (englishText) {
     englishContent = englishText.value;
+    console.log('Using English text editor, content length:', englishContent.length);
+  } else {
+    console.warn('No English editor found!');
+  }
+  
+  if (!germanContent && !englishContent) {
+    throw new Error('Kein Inhalt zum Speichern gefunden! Bitte Inhalte in den Editoren eingeben.');
   }
   
   // Reconstruct HTML
   const filePath = ADMIN_CONFIG.contentFiles[section];
+  console.log('Loading original file from:', filePath);
   const originalContent = await fetchGitHubFile(filePath);
+  console.log('Original content loaded, length:', originalContent.length);
   
   // Handle different file structures
   let finalContent = originalContent;
@@ -2519,8 +2542,10 @@ async function saveContentSection(section) {
       finalContent = beforeGerman + germanContent + '</div>' + 
                      between + englishContent + '</div>' + 
                      afterEnglish;
+      console.log('Reconstructed content using position-based method');
     } else {
       // Fallback: replace each div separately with greedy match
+      console.log('Using fallback regex replacement method');
       finalContent = originalContent.replace(
         /<div id="german"[^>]*>[\s\S]*?<\/div>/,
         `<div id="german" class="language active">${germanContent}</div>`
@@ -2532,22 +2557,34 @@ async function saveContentSection(section) {
     }
   } else {
     // New file - create structure
+    console.log('Creating new file structure');
     finalContent = `<div id="german" class="language active">${germanContent}</div>\n<div id="english" class="language">${englishContent}</div>`;
   }
   
+  console.log('Final content prepared, length:', finalContent.length);
+  console.log('German content preview:', germanContent.substring(0, 100));
+  console.log('English content preview:', englishContent.substring(0, 100));
+  
   try {
-    await commitToGitHub(filePath, finalContent, `Update ${section} content (DE/EN)`);
+    console.log('Calling commitToGitHub...');
+    const result = await commitToGitHub(filePath, finalContent, `Update ${section} content (DE/EN)`);
+    console.log('Commit successful!', result);
     
     // Invalidate cache after successful save to ensure fresh data on next load
     if (fetchCache[filePath]) {
       delete fetchCache[filePath];
+      console.log('Cache invalidated for:', filePath);
     }
     // Also clear content cache
     if (AppState.contentCache[section]) {
       delete AppState.contentCache[section];
+      console.log('Content cache cleared for section:', section);
     }
+    
+    console.log('saveContentSection completed successfully');
   } catch (error) {
     console.error('Fehler beim Speichern von', section, ':', error);
+    console.error('Error stack:', error.stack);
     throw error; // Re-throw to be caught by saveSection
   }
 }
