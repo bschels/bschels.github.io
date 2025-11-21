@@ -27,6 +27,29 @@
   --hover-text: #000; /* Schwarz statt Weiß */
 }
 
+/* Dark Mode: Dünnerer Schrift-Schnitt (Ultra Light 100 statt Thin 200) */
+[data-theme="dark"] body,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] p,
+[data-theme="dark"] ul,
+[data-theme="dark"] ol,
+[data-theme="dark"] li,
+[data-theme="dark"] blockquote,
+[data-theme="dark"] strong,
+[data-theme="dark"] b,
+[data-theme="dark"] .cat,
+[data-theme="dark"] h2.cat,
+[data-theme="dark"] h3.cat,
+[data-theme="dark"] .arrow,
+[data-theme="dark"] .arrow-nohover {
+  font-weight: 100 !important; /* Ultra Light - dünnerer Schnitt im Dark Mode */
+}
+
 /* ========== Grundlayout & Body ========== */
 body {
   background: var(--bg);
