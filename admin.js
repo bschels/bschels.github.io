@@ -757,6 +757,37 @@ function generateContactHTML(contactData) {
   };
 }
 
+// Extract leistungen intro content from index.html
+function extractLeistungenIntro(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  
+  const germanDiv = doc.querySelector('#content2 #german');
+  const englishDiv = doc.querySelector('#content2 #english');
+  
+  let germanText = '';
+  let englishText = '';
+  
+  if (germanDiv) {
+    const textP = germanDiv.querySelector('p.content');
+    if (textP) {
+      germanText = textP.innerHTML.trim();
+    }
+  }
+  
+  if (englishDiv) {
+    const textP = englishDiv.querySelector('p.content');
+    if (textP) {
+      englishText = textP.innerHTML.trim();
+    }
+  }
+  
+  return {
+    german: germanText,
+    english: englishText
+  };
+}
+
 // Extract meta content from index.html
 function extractMetaContent(html) {
   const parser = new DOMParser();
@@ -1820,6 +1851,41 @@ function renderDualLanguageEditor(section, content) {
       </div>
     </div>
     <button class="btn btn-success" onclick="saveSection('${section}')">Speichern</button>
+  `;
+}
+
+// Render leistungen editor with intro text and main content
+function renderLeistungenEditor(content) {
+  const mainContent = extractLanguageContent(content.main);
+  const introContent = content.intro || { german: '', english: '' };
+  
+  return `
+    <h2>Leistungen</h2>
+    
+    <div class="leistungen-intro-section" style="margin-bottom: 2rem; padding: 1rem; background: var(--bg); border: 1px solid var(--primary);">
+      <h3 style="margin-top: 0;">Intro-Text (auf der Hauptseite)</h3>
+      <div class="editor-dual">
+        <div class="editor-panel">
+          <div class="editor-header">
+            <h4><span class="lang-badge de">DE</span> Deutsch</h4>
+          </div>
+          <div id="editor-visual-leistungen-intro-de" class="editor-visual" contenteditable="true" data-lang="de" data-section="leistungen-intro" style="display: block; min-height: 60px; padding: 0.5rem; border: 1px solid var(--primary);">${introContent.german}</div>
+          <textarea id="editor-leistungen-intro-de" class="content-editor" data-lang="de" data-section="leistungen-intro" style="display: none;">${introContent.german}</textarea>
+        </div>
+        <div class="editor-panel">
+          <div class="editor-header">
+            <h4><span class="lang-badge en">EN</span> English</h4>
+          </div>
+          <div id="editor-visual-leistungen-intro-en" class="editor-visual" contenteditable="true" data-lang="en" data-section="leistungen-intro" style="display: block; min-height: 60px; padding: 0.5rem; border: 1px solid var(--primary);">${introContent.english}</div>
+          <textarea id="editor-leistungen-intro-en" class="content-editor" data-lang="en" data-section="leistungen-intro" style="display: none;">${introContent.english}</textarea>
+        </div>
+      </div>
+    </div>
+    
+    <div class="leistungen-main-section">
+      <h3>Hauptinhalt (Leistungen-Seite)</h3>
+      ${renderDualLanguageEditor('leistungen', content.main)}
+    </div>
   `;
 }
 
@@ -4214,6 +4280,37 @@ function generateContactHTML(contactData) {
   };
 }
 
+// Extract leistungen intro content from index.html
+function extractLeistungenIntro(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  
+  const germanDiv = doc.querySelector('#content2 #german');
+  const englishDiv = doc.querySelector('#content2 #english');
+  
+  let germanText = '';
+  let englishText = '';
+  
+  if (germanDiv) {
+    const textP = germanDiv.querySelector('p.content');
+    if (textP) {
+      germanText = textP.innerHTML.trim();
+    }
+  }
+  
+  if (englishDiv) {
+    const textP = englishDiv.querySelector('p.content');
+    if (textP) {
+      englishText = textP.innerHTML.trim();
+    }
+  }
+  
+  return {
+    german: germanText,
+    english: englishText
+  };
+}
+
 // Extract meta content from index.html
 function extractMetaContent(html) {
   const parser = new DOMParser();
@@ -4867,6 +4964,41 @@ function renderDualLanguageEditor(section, content) {
       </div>
     </div>
     <button class="btn btn-success" onclick="saveSection('${section}')">Speichern</button>
+  `;
+}
+
+// Render leistungen editor with intro text and main content
+function renderLeistungenEditor(content) {
+  const mainContent = extractLanguageContent(content.main);
+  const introContent = content.intro || { german: '', english: '' };
+  
+  return `
+    <h2>Leistungen</h2>
+    
+    <div class="leistungen-intro-section" style="margin-bottom: 2rem; padding: 1rem; background: var(--bg); border: 1px solid var(--primary);">
+      <h3 style="margin-top: 0;">Intro-Text (auf der Hauptseite)</h3>
+      <div class="editor-dual">
+        <div class="editor-panel">
+          <div class="editor-header">
+            <h4><span class="lang-badge de">DE</span> Deutsch</h4>
+          </div>
+          <div id="editor-visual-leistungen-intro-de" class="editor-visual" contenteditable="true" data-lang="de" data-section="leistungen-intro" style="display: block; min-height: 60px; padding: 0.5rem; border: 1px solid var(--primary);">${introContent.german}</div>
+          <textarea id="editor-leistungen-intro-de" class="content-editor" data-lang="de" data-section="leistungen-intro" style="display: none;">${introContent.german}</textarea>
+        </div>
+        <div class="editor-panel">
+          <div class="editor-header">
+            <h4><span class="lang-badge en">EN</span> English</h4>
+          </div>
+          <div id="editor-visual-leistungen-intro-en" class="editor-visual" contenteditable="true" data-lang="en" data-section="leistungen-intro" style="display: block; min-height: 60px; padding: 0.5rem; border: 1px solid var(--primary);">${introContent.english}</div>
+          <textarea id="editor-leistungen-intro-en" class="content-editor" data-lang="en" data-section="leistungen-intro" style="display: none;">${introContent.english}</textarea>
+        </div>
+      </div>
+    </div>
+    
+    <div class="leistungen-main-section">
+      <h3>Hauptinhalt (Leistungen-Seite)</h3>
+      ${renderDualLanguageEditor('leistungen', content.main)}
+    </div>
   `;
 }
 
