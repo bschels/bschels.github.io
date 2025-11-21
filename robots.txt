@@ -1,6 +1,10 @@
-# robots.txt für http://schels.info
+# robots.txt für https://schels.info
 
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin.html
+Disallow: /admin.js
+Disallow: /admin.css
+Disallow: /admin-config.js
 
-Sitemap: http://schels.info/sitemap.xml
+Sitemap: https://schels.info/sitemap.xml
