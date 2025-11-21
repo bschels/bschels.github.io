@@ -3216,9 +3216,11 @@ async function loadGoatCounterStats() {
     let month = 0;
     let total = data.total || 0;
     
-    // Get today's date in YYYY-MM-DD format
+    // Get today's date in YYYY-MM-DD format (UTC to match API)
     const todayDate = new Date();
     const todayStr = todayDate.toISOString().split('T')[0];
+    
+    console.log('Today date string:', todayStr); // Debug
     
     // Get start of week (Monday) and month
     const weekStart = new Date(todayDate);
@@ -3228,15 +3230,20 @@ async function loadGoatCounterStats() {
     const monthStart = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
     const monthStartStr = monthStart.toISOString().split('T')[0];
     
+    console.log('Date ranges:', { todayStr, weekStartStr, monthStartStr }); // Debug
+    
     // Process stats array
     if (data.stats && Array.isArray(data.stats)) {
       data.stats.forEach(stat => {
         const statDay = stat.day;
         const statCount = stat.daily || 0;
         
+        console.log('Processing stat:', { day: statDay, count: statCount, isToday: statDay === todayStr }); // Debug
+        
         // Today
         if (statDay === todayStr) {
           today = statCount;
+          console.log('Found today:', today); // Debug
         }
         
         // This week (from Monday to today)
