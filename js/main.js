@@ -185,27 +185,4 @@ $(function() {
     kb_source_2_datenschutz();
   });
 
-  var toggle = document.getElementById("theme-toggle");
-  var toggleText = document.getElementById("theme-toggle-text");
-  var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  if (storedTheme) {
-    document.documentElement.setAttribute('data-theme', storedTheme);
-    if (toggleText) {
-      toggleText.textContent = storedTheme === "dark" ? "light" : "dark";
-    }
-  }
-  if (toggle) {
-    toggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var currentTheme = document.documentElement.getAttribute("data-theme");
-      var targetTheme = (currentTheme === "light") ? "dark" : "light";
-      document.documentElement.setAttribute('data-theme', targetTheme);
-      localStorage.setItem('theme', targetTheme);
-      if (toggleText) {
-        toggleText.textContent = targetTheme === "dark" ? "light" : "dark";
-      }
-      return false;
-    });
-  }
 });

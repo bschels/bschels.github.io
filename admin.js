@@ -13,7 +13,6 @@ const AppState = {
   undoStack: {},
   redoStack: {},
   backups: {},
-  darkMode: localStorage.getItem('admin_dark_mode') === 'true'
 };
 
 // SHA-256 Hash function
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
   loadStoredConfig();
   initKeyboardShortcuts();
   initAutoSaveWarning();
-  initDarkMode();
   
   // Load saved password if "remember" was enabled
   try {
@@ -3121,25 +3119,8 @@ function showEditor() {
     return;
   }
   
-  // Initialize dark mode toggle if not already present
-  setTimeout(() => {
-    const header = document.querySelector('.admin-header');
-    if (header && !document.getElementById('dark-mode-toggle')) {
-      const headerActions = header.querySelector('.header-actions');
-      if (headerActions) {
-        const toggle = document.createElement('button');
-        toggle.id = 'dark-mode-toggle';
-        toggle.className = 'btn btn-secondary';
-        toggle.innerHTML = AppState.darkMode ? '☀️' : '🌙';
-        toggle.title = AppState.darkMode ? 'Hell' : 'Dunkel';
-        toggle.addEventListener('click', toggleDarkMode);
-        headerActions.insertBefore(toggle, headerActions.firstChild);
-      }
-    }
-    
-    // Load GoatCounter statistics
-    loadGoatCounterStats();
-  }, 100);
+  // Load GoatCounter statistics
+  loadGoatCounterStats();
   
   // Load first section
   if (!AppState.currentSection) {
@@ -3693,41 +3674,6 @@ function updateCharacterCounter(field, counter, maxLength) {
   }
 }
 
-// ========== Dark Mode ==========
-function initDarkMode() {
-  if (AppState.darkMode) {
-    document.body.classList.add('dark-mode');
-  }
-  
-  // Create dark mode toggle button when editor is shown
-  setTimeout(() => {
-    const header = document.querySelector('.admin-header');
-    if (header && !document.getElementById('dark-mode-toggle')) {
-      const headerActions = header.querySelector('.header-actions');
-      if (headerActions) {
-        const toggle = document.createElement('button');
-        toggle.id = 'dark-mode-toggle';
-        toggle.className = 'btn btn-secondary';
-        toggle.innerHTML = AppState.darkMode ? '☀️' : '🌙';
-        toggle.title = AppState.darkMode ? 'Hell' : 'Dunkel';
-        toggle.addEventListener('click', toggleDarkMode);
-        headerActions.insertBefore(toggle, headerActions.firstChild);
-      }
-    }
-  }, 100);
-}
-
-function toggleDarkMode() {
-  AppState.darkMode = !AppState.darkMode;
-  document.body.classList.toggle('dark-mode', AppState.darkMode);
-  localStorage.setItem('admin_dark_mode', AppState.darkMode.toString());
-  
-  const toggle = document.getElementById('dark-mode-toggle');
-  if (toggle) {
-    toggle.innerHTML = AppState.darkMode ? '☀️' : '🌙';
-    toggle.title = AppState.darkMode ? 'Hell' : 'Dunkel';
-  }
-}
 
 // ========== Better Validation ==========
 function validateContent(editor) {
@@ -6051,41 +5997,6 @@ function updateCharacterCounter(field, counter, maxLength) {
   }
 }
 
-// ========== Dark Mode ==========
-function initDarkMode() {
-  if (AppState.darkMode) {
-    document.body.classList.add('dark-mode');
-  }
-  
-  // Create dark mode toggle button when editor is shown
-  setTimeout(() => {
-    const header = document.querySelector('.admin-header');
-    if (header && !document.getElementById('dark-mode-toggle')) {
-      const headerActions = header.querySelector('.header-actions');
-      if (headerActions) {
-        const toggle = document.createElement('button');
-        toggle.id = 'dark-mode-toggle';
-        toggle.className = 'btn btn-secondary';
-        toggle.innerHTML = AppState.darkMode ? '☀️' : '🌙';
-        toggle.title = AppState.darkMode ? 'Hell' : 'Dunkel';
-        toggle.addEventListener('click', toggleDarkMode);
-        headerActions.insertBefore(toggle, headerActions.firstChild);
-      }
-    }
-  }, 100);
-}
-
-function toggleDarkMode() {
-  AppState.darkMode = !AppState.darkMode;
-  document.body.classList.toggle('dark-mode', AppState.darkMode);
-  localStorage.setItem('admin_dark_mode', AppState.darkMode.toString());
-  
-  const toggle = document.getElementById('dark-mode-toggle');
-  if (toggle) {
-    toggle.innerHTML = AppState.darkMode ? '☀️' : '🌙';
-    toggle.title = AppState.darkMode ? 'Hell' : 'Dunkel';
-  }
-}
 
 // ========== Better Validation ==========
 function validateContent(editor) {

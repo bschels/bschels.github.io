@@ -1345,73 +1345,6 @@ body {
 }
 
 /* ========== Dark Mode ========== */
-.dark-mode {
-  --bg: #1a1a1a;
-  --body: #e0e0e0;
-  --primary: #ffffff;
-  --accent: #888888;
-  --border: #333333;
-}
-
-.dark-mode .sidebar {
-  background: #0f0f0f;
-  border-right-color: var(--border);
-}
-
-.dark-mode .sidebar-nav-item {
-  color: var(--body);
-}
-
-.dark-mode .sidebar-nav-item:hover,
-.dark-mode .sidebar-nav-item.active {
-  background: #2a2a2a;
-  color: var(--primary);
-}
-
-.dark-mode .editor-panel,
-.dark-mode .form-group input,
-.dark-mode .form-group textarea,
-.dark-mode .editor-visual {
-  background: #222222;
-  color: var(--body);
-  border-color: var(--border);
-}
-
-.dark-mode .btn {
-  background: #333333;
-  color: var(--body);
-  border-color: var(--border);
-}
-
-.dark-mode .btn:hover {
-  background: #444444;
-}
-
-.dark-mode .btn-success {
-  background: #2e7d32;
-  color: #ffffff;
-}
-
-.dark-mode .btn-primary {
-  background: #1976d2;
-  color: #ffffff;
-}
-
-.dark-mode .modal-content {
-  background: #222222;
-  color: var(--body);
-  border-color: var(--border);
-}
-
-.dark-mode .toolbar-btn {
-  background: #333333;
-  color: var(--body);
-  border-color: var(--border);
-}
-
-.dark-mode .toolbar-btn:hover {
-  background: #444444;
-}
 
 /* ========== Search & Replace Modal ========== */
 .search-results {
@@ -1449,11 +1382,6 @@ body {
   border-radius: 4px;
 }
 
-.dark-mode .validation-warning {
-  background: #664d03;
-  border-color: #ffc107;
-  color: #ffc107;
-}
 
 /* ========== Mobile Responsive ========== */
 @media (max-width: 768px) {

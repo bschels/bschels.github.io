@@ -7,7 +7,6 @@
 
 /* ========== Zentrale Variablen ========== */
 :root {
-  color-scheme: light dark;
   --primary: #000;
   --bg: #fff;
   --body: #000;
@@ -15,51 +14,6 @@
   --hover-bg: #000;
   --hover-text: #fff;
   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-}
-
-/* Dark Mode Variablen - Vollständig invertiert */
-[data-theme="dark"] {
-  --primary: #fff; /* Weiß statt Schwarz */
-  --bg: #000; /* Richtig schwarz statt weiß */
-  --body: #fff; /* Weiß statt Schwarz */
-  --accent: blue; /* Gleiches Blau wie im Light Mode */
-  --hover-bg: #fff; /* Weiß statt Schwarz */
-  --hover-text: #000; /* Schwarz statt Weiß */
-}
-
-/* Dark Mode: Dünnerer Schrift-Schnitt (Ultra Light 100 statt Thin 200) */
-/* Diese Regel muss nach allen anderen font-weight Regeln kommen, damit sie überschreibt */
-[data-theme="dark"] body,
-[data-theme="dark"] body *,
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6,
-[data-theme="dark"] p,
-[data-theme="dark"] ul,
-[data-theme="dark"] ol,
-[data-theme="dark"] li,
-[data-theme="dark"] blockquote,
-[data-theme="dark"] blockquote *,
-[data-theme="dark"] blockquote .says,
-[data-theme="dark"] blockquote p:not(.says),
-[data-theme="dark"] strong,
-[data-theme="dark"] b,
-[data-theme="dark"] em,
-[data-theme="dark"] i,
-[data-theme="dark"] .cat,
-[data-theme="dark"] h2.cat,
-[data-theme="dark"] h3.cat,
-[data-theme="dark"] .arrow,
-[data-theme="dark"] .arrow-nohover,
-[data-theme="dark"] label.cat[for^="tog"]::before,
-[data-theme="dark"] .title-wrapper,
-[data-theme="dark"] .title-wrapper h1,
-[data-theme="dark"] .header-row h1,
-[data-theme="dark"] .pagination-controls .page-link.active {
-  font-weight: 100 !important; /* Ultra Light - dünnerer Schnitt im Dark Mode */
 }
 
 /* ========== Grundlayout & Body ========== */
@@ -118,27 +72,6 @@ main    { padding-top: 0; padding-bottom: 0; }
   margin-left: auto; /* Nach rechts schieben */
 }
 
-.theme-toggle-link {
-  text-transform: lowercase;
-  color: var(--body);
-  font-size: 0.85em;
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: var(--body);
-  text-underline-offset: 3px;
-  padding: 0.1em 0.2em;
-  margin: 0; /* Kein margin, gap wird verwendet */
-  cursor: pointer;
-  display: flex; /* Flex für bessere Ausrichtung */
-  align-items: center; /* Center für perfekte visuelle Ausrichtung */
-  line-height: 1; /* Gleiche Zeilenhöhe wie DE/EN */
-}
-
-.theme-toggle-link:hover {
-  color: var(--hover-text) !important;
-  background-color: var(--hover-bg) !important;
-  text-decoration-color: var(--hover-text) !important;
-}
 .language-select {
   float: none; /* alten float aufheben */
   display: flex;
@@ -499,7 +432,6 @@ td {
   padding: 0.2em 0;
 }
 tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
-[data-theme="dark"] tr:nth-child(odd) { background: hsla(360,0%,20%,0.2); }
 
 /* ========== Formulareingaben resetten ========== */
 input[type=text], input[type=button] {
@@ -875,9 +807,6 @@ hr.z {
     margin-top: 0.8em !important; /* Mehr Abstand nach oben - weiter runter zur Linie darunter */
     gap: 0.4rem; /* Mehr Abstand zwischen dark, DE, EN */
     align-items: center !important; /* Center für perfekte visuelle Ausrichtung */
-  }
-  .theme-toggle-link {
-    margin-right: 0.3rem;
   }
   .title-wrapper {
     width: 100%;
