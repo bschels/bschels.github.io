@@ -148,6 +148,13 @@ main    { padding-top: 0; padding-bottom: 0; }
 .language          { display: none; }
 .language.active { display: block; }
 
+/* Header .language divs richtig ausrichten */
+.header-lang .language {
+  display: flex !important;
+  align-items: center;
+  vertical-align: middle;
+}
+
 .language-select a.switch-language {
   text-transform: lowercase;
   color: var(--body); /* Standardfarbe (Schwarz) */
