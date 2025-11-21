@@ -2371,7 +2371,18 @@ async function saveSection(section) {
     }
     
     showError(errorMessage);
-    alert('Fehler beim Speichern:\n' + errorMessage + '\n\nBitte Browser-Konsole (F12) für Details öffnen.');
+    
+    // Show detailed alert for token permission issues
+    if (error.message.includes('not accessible') || error.message.includes('403') || error.message.includes('Berechtigungen')) {
+      alert('❌ Fehler beim Speichern!\n\n' + errorMessage + '\n\n' +
+            '🔗 Direktlink: https://github.com/settings/tokens\n\n' +
+            'Nach dem Erstellen des neuen Tokens:\n' +
+            '1. Gehen Sie zu "GitHub Einstellungen" im Admin-Panel\n' +
+            '2. Geben Sie den neuen Token ein\n' +
+            '3. Klicken Sie auf "Einstellungen speichern"');
+    } else {
+      alert('Fehler beim Speichern:\n' + errorMessage + '\n\nBitte Browser-Konsole (F12) für Details öffnen.');
+    }
   } finally {
     savingInProgress = false;
     showLoading(false);
