@@ -195,7 +195,8 @@ $(function() {
     }
   }
   if (toggle) {
-    toggle.onclick = function() {
+    toggle.onclick = function(e) {
+      e.preventDefault();
       var currentTheme = document.documentElement.getAttribute("data-theme");
       var targetTheme = (currentTheme === "light") ? "dark" : "light";
       document.documentElement.setAttribute('data-theme', targetTheme);

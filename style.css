@@ -32,7 +32,7 @@ body {
   background: var(--bg);
   color: var(--body);
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt für Avenir Next */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt für Avenir Next */
   width: 70%;
   max-width: 60em; min-width: 10em;
   margin: auto;
@@ -74,35 +74,23 @@ main    { padding-top: 0; padding-bottom: 0; }
   gap: 0.5rem;
 }
 
-.theme-toggle {
-  background: transparent;
-  border: 1px solid var(--body);
-  color: var(--body);
-  font-size: 0.75em;
-  font-weight: 400;
-  padding: 0.1em 0.3em;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.theme-toggle-link {
   text-transform: lowercase;
-  letter-spacing: 0.05em;
+  color: var(--body);
+  font-size: 0.85em;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--body);
+  text-underline-offset: 3px;
+  padding: 0.1em 0.2em;
   margin-right: 0.5rem;
+  cursor: pointer;
 }
 
-.theme-toggle:hover {
-  color: var(--hover-text);
-  background-color: var(--hover-bg);
-  border-color: var(--hover-bg);
-}
-
-.theme-toggle:focus {
-  outline: none;
-  color: var(--hover-text);
-  background-color: var(--hover-bg);
-  border-color: var(--hover-bg);
+.theme-toggle-link:hover {
+  color: var(--hover-text) !important;
+  background-color: var(--hover-bg) !important;
+  text-decoration-color: var(--hover-text) !important;
 }
 .language-select {
   float: none; /* alten float aufheben */
@@ -229,7 +217,7 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
 /* ========== Typografie (vereinfacht) ========== */
 h1 {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt */
   font-size: 1.6em;
   text-align: left;
   letter-spacing: 0.2em;
