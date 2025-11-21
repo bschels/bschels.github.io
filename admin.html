@@ -114,15 +114,28 @@
           
           <div class="setup-help">
             <h3>Hilfe</h3>
-            <p><strong>GitHub Token erstellen:</strong></p>
+            
+            <p><strong>⚠️ WICHTIG für fine-grained Tokens (github_pat_):</strong></p>
+            <p>Wenn Sie einen fine-grained Token verwenden, müssen Sie folgende Berechtigungen setzen:</p>
             <ol>
               <li>Gehen Sie zu <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Developer settings → Personal access tokens</a></li>
-              <li>Klicken Sie auf "Generate new token (classic)"</li>
+              <li>Klicken Sie auf Ihren Token (der mit <code>github_pat_</code> beginnt)</li>
+              <li>Unter <strong>"Repository access"</strong> wählen Sie <strong>"Selected repositories"</strong> und wählen <code>bschels.github.io</code> aus</li>
+              <li>Unter <strong>"Repository permissions"</strong> → <strong>"Contents"</strong> wählen Sie <strong>"Read and write"</strong> (nicht nur "Read"!)</li>
+              <li>Klicken Sie auf <strong>"Save"</strong> am Ende der Seite</li>
+            </ol>
+            
+            <p><strong>ODER erstellen Sie einen Classic Token (empfohlen, einfacher):</strong></p>
+            <ol>
+              <li>Gehen Sie zu <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Developer settings → Personal access tokens</a></li>
+              <li>Klicken Sie auf <strong>"Generate new token (classic)"</strong></li>
               <li>Geben Sie einen Namen ein (z.B. "Website Admin Panel")</li>
               <li>Wählen Sie die Berechtigung <code>repo</code> (Full control of private repositories)</li>
               <li>Klicken Sie auf "Generate token"</li>
               <li><strong>WICHTIG:</strong> Kopieren Sie den Token sofort (er wird nur einmal angezeigt!)</li>
+              <li>Der Token beginnt mit <code>ghp_</code></li>
             </ol>
+            
             <p><strong>Hinweis:</strong> Token und Konfiguration werden nur lokal im Browser gespeichert (localStorage).</p>
           </div>
         </div>

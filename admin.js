@@ -2753,8 +2753,23 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
     
     // Provide specific error messages
     if (commitResponse.status === 403) {
+      const isFineGrained = AppState.githubToken && AppState.githubToken.startsWith('github_pat_');
       if (errorData.message && errorData.message.includes('personal access token')) {
-        throw new Error('Token hat nicht die nötigen Berechtigungen! Bitte erstellen Sie einen neuen Token mit "repo" Berechtigung.');
+        if (isFineGrained) {
+          throw new Error('Fine-grained Token hat nicht die nötigen Berechtigungen!\n\n' +
+                         'Bitte konfigurieren Sie den Token:\n' +
+                         '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
+                         '2. Klicken Sie auf Ihren Token\n' +
+                         '3. Unter "Repository access" wählen Sie "Selected repositories" und wählen das Repository aus\n' +
+                         '4. Unter "Repository permissions" → "Contents" wählen Sie "Read and write"\n' +
+                         '5. Speichern Sie die Änderungen\n\n' +
+                         'ODER erstellen Sie einen Classic Token (einfacher):\n' +
+                         '1. "Generate new token (classic)"\n' +
+                         '2. Berechtigung "repo" wählen\n' +
+                         '3. Token kopieren (beginnt mit ghp_)');
+        } else {
+          throw new Error('Token hat nicht die nötigen Berechtigungen! Bitte erstellen Sie einen neuen Token mit "repo" Berechtigung.');
+        }
       } else {
         throw new Error('Zugriff verweigert! Der Token hat möglicherweise nicht die nötigen Berechtigungen oder das Repository ist privat.');
       }
