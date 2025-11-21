@@ -217,7 +217,7 @@ function initSetup() {
 }
 
 // Load stored configuration
-function loadStoredConfig() {
+function loadStoredConfig(hideSetupScreen = true) {
   const token = localStorage.getItem('github_token');
   const config = localStorage.getItem('github_config');
   
@@ -227,7 +227,13 @@ function loadStoredConfig() {
   
   if (config) {
     AppState.githubConfig = JSON.parse(config);
-    document.getElementById('setup-screen').style.display = 'none';
+    // Only hide setup screen if explicitly requested (not when viewing setup section)
+    if (hideSetupScreen) {
+      const setupScreen = document.getElementById('setup-screen');
+      if (setupScreen) {
+        setupScreen.style.display = 'none';
+      }
+    }
   } else {
     // Use default from config
     AppState.githubConfig = ADMIN_CONFIG.repository;
@@ -242,9 +248,9 @@ function loadStoredConfig() {
     const tokenField = document.getElementById('github-token');
     
     if (usernameField) {
-      document.getElementById('github-username').value = AppState.githubConfig.owner;
-      document.getElementById('github-repo').value = AppState.githubConfig.repo;
-      document.getElementById('github-branch').value = AppState.githubConfig.branch;
+      document.getElementById('github-username').value = AppState.githubConfig.owner || '';
+      document.getElementById('github-repo').value = AppState.githubConfig.repo || '';
+      document.getElementById('github-branch').value = AppState.githubConfig.branch || 'main';
       
       // Pre-fill token if available (for user convenience)
       if (token && tokenField) {
@@ -377,35 +383,8 @@ function switchSection(section) {
     // Pre-fill form with current values and update info
     // Use setTimeout to ensure DOM is ready
     setTimeout(() => {
-      // Ensure config is loaded
-      if (!AppState.githubConfig) {
-        const config = localStorage.getItem('github_config');
-        if (config) {
-          AppState.githubConfig = JSON.parse(config);
-        } else {
-          AppState.githubConfig = ADMIN_CONFIG.repository;
-        }
-      }
-      if (!AppState.githubToken) {
-        const token = localStorage.getItem('github_token');
-        if (token) {
-          AppState.githubToken = token;
-        }
-      }
-      
-      // Pre-fill form fields
-      const usernameField = document.getElementById('github-username');
-      const tokenField = document.getElementById('github-token');
-      const repoField = document.getElementById('github-repo');
-      const branchField = document.getElementById('github-branch');
-      
-      if (usernameField) usernameField.value = AppState.githubConfig.owner || '';
-      if (repoField) repoField.value = AppState.githubConfig.repo || '';
-      if (branchField) branchField.value = AppState.githubConfig.branch || 'main';
-      if (tokenField && AppState.githubToken) tokenField.value = AppState.githubToken;
-      
-      // Update repo info display
-      updateRepoInfo();
+      // Load config but don't hide setup screen (we're viewing it)
+      loadStoredConfig(false);
     }, 150);
   } else {
     loadContentForSection(section);
