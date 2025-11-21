@@ -1,0 +1,1467 @@
+/* Admin Panel Styles - Angepasst an Website-Design */
+
+/* ========== Schriftarten-Einbindung ========== */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/montserrat-v24-latin-300.woff2') format('woff2'),
+       url('fonts/montserrat-v24-latin-300.woff') format('woff');
+  font-display: optional;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/montserrat-v24-latin-regular.woff2') format('woff2'),
+       url('fonts/montserrat-v24-latin-regular.woff') format('woff');
+  font-display: optional;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 300;
+  src: url('fonts/montserrat-v24-latin-300italic.woff2') format('woff2'),
+       url('fonts/montserrat-v24-latin-300italic.woff') format('woff');
+  font-display: optional;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400;
+  src: url('fonts/montserrat-v24-latin-italic.woff2') format('woff2'),
+       url('fonts/montserrat-v24-latin-italic.woff') format('woff');
+  font-display: optional;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
+/* ========== Zentrale Variablen ========== */
+:root {
+  --primary: #000;
+  --bg: #fff;
+  --body: #000;
+  --accent: blue;
+  --hover-bg: #000;
+  --hover-text: #fff;
+  --font-main: 'Montserrat', 'Arial', sans-serif;
+}
+
+/* ========== Grundlayout ========== */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-main);
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--body);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  font-size: 1em;
+  line-height: 1.6;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+}
+
+/* ========== Screen Management ========== */
+.screen {
+  display: none !important;
+}
+
+.screen.active {
+  display: block !important;
+}
+
+/* ========== Login Screen ========== */
+#login-screen {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+#login-screen.active {
+  display: flex !important;
+}
+
+.login-container {
+  background: var(--bg);
+  padding: 3rem;
+  border: 1px solid var(--primary);
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+}
+
+.login-container h1 {
+  font-weight: 400;
+  font-size: 1.6em;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.login-container h1 span {
+  display: block;
+}
+
+.login-container p {
+  margin-bottom: 2rem;
+  color: var(--body);
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+}
+
+/* ========== Forms ========== */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  color: var(--body);
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 0.9em;
+  margin-bottom: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.checkbox-label span {
+  user-select: none;
+}
+
+.form-group small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--body);
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.form-group textarea {
+  min-height: 200px;
+  resize: vertical;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* ========== Buttons ========== */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+  border-color: var(--hover-bg);
+}
+
+.btn-primary {
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+}
+
+.btn-success {
+  border-color: var(--primary);
+}
+
+.btn-success:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+}
+
+.btn-secondary {
+  border-color: var(--primary);
+}
+
+.btn-secondary:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== Error Messages ========== */
+.error-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--bg);
+  color: var(--body);
+  border: 1px solid var(--primary);
+  font-size: 0.9em;
+}
+
+/* ========== Admin Header ========== */
+.admin-header {
+  background: var(--bg);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  font-size: 1.6em;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  color: var(--primary);
+  margin: 0;
+}
+
+.admin-header h1 span {
+  display: block;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ========== Editor Screen ========== */
+#editor-screen.active {
+  display: block !important;
+}
+
+/* ========== Admin Container ========== */
+.admin-container {
+  display: flex;
+  min-height: calc(100vh - 80px);
+}
+
+/* ========== Sidebar ========== */
+.sidebar {
+  width: 250px;
+  background: var(--bg);
+  border-right: 1px solid var(--primary);
+  padding: 1rem 0;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: var(--body);
+  text-decoration: none;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  font-weight: 400;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+}
+
+.nav-item:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+  border-left-color: var(--hover-bg);
+}
+
+.nav-item.active {
+  background: transparent;
+  border-left-color: var(--primary);
+  color: var(--primary);
+}
+
+.nav-item.active:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+  border-left-color: var(--hover-bg);
+}
+
+/* ========== Editor Main ========== */
+.editor-main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+.editor-section {
+  display: none;
+}
+
+.editor-section.active {
+  display: block;
+}
+
+.editor-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+}
+
+/* ========== Side-by-Side Editor ========== */
+.editor-dual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.editor-dual-single {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.editor-panel {
+  background: var(--bg);
+  border: 1px solid var(--primary);
+  padding: 1.5rem;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.editor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.editor-header h3 {
+  margin: 0;
+  color: var(--primary);
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: lowercase;
+}
+
+.editor-mode-switch {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--primary);
+}
+
+.mode-btn {
+  padding: 0.4rem 1rem;
+  background: var(--bg);
+  color: var(--primary);
+  border: none;
+  border-right: 1px solid var(--primary);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: lowercase;
+}
+
+.mode-btn:last-child {
+  border-right: none;
+}
+
+.mode-btn:hover {
+  background: #f5f5f5;
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+.btn-translate {
+  padding: 0.4rem 1rem;
+  background: var(--bg);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.btn-translate:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+  border-color: var(--hover-bg);
+}
+
+.btn-translate:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-translate span {
+  font-size: 1.1em;
+}
+
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border: 1px solid var(--primary);
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.toolbar-btn {
+  padding: 0.4rem 0.75rem;
+  background: var(--bg);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: none;
+}
+
+.toolbar-btn:hover {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+.toolbar-btn strong,
+.toolbar-btn em,
+.toolbar-btn u {
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.toolbar-separator {
+  width: 1px;
+  background: var(--primary);
+  margin: 0 0.25rem;
+  opacity: 0.3;
+}
+
+.editor-visual {
+  width: 100%;
+  min-height: 400px;
+  padding: 1rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1.6;
+  overflow-y: auto;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.editor-visual:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+/* ========== Editor Visual - Typografie (vereinfacht) ========== */
+.editor-visual h1,
+.editor-visual h2,
+.editor-visual h3,
+.editor-visual h4,
+.editor-visual h5,
+.editor-visual h6 {
+  font-family: var(--font-main);
+  font-weight: 400;
+  color: var(--primary);
+  text-align: left;
+  letter-spacing: 0.2em;
+  margin: 1.5rem 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.editor-visual h1:first-child,
+.editor-visual h2:first-child,
+.editor-visual h3:first-child,
+.editor-visual h4:first-child,
+.editor-visual h5:first-child,
+.editor-visual h6:first-child {
+  margin-top: 0;
+}
+
+.editor-visual h1 {
+  font-size: 1.6em;
+  font-weight: 300;
+}
+
+.editor-visual h2 {
+  font-size: 1.4em;
+}
+
+.editor-visual h3 {
+  font-size: 1.2em;
+}
+
+.editor-visual h4 {
+  font-size: 1.1em;
+}
+
+.editor-visual h5,
+.editor-visual h6 {
+  font-size: 1em;
+}
+
+.editor-visual p {
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 1rem 0;
+  color: var(--body);
+}
+
+.editor-visual p.content {
+  font-size: 1.2em;
+  margin: 2% 0;
+}
+
+.editor-visual ul,
+.editor-visual ol {
+  font-family: var(--font-main);
+  font-weight: 300;
+  margin: 1rem 0;
+  padding-left: 2rem;
+  color: var(--body);
+}
+
+.editor-visual ul {
+  list-style-type: square;
+}
+
+.editor-visual ol {
+  list-style-type: upper-roman;
+}
+
+.editor-visual li {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+
+.editor-visual a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 300;
+}
+
+.editor-visual a:hover {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+}
+
+.editor-visual strong {
+  font-weight: 400;
+  color: var(--body);
+}
+
+.editor-visual em,
+.editor-visual i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.editor-visual blockquote {
+  text-align: right;
+  margin: 1.5rem 0;
+  padding: 0;
+  font-family: var(--font-main);
+  font-weight: 300;
+}
+
+.editor-visual blockquote .says {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.editor-visual blockquote p:not(.says) {
+  font-style: normal;
+  font-weight: 300;
+}
+
+.editor-visual table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-family: var(--font-main);
+  font-weight: 300;
+}
+
+.editor-visual td {
+  padding: 0.2em 0;
+  vertical-align: top;
+  text-align: left;
+}
+
+.editor-visual tr:nth-child(odd) {
+  background: hsla(360, 0%, 80%, 0.2);
+}
+
+.editor-panel h3 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: lowercase;
+}
+
+.lang-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: var(--primary);
+  color: var(--bg);
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lang-badge.de {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+.lang-badge.en {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+.editor-panel textarea {
+  width: 100%;
+  min-height: 400px;
+  padding: 1rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.preview-panel {
+  background: var(--bg);
+  border: 1px solid var(--primary);
+  padding: 1rem;
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+  margin-top: 1rem;
+  font-family: var(--font-main);
+  font-weight: 300;
+}
+
+/* Preview Panel verwendet die gleiche Typografie wie Editor Visual */
+.preview-panel h1,
+.preview-panel h2,
+.preview-panel h3,
+.preview-panel h4,
+.preview-panel h5,
+.preview-panel h6 {
+  font-family: var(--font-main);
+  font-weight: 400;
+  color: var(--primary);
+  text-align: left;
+  letter-spacing: 0.2em;
+  margin: 1.5rem 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.preview-panel h1:first-child,
+.preview-panel h2:first-child,
+.preview-panel h3:first-child {
+  margin-top: 0;
+}
+
+.preview-panel h1 {
+  font-size: 1.6em;
+  font-weight: 300;
+}
+
+.preview-panel h2 {
+  font-size: 1.4em;
+}
+
+.preview-panel p {
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 1rem 0;
+  color: var(--body);
+}
+
+.preview-panel p.content {
+  font-size: 1.2em;
+  margin: 2% 0;
+}
+
+.preview-panel ul,
+.preview-panel ol {
+  font-family: var(--font-main);
+  font-weight: 300;
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.preview-panel ul {
+  list-style-type: square;
+}
+
+.preview-panel ol {
+  list-style-type: upper-roman;
+}
+
+.preview-panel li {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+
+.preview-panel strong {
+  font-weight: 400;
+}
+
+.preview-panel em,
+.preview-panel i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.preview-panel blockquote {
+  text-align: right;
+  margin: 1.5rem 0;
+}
+
+.preview-panel blockquote .says {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* ========== Validation Warning ========== */
+.validation-warning {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--bg);
+  color: var(--body);
+  border: 1px solid var(--primary);
+  font-size: 0.9em;
+}
+
+/* ========== Status Messages ========== */
+.status-message {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  z-index: 1000;
+  max-width: 400px;
+  font-size: 0.9em;
+}
+
+.status-message.success {
+  background: var(--bg);
+  color: var(--body);
+  border-color: var(--primary);
+}
+
+.status-message.error {
+  background: var(--bg);
+  color: var(--body);
+  border-color: var(--primary);
+}
+
+.status-message.info {
+  background: var(--bg);
+  color: var(--body);
+  border-color: var(--primary);
+}
+
+/* ========== Loading Overlay ========== */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  color: var(--body);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+  margin-top: 1rem;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+}
+
+/* ========== Setup Form ========== */
+.setup-form {
+  background: var(--bg);
+  padding: 2rem;
+  border: 1px solid var(--primary);
+  max-width: 600px;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .editor-dual {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    width: 200px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .login-container {
+    padding: 2rem;
+    margin: 1rem;
+  }
+}
+
+/* ========== Projects Editor ========== */
+.projects-editor {
+  padding: 1rem 0;
+}
+
+.projects-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project-item {
+  border: 1px solid var(--primary);
+  padding: 1rem;
+  background: var(--bg);
+}
+
+.project-item-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.project-year {
+  font-weight: 400;
+  min-width: 60px;
+}
+
+.project-name {
+  flex: 1;
+  font-weight: 400;
+}
+
+.btn-small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9em;
+}
+
+/* ========== Modal ========== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: var(--bg);
+  margin: 5% auto;
+  padding: 2rem;
+  border: 1px solid var(--primary);
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+}
+
+.close-modal {
+  color: var(--primary);
+  float: right;
+  font-size: 2em;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  opacity: 0.7;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-end;
+}
+
+/* ========== Contact Editor ========== */
+.contact-editor {
+  max-width: 800px;
+  padding: 1rem 0;
+}
+
+.contact-editor .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-editor label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  color: var(--primary);
+}
+
+.contact-editor input[type="text"],
+.contact-editor input[type="email"],
+.contact-editor input[type="tel"],
+.contact-editor textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.contact-editor textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.contact-editor input:focus,
+.contact-editor textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== Structured Editor ========== */
+.structured-editor {
+  padding: 1rem 0;
+}
+
+.structured-page {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+}
+
+.structured-page h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  color: var(--primary);
+}
+
+.structured-items {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.language-items {
+  flex: 1;
+  min-width: 300px;
+}
+
+.language-items h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  color: var(--primary);
+  font-size: 1.1em;
+}
+
+.structured-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+}
+
+.structured-item label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  color: var(--primary);
+  font-size: 0.9em;
+}
+
+.structured-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.structured-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.list-items {
+  margin-bottom: 0.5rem;
+}
+
+.list-item-row {
+  margin-bottom: 0.5rem;
+}
+
+.heading-item {
+  background: #f0f0f0;
+}
+
+.paragraph-item {
+  background: #f5f5f5;
+}
+
+.list-item {
+  background: #fafafa;
+}
+
+.blockquote-item {
+  background: #f8f8f8;
+}
+
+/* ========== Character Counter ========== */
+.char-counter {
+  font-size: 0.85em;
+  color: var(--body);
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}
+
+.char-counter.caution {
+  color: #ff9800;
+}
+
+.char-counter.warning {
+  color: #f44336;
+  font-weight: 500;
+}
+
+/* ========== Dark Mode ========== */
+.dark-mode {
+  --bg: #1a1a1a;
+  --body: #e0e0e0;
+  --primary: #ffffff;
+  --accent: #888888;
+  --border: #333333;
+}
+
+.dark-mode .sidebar {
+  background: #0f0f0f;
+  border-right-color: var(--border);
+}
+
+.dark-mode .sidebar-nav-item {
+  color: var(--body);
+}
+
+.dark-mode .sidebar-nav-item:hover,
+.dark-mode .sidebar-nav-item.active {
+  background: #2a2a2a;
+  color: var(--primary);
+}
+
+.dark-mode .editor-panel,
+.dark-mode .form-group input,
+.dark-mode .form-group textarea,
+.dark-mode .editor-visual {
+  background: #222222;
+  color: var(--body);
+  border-color: var(--border);
+}
+
+.dark-mode .btn {
+  background: #333333;
+  color: var(--body);
+  border-color: var(--border);
+}
+
+.dark-mode .btn:hover {
+  background: #444444;
+}
+
+.dark-mode .btn-success {
+  background: #2e7d32;
+  color: #ffffff;
+}
+
+.dark-mode .btn-primary {
+  background: #1976d2;
+  color: #ffffff;
+}
+
+.dark-mode .modal-content {
+  background: #222222;
+  color: var(--body);
+  border-color: var(--border);
+}
+
+.dark-mode .toolbar-btn {
+  background: #333333;
+  color: var(--body);
+  border-color: var(--border);
+}
+
+.dark-mode .toolbar-btn:hover {
+  background: #444444;
+}
+
+/* ========== Search & Replace Modal ========== */
+.search-results {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.search-results li {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.search-results li:last-child {
+  border-bottom: none;
+}
+
+/* ========== Validation Warning ========== */
+.validation-warning {
+  padding: 0.75rem;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  margin-top: 0.5rem;
+  font-size: 0.9em;
+  border-radius: 4px;
+}
+
+.dark-mode .validation-warning {
+  background: #664d03;
+  border-color: #ffc107;
+  color: #ffc107;
+}
+
+/* ========== Mobile Responsive ========== */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+  }
+  
+  .sidebar-nav-item {
+    flex: 1 1 auto;
+    min-width: 120px;
+    margin: 0.25rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.85em;
+  }
+  
+  .editor-content {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header-actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .header-actions .btn {
+    flex: 1 1 auto;
+    min-width: 80px;
+    font-size: 0.85em;
+    padding: 0.5rem;
+  }
+  
+  .editor-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .editor-mode-switch {
+    width: 100%;
+  }
+  
+  .editor-toolbar {
+    flex-wrap: wrap;
+    padding: 0.5rem;
+  }
+  
+  .toolbar-btn {
+    font-size: 0.8em;
+    padding: 0.4rem 0.6rem;
+    min-width: 36px;
+  }
+  
+  .editor-visual,
+  .content-editor {
+    min-height: 200px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .modal-content {
+    width: 95%;
+    max-width: 95%;
+    margin: 5% auto;
+    padding: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+  
+  .projects-editor,
+  .contact-editor {
+    padding: 0.5rem;
+  }
+  
+  .project-item {
+    padding: 0.75rem;
+  }
+  
+  .btn-small {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header h1 {
+    font-size: 1em;
+  }
+  
+  .header-actions .btn {
+    font-size: 0.75em;
+    padding: 0.4rem;
+  }
+  
+  .sidebar-nav-item {
+    font-size: 0.75em;
+    padding: 0.5rem;
+  }
+  
+  .editor-toolbar {
+    gap: 0.25rem;
+  }
+  
+  .toolbar-btn {
+    font-size: 0.7em;
+    padding: 0.3rem 0.4rem;
+    min-width: 32px;
+  }
+  
+  .editor-visual,
+  .content-editor {
+    min-height: 150px;
+  }
+}

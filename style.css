@@ -218,42 +218,120 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
 }
 
 
-/* ========== Typografie ========== */
+/* ========== Typografie (vereinfacht) ========== */
 h1 {
+  font-family: var(--font-main);
   font-weight: 300;
+  font-size: 1.6em;
   text-align: left;
   letter-spacing: 0.2em;
+  line-height: 1.4;
+  margin: 1.5rem 0 0.75rem 0;
 }
+
 h2 {
+  font-family: var(--font-main);
   font-weight: 400;
-  margin: 0;
+  font-size: 1.4em;
   text-align: left;
   letter-spacing: 0.2em;
+  line-height: 1.4;
+  margin: 1.5rem 0 0.75rem 0;
 }
-h3, h4, h5, h6 { font-weight: 400; text-align: left; }
-em, i          { font-style: italic; font-weight: 400; }
-strong         { font-weight: 400; }
-ul             { list-style-type: square; text-align: left; }
-ol             { list-style-type: upper-roman; text-align: left; }
-li             { list-style-type: square; }
-.small         { text-align: center; margin: 0; padding: 0; }
-.content       { font-size: 1.2em; margin: 2% 0 2% 0; padding: 0; } /* Standardtext für die Haupt-Akkordeons */
-/* Zitat rechtsbündig, kursiv; Autor normal */
+
+h3 {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 1.2em;
+  text-align: left;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 1.1em;
+  text-align: left;
+  line-height: 1.4;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+h5, h6 {
+  font-size: 1em;
+}
+
+p {
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+p.content {
+  font-size: 1.2em;
+  margin: 2% 0;
+  padding: 0;
+}
+
+strong {
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+em, i {
+  font-family: var(--font-main);
+  font-style: italic;
+  font-weight: 400;
+}
+
+ul {
+  font-family: var(--font-main);
+  font-weight: 300;
+  list-style-type: square;
+  text-align: left;
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+ol {
+  font-family: var(--font-main);
+  font-weight: 300;
+  list-style-type: upper-roman;
+  text-align: left;
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  font-family: var(--font-main);
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0.5em 0;
+}
+
+
 blockquote {
+  font-family: var(--font-main);
+  font-weight: 300;
   text-align: right;
+  margin: 1.5rem 0;
   margin-left: auto;
   margin-right: 0;
   padding: 0;
 }
 
-/* nur die eigentliche Aussage kursiv */
 blockquote .says {
   font-style: italic;
+  font-weight: 300;
 }
 
-/* Autor normal (falls er irgendwo kursiv geerbt hat) */
 blockquote p:not(.says) {
   font-style: normal;
+  font-weight: 300;
 }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
@@ -277,24 +355,6 @@ input[type=text], input[type=button] {
   -webkit-border-radius: 0;
 }
 
-/* ========== Bilder und Profilbild ========== */
-.top {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-.profile {
-  float: right;
-  position: absolute;
-  right: 2%;
-  width: 20%;
-  border-radius: 50%;
-  transition: 0.2s;
-  opacity: 1;
-  cursor: pointer;
-  display: none;
-}
 
 /* ========== Links und Hover-Styles ========== */
 a:link, a:visited {
@@ -304,25 +364,31 @@ a:link, a:visited {
   text-underline-offset: 2px;
   color: var(--body);
 }
-a:hover {
+a:hover,
+a:focus {
   color: var(--hover-text);
   background-color: var(--hover-bg);
   text-decoration-color: var(--hover-text);
+  outline: none;
 }
 
 /* Geändert: Haupt-Akkordeon-Labels bleiben NICHT schwarz, nur Hover-Effekt */
-label.cat[for^="tog"]:hover {
+label.cat[for^="tog"]:hover,
+label.cat[for^="tog"]:focus {
   color: var(--hover-text);
   background-color: var(--hover-bg);
+  outline: none;
 }
 
 
 /* NEU: Aktiv-Status für Unter-Akkordeon-Links */
 .cat-link:hover,
+.cat-link:focus-within,
 .cat-link.active-sub-link { /* active-sub-link wird auf das .cat-link div gesetzt */
   background-color: var(--hover-bg);
 }
 .cat-link:hover a,
+.cat-link:focus-within a,
 .cat-link.active-sub-link a { /* a-Tag innerhalb von .cat-link */
   color: var(--hover-text);
   background-color: transparent; /* Verhindert doppelte Hintergrundfarbe auf dem a-Tag */
@@ -336,7 +402,7 @@ label.cat[for^="tog"]:hover {
 }
 
 /* ========== SVG & Icons ========== */
-svg, .switcher_color, .switcher_theme {
+svg {
   width: 100%;
   height: 100%;
   fill: var(--primary);
@@ -441,6 +507,9 @@ svg, .switcher_color, .switcher_theme {
   background-color: var(--bg);
   opacity: .8;
   filter: alpha(opacity=80);
+}
+.black_overlay:focus {
+  outline: none;
 }
 .white_content {
   display: none;
@@ -646,7 +715,7 @@ hr.z {
     font-size: 1.05em;
     letter-spacing: 0.2em;
   }
-  .h1, h2, h3 {
+  h2, h3 {
     font-size: 1.05em;
     letter-spacing: 0.2em;
   }

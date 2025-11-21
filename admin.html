@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Architekturbüro Schels</title>
+  <link rel="stylesheet" type="text/css" href="admin.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen" class="screen active">
+    <div class="login-container">
+      <h1>architekturbüro<br><span>schels</span></h1>
+      <p>Admin Panel</p>
+      <form id="login-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="password">Passwort:</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password">
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-password" checked>
+            <span>Passwort speichern</span>
+          </label>
+        </div>
+        <button type="button" id="login-btn" class="btn btn-primary">Anmelden</button>
+      </form>
+      <div id="login-error" class="error-message" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Main Editor Screen -->
+  <div id="editor-screen" class="screen">
+    <header class="admin-header">
+      <h1>architekturbüro schels</h1>
+      <div class="header-actions">
+        <button id="search-btn" class="btn btn-secondary" onclick="showSearchReplace()" title="Suchen & Ersetzen (Ctrl+F)">🔍</button>
+        <button id="export-btn" class="btn btn-secondary" onclick="exportContent()" title="Export">📥</button>
+        <button id="import-btn" class="btn btn-secondary" onclick="importContent()" title="Import">📤</button>
+        <button id="save-all-btn" class="btn btn-success">Alle speichern</button>
+        <button id="logout-btn" class="btn btn-secondary">Abmelden</button>
+      </div>
+    </header>
+
+    <div class="admin-container">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar">
+        <ul class="nav-list">
+          <li><a href="#profil" class="nav-item active" data-section="profil">Profil</a></li>
+          <li><a href="#cv" class="nav-item" data-section="cv">Vita / CV</a></li>
+          <li><a href="#leistungen" class="nav-item" data-section="leistungen">Leistungen</a></li>
+          <li><a href="#bauenimbestand" class="nav-item" data-section="bauenimbestand">Schwerpunkte</a></li>
+          <li><a href="#projekte" class="nav-item" data-section="projekte">Projekte</a></li>
+          <li><a href="#kontakt" class="nav-item" data-section="kontakt">Kontakt</a></li>
+          <li><a href="#impressum" class="nav-item" data-section="impressum">Impressum</a></li>
+          <li><a href="#datenschutz" class="nav-item" data-section="datenschutz">Datenschutz</a></li>
+          <li><a href="#meta" class="nav-item" data-section="meta">Meta-Tags & SEO</a></li>
+          <li><a href="#password" class="nav-item" data-section="password">Passwort ändern</a></li>
+          <li><a href="#setup" class="nav-item" data-section="setup">GitHub Einstellungen</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main Content Area -->
+      <main class="editor-main">
+        <!-- Setup Screen (if GitHub token not configured) -->
+        <div id="setup-screen" class="editor-section">
+          <h2>Ersteinrichtung</h2>
+          <div class="setup-form">
+            <div class="form-group">
+              <label for="github-token">GitHub Personal Access Token:</label>
+              <input type="password" id="github-token" placeholder="ghp_...">
+              <small>Token mit 'repo' Berechtigung. Wird lokal gespeichert.</small>
+            </div>
+            <div class="form-group">
+              <label for="github-username">GitHub Username:</label>
+              <input type="text" id="github-username" placeholder="bschels">
+            </div>
+            <div class="form-group">
+              <label for="github-repo">Repository Name:</label>
+              <input type="text" id="github-repo" value="bschels.github.io" placeholder="bschels.github.io">
+            </div>
+            <div class="form-group">
+              <label for="github-branch">Branch:</label>
+              <input type="text" id="github-branch" value="main" placeholder="main">
+            </div>
+            <button id="save-setup-btn" class="btn btn-primary">Einstellungen speichern</button>
+          </div>
+        </div>
+
+        <!-- Editor Sections (dynamically loaded) -->
+        <div id="editor-sections" class="editor-sections">
+          <!-- Sections will be dynamically inserted here -->
+        </div>
+
+        <!-- Status Messages -->
+        <div id="status-message" class="status-message" style="display: none;"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <p>Lade...</p>
+  </div>
+
+  <script src="admin-config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
+

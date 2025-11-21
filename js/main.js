@@ -10,7 +10,7 @@ function loadContent(pageFilename, targetElementId, callback) {
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.error("Failed to load content for: " + pageFilename, textStatus, errorThrown);
-      $('#' + targetElementId).html('<p>Error loading content. Please try again später.</p>');
+      $('#' + targetElementId).html('<p>Error loading content. Please try again later.</p>');
       if (typeof callback === 'function') {
         callback();
       }
@@ -25,12 +25,15 @@ $(function() {
   });
 
   // Language switcher
-  $(document).on("click", ".switch-language", function() {
+  $(document).on("click", ".switch-language", function(e) {
+    e.preventDefault();
     var switchTo = $(this).data("lang") || $(this).attr("id");
     $(".language").removeClass('active');
     $(".language#" + switchTo).addClass('active');
     $(".switch-language").removeClass('active-lang-link');
     $('.switch-language[data-lang="' + switchTo + '"], .switch-language#' + switchTo).addClass('active-lang-link');
+    // Update HTML lang attribute
+    document.documentElement.setAttribute('lang', switchTo === 'german' ? 'de' : 'en');
   });
 
   var initialActiveLangId = $('.language.active').attr('id');
@@ -48,13 +51,21 @@ $(function() {
       var $label = $('label.cat[for="' + radioId + '"]');
       if ($label.length) {
         if ($(this).is(':checked')) {
-          $label.addClass('expanded');
+          $label.addClass('expanded').attr('aria-expanded', 'true');
         } else {
-          $label.removeClass('expanded');
+          $label.removeClass('expanded').attr('aria-expanded', 'false');
         }
       }
     });
   }
+
+  // Keyboard navigation for accordions
+  $('label.cat[for^="tog"]').on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      $(this).click();
+    }
+  });
 
   $('input[type="radio"][name="rdo"]').each(function() {
     $(this).data("chk", $(this).is(':checked'));
@@ -138,6 +149,13 @@ $(function() {
     }
   });
 
+  // Close lightbox handlers
+  function closeLightbox(lightboxId) {
+    document.getElementById(lightboxId).style.display = 'none';
+    document.getElementById('fade').style.display = 'none';
+  }
+
+  // Open lightbox handlers
   window.kb_source_2_datenschutz = function() {
     loadContent('datenschutz', 'datenschutz');
     document.getElementById('datenschutz-p').style.display = 'block';
@@ -149,6 +167,23 @@ $(function() {
     document.getElementById('impressum-p').style.display = 'block';
     document.getElementById('fade').style.display = 'block';
   };
+
+  // Replace inline onclick handlers with event listeners
+  $(document).on('click', '[data-close-lightbox]', function(e) {
+    e.preventDefault();
+    var lightboxId = $(this).data('close-lightbox');
+    closeLightbox(lightboxId);
+  });
+
+  $(document).on('click', '[data-open-impressum]', function(e) {
+    e.preventDefault();
+    kb_source_2_impressum();
+  });
+
+  $(document).on('click', '[data-open-datenschutz]', function(e) {
+    e.preventDefault();
+    kb_source_2_datenschutz();
+  });
 
   var toggle = document.getElementById("theme-toggle");
   var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
