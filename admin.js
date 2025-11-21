@@ -3261,12 +3261,22 @@ async function loadGoatCounterStats() {
     }
     
     console.log('Parsed stats:', { today, week, month, total }); // Debug log
+    console.log('Date comparison:', { todayStr, weekStartStr, monthStartStr }); // Debug
+    console.log('Stats array length:', data.stats ? data.stats.length : 0); // Debug
     
     // Update display
     const todayEl = document.getElementById('stat-today');
     const weekEl = document.getElementById('stat-week');
     const monthEl = document.getElementById('stat-month');
     const totalEl = document.getElementById('stat-total');
+    
+    console.log('Updating display elements:', {
+      todayEl: !!todayEl,
+      weekEl: !!weekEl,
+      monthEl: !!monthEl,
+      totalEl: !!totalEl,
+      values: { today, week, month, total }
+    }); // Debug
     
     if (todayEl) todayEl.textContent = today.toLocaleString('de-DE');
     if (weekEl) weekEl.textContent = week.toLocaleString('de-DE');
