@@ -6637,8 +6637,7 @@ async function translateFromGerman(section) {
     let useMyMemory = false; // Start with LibreTranslate, fallback to MyMemory
     
     for (let i = 0; i < finalChunks.length; i++) {
-      const chunk = finalChunks[i];
-      const chunk = chunks[i];
+      const chunkText = finalChunks[i];
       let translatedChunk = null;
       
       // Try LibreTranslate first (if not already failed)
