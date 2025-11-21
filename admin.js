@@ -3210,39 +3210,45 @@ async function loadGoatCounterStats() {
     
     console.log('GoatCounter API Parsed Response:', JSON.stringify(data, null, 2)); // Debug log
     
-    // GoatCounter API can return different structures, try multiple formats
+    // GoatCounter API returns: { total: 2, stats: [{ day: "2025-11-21", daily: 2, hourly: [...] }, ...] }
     let today = 0;
     let week = 0;
     let month = 0;
-    let total = 0;
+    let total = data.total || 0;
     
-    // Try different possible response structures
-    if (data.total) {
-      // Format 1: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... }, all: { count: ... } } }
-      if (data.total.today) {
-        today = typeof data.total.today === 'object' ? (data.total.today.count || data.total.today.total || 0) : data.total.today;
-      }
-      if (data.total.week) {
-        week = typeof data.total.week === 'object' ? (data.total.week.count || data.total.week.total || 0) : data.total.week;
-      }
-      if (data.total.month) {
-        month = typeof data.total.month === 'object' ? (data.total.month.count || data.total.month.total || 0) : data.total.month;
-      }
-      if (data.total.all) {
-        total = typeof data.total.all === 'object' ? (data.total.all.count || data.total.all.total || 0) : data.total.all;
-      }
-    } else if (data.today !== undefined || data.week !== undefined || data.month !== undefined) {
-      // Format 2: { today: { count: ... }, week: { count: ... }, month: { count: ... } }
-      today = typeof data.today === 'object' ? (data.today?.count || data.today?.total || 0) : (data.today || 0);
-      week = typeof data.week === 'object' ? (data.week?.count || data.week?.total || 0) : (data.week || 0);
-      month = typeof data.month === 'object' ? (data.month?.count || data.month?.total || 0) : (data.month || 0);
-      total = typeof data.all === 'object' ? (data.all?.count || data.all?.total || 0) : (data.all || data.total_count || 0);
-    } else if (data.count !== undefined) {
-      // Format 3: Simple count object
-      today = data.count || 0;
-      week = data.count || 0;
-      month = data.count || 0;
-      total = data.count || 0;
+    // Get today's date in YYYY-MM-DD format
+    const todayDate = new Date();
+    const todayStr = todayDate.toISOString().split('T')[0];
+    
+    // Get start of week (Monday) and month
+    const weekStart = new Date(todayDate);
+    weekStart.setDate(todayDate.getDate() - todayDate.getDay() + 1); // Monday
+    const weekStartStr = weekStart.toISOString().split('T')[0];
+    
+    const monthStart = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+    const monthStartStr = monthStart.toISOString().split('T')[0];
+    
+    // Process stats array
+    if (data.stats && Array.isArray(data.stats)) {
+      data.stats.forEach(stat => {
+        const statDay = stat.day;
+        const statCount = stat.daily || 0;
+        
+        // Today
+        if (statDay === todayStr) {
+          today = statCount;
+        }
+        
+        // This week (from Monday to today)
+        if (statDay >= weekStartStr && statDay <= todayStr) {
+          week += statCount;
+        }
+        
+        // This month
+        if (statDay >= monthStartStr && statDay <= todayStr) {
+          month += statCount;
+        }
+      });
     }
     
     console.log('Parsed stats:', { today, week, month, total }); // Debug log
