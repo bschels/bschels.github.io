@@ -182,6 +182,9 @@ main    { padding-top: 0; padding-bottom: 0; }
   text-underline-offset: 3px;
   padding: 0.1em 0.2em;
   margin: 0;
+  display: inline-flex; /* Flex für bessere Ausrichtung */
+  align-items: center; /* Zentriert ausrichten */
+  line-height: 1; /* Gleiche Zeilenhöhe */
 }
 
 /* NEU: Sprachenumschalter im Header - Hover-Zustand (Schwarz hinterlegt, weißer Text) */
