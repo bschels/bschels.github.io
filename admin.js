@@ -3264,6 +3264,16 @@ async function loadGoatCounterStats() {
     console.log('Date comparison:', { todayStr, weekStartStr, monthStartStr }); // Debug
     console.log('Stats array length:', data.stats ? data.stats.length : 0); // Debug
     
+    // Fallback: If today is 0 but we have stats, use the most recent day's count
+    if (today === 0 && data.stats && data.stats.length > 0) {
+      // Find the most recent day (last in array, as API returns newest last)
+      const mostRecentStat = data.stats[data.stats.length - 1];
+      if (mostRecentStat && mostRecentStat.daily) {
+        today = mostRecentStat.daily;
+        console.log('Using most recent day as today:', { day: mostRecentStat.day, count: today }); // Debug
+      }
+    }
+    
     // Update display
     const todayEl = document.getElementById('stat-today');
     const weekEl = document.getElementById('stat-week');
