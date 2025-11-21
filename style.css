@@ -693,8 +693,8 @@ hr.z {
     margin-top: 0.2em;
     gap: 0.3rem;
   }
-  .theme-toggle {
-    margin-right: 0;
+  .theme-toggle-link {
+    margin-right: 0.3rem;
   }
   .title-wrapper {
     width: 100%;
