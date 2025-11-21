@@ -94,12 +94,13 @@ main    { padding-top: 0; padding-bottom: 0; }
 /* ========== Header: Zeile mit Flexbox ========== */
 .header-row {
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
+  flex-direction: column; /* Spalte: Titel oben, dark/DE/EN darunter */
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
   margin-bottom: 0;
-  padding-bottom: 0.5em; /* Mehr Abstand zur Linie darunter - dark/DE/EN weiter nach unten */
+  padding-bottom: 0; /* Kein Abstand */
+  gap: 0.1em; /* Kleiner Abstand zwischen Titel und dark/DE/EN */
 }
 .title-wrapper {
   margin-bottom: 0;
@@ -108,9 +109,11 @@ main    { padding-top: 0; padding-bottom: 0; }
   display: flex;
   align-items: center; /* Alle Elemente zentriert ausrichten */
   gap: 0.1rem; /* Kleiner Abstand zwischen dark, DE, EN */
+  margin-top: 0.1em; /* Kleiner Abstand nach oben (Titel) */
   margin-bottom: 0;
   padding-bottom: 0;
   flex-wrap: nowrap; /* Sicherstellen, dass alles auf einer Zeile bleibt */
+  width: 100%; /* Volle Breite für Ausrichtung */
 }
 
 .theme-toggle-link {
@@ -143,17 +146,6 @@ main    { padding-top: 0; padding-bottom: 0; }
   align-items: center; /* Zentriert ausrichten */
 }
 
-/* Sicherstellen, dass .language divs richtig ausgerichtet sind */
-.header-lang .language {
-  display: flex !important; /* Überschreibe display: none/block */
-  align-items: center;
-  vertical-align: middle;
-}
-
-.header-lang .language.active {
-  display: flex !important; /* Statt block, damit es richtig ausgerichtet ist */
-}
-
 .tooltip {
   margin: 0;
   padding: 0;
@@ -164,21 +156,14 @@ main    { padding-top: 0; padding-bottom: 0; }
 .language          { display: none; }
 .language.active { display: block; }
 
-/* Überschreibe für Header-Layout: dark/DE/EN auf einer Zeile */
+/* Header-Layout: Nur aktive .language anzeigen, auf einer Zeile mit dark */
 .header-lang .language {
-  display: flex !important;
-  align-items: center;
+  display: none !important; /* Standard: versteckt - überschreibt display: block */
 }
 
 .header-lang .language.active {
-  display: flex !important; /* Statt block, damit es richtig ausgerichtet ist */
-}
-
-/* Header .language divs richtig ausrichten */
-.header-lang .language {
-  display: flex !important;
+  display: flex !important; /* Nur aktive anzeigen, flex für Ausrichtung */
   align-items: center;
-  vertical-align: middle;
 }
 
 .language-select a.switch-language {
