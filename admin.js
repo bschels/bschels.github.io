@@ -2356,12 +2356,28 @@ async function saveSection(section) {
     if (error.message.includes('401') || error.message.includes('Bad credentials')) {
       errorMessage = 'Authentifizierung fehlgeschlagen! Der Token ist möglicherweise abgelaufen. Bitte erstellen Sie einen neuen Token.';
     } else if (error.message.includes('403') || error.message.includes('Forbidden') || error.message.includes('not accessible by personal access token')) {
-      errorMessage = 'Token hat nicht die nötigen Berechtigungen!\n\n' +
-                     'Bitte erstellen Sie einen neuen GitHub Personal Access Token:\n' +
-                     '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
-                     '2. Klicken Sie auf "Generate new token (classic)"\n' +
-                     '3. Wählen Sie die Berechtigung "repo" (Full control of private repositories)\n' +
-                     '4. Kopieren Sie den Token und speichern Sie ihn in den Einstellungen';
+      const isFineGrained = AppState.githubToken && AppState.githubToken.startsWith('github_pat_');
+      if (isFineGrained) {
+        errorMessage = 'Fine-grained Token hat nicht die nötigen Berechtigungen!\n\n' +
+                       'Für fine-grained Tokens (github_pat_):\n' +
+                       '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
+                       '2. Klicken Sie auf Ihren Token\n' +
+                       '3. Unter "Repository access" wählen Sie das Repository aus\n' +
+                       '4. Unter "Repository permissions" → "Contents" wählen Sie "Read and write"\n' +
+                       '5. Speichern Sie die Änderungen\n\n' +
+                       'ODER erstellen Sie einen Classic Token:\n' +
+                       '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
+                       '2. Klicken Sie auf "Generate new token (classic)"\n' +
+                       '3. Wählen Sie die Berechtigung "repo"\n' +
+                       '4. Kopieren Sie den Token (beginnt mit ghp_)';
+      } else {
+        errorMessage = 'Token hat nicht die nötigen Berechtigungen!\n\n' +
+                       'Bitte erstellen Sie einen neuen GitHub Personal Access Token:\n' +
+                       '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
+                       '2. Klicken Sie auf "Generate new token (classic)"\n' +
+                       '3. Wählen Sie die Berechtigung "repo" (Full control of private repositories)\n' +
+                       '4. Kopieren Sie den Token und speichern Sie ihn in den Einstellungen';
+      }
     } else if (error.message.includes('404')) {
       errorMessage = 'Datei nicht gefunden! Bitte überprüfen Sie die Repository-Konfiguration.';
     } else if (error.message.includes('422')) {
@@ -2598,11 +2614,17 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
   const getFileUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}?ref=${config.branch}`;
   console.log('Fetching file SHA from:', getFileUrl);
   
+  // Support both classic tokens (ghp_) and fine-grained tokens (github_pat_)
+  // Both use the same Authorization header format
+  const authHeader = AppState.githubToken.startsWith('github_pat_') 
+    ? `Bearer ${AppState.githubToken}` 
+    : `token ${AppState.githubToken}`;
+  
   let getResponse;
   try {
     getResponse = await fetch(getFileUrl, {
       headers: {
-        'Authorization': `token ${AppState.githubToken}`,
+        'Authorization': authHeader,
         'Accept': 'application/vnd.github.v3+json'
       }
     });
@@ -2654,7 +2676,7 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
     commitResponse = await fetch(commitUrl, {
       method: 'PUT',
       headers: {
-        'Authorization': `token ${AppState.githubToken}`,
+        'Authorization': authHeader,
         'Accept': 'application/vnd.github.v3+json',
         'Content-Type': 'application/json'
       },
