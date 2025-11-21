@@ -429,6 +429,15 @@ async function loadContentForSection(section) {
       } else if (section === 'meta') {
         content = extractMetaContent(content);
       }
+    } else if (section === 'leistungen') {
+      // Load both from pages/leistungen.html and intro text from index.html
+      const leistungenContent = await fetchGitHubFile('pages/leistungen.html');
+      const indexContent = await fetchGitHubFile('index.html');
+      const introContent = extractLeistungenIntro(indexContent);
+      content = {
+        main: leistungenContent,
+        intro: introContent
+      };
     } else {
       // Load from pages directory
       const filePath = ADMIN_CONFIG.contentFiles[section];
@@ -1628,6 +1637,9 @@ function renderEditor(section, content) {
     sectionDiv.innerHTML = renderSpecialEditor(section, content);
   } else if (section === 'projekte') {
     sectionDiv.innerHTML = renderProjectsEditor(content);
+  } else if (section === 'leistungen' && typeof content === 'object' && content.intro) {
+    // Leistungen has both intro text and main content
+    sectionDiv.innerHTML = renderLeistungenEditor(content);
   } else {
     // All other sections use normal dual-language editor (Markdown/HTML)
     sectionDiv.innerHTML = renderDualLanguageEditor(section, content);
@@ -4610,6 +4622,9 @@ function renderEditor(section, content) {
     sectionDiv.innerHTML = renderSpecialEditor(section, content);
   } else if (section === 'projekte') {
     sectionDiv.innerHTML = renderProjectsEditor(content);
+  } else if (section === 'leistungen' && typeof content === 'object' && content.intro) {
+    // Leistungen has both intro text and main content
+    sectionDiv.innerHTML = renderLeistungenEditor(content);
   } else {
     // All other sections use normal dual-language editor (Markdown/HTML)
     sectionDiv.innerHTML = renderDualLanguageEditor(section, content);
