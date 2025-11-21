@@ -76,7 +76,6 @@ footer { /* Haupt-Footer Styling */
 header { padding-bottom: 0; padding-top: 1em; }
 main    { padding-top: 0; padding-bottom: 0; }
 
-
 /* ========== Header: Zeile mit Flexbox ========== */
 .header-row {
   display: flex;
@@ -132,7 +131,6 @@ main    { padding-top: 0; padding-bottom: 0; }
   background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
   text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
 }
-
 
 /* ========== Accordion/Kategorien (Haupt-Akkordeons) ========== */
 .cat {
@@ -195,7 +193,6 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
   content: "−";
 }
 
-
 /* New CSS for Accordion Subcontent (Unter-Akkordeons) */
 .accordion-content {
     max-height: 0;
@@ -216,7 +213,6 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
     font-size: 1em; /* 1em relative zum Parent (.accordion-content), also effektiv 1.2em insgesamt */
     margin: 0.5em 0; /* Beispiel: Etwas vertikaler Abstand für Absätze */
 }
-
 
 /* ========== Typografie (vereinfacht) ========== */
 h1 {
@@ -313,7 +309,6 @@ li {
   margin: 0.5em 0;
 }
 
-
 blockquote {
   font-family: var(--font-main);
   font-weight: 300;
@@ -355,7 +350,6 @@ input[type=text], input[type=button] {
   -webkit-border-radius: 0;
 }
 
-
 /* ========== Links und Hover-Styles ========== */
 a:link, a:visited {
   text-decoration-style: dotted;
@@ -380,7 +374,6 @@ label.cat[for^="tog"]:focus {
   outline: none;
 }
 
-
 /* NEU: Aktiv-Status für Unter-Akkordeon-Links */
 .cat-link:hover,
 .cat-link:focus-within,
@@ -394,7 +387,6 @@ label.cat[for^="tog"]:focus {
   background-color: transparent; /* Verhindert doppelte Hintergrundfarbe auf dem a-Tag */
   text-decoration-color: var(--hover-text);
 }
-
 
 .lb-link {
   text-transform: uppercase;
@@ -421,7 +413,6 @@ svg {
 #content4 .arrow-nohover {
     font-size: 1em; /* Setzt die Größe auf den Standard des Elternelements (.cat_text -> 1.2em) */
 }
-
 
 .arrow::before {
   content: '+';
@@ -494,7 +485,6 @@ svg {
     background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
 }
 
-
 .white {
   background-color: var(--bg);
   text-transform: lowercase;
@@ -552,7 +542,6 @@ svg {
   white-space: pre; /* Erhält das Leerzeichen um den Bindestrich */
 }
 
-
 .footer-legal-links {
   text-align: right;
   flex-shrink: 0;
@@ -594,7 +583,6 @@ svg {
   padding: 0;
   display: inline;
 }
-
 
 /* ========== Tooltip ========== */
 .tooltip { position: relative; display: inline-block; }
@@ -676,7 +664,6 @@ hr.z {
     margin-top: 1.5em;
 }
 
-
 /* ========== Responsive für Smartphones & Tablets ========== */
 @media (max-width: 810px) { /* Breakpoint geändert auf 810px */
   body {
@@ -748,7 +735,6 @@ hr.z {
       margin-bottom: 0.2em; /* Kleiner Abstand zwischen Name/Titel und Adresse */
   }
 
-
   .footer-legal-links {
     text-align: center;
     width: 100%;
@@ -794,7 +780,6 @@ hr.z {
     border-color: var(--primary);
     font-weight: bold;
 }
-
 
 /* ========== GEZIELTE ANPASSUNGEN (vom Kunden gewünscht) ========== */
 
