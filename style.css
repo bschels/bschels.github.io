@@ -107,10 +107,10 @@ main    { padding-top: 0; padding-bottom: 0; }
 }
 .header-lang {
   display: flex;
-  align-items: baseline !important; /* Baseline für perfekte Ausrichtung auf einer Linie */
+  align-items: center !important; /* Center für perfekte visuelle Ausrichtung auf einer Linie */
   justify-content: flex-end !important; /* Nach rechts ausrichten */
   gap: 0.4rem; /* Mehr Abstand zwischen dark, DE, EN */
-  margin-top: 0.3em; /* Weniger Abstand nach oben (Titel) - näher zur Linie darunter */
+  margin-top: 0.8em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
   margin-bottom: 0;
   padding-bottom: 0;
   flex-wrap: nowrap; /* Sicherstellen, dass alles auf einer Zeile bleibt */
@@ -129,10 +129,9 @@ main    { padding-top: 0; padding-bottom: 0; }
   padding: 0.1em 0.2em;
   margin: 0; /* Kein margin, gap wird verwendet */
   cursor: pointer;
-  display: inline-flex; /* Inline-flex für bessere Ausrichtung */
-  align-items: baseline; /* Baseline für perfekte Ausrichtung */
+  display: flex; /* Flex für bessere Ausrichtung */
+  align-items: center; /* Center für perfekte visuelle Ausrichtung */
   line-height: 1; /* Gleiche Zeilenhöhe wie DE/EN */
-  vertical-align: baseline; /* Baseline-Ausrichtung */
 }
 
 .theme-toggle-link:hover {
@@ -146,7 +145,7 @@ main    { padding-top: 0; padding-bottom: 0; }
   gap: 0.2rem; /* Leichter Abstand zwischen DE und EN */
   margin: 0;
   padding: 0;
-  align-items: baseline !important; /* Baseline für perfekte Ausrichtung */
+  align-items: center !important; /* Center für perfekte visuelle Ausrichtung */
   height: auto; /* Automatische Höhe */
 }
 
@@ -167,7 +166,7 @@ main    { padding-top: 0; padding-bottom: 0; }
 
 .header-lang .language.active {
   display: flex !important; /* Nur aktive anzeigen, flex für Ausrichtung */
-  align-items: baseline !important; /* Baseline für perfekte Ausrichtung */
+  align-items: center !important; /* Center für perfekte visuelle Ausrichtung */
   height: auto; /* Automatische Höhe */
 }
 
@@ -182,9 +181,8 @@ main    { padding-top: 0; padding-bottom: 0; }
   padding: 0.1em 0.2em;
   margin: 0;
   display: inline-flex; /* Flex für bessere Ausrichtung */
-  align-items: baseline; /* Baseline für perfekte Ausrichtung */
+  align-items: center; /* Center für perfekte visuelle Ausrichtung */
   line-height: 1; /* Gleiche Zeilenhöhe */
-  vertical-align: baseline; /* Baseline-Ausrichtung */
 }
 
 /* NEU: Sprachenumschalter im Header - Hover-Zustand (Schwarz hinterlegt, weißer Text) */
