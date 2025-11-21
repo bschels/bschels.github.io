@@ -108,12 +108,14 @@ main    { padding-top: 0; padding-bottom: 0; }
 .header-lang {
   display: flex;
   align-items: center; /* Alle Elemente zentriert ausrichten */
+  justify-content: flex-end !important; /* Nach rechts ausrichten */
   gap: 0.1rem; /* Kleiner Abstand zwischen dark, DE, EN */
-  margin-top: 0.1em; /* Kleiner Abstand nach oben (Titel) */
+  margin-top: 0.3em; /* Mehr Abstand nach oben (Titel) - weiter runter */
   margin-bottom: 0;
   padding-bottom: 0;
   flex-wrap: nowrap; /* Sicherstellen, dass alles auf einer Zeile bleibt */
   width: 100%; /* Volle Breite für Ausrichtung */
+  margin-left: auto; /* Nach rechts schieben */
 }
 
 .theme-toggle-link {
@@ -130,6 +132,7 @@ main    { padding-top: 0; padding-bottom: 0; }
   display: inline-flex; /* Sicherstellen, dass es inline ist */
   align-items: center; /* Zentriert ausrichten */
   vertical-align: middle; /* Vertikal zentrieren */
+  line-height: 1; /* Gleiche Zeilenhöhe wie DE/EN */
 }
 
 .theme-toggle-link:hover {
