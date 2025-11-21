@@ -2523,19 +2523,35 @@ async function saveContentSection(section) {
     }
   } else if (originalContent.includes('<div id="german"')) {
     // Standard structure with german/english divs
-    // Find positions of divs
-    const germanStart = originalContent.indexOf('<div id="german"');
-    const germanTagEnd = originalContent.indexOf('>', germanStart) + 1;
-    const englishStart = originalContent.indexOf('<div id="english"');
-    const englishTagEnd = originalContent.indexOf('>', englishStart) + 1;
+    // First, fix any corrupted tags (e.g., </div>d="english" -> </div><div id="english")
+    let fixedContent = originalContent.replace(/<\/div>d="english"/g, '</div><div id="english"');
+    fixedContent = fixedContent.replace(/<\/div>d="german"/g, '</div><div id="german"');
     
-    if (germanStart !== -1 && englishStart !== -1) {
+    // Find positions of divs
+    const germanStart = fixedContent.indexOf('<div id="german"');
+    const germanTagEnd = fixedContent.indexOf('>', germanStart) + 1;
+    let englishStart = fixedContent.indexOf('<div id="english"');
+    
+    // If not found, try to find corrupted version
+    if (englishStart === -1) {
+      const corruptedMatch = fixedContent.match(/<\/div>d="english"/);
+      if (corruptedMatch) {
+        // Insert proper div tag before corrupted one
+        const corruptedPos = corruptedMatch.index;
+        fixedContent = fixedContent.substring(0, corruptedPos + 6) + '<div id="english" class="language">' + fixedContent.substring(corruptedPos + 6);
+        englishStart = fixedContent.indexOf('<div id="english"');
+      }
+    }
+    
+    const englishTagEnd = englishStart !== -1 ? fixedContent.indexOf('>', englishStart) + 1 : -1;
+    
+    if (germanStart !== -1 && englishStart !== -1 && englishTagEnd !== -1) {
       // Find the matching closing div for german (before english starts)
       let germanClosePos = englishStart;
       let divCount = 0;
       for (let i = germanTagEnd; i < englishStart; i++) {
-        if (originalContent.substring(i, i + 4) === '<div') divCount++;
-        if (originalContent.substring(i, i + 6) === '</div>') {
+        if (fixedContent.substring(i, i + 4) === '<div') divCount++;
+        if (fixedContent.substring(i, i + 6) === '</div>') {
           divCount--;
           if (divCount === 0) {
             germanClosePos = i;
@@ -2545,11 +2561,11 @@ async function saveContentSection(section) {
       }
       
       // Find the matching closing div for english (last closing div)
-      let englishClosePos = originalContent.length;
+      let englishClosePos = fixedContent.length;
       divCount = 0;
-      for (let i = englishTagEnd; i < originalContent.length; i++) {
-        if (originalContent.substring(i, i + 4) === '<div') divCount++;
-        if (originalContent.substring(i, i + 6) === '</div>') {
+      for (let i = englishTagEnd; i < fixedContent.length; i++) {
+        if (fixedContent.substring(i, i + 4) === '<div') divCount++;
+        if (fixedContent.substring(i, i + 6) === '</div>') {
           divCount--;
           if (divCount === 0) {
             englishClosePos = i;
@@ -2559,9 +2575,9 @@ async function saveContentSection(section) {
       }
       
       // Reconstruct: before german + new german div + between + new english div + after
-      const beforeGerman = originalContent.substring(0, germanTagEnd);
-      const between = originalContent.substring(germanClosePos + 6, englishTagEnd);
-      const afterEnglish = originalContent.substring(englishClosePos + 6);
+      const beforeGerman = fixedContent.substring(0, germanTagEnd);
+      const between = fixedContent.substring(germanClosePos + 6, englishTagEnd);
+      const afterEnglish = fixedContent.substring(englishClosePos + 6);
       
       finalContent = beforeGerman + germanContent + '</div>' + 
                      between + englishContent + '</div>' + 
