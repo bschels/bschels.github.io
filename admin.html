@@ -33,6 +33,20 @@
   <div id="editor-screen" class="screen">
     <header class="admin-header">
       <h1>architekturbüro schels</h1>
+      <div class="header-stats" id="header-stats" style="display: none;">
+        <div class="stat-item">
+          <span class="stat-label">Heute:</span>
+          <span class="stat-value" id="stat-today">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Diese Woche:</span>
+          <span class="stat-value" id="stat-week">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Dieser Monat:</span>
+          <span class="stat-value" id="stat-month">-</span>
+        </div>
+      </div>
       <div class="header-actions">
         <button id="search-btn" class="btn btn-secondary" onclick="showSearchReplace()" title="Suchen & Ersetzen (Ctrl+F)">🔍</button>
         <button id="export-btn" class="btn btn-secondary" onclick="exportContent()" title="Export">📥</button>
