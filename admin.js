@@ -2764,6 +2764,54 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
     }
     console.error('Commit failed:', commitResponse.status, errorData);
     
+    // Handle 409 Conflict: File was modified, retry with fresh SHA
+    if (commitResponse.status === 409) {
+      console.log('409 Conflict detected, retrying with fresh SHA...');
+      // Get fresh SHA and retry once
+      try {
+        const freshGetResponse = await fetch(getFileUrl, {
+          headers: {
+            'Authorization': authHeader,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+        
+        if (freshGetResponse.ok) {
+          const freshFileData = await freshGetResponse.json();
+          const freshSha = freshFileData.sha;
+          console.log('Retrieved fresh SHA:', freshSha.substring(0, 10) + '...');
+          
+          // Update commit data with fresh SHA
+          commitData.sha = freshSha;
+          
+          // Retry commit
+          const retryResponse = await fetch(commitUrl, {
+            method: 'PUT',
+            headers: {
+              'Authorization': authHeader,
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(commitData)
+          });
+          
+          if (retryResponse.ok) {
+            const retryResult = await retryResponse.json();
+            console.log('Retry successful:', retryResult.commit?.message);
+            return retryResult;
+          } else {
+            const retryErrorData = await retryResponse.json().catch(() => ({ message: retryResponse.statusText }));
+            throw new Error(`Commit fehlgeschlagen nach Retry (${retryResponse.status}): ${retryErrorData.message || retryResponse.statusText}`);
+          }
+        } else {
+          throw new Error(`Konnte aktuelle Datei-Version nicht abrufen (${freshGetResponse.status}): ${errorData.message || commitResponse.statusText}`);
+        }
+      } catch (retryError) {
+        console.error('Retry failed:', retryError);
+        throw new Error(`Datei wurde zwischenzeitlich geändert. Bitte Seite neu laden und erneut speichern. (${errorData.message || commitResponse.statusText})`);
+      }
+    }
+    
     // Provide specific error messages
     if (commitResponse.status === 403) {
       const isFineGrained = AppState.githubToken && AppState.githubToken.startsWith('github_pat_');
