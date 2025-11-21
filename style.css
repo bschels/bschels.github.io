@@ -820,7 +820,9 @@ hr.z {
     color: var(--body);
     text-decoration: none;
     border: 1px solid var(--body);
-    border-radius: 3px;
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
     transition: background-color 0.2s, color 0.2s;
 }
 
