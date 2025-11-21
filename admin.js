@@ -2354,9 +2354,14 @@ async function saveSection(section) {
     
     // Provide more specific error messages
     if (error.message.includes('401') || error.message.includes('Bad credentials')) {
-      errorMessage = 'Authentifizierung fehlgeschlagen! Bitte Token erneuern.';
-    } else if (error.message.includes('403') || error.message.includes('Forbidden')) {
-      errorMessage = 'Zugriff verweigert! Bitte überprüfen Sie den GitHub Token und dessen Berechtigungen.';
+      errorMessage = 'Authentifizierung fehlgeschlagen! Der Token ist möglicherweise abgelaufen. Bitte erstellen Sie einen neuen Token.';
+    } else if (error.message.includes('403') || error.message.includes('Forbidden') || error.message.includes('not accessible by personal access token')) {
+      errorMessage = 'Token hat nicht die nötigen Berechtigungen!\n\n' +
+                     'Bitte erstellen Sie einen neuen GitHub Personal Access Token:\n' +
+                     '1. Gehen Sie zu: https://github.com/settings/tokens\n' +
+                     '2. Klicken Sie auf "Generate new token (classic)"\n' +
+                     '3. Wählen Sie die Berechtigung "repo" (Full control of private repositories)\n' +
+                     '4. Kopieren Sie den Token und speichern Sie ihn in den Einstellungen';
     } else if (error.message.includes('404')) {
       errorMessage = 'Datei nicht gefunden! Bitte überprüfen Sie die Repository-Konfiguration.';
     } else if (error.message.includes('422')) {
@@ -2657,7 +2662,19 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
       errorData = { message: commitResponse.statusText };
     }
     console.error('Commit failed:', commitResponse.status, errorData);
-    throw new Error(`Commit fehlgeschlagen (${commitResponse.status}): ${errorData.message || commitResponse.statusText}`);
+    
+    // Provide specific error messages
+    if (commitResponse.status === 403) {
+      if (errorData.message && errorData.message.includes('personal access token')) {
+        throw new Error('Token hat nicht die nötigen Berechtigungen! Bitte erstellen Sie einen neuen Token mit "repo" Berechtigung.');
+      } else {
+        throw new Error('Zugriff verweigert! Der Token hat möglicherweise nicht die nötigen Berechtigungen oder das Repository ist privat.');
+      }
+    } else if (commitResponse.status === 401) {
+      throw new Error('Authentifizierung fehlgeschlagen! Der Token ist möglicherweise abgelaufen oder ungültig.');
+    } else {
+      throw new Error(`Commit fehlgeschlagen (${commitResponse.status}): ${errorData.message || commitResponse.statusText}`);
+    }
   }
   
   const result = await commitResponse.json();
