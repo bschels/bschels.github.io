@@ -40,13 +40,18 @@
 [data-theme="dark"] ol,
 [data-theme="dark"] li,
 [data-theme="dark"] blockquote,
+[data-theme="dark"] blockquote .says,
+[data-theme="dark"] blockquote p:not(.says),
 [data-theme="dark"] strong,
 [data-theme="dark"] b,
+[data-theme="dark"] em,
+[data-theme="dark"] i,
 [data-theme="dark"] .cat,
 [data-theme="dark"] h2.cat,
 [data-theme="dark"] h3.cat,
 [data-theme="dark"] .arrow,
-[data-theme="dark"] .arrow-nohover {
+[data-theme="dark"] .arrow-nohover,
+[data-theme="dark"] label.cat[for^="tog"]::before {
   font-weight: 100 !important; /* Ultra Light - dünnerer Schnitt im Dark Mode */
 }
 
@@ -133,9 +138,13 @@ main    { padding-top: 0; padding-bottom: 0; }
 
 /* Sicherstellen, dass .language divs richtig ausgerichtet sind */
 .header-lang .language {
-  display: flex;
+  display: flex !important; /* Überschreibe display: none/block */
   align-items: center;
   vertical-align: middle;
+}
+
+.header-lang .language.active {
+  display: flex !important; /* Statt block, damit es richtig ausgerichtet ist */
 }
 
 .tooltip {
