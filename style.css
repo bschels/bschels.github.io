@@ -56,6 +56,8 @@
 [data-theme="dark"] .arrow-nohover,
 [data-theme="dark"] label.cat[for^="tog"]::before,
 [data-theme="dark"] .title-wrapper,
+[data-theme="dark"] .title-wrapper h1,
+[data-theme="dark"] .header-row h1,
 [data-theme="dark"] .pagination-controls .page-link.active {
   font-weight: 100 !important; /* Ultra Light - dünnerer Schnitt im Dark Mode */
 }
