@@ -6568,24 +6568,29 @@ async function translateHtmlPreservingStructure(html) {
   
   // Extract all text nodes that need translation
   const textNodes = [];
-  const walker = document.createTreeWalker(
-    doc.body,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
   
-  let node;
-  while (node = walker.nextNode()) {
-    const text = node.textContent.trim();
-    // Only translate if it's not empty and not just whitespace
-    if (text && text.length > 0) {
-      // Skip if parent is script, style, or code
-      const parent = node.parentElement;
-      if (parent && !['SCRIPT', 'STYLE', 'CODE'].includes(parent.tagName)) {
-        textNodes.push({ node, text });
+  // Recursive function to walk the DOM tree
+  function walkNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent.trim();
+      if (text && text.length > 0) {
+        const parent = node.parentElement;
+        if (parent && !['SCRIPT', 'STYLE', 'CODE'].includes(parent.tagName)) {
+          textNodes.push({ node, text });
+        }
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      // Recursively process child nodes
+      for (let i = 0; i < node.childNodes.length; i++) {
+        walkNode(node.childNodes[i]);
       }
     }
+  }
+  
+  // Start walking from body or document element
+  const root = doc.body || doc.documentElement;
+  if (root) {
+    walkNode(root);
   }
   
   if (textNodes.length === 0) {
