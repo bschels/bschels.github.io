@@ -107,10 +107,10 @@ main    { padding-top: 0; padding-bottom: 0; }
 }
 .header-lang {
   display: flex;
-  align-items: center; /* Alle Elemente zentriert ausrichten */
+  align-items: baseline !important; /* Baseline für perfekte Ausrichtung */
   justify-content: flex-end !important; /* Nach rechts ausrichten */
   gap: 0.2rem; /* Leichter Abstand zwischen dark, DE, EN */
-  margin-top: 0.6em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
+  margin-top: 0.8em; /* Mehr Abstand nach oben (Titel) - weiter runter zur Linie darunter */
   margin-bottom: 0;
   padding-bottom: 0;
   flex-wrap: nowrap; /* Sicherstellen, dass alles auf einer Zeile bleibt */
@@ -129,11 +129,10 @@ main    { padding-top: 0; padding-bottom: 0; }
   padding: 0.1em 0.2em;
   margin: 0; /* Kein margin, gap wird verwendet */
   cursor: pointer;
-  display: flex; /* Flex für bessere Ausrichtung */
-  align-items: center; /* Zentriert ausrichten */
+  display: inline-flex; /* Inline-flex für bessere Ausrichtung */
+  align-items: baseline; /* Baseline für perfekte Ausrichtung */
   line-height: 1; /* Gleiche Zeilenhöhe wie DE/EN */
-  height: auto; /* Automatische Höhe */
-  align-self: center; /* Zentriert in Flex-Container */
+  vertical-align: baseline; /* Baseline-Ausrichtung */
 }
 
 .theme-toggle-link:hover {
@@ -183,8 +182,9 @@ main    { padding-top: 0; padding-bottom: 0; }
   padding: 0.1em 0.2em;
   margin: 0;
   display: inline-flex; /* Flex für bessere Ausrichtung */
-  align-items: center; /* Zentriert ausrichten */
+  align-items: baseline; /* Baseline für perfekte Ausrichtung */
   line-height: 1; /* Gleiche Zeilenhöhe */
+  vertical-align: baseline; /* Baseline-Ausrichtung */
 }
 
 /* NEU: Sprachenumschalter im Header - Hover-Zustand (Schwarz hinterlegt, weißer Text) */
