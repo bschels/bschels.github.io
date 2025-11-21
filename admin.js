@@ -3102,6 +3102,9 @@ function showEditor() {
         headerActions.insertBefore(toggle, headerActions.firstChild);
       }
     }
+    
+    // Load GoatCounter statistics
+    loadGoatCounterStats();
   }, 100);
   
   // Load first section
