@@ -214,6 +214,40 @@ function initSetup() {
       loadContentForSection('profil');
     });
   }
+  
+  // GoatCounter API Key speichern
+  const saveGoatCounterBtn = document.getElementById('save-goatcounter-btn');
+  if (saveGoatCounterBtn) {
+    saveGoatCounterBtn.addEventListener('click', function() {
+      const apiKeyField = document.getElementById('goatcounter-api-key');
+      const apiKey = apiKeyField ? apiKeyField.value.trim() : '';
+      
+      if (apiKey) {
+        localStorage.setItem('goatcounter_api_key', apiKey);
+        showStatus('GoatCounter API Key gespeichert!', 'success');
+        // Reload stats
+        loadGoatCounterStats();
+      } else {
+        // Remove API key if field is empty
+        localStorage.removeItem('goatcounter_api_key');
+        showStatus('GoatCounter API Key entfernt!', 'success');
+        // Hide stats
+        const statsContainer = document.getElementById('header-stats');
+        if (statsContainer) {
+          statsContainer.style.display = 'none';
+        }
+      }
+    });
+  }
+  
+  // Pre-fill GoatCounter API key if available
+  setTimeout(() => {
+    const apiKeyField = document.getElementById('goatcounter-api-key');
+    const savedApiKey = localStorage.getItem('goatcounter_api_key');
+    if (apiKeyField && savedApiKey) {
+      apiKeyField.value = savedApiKey;
+    }
+  }, 100);
 }
 
 // Load stored configuration
