@@ -697,6 +697,12 @@ hr.z {
     margin-bottom: 0.6em;
     gap: 0.2em;
   }
+  .header-actions-wrapper {
+    width: 100%;
+    justify-content: flex-end;
+    margin-right: 0;
+    margin-top: 0.2em;
+  }
   .header-lang {
     width: 100%;
     justify-content: flex-end;
