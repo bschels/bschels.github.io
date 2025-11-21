@@ -32,7 +32,7 @@ body {
   background: var(--bg);
   color: var(--body);
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt für Avenir Next */
+  font-weight: 300; /* Light - leichterer Schnitt für Avenir Next */
   width: 70%;
   max-width: 60em; min-width: 10em;
   margin: auto;
@@ -63,7 +63,7 @@ main    { padding-top: 0; padding-bottom: 0; }
   align-items: flex-end;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 0.2em;
+  margin-bottom: 0;
 }
 .title-wrapper {
   margin-bottom: 0;
@@ -72,6 +72,8 @@ main    { padding-top: 0; padding-bottom: 0; }
   display: flex;
   align-items: flex-end;
   gap: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .theme-toggle-link {
@@ -146,7 +148,7 @@ main    { padding-top: 0; padding-bottom: 0; }
 /* ========== Accordion/Kategorien (Haupt-Akkordeons) ========== */
 .cat {
   cursor: pointer;
-  font-weight: 100; /* Ultra Light - leichterer Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   font-size: 1.2em;
   margin: 0;
   letter-spacing: 0.2em;
@@ -181,7 +183,7 @@ label.cat[for^="tog"]::before {
   letter-spacing: normal;
   /* Deine Anpassung für die +/- Ausrichtung und Schriftstärke */
   font-size: 1.2em; /* Gleich der .cat-Schriftgröße */
-  font-weight: 100; /* Ultra Light - leichterer Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
 }
 
 label.cat[for^="tog"] > div.language.active {
@@ -197,7 +199,7 @@ label.cat[for^="tog"] > div.language.active > p.cat {
 
 /* Kategorien-Überschriften dünner machen */
 h2.cat, h3.cat, .cat {
-  font-weight: 100 !important; /* Ultra Light - leichterer Schnitt für Kategorien */
+  font-weight: 300 !important; /* Light - leichterer Schnitt für Kategorien */
 }
 
 /* Geändert: Haupt-Akkordeon-Labels bleiben NICHT schwarz, nur Hover-Effekt */
@@ -233,7 +235,7 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
 /* ========== Typografie (vereinfacht) ========== */
 h1 {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   font-size: 1.6em;
   text-align: left;
   letter-spacing: 0.2em;
@@ -276,7 +278,7 @@ h5, h6 {
 
 p {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   font-size: 1em;
   line-height: 1.6;
   margin: 1rem 0;
@@ -291,7 +293,7 @@ p.content {
 
 strong, b {
   font-family: var(--font-main);
-  font-weight: 100 !important; /* Nicht fett, sondern normal */
+  font-weight: 300 !important; /* Nicht fett, sondern normal (Light) */
   text-transform: uppercase !important; /* Statt fett: Großbuchstaben */
   letter-spacing: 0.1em; /* Etwas mehr Abstand für bessere Lesbarkeit */
 }
@@ -304,7 +306,7 @@ em, i {
 
 ul {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   list-style-type: square;
   text-align: left;
   margin: 1rem 0;
@@ -313,7 +315,7 @@ ul {
 
 ol {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   list-style-type: upper-roman;
   text-align: left;
   margin: 1rem 0;
@@ -322,14 +324,14 @@ ol {
 
 li {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   line-height: 1.6;
   margin: 0.5em 0;
 }
 
 blockquote {
   font-family: var(--font-main);
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
   text-align: right;
   margin: 1.5rem 0;
   margin-left: auto;
@@ -339,12 +341,12 @@ blockquote {
 
 blockquote .says {
   font-style: italic;
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
 }
 
 blockquote p:not(.says) {
   font-style: normal;
-  font-weight: 100; /* Ultra Light - leichtester Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
 }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
@@ -426,7 +428,7 @@ svg {
 .arrow, .arrow-nohover {
   margin: 0;
   font-size: 1em; /* Standardgröße für Pfeile, falls nicht überschrieben */
-  font-weight: 100; /* Ultra Light - leichterer Schnitt */
+  font-weight: 300; /* Light - leichterer Schnitt */
 }
 /* Anpassung der Schriftgröße für die Kontakteinträge, damit sie nicht kleiner sind */
 #content4 .arrow-nohover {
