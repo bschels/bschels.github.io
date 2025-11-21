@@ -2293,13 +2293,25 @@ function validateContent(editor) {
 // Save section with race condition prevention
 let savingInProgress = false;
 async function saveSection(section) {
+  console.log('saveSection called for:', section);
+  
   if (savingInProgress) {
     showError('Speichern läuft bereits! Bitte warten...');
     return;
   }
   
   if (!AppState.githubToken) {
-    showError('GitHub Token nicht konfiguriert!');
+    showError('GitHub Token nicht konfiguriert! Bitte Token in den Einstellungen eingeben.');
+    // Show setup screen
+    const setupScreen = document.getElementById('setup-screen');
+    if (setupScreen) {
+      setupScreen.style.display = 'block';
+    }
+    return;
+  }
+  
+  if (!AppState.githubConfig || !AppState.githubConfig.owner || !AppState.githubConfig.repo) {
+    showError('GitHub Konfiguration unvollständig! Bitte Einstellungen überprüfen.');
     return;
   }
   
@@ -2307,21 +2319,37 @@ async function saveSection(section) {
   showLoading(true);
   
   try {
+    console.log('Starting save for section:', section);
+    
     // Create backup before saving
-    await createBackup(section);
+    try {
+      await createBackup(section);
+    } catch (backupError) {
+      console.warn('Backup creation failed:', backupError);
+      // Continue even if backup fails
+    }
     
     if (section === 'kontakt' || section === 'meta') {
+      console.log('Saving special section:', section);
       await saveSpecialSection(section);
     } else {
+      console.log('Saving content section:', section);
       await saveContentSection(section);
     }
     
     AppState.hasChanges = false;
     updateSaveIndicator();
     showStatus('Erfolgreich gespeichert!', 'success');
+    console.log('Save completed successfully for:', section);
     
   } catch (error) {
     console.error('Fehler beim Speichern:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
     let errorMessage = 'Fehler beim Speichern: ' + error.message;
     
     // Provide more specific error messages
@@ -2333,9 +2361,12 @@ async function saveSection(section) {
       errorMessage = 'Datei nicht gefunden! Bitte überprüfen Sie die Repository-Konfiguration.';
     } else if (error.message.includes('422')) {
       errorMessage = 'Validierungsfehler! Möglicherweise ist die Datei zu groß oder der Inhalt ungültig.';
+    } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+      errorMessage = 'Netzwerkfehler! Bitte Internetverbindung überprüfen.';
     }
     
     showError(errorMessage);
+    alert('Fehler beim Speichern:\n' + errorMessage + '\n\nBitte Browser-Konsole (F12) für Details öffnen.');
   } finally {
     savingInProgress = false;
     showLoading(false);
@@ -2535,25 +2566,57 @@ async function saveSpecialSection(section) {
 
 // Commit to GitHub
 async function commitToGitHub(path, content, message, isBase64 = false) {
+  console.log('commitToGitHub called:', { path, message, hasToken: !!AppState.githubToken });
+  
   const config = AppState.githubConfig;
+  
+  if (!config || !config.owner || !config.repo) {
+    throw new Error('GitHub Konfiguration unvollständig!');
+  }
+  
+  if (!AppState.githubToken) {
+    throw new Error('GitHub Token fehlt!');
+  }
   
   // Get current file SHA
   const getFileUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}?ref=${config.branch}`;
-  const getResponse = await fetch(getFileUrl, {
-    headers: {
-      'Authorization': `token ${AppState.githubToken}`,
-      'Accept': 'application/vnd.github.v3+json'
-    }
-  });
+  console.log('Fetching file SHA from:', getFileUrl);
+  
+  let getResponse;
+  try {
+    getResponse = await fetch(getFileUrl, {
+      headers: {
+        'Authorization': `token ${AppState.githubToken}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+  } catch (fetchError) {
+    console.error('Network error fetching file:', fetchError);
+    throw new Error('Netzwerkfehler beim Abrufen der Datei: ' + fetchError.message);
+  }
   
   let sha = null;
   if (getResponse.ok) {
     const fileData = await getResponse.json();
     sha = fileData.sha;
+    console.log('File SHA retrieved:', sha.substring(0, 10) + '...');
+  } else if (getResponse.status === 404) {
+    console.log('File not found (new file), proceeding without SHA');
+  } else {
+    const errorData = await getResponse.json().catch(() => ({ message: getResponse.statusText }));
+    console.error('Error fetching file:', getResponse.status, errorData);
+    throw new Error(`Fehler beim Abrufen der Datei (${getResponse.status}): ${errorData.message || getResponse.statusText}`);
   }
   
   // Encode content to base64
-  const encodedContent = isBase64 ? content : btoa(unescape(encodeURIComponent(content)));
+  let encodedContent;
+  try {
+    encodedContent = isBase64 ? content : btoa(unescape(encodeURIComponent(content)));
+    console.log('Content encoded, length:', encodedContent.length);
+  } catch (encodeError) {
+    console.error('Error encoding content:', encodeError);
+    throw new Error('Fehler beim Kodieren des Inhalts: ' + encodeError.message);
+  }
   
   // Commit
   const commitUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`;
@@ -2567,22 +2630,39 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
     commitData.sha = sha;
   }
   
-  const commitResponse = await fetch(commitUrl, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `token ${AppState.githubToken}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(commitData)
-  });
+  console.log('Committing to:', commitUrl);
+  console.log('Commit data:', { message, branch: config.branch, hasSha: !!sha });
   
-  if (!commitResponse.ok) {
-    const error = await commitResponse.json();
-    throw new Error(error.message || 'Commit fehlgeschlagen');
+  let commitResponse;
+  try {
+    commitResponse = await fetch(commitUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${AppState.githubToken}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(commitData)
+    });
+  } catch (fetchError) {
+    console.error('Network error committing:', fetchError);
+    throw new Error('Netzwerkfehler beim Committen: ' + fetchError.message);
   }
   
-  return await commitResponse.json();
+  if (!commitResponse.ok) {
+    let errorData;
+    try {
+      errorData = await commitResponse.json();
+    } catch (e) {
+      errorData = { message: commitResponse.statusText };
+    }
+    console.error('Commit failed:', commitResponse.status, errorData);
+    throw new Error(`Commit fehlgeschlagen (${commitResponse.status}): ${errorData.message || commitResponse.statusText}`);
+  }
+  
+  const result = await commitResponse.json();
+  console.log('Commit successful:', result.commit?.message);
+  return result;
 }
 
 // Save all changes
