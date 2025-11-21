@@ -71,7 +71,7 @@ main    { padding-top: 0; padding-bottom: 0; }
 .header-lang {
   display: flex;
   align-items: flex-end;
-  gap: 0.2rem;
+  gap: 0;
 }
 
 .theme-toggle-link {
@@ -83,7 +83,7 @@ main    { padding-top: 0; padding-bottom: 0; }
   text-decoration-color: var(--body);
   text-underline-offset: 3px;
   padding: 0.1em 0.2em;
-  margin-right: 0.2rem;
+  margin-right: 0.1rem;
   cursor: pointer;
 }
 
@@ -94,6 +94,16 @@ main    { padding-top: 0; padding-bottom: 0; }
 }
 .language-select {
   float: none; /* alten float aufheben */
+  display: flex;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.tooltip {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
 }
 
 /* ========== Sprachumschalter ========== */
@@ -109,6 +119,7 @@ main    { padding-top: 0; padding-bottom: 0; }
   text-decoration-color: var(--body); /* Standardfarbe (Schwarz) */
   text-underline-offset: 3px;
   padding: 0.1em 0.2em;
+  margin: 0;
 }
 
 /* NEU: Sprachenumschalter im Header - Hover-Zustand (Schwarz hinterlegt, weißer Text) */
@@ -278,10 +289,10 @@ p.content {
   padding: 0;
 }
 
-strong {
+strong, b {
   font-family: var(--font-main);
-  font-weight: 100; /* Nicht fett, sondern normal */
-  text-transform: uppercase; /* Statt fett: Großbuchstaben */
+  font-weight: 100 !important; /* Nicht fett, sondern normal */
+  text-transform: uppercase !important; /* Statt fett: Großbuchstaben */
   letter-spacing: 0.1em; /* Etwas mehr Abstand für bessere Lesbarkeit */
 }
 
@@ -415,7 +426,7 @@ svg {
 .arrow, .arrow-nohover {
   margin: 0;
   font-size: 1em; /* Standardgröße für Pfeile, falls nicht überschrieben */
-  font-weight: 400;
+  font-weight: 100; /* Ultra Light - leichterer Schnitt */
 }
 /* Anpassung der Schriftgröße für die Kontakteinträge, damit sie nicht kleiner sind */
 #content4 .arrow-nohover {
