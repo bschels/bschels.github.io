@@ -3214,7 +3214,9 @@ async function loadGoatCounterStats() {
     let today = 0;
     let week = 0;
     let month = 0;
-    let total = data.total || 0;
+    let total = (data.total !== undefined && data.total !== null) ? data.total : 0;
+    
+    console.log('Initial total from API:', data.total, '-> parsed as:', total); // Debug
     
     // Get today's date in YYYY-MM-DD format (UTC to match API)
     const todayDate = new Date();
