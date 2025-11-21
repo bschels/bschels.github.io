@@ -26,7 +26,11 @@ const ADMIN_CONFIG = {
     meta: 'index.html' // Special: meta tags in index.html
   },
   
-  // GoatCounter Analytics
+  // GoatCounter Analytics Configuration
+  goatCounterApiKey: 't3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y', // Your GoatCounter API Key
+  goatCounterSiteId: 'schels', // Your GoatCounter Site ID (e.g., 'schels')
+  
+  // Legacy format (for backwards compatibility)
   goatcounter: {
     apiKey: 't3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y',
     site: 'schels'

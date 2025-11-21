@@ -3153,7 +3153,9 @@ async function loadGoatCounterStats() {
   if (!statsContainer) return;
   
   // Get API key from localStorage or config
-  const apiKey = localStorage.getItem('goatcounter_api_key') || (ADMIN_CONFIG.goatcounter && ADMIN_CONFIG.goatcounter.apiKey);
+  const apiKey = localStorage.getItem('goatcounter_api_key') || ADMIN_CONFIG.goatCounterApiKey || (ADMIN_CONFIG.goatcounter && ADMIN_CONFIG.goatcounter.apiKey);
+  const siteId = ADMIN_CONFIG.goatCounterSiteId || (ADMIN_CONFIG.goatcounter && ADMIN_CONFIG.goatcounter.site) || 'schels';
+  
   if (!apiKey) {
     // Hide stats if no API key is configured
     statsContainer.style.display = 'none';
@@ -3161,21 +3163,8 @@ async function loadGoatCounterStats() {
   }
   
   try {
-    // Get today's date
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
-    
-    // Get start of week (Monday)
-    const weekStart = new Date(today);
-    weekStart.setDate(today.getDate() - today.getDay() + 1); // Monday
-    const weekStartStr = weekStart.toISOString().split('T')[0];
-    
-    // Get start of month
-    const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-    const monthStartStr = monthStart.toISOString().split('T')[0];
-    
-    // GoatCounter API endpoint
-    const apiBase = 'https://schels.goatcounter.com/api/v0';
+    // GoatCounter API endpoint - use the correct endpoint structure
+    const apiUrl = `https://${siteId}.goatcounter.com/api/v0/stats/total`;
     
     // Fetch statistics using API key
     const headers = {
@@ -3183,55 +3172,40 @@ async function loadGoatCounterStats() {
       'Authorization': `Bearer ${apiKey}`
     };
     
-    // Fetch stats for different periods using /stats/total endpoint
-    const [todayData, weekData, monthData] = await Promise.allSettled([
-      fetch(`${apiBase}/stats/total?start=${todayStr}&end=${todayStr}`, { headers }).catch(() => null),
-      fetch(`${apiBase}/stats/total?start=${weekStartStr}&end=${todayStr}`, { headers }).catch(() => null),
-      fetch(`${apiBase}/stats/total?start=${monthStartStr}&end=${todayStr}`, { headers }).catch(() => null)
-    ]);
+    // Fetch total stats (today, week, month)
+    const response = await fetch(apiUrl, { headers });
     
-    let todayCount = '-';
-    let weekCount = '-';
-    let monthCount = '-';
-    
-    // Parse responses if successful
-    if (todayData.status === 'fulfilled' && todayData.value && todayData.value.ok) {
-      const data = await todayData.value.json();
-      todayCount = data.total || '-';
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ message: response.statusText }));
+      console.error('GoatCounter API Error:', response.status, errorData);
+      statsContainer.innerHTML = `<span class="stats-error" title="GoatCounter API Fehler: ${errorData.message || response.statusText}">📊 Fehler</span>`;
+      statsContainer.style.display = 'block';
+      return;
     }
     
-    if (weekData.status === 'fulfilled' && weekData.value && weekData.value.ok) {
-      const data = await weekData.value.json();
-      weekCount = data.total || '-';
-    }
+    const data = await response.json();
     
-    if (monthData.status === 'fulfilled' && monthData.value && monthData.value.ok) {
-      const data = await monthData.value.json();
-      monthCount = data.total || '-';
-    }
+    // GoatCounter API returns: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... } } }
+    const today = data.total && data.total.today ? data.total.today.count : 0;
+    const week = data.total && data.total.week ? data.total.week.count : 0;
+    const month = data.total && data.total.month ? data.total.month.count : 0;
     
     // Update display
     const todayEl = document.getElementById('stat-today');
     const weekEl = document.getElementById('stat-week');
     const monthEl = document.getElementById('stat-month');
     
-    if (todayEl) todayEl.textContent = todayCount !== '-' ? todayCount.toLocaleString('de-DE') : '-';
-    if (weekEl) weekEl.textContent = weekCount !== '-' ? weekCount.toLocaleString('de-DE') : '-';
-    if (monthEl) monthEl.textContent = monthCount !== '-' ? monthCount.toLocaleString('de-DE') : '-';
+    if (todayEl) todayEl.textContent = today.toLocaleString('de-DE');
+    if (weekEl) weekEl.textContent = week.toLocaleString('de-DE');
+    if (monthEl) monthEl.textContent = month.toLocaleString('de-DE');
     
-    // Show stats container if we have any data
-    if (todayCount !== '-' || weekCount !== '-' || monthCount !== '-') {
-      statsContainer.style.display = 'flex';
-    } else {
-      statsContainer.style.display = 'none';
-    }
+    // Show stats container
+    statsContainer.style.display = 'flex';
     
   } catch (error) {
     console.error('GoatCounter stats error:', error);
-    // Hide stats on error
-    if (statsContainer) {
-      statsContainer.style.display = 'none';
-    }
+    statsContainer.innerHTML = `<span class="stats-error" title="GoatCounter API Fehler: ${error.message}">📊 Fehler</span>`;
+    statsContainer.style.display = 'block';
   }
 }
 
