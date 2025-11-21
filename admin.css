@@ -26,7 +26,7 @@ html {
 
 body {
   font-family: var(--font-main);
-  font-weight: 300; /* Light - leichterer Schnitt für Avenir Next */
+  font-weight: 100; /* Ultra Light - leichtester Schnitt für Avenir Next */
   background: var(--bg);
   color: var(--body);
   margin: 0;
