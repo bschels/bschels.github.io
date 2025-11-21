@@ -3184,20 +3184,24 @@ async function loadGoatCounterStats() {
     }
     
     const data = await response.json();
+    console.log('GoatCounter API Response:', data); // Debug log
     
-    // GoatCounter API returns: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... } } }
-    const today = data.total && data.total.today ? data.total.today.count : 0;
-    const week = data.total && data.total.week ? data.total.week.count : 0;
-    const month = data.total && data.total.month ? data.total.month.count : 0;
+    // GoatCounter API returns: { total: { today: { count: ... }, week: { count: ... }, month: { count: ... }, all: { count: ... } } }
+    const today = (data.total && data.total.today && data.total.today.count) || 0;
+    const week = (data.total && data.total.week && data.total.week.count) || 0;
+    const month = (data.total && data.total.month && data.total.month.count) || 0;
+    const total = (data.total && data.total.all && data.total.all.count) || 0;
     
     // Update display
     const todayEl = document.getElementById('stat-today');
     const weekEl = document.getElementById('stat-week');
     const monthEl = document.getElementById('stat-month');
+    const totalEl = document.getElementById('stat-total');
     
     if (todayEl) todayEl.textContent = today.toLocaleString('de-DE');
     if (weekEl) weekEl.textContent = week.toLocaleString('de-DE');
     if (monthEl) monthEl.textContent = month.toLocaleString('de-DE');
+    if (totalEl) totalEl.textContent = total.toLocaleString('de-DE');
     
     // Show stats container
     statsContainer.style.display = 'flex';
