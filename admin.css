@@ -306,6 +306,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+  min-width: 80px; /* Feste Mindestbreite für jedes Stat-Item */
 }
 
 .stat-label {
@@ -314,12 +315,17 @@ body {
   opacity: 0.7;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
 }
 
 .stat-value {
   font-size: 1.2em;
   font-weight: 600;
   color: var(--primary);
+  min-width: 3ch; /* Mindestbreite für 3 Zeichen (z.B. "100") */
+  text-align: center;
+  font-variant-numeric: tabular-nums; /* Tabellenzahlen für gleichmäßige Breite */
+  font-feature-settings: "tnum"; /* Tabellenzahlen aktivieren */
 }
 
 .header-actions {
