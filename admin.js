@@ -1709,6 +1709,10 @@ function renderEditor(section, content) {
       initProjectsEditor();
     } else if (section === 'kontakt' || section === 'meta') {
       initCharacterCounters();
+    } else if (section === 'leistungen' && typeof content === 'object' && content.intro) {
+      // Initialize both intro and main editors for leistungen
+      initEditors('leistungen-intro');
+      initEditors('leistungen');
     } else {
       // All other sections use normal editors
       initEditors(section);
@@ -2366,6 +2370,9 @@ async function saveSection(section) {
     if (section === 'kontakt' || section === 'meta') {
       console.log('Saving special section:', section);
       await saveSpecialSection(section);
+    } else if (section === 'leistungen') {
+      console.log('Saving leistungen section (intro + main):', section);
+      await saveLeistungenSection();
     } else {
       console.log('Saving content section:', section);
       await saveContentSection(section);
@@ -2883,6 +2890,66 @@ async function commitToGitHub(path, content, message, isBase64 = false) {
   const result = await commitResponse.json();
   console.log('Commit successful:', result.commit?.message);
   return result;
+}
+
+// Save leistungen section (both intro and main content)
+async function saveLeistungenSection() {
+  console.log('saveLeistungenSection called');
+  
+  // Get intro content
+  const introGermanVisual = document.getElementById('editor-visual-leistungen-intro-de');
+  const introGermanText = document.getElementById('editor-leistungen-intro-de');
+  const introEnglishVisual = document.getElementById('editor-visual-leistungen-intro-en');
+  const introEnglishText = document.getElementById('editor-leistungen-intro-en');
+  
+  let introGerman = '';
+  let introEnglish = '';
+  
+  if (introGermanVisual && introGermanVisual.style.display !== 'none') {
+    introGerman = introGermanVisual.innerHTML;
+  } else if (introGermanText) {
+    introGerman = introGermanText.value;
+  }
+  
+  if (introEnglishVisual && introEnglishVisual.style.display !== 'none') {
+    introEnglish = introEnglishVisual.innerHTML;
+  } else if (introEnglishText) {
+    introEnglish = introEnglishText.value;
+  }
+  
+  // Save intro text to index.html
+  const indexContent = await fetchGitHubFile('index.html', false);
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(indexContent, 'text/html');
+  
+  const germanIntroP = doc.querySelector('#content2 #german p.content');
+  const englishIntroP = doc.querySelector('#content2 #english p.content');
+  
+  if (germanIntroP) {
+    germanIntroP.innerHTML = introGerman;
+  }
+  if (englishIntroP) {
+    englishIntroP.innerHTML = introEnglish;
+  }
+  
+  const updatedIndexContent = new XMLSerializer().serializeToString(doc);
+  await commitToGitHub('index.html', updatedIndexContent, 'Update leistungen intro text (DE/EN)');
+  
+  // Save main content to pages/leistungen.html
+  await saveContentSection('leistungen');
+  
+  // Invalidate caches
+  if (fetchCache['index.html']) {
+    delete fetchCache['index.html'];
+  }
+  if (fetchCache['pages/leistungen.html']) {
+    delete fetchCache['pages/leistungen.html'];
+  }
+  if (AppState.contentCache['leistungen']) {
+    delete AppState.contentCache['leistungen'];
+  }
+  
+  console.log('saveLeistungenSection completed successfully');
 }
 
 // Save all changes
@@ -4689,6 +4756,10 @@ function renderEditor(section, content) {
       initProjectsEditor();
     } else if (section === 'kontakt' || section === 'meta') {
       initCharacterCounters();
+    } else if (section === 'leistungen' && typeof content === 'object' && content.intro) {
+      // Initialize both intro and main editors for leistungen
+      initEditors('leistungen-intro');
+      initEditors('leistungen');
     } else {
       // All other sections use normal editors
       initEditors(section);
