@@ -356,7 +356,7 @@ blockquote {
 blockquote .says {
   font-style: italic;
   font-weight: 200; /* Thin - leichterer Schnitt */
-  text-align: right; /* Autor rechts ausrichten */
+  text-align: right; /* Zitattext rechts ausrichten */
   display: block; /* Sicherstellen, dass es als Block-Element behandelt wird */
 }
 
@@ -375,6 +375,8 @@ p, blockquote, li, h1, h2, h3, h4, h5, h6 {
 blockquote p:not(.says) {
   font-style: normal;
   font-weight: 200; /* Thin - leichterer Schnitt */
+  text-align: right; /* Autor (Zitatgeber) rechts ausrichten */
+  display: block; /* Sicherstellen, dass es als Block-Element behandelt wird */
 }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
