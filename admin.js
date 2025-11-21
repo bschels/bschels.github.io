@@ -2315,21 +2315,49 @@ async function saveContentSection(section) {
     }
   } else if (originalContent.includes('<div id="german"')) {
     // Standard structure with german/english divs
-    // Use a more reliable approach: find the content between tags
-    const germanMatch = originalContent.match(/<div id="german"[^>]*>([\s\S]*?)<\/div>\s*<div id="english"/);
-    const englishMatch = originalContent.match(/<div id="english"[^>]*>([\s\S]*?)<\/div>\s*$/);
+    // Find positions of divs
+    const germanStart = originalContent.indexOf('<div id="german"');
+    const germanTagEnd = originalContent.indexOf('>', germanStart) + 1;
+    const englishStart = originalContent.indexOf('<div id="english"');
+    const englishTagEnd = originalContent.indexOf('>', englishStart) + 1;
     
-    if (germanMatch && englishMatch) {
-      // Replace german content
-      finalContent = originalContent.replace(
-        /<div id="german"[^>]*>[\s\S]*?<\/div>\s*<div id="english"/,
-        `<div id="german" class="language active">${germanContent}</div>\n<div id="english"`
-      );
-      // Replace english content
-      finalContent = finalContent.replace(
-        /<div id="english"[^>]*>[\s\S]*?<\/div>\s*$/,
-        `<div id="english" class="language">${englishContent}</div>`
-      );
+    if (germanStart !== -1 && englishStart !== -1) {
+      // Find the matching closing div for german (before english starts)
+      let germanClosePos = englishStart;
+      let divCount = 0;
+      for (let i = germanTagEnd; i < englishStart; i++) {
+        if (originalContent.substring(i, i + 4) === '<div') divCount++;
+        if (originalContent.substring(i, i + 6) === '</div>') {
+          divCount--;
+          if (divCount === 0) {
+            germanClosePos = i;
+            break;
+          }
+        }
+      }
+      
+      // Find the matching closing div for english (last closing div)
+      let englishClosePos = originalContent.length;
+      divCount = 0;
+      for (let i = englishTagEnd; i < originalContent.length; i++) {
+        if (originalContent.substring(i, i + 4) === '<div') divCount++;
+        if (originalContent.substring(i, i + 6) === '</div>') {
+          divCount--;
+          if (divCount === 0) {
+            englishClosePos = i;
+            break;
+          }
+        }
+      }
+      
+      // Reconstruct: before german + new german div + between + new english div + after
+      const beforeGerman = originalContent.substring(0, germanTagEnd);
+      const between = originalContent.substring(germanClosePos + 6, englishTagEnd);
+      const afterEnglish = originalContent.substring(englishClosePos + 6);
+      
+      finalContent = beforeGerman + germanContent + '</div>' + 
+                     between + englishContent + '</div>' + 
+                     afterEnglish;
     } else {
       // Fallback: replace each div separately with greedy match
       finalContent = originalContent.replace(
@@ -2346,15 +2374,20 @@ async function saveContentSection(section) {
     finalContent = `<div id="german" class="language active">${germanContent}</div>\n<div id="english" class="language">${englishContent}</div>`;
   }
   
-  await commitToGitHub(filePath, finalContent, `Update ${section} content (DE/EN)`);
-  
-  // Invalidate cache after successful save to ensure fresh data on next load
-  if (fetchCache[filePath]) {
-    delete fetchCache[filePath];
-  }
-  // Also clear content cache
-  if (AppState.contentCache[section]) {
-    delete AppState.contentCache[section];
+  try {
+    await commitToGitHub(filePath, finalContent, `Update ${section} content (DE/EN)`);
+    
+    // Invalidate cache after successful save to ensure fresh data on next load
+    if (fetchCache[filePath]) {
+      delete fetchCache[filePath];
+    }
+    // Also clear content cache
+    if (AppState.contentCache[section]) {
+      delete AppState.contentCache[section];
+    }
+  } catch (error) {
+    console.error('Fehler beim Speichern von', section, ':', error);
+    throw error; // Re-throw to be caught by saveSection
   }
 }
 
@@ -2978,13 +3011,26 @@ function validateContent(editor) {
   }
   
   // Check for unclosed tags (ignore self-closing tags)
+  // For CV and other dual-language sections, check both languages together
+  let contentToCheck = content;
+  if (section === 'cv' || section === 'profil' || section === 'leistungen' || section === 'bauenimbestand') {
+    // Get content from both language editors
+    const otherLang = lang === 'de' ? 'en' : 'de';
+    const otherEditor = document.getElementById(`editor-${section}-${otherLang}`);
+    const otherContent = otherEditor ? (otherEditor.value || otherEditor.innerHTML || '') : '';
+    // Combine both contents for validation
+    contentToCheck = content + '\n' + otherContent;
+  }
+  
   // Self-closing tags: br, hr, img, input, meta, link, area, base, col, embed, source, track, wbr
   const selfClosingTags = /<(br|hr|img|input|meta|link|area|base|col|embed|source|track|wbr)[^>]*>/gi;
-  const allOpenTags = content.match(/<[^/][^>]*>/g) || [];
-  const selfClosingCount = (content.match(selfClosingTags) || []).length;
+  const allOpenTags = contentToCheck.match(/<[^/][^>]*>/g) || [];
+  const selfClosingCount = (contentToCheck.match(selfClosingTags) || []).length;
   const openTags = allOpenTags.length - selfClosingCount;
-  const closeTags = (content.match(/<\/[^>]+>/g) || []).length;
-  if (Math.abs(openTags - closeTags) > 2) {
+  const closeTags = (contentToCheck.match(/<\/[^>]+>/g) || []).length;
+  
+  // Only warn if difference is significant (more than 3, to account for nested structures)
+  if (Math.abs(openTags - closeTags) > 3) {
     issues.push('⚠️ Mögliche ungeschlossene HTML-Tags');
   }
   
@@ -5198,13 +5244,26 @@ function validateContent(editor) {
   }
   
   // Check for unclosed tags (ignore self-closing tags)
+  // For CV and other dual-language sections, check both languages together
+  let contentToCheck = content;
+  if (section === 'cv' || section === 'profil' || section === 'leistungen' || section === 'bauenimbestand') {
+    // Get content from both language editors
+    const otherLang = lang === 'de' ? 'en' : 'de';
+    const otherEditor = document.getElementById(`editor-${section}-${otherLang}`);
+    const otherContent = otherEditor ? (otherEditor.value || otherEditor.innerHTML || '') : '';
+    // Combine both contents for validation
+    contentToCheck = content + '\n' + otherContent;
+  }
+  
   // Self-closing tags: br, hr, img, input, meta, link, area, base, col, embed, source, track, wbr
   const selfClosingTags = /<(br|hr|img|input|meta|link|area|base|col|embed|source|track|wbr)[^>]*>/gi;
-  const allOpenTags = content.match(/<[^/][^>]*>/g) || [];
-  const selfClosingCount = (content.match(selfClosingTags) || []).length;
+  const allOpenTags = contentToCheck.match(/<[^/][^>]*>/g) || [];
+  const selfClosingCount = (contentToCheck.match(selfClosingTags) || []).length;
   const openTags = allOpenTags.length - selfClosingCount;
-  const closeTags = (content.match(/<\/[^>]+>/g) || []).length;
-  if (Math.abs(openTags - closeTags) > 2) {
+  const closeTags = (contentToCheck.match(/<\/[^>]+>/g) || []).length;
+  
+  // Only warn if difference is significant (more than 3, to account for nested structures)
+  if (Math.abs(openTags - closeTags) > 3) {
     issues.push('⚠️ Mögliche ungeschlossene HTML-Tags');
   }
   
