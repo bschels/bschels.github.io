@@ -2139,12 +2139,13 @@ window.switchEditorMode = function(editorId, mode) {
   if (mode === 'visual') {
     // Show visual editor, hide text editor and preview
     if (visualEditor && textEditor) {
-      // Sync content from text to visual
-      syncToVisualEditor(textEditor);
+      // WICHTIG: Erst display setzen, DANN sync aufrufen
       visualEditor.style.display = 'block';
       textEditor.style.display = 'none';
       if (toolbar) toolbar.style.display = 'flex';
       if (preview) preview.style.display = 'none';
+      // Sync content from text to visual (nach display:block)
+      syncToVisualEditor(textEditor);
       
       // Update mode buttons
       modeButtons.forEach(btn => {
@@ -5393,12 +5394,13 @@ window.switchEditorMode = function(editorId, mode) {
   if (mode === 'visual') {
     // Show visual editor, hide text editor and preview
     if (visualEditor && textEditor) {
-      // Sync content from text to visual
-      syncToVisualEditor(textEditor);
+      // WICHTIG: Erst display setzen, DANN sync aufrufen
       visualEditor.style.display = 'block';
       textEditor.style.display = 'none';
       if (toolbar) toolbar.style.display = 'flex';
       if (preview) preview.style.display = 'none';
+      // Sync content from text to visual (nach display:block)
+      syncToVisualEditor(textEditor);
       
       // Update mode buttons
       modeButtons.forEach(btn => {
