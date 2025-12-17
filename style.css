@@ -966,3 +966,69 @@ hr.z {
 .lb_language a.switch-language span.white {
     background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
 }
+
+/* ========== CV/Vita Profilbild ========== */
+.cv-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cv-portrait {
+  width: 180px;
+  height: auto;
+  filter: grayscale(100%);
+  flex-shrink: 0;
+}
+
+.cv-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cv-role {
+  margin: 0 0 0.3rem 0;
+  font-size: 0.9em;
+  font-weight: 200;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--body);
+  opacity: 0.7;
+}
+
+.cv-name h2 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.2em;
+  letter-spacing: 0.12em;
+}
+
+.cv-subtitle {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  color: var(--body);
+}
+
+/* Responsive: Anpassung für Smartphones */
+@media (max-width: 810px) {
+  .cv-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .cv-portrait {
+    width: 150px;
+    height: auto;
+  }
+  .cv-name h2 {
+    font-size: 1.1em;
+  }
+  .cv-subtitle {
+    font-size: 1em;
+  }
+}
