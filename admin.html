@@ -110,6 +110,21 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .preview-size.active{background:#666;color:#fff;border-color:#888}
 #dark-mode-toggle{padding:4px 8px;font-size:14px;background:#333;border:1px solid #555;cursor:pointer;border-radius:3px}
 #dark-mode-toggle.active{background:#fff;color:#000}
+.css-visual-editor{font-size:.8rem}
+.css-selector-bar{padding:.6rem;border-bottom:1px solid var(--border);display:flex;gap:.4rem;align-items:center}
+.css-selector-bar label{font-size:.7rem;color:#666;text-transform:uppercase;letter-spacing:.03em}
+.css-selector-bar select{flex:1;padding:.35rem .5rem;font-size:.8rem;font-family:'SF Mono',Monaco,monospace;border:1px solid var(--border);background:var(--bg)}
+.css-properties-list{flex:1;overflow-y:auto;padding:.5rem}
+.css-property-row{display:flex;gap:.3rem;margin-bottom:.4rem;align-items:center}
+.css-property-row input{font-size:.75rem;font-family:'SF Mono',Monaco,monospace;padding:.3rem .4rem;border:1px solid var(--border);background:var(--bg)}
+.css-property-row .prop-name{width:110px;color:#666}
+.css-property-row .prop-value{flex:1}
+.css-property-row .prop-delete{background:none;border:none;color:#c00;cursor:pointer;padding:.2rem .4rem;font-size:.9rem;opacity:.5}
+.css-property-row .prop-delete:hover{opacity:1}
+.css-property-row input:focus{border-color:var(--accent);outline:none}
+.css-add-property{padding:.5rem;border-top:1px solid var(--border)}
+.css-no-selector{color:#999;text-align:center;padding:2rem 1rem;font-size:.8rem}
+.css-selector-info{padding:.4rem .6rem;background:#e3f2fd;border-bottom:1px solid #90caf9;font-size:.7rem;color:#1565c0}
   </style>
 </head>
 <body>
@@ -233,12 +248,26 @@ button:disabled{opacity:.4;cursor:not-allowed}
                 <button id="dark-mode-toggle" title="Dark Mode testen">🌙</button>
               </div>
             </div>
-            <!-- Split View -->
+            <!-- Split View with Visual Editor -->
             <div style="display:flex;flex:1;overflow:hidden">
-              <div class="code-pane" style="border-right:1px solid var(--border);max-width:50%">
+              <!-- Left: Visual CSS Editor -->
+              <div class="css-visual-editor" style="width:320px;border-right:1px solid var(--border);display:flex;flex-direction:column;background:var(--sidebar)">
+                <div class="css-selector-bar">
+                  <label>Selektor:</label>
+                  <select id="css-selector-dropdown"></select>
+                  <button id="css-add-selector" class="btn-small btn-secondary" title="Neuen Selektor hinzufügen">+</button>
+                </div>
+                <div class="css-properties-list" id="css-properties-list"></div>
+                <div class="css-add-property">
+                  <button id="css-add-property-btn" class="btn-secondary btn-small">+ Property hinzufügen</button>
+                </div>
+              </div>
+              <!-- Middle: Code Editor -->
+              <div class="code-pane" style="border-right:1px solid var(--border);flex:1;min-width:300px">
                 <div class="cm-wrapper"><textarea id="editor-styles"></textarea></div>
               </div>
-              <div class="preview-pane" style="display:flex;justify-content:center;background:#e0e0e0;padding:1rem">
+              <!-- Right: Preview -->
+              <div class="preview-pane" style="display:flex;justify-content:center;background:#e0e0e0;padding:1rem;flex:1">
                 <iframe id="styles-preview" style="width:100%;height:100%;border:none;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);transition:width .3s"></iframe>
               </div>
             </div>
@@ -567,7 +596,23 @@ button:disabled{opacity:.4;cursor:not-allowed}
         mode:'css',theme:'dracula',lineNumbers:true,lineWrapping:true,
         indentUnit:2,tabSize:2
       });
-      cssEditor.on('change',()=>{markChanged();updateCssPreview();});
+      let cssChangeTimeout;
+      cssEditor.on('change',()=>{
+        markChanged();
+        updateCssPreview();
+        // Debounce re-parse to avoid performance issues
+        clearTimeout(cssChangeTimeout);
+        cssChangeTimeout = setTimeout(() => {
+          const oldIndex = currentSelectorIndex;
+          parseCss(cssEditor.getValue());
+          populateSelectorDropdown();
+          if (oldIndex >= 0 && oldIndex < parsedCss.length) {
+            $('css-selector-dropdown').value = oldIndex;
+            showSelectorProperties(oldIndex);
+          }
+          extractCssVars();
+        }, 500);
+      });
     }
   }
   
@@ -623,6 +668,220 @@ button:disabled{opacity:.4;cursor:not-allowed}
     }
   }
   
+  // CSS Parser - parst CSS in strukturierte Daten
+  let parsedCss = [];
+  let currentSelectorIndex = -1;
+  
+  function parseCss(cssText) {
+    parsedCss = [];
+    let depth = 0;
+    let currentBlock = null;
+    let buffer = '';
+    let inComment = false;
+    
+    for (let i = 0; i < cssText.length; i++) {
+      const char = cssText[i];
+      const next = cssText[i + 1] || '';
+      
+      // Comment handling
+      if (char === '/' && next === '*') { inComment = true; buffer += '/*'; i++; continue; }
+      if (char === '*' && next === '/') { inComment = false; buffer += '*/'; i++; continue; }
+      if (inComment) { buffer += char; continue; }
+      
+      if (char === '{') {
+        if (depth === 0) {
+          const selector = buffer.trim();
+          currentBlock = { selector, properties: [], raw: '', start: i };
+          buffer = '';
+        } else {
+          buffer += char;
+        }
+        depth++;
+      } else if (char === '}') {
+        depth--;
+        if (depth === 0 && currentBlock) {
+          currentBlock.raw = buffer.trim();
+          currentBlock.properties = parseProperties(buffer);
+          parsedCss.push(currentBlock);
+          currentBlock = null;
+          buffer = '';
+        } else if (depth > 0) {
+          buffer += char;
+        }
+      } else {
+        buffer += char;
+      }
+    }
+    return parsedCss;
+  }
+  
+  function parseProperties(raw) {
+    const props = [];
+    const lines = raw.split(';');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('/*')) continue;
+      const colonIndex = trimmed.indexOf(':');
+      if (colonIndex > 0) {
+        const name = trimmed.substring(0, colonIndex).trim();
+        const value = trimmed.substring(colonIndex + 1).trim();
+        if (name && value) props.push({ name, value });
+      }
+    }
+    return props;
+  }
+  
+  function populateSelectorDropdown() {
+    const dropdown = $('css-selector-dropdown');
+    if (!dropdown) return;
+    
+    dropdown.innerHTML = '<option value="-1">-- Selektor wählen --</option>';
+    
+    // Gruppiere Selektoren
+    const groups = {
+      'Variablen': [],
+      'Elemente': [],
+      'Klassen': [],
+      'Media Queries': [],
+      'Andere': []
+    };
+    
+    parsedCss.forEach((block, idx) => {
+      const sel = block.selector;
+      if (sel.startsWith(':root')) groups['Variablen'].push({ idx, sel });
+      else if (sel.startsWith('@media')) groups['Media Queries'].push({ idx, sel });
+      else if (sel.startsWith('@')) groups['Andere'].push({ idx, sel });
+      else if (sel.startsWith('.') || sel.includes('.')) groups['Klassen'].push({ idx, sel });
+      else groups['Elemente'].push({ idx, sel });
+    });
+    
+    Object.keys(groups).forEach(group => {
+      if (groups[group].length === 0) return;
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = group;
+      groups[group].forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.idx;
+        opt.textContent = item.sel.length > 40 ? item.sel.substring(0, 40) + '...' : item.sel;
+        opt.title = item.sel;
+        optgroup.appendChild(opt);
+      });
+      dropdown.appendChild(optgroup);
+    });
+  }
+  
+  function showSelectorProperties(index) {
+    currentSelectorIndex = index;
+    const container = $('css-properties-list');
+    if (!container) return;
+    
+    if (index < 0 || !parsedCss[index]) {
+      container.innerHTML = '<div class="css-no-selector">Wähle einen Selektor aus dem Dropdown</div>';
+      return;
+    }
+    
+    const block = parsedCss[index];
+    let html = `<div class="css-selector-info">${block.selector}</div>`;
+    
+    block.properties.forEach((prop, pIdx) => {
+      html += `<div class="css-property-row" data-prop-idx="${pIdx}">
+        <input type="text" class="prop-name" value="${escapeHtml(prop.name)}" data-field="name">
+        <input type="text" class="prop-value" value="${escapeHtml(prop.value)}" data-field="value">
+        <button class="prop-delete" data-action="delete" title="Löschen">×</button>
+      </div>`;
+    });
+    
+    container.innerHTML = html;
+    
+    // Event listeners for property editing
+    container.querySelectorAll('input').forEach(input => {
+      input.addEventListener('change', handlePropertyChange);
+      input.addEventListener('blur', handlePropertyChange);
+    });
+    container.querySelectorAll('.prop-delete').forEach(btn => {
+      btn.addEventListener('click', handlePropertyDelete);
+    });
+  }
+  
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  
+  function handlePropertyChange(e) {
+    if (currentSelectorIndex < 0) return;
+    const row = e.target.closest('.css-property-row');
+    const propIdx = parseInt(row.dataset.propIdx);
+    const field = e.target.dataset.field;
+    const block = parsedCss[currentSelectorIndex];
+    
+    if (block && block.properties[propIdx]) {
+      block.properties[propIdx][field] = e.target.value;
+      updateCssFromParsed();
+    }
+  }
+  
+  function handlePropertyDelete(e) {
+    if (currentSelectorIndex < 0) return;
+    const row = e.target.closest('.css-property-row');
+    const propIdx = parseInt(row.dataset.propIdx);
+    const block = parsedCss[currentSelectorIndex];
+    
+    if (block && block.properties[propIdx]) {
+      block.properties.splice(propIdx, 1);
+      updateCssFromParsed();
+      showSelectorProperties(currentSelectorIndex);
+    }
+  }
+  
+  function addProperty() {
+    if (currentSelectorIndex < 0) {
+      alert('Bitte zuerst einen Selektor wählen');
+      return;
+    }
+    const block = parsedCss[currentSelectorIndex];
+    if (block) {
+      block.properties.push({ name: 'property', value: 'value' });
+      updateCssFromParsed();
+      showSelectorProperties(currentSelectorIndex);
+      // Focus the new property name input
+      const inputs = $('css-properties-list').querySelectorAll('.prop-name');
+      if (inputs.length) inputs[inputs.length - 1].focus();
+    }
+  }
+  
+  function addSelector() {
+    const selector = prompt('Neuer Selektor:', '.neue-klasse');
+    if (!selector) return;
+    parsedCss.push({ selector, properties: [], raw: '' });
+    updateCssFromParsed();
+    populateSelectorDropdown();
+    // Select the new selector
+    const dropdown = $('css-selector-dropdown');
+    dropdown.value = parsedCss.length - 1;
+    showSelectorProperties(parsedCss.length - 1);
+  }
+  
+  function updateCssFromParsed() {
+    if (!cssEditor) return;
+    let css = '';
+    
+    parsedCss.forEach(block => {
+      css += block.selector + ' {\n';
+      block.properties.forEach(prop => {
+        css += `  ${prop.name}: ${prop.value};\n`;
+      });
+      css += '}\n\n';
+    });
+    
+    // Preserve cursor position
+    const cursor = cssEditor.getCursor();
+    cssEditor.setValue(css.trim());
+    cssEditor.setCursor(cursor);
+    markChanged();
+    updateCssPreview();
+    extractCssVars();
+  }
+  
   // Responsive Preview
   function initStylesPanel(){
     // Color pickers
@@ -655,6 +914,20 @@ button:disabled{opacity:.4;cursor:not-allowed}
         doc.body.classList.remove('dark-preview');
       }
     };
+    
+    // CSS Visual Editor
+    const dropdown = $('css-selector-dropdown');
+    if (dropdown) {
+      dropdown.addEventListener('change', e => {
+        showSelectorProperties(parseInt(e.target.value));
+      });
+    }
+    
+    const addPropBtn = $('css-add-property-btn');
+    if (addPropBtn) addPropBtn.addEventListener('click', addProperty);
+    
+    const addSelBtn = $('css-add-selector');
+    if (addSelBtn) addSelBtn.addEventListener('click', addSelector);
   }
 
   function execCmd(editorId,cmd){
@@ -746,9 +1019,14 @@ button:disabled{opacity:.4;cursor:not-allowed}
       try{
         const cssRes=await fetch('/style.css?t='+Date.now());
         if(cssRes.ok&&cssEditor){
-          cssEditor.setValue(await cssRes.text());
+          const cssText = await cssRes.text();
+          cssEditor.setValue(cssText);
           extractCssVars();
           updateCssPreview();
+          // Initialize visual CSS editor
+          parseCss(cssText);
+          populateSelectorDropdown();
+          showSelectorProperties(-1);
         }
       }catch(e){}
 
