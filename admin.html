@@ -280,20 +280,61 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
         <!-- Stats Panel -->
         <div id="stats-panel" class="panel">
-          <div class="seo-panel">
+          <div class="seo-panel" style="max-width:900px">
             <div class="section-title">Besucherstatistiken</div>
-            <div class="editor-group">
-              <label>GoatCounter API Token</label>
-              <input type="text" id="goat-token" value="t3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y">
-              <p class="hint"><a href="https://schels.goatcounter.com/user/api" target="_blank">Token verwalten →</a></p>
+            
+            <div class="info-box" id="exclude-box">
+              <strong>🚫 Dich selbst ausschließen:</strong> 
+              <a href="https://schels.info/#toggle-goatcounter" target="_blank" style="margin-left:.5rem">Klicke hier</a> um deine eigenen Besuche nicht zu zählen.
+              <br><small style="color:#666">Funktioniert per Browser – auf jedem Gerät einmal klicken.</small>
             </div>
-            <div id="stats-container" style="margin-top:1rem">
-              <p style="color:#666">Token eingeben für Statistiken</p>
+            
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+              <select id="stats-period" style="padding:.4rem;font-size:.8rem">
+                <option value="day">Heute</option>
+                <option value="week" selected>Diese Woche</option>
+                <option value="month">Dieser Monat</option>
+                <option value="year">Dieses Jahr</option>
+              </select>
+              <button id="refresh-stats" class="btn-secondary btn-small">🔄 Aktualisieren</button>
+              <a href="https://schels.goatcounter.com" target="_blank" class="btn-secondary btn-small" style="text-decoration:none">📊 Dashboard →</a>
             </div>
-            <div style="margin-top:1rem;display:flex;gap:.5rem">
-              <button id="refresh-stats" class="btn-secondary">🔄 Laden</button>
-              <a href="https://schels.goatcounter.com" target="_blank" class="btn-secondary" style="text-decoration:none">📊 Dashboard öffnen →</a>
+            
+            <div id="stats-overview" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem"></div>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+              <div>
+                <div class="section-title">Top Seiten</div>
+                <div id="stats-pages"></div>
+              </div>
+              <div>
+                <div class="section-title">Referrer</div>
+                <div id="stats-refs"></div>
+              </div>
             </div>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem">
+              <div>
+                <div class="section-title">Browser</div>
+                <div id="stats-browsers"></div>
+              </div>
+              <div>
+                <div class="section-title">Systeme</div>
+                <div id="stats-systems"></div>
+              </div>
+            </div>
+            
+            <div style="margin-top:1.5rem">
+              <div class="section-title">Länder</div>
+              <div id="stats-locations"></div>
+            </div>
+            
+            <details style="margin-top:1.5rem">
+              <summary style="cursor:pointer;font-size:.8rem;color:#666">API Token ändern</summary>
+              <div class="editor-group" style="margin-top:.5rem">
+                <input type="text" id="goat-token" value="t3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y" style="font-size:.75rem">
+              </div>
+            </details>
           </div>
         </div>
 
@@ -1008,70 +1049,94 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
 
   // ========== FEATURE 7: GoatCounter Statistiken ==========
-  async function loadStats(){
-    const container=$('stats-container');
-    if(!container)return;
-    
-    const token=$('goat-token')?.value||'t3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y';
-    if(!token){
-      container.innerHTML='<p style="color:#666">Kein Token</p>';
-      return;
+  function getDateRange(period){
+    const today=new Date();
+    const end=today.toISOString().split('T')[0];
+    let start;
+    switch(period){
+      case 'day': start=end; break;
+      case 'week': start=new Date(Date.now()-7*24*60*60*1000).toISOString().split('T')[0]; break;
+      case 'month': start=new Date(Date.now()-30*24*60*60*1000).toISOString().split('T')[0]; break;
+      case 'year': start=new Date(Date.now()-365*24*60*60*1000).toISOString().split('T')[0]; break;
+      default: start=new Date(Date.now()-7*24*60*60*1000).toISOString().split('T')[0];
     }
+    return {start,end};
+  }
+  
+  function renderStatRows(data,max=8){
+    if(!data||!data.length)return '<p style="color:#999;font-size:.8rem">Keine Daten</p>';
+    return data.slice(0,max).map(item=>{
+      const name=item.name||item.ref||item.browser||item.system||item.location||'(unbekannt)';
+      const count=item.count||0;
+      return `<div class="stat-row"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span><span><strong>${count}</strong></span></div>`;
+    }).join('');
+  }
+  
+  async function loadStats(){
+    const token=$('goat-token')?.value||'t3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y';
+    const period=$('stats-period')?.value||'week';
+    const {start,end}=getDateRange(period);
     
-    localStorage.setItem('goat_token',token);
-    container.innerHTML='<p style="color:#666">Lade Statistiken...</p>';
+    const overview=$('stats-overview');
+    const pages=$('stats-pages');
+    const refs=$('stats-refs');
+    const browsers=$('stats-browsers');
+    const systems=$('stats-systems');
+    const locations=$('stats-locations');
+    
+    if(overview)overview.innerHTML='<p style="color:#666">Lade...</p>';
+    
+    const headers={'Authorization':`Bearer ${token}`};
+    const base='https://schels.goatcounter.com/api/v0/stats';
     
     try{
-      // Hole Statistiken für heute, diese Woche, diesen Monat
-      const today=new Date().toISOString().split('T')[0];
-      const weekAgo=new Date(Date.now()-7*24*60*60*1000).toISOString().split('T')[0];
-      const monthAgo=new Date(Date.now()-30*24*60*60*1000).toISOString().split('T')[0];
-      
-      const headers={'Authorization':`Bearer ${token}`};
-      
-      // Total Stats
-      const [totalRes,pagesRes]=await Promise.all([
-        fetch(`https://schels.goatcounter.com/api/v0/stats/total?start=${monthAgo}&end=${today}`,{headers}),
-        fetch(`https://schels.goatcounter.com/api/v0/stats/hits?start=${weekAgo}&end=${today}&limit=10`,{headers})
+      // Parallel alle Statistiken laden
+      const [totalRes,hitsRes,refsRes,browsersRes,systemsRes,locationsRes]=await Promise.all([
+        fetch(`${base}/total?start=${start}&end=${end}`,{headers}),
+        fetch(`${base}/hits?start=${start}&end=${end}&limit=10`,{headers}),
+        fetch(`${base}/refs?start=${start}&end=${end}&limit=10`,{headers}),
+        fetch(`${base}/browsers?start=${start}&end=${end}&limit=8`,{headers}),
+        fetch(`${base}/systems?start=${start}&end=${end}&limit=8`,{headers}),
+        fetch(`${base}/locations?start=${start}&end=${end}&limit=10`,{headers})
       ]);
       
-      if(!totalRes.ok)throw new Error('API Fehler - Token prüfen');
+      if(!totalRes.ok)throw new Error('API Fehler');
       
       const total=await totalRes.json();
-      const pages=pagesRes.ok?await pagesRes.json():null;
+      const hitsData=hitsRes.ok?await hitsRes.json():null;
+      const refsData=refsRes.ok?await refsRes.json():null;
+      const browsersData=browsersRes.ok?await browsersRes.json():null;
+      const systemsData=systemsRes.ok?await systemsRes.json():null;
+      const locationsData=locationsRes.ok?await locationsRes.json():null;
       
-      let html=`
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem">
+      // Overview Cards
+      if(overview){
+        const periodLabel={day:'Heute',week:'7 Tage',month:'30 Tage',year:'365 Tage'}[period];
+        overview.innerHTML=`
           <div class="stat-card">
-            <h4>Letzte 30 Tage</h4>
-            <div class="value">${total.total?.toLocaleString('de-DE')||'–'}</div>
-            <div style="font-size:.7rem;color:#666">Seitenaufrufe</div>
+            <h4>Aufrufe (${periodLabel})</h4>
+            <div class="value">${(total.total||0).toLocaleString('de-DE')}</div>
           </div>
           <div class="stat-card">
-            <h4>Unique Visitors</h4>
-            <div class="value">${total.total_unique?.toLocaleString('de-DE')||'–'}</div>
-            <div style="font-size:.7rem;color:#666">Besucher</div>
+            <h4>Besucher</h4>
+            <div class="value">${(total.total_unique||0).toLocaleString('de-DE')}</div>
           </div>
-        </div>
-      `;
-      
-      // Top Seiten
-      if(pages&&pages.stats&&pages.stats.length){
-        html+=`<div class="section-title" style="margin-top:1rem">Top Seiten (7 Tage)</div>`;
-        pages.stats.slice(0,8).forEach(p=>{
-          html+=`<div class="stat-row"><span>${p.name||p.path||'/'}</span><span><strong>${p.count}</strong></span></div>`;
-        });
+          <div class="stat-card">
+            <h4>Ø pro Tag</h4>
+            <div class="value">${Math.round((total.total||0)/({day:1,week:7,month:30,year:365}[period]||7))}</div>
+          </div>
+        `;
       }
       
-      container.innerHTML=html;
+      // Detailstatistiken
+      if(pages)pages.innerHTML=renderStatRows(hitsData?.stats||hitsData);
+      if(refs)refs.innerHTML=renderStatRows(refsData?.stats||refsData);
+      if(browsers)browsers.innerHTML=renderStatRows(browsersData?.stats||browsersData);
+      if(systems)systems.innerHTML=renderStatRows(systemsData?.stats||systemsData);
+      if(locations)locations.innerHTML=renderStatRows(locationsData?.stats||locationsData);
       
     }catch(e){
-      container.innerHTML=`
-        <div class="info-box" style="background:#fff3cd;border-color:#ffc107">
-          <strong>Fehler:</strong> ${e.message}<br>
-          <small>Stelle sicher, dass der Token "read" Berechtigung hat.</small>
-        </div>
-      `;
+      if(overview)overview.innerHTML=`<div class="info-box" style="background:#fff3cd;border-color:#ffc107"><strong>Fehler:</strong> ${e.message}</div>`;
     }
   }
 
