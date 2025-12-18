@@ -1,60 +1,22 @@
 {
   "content": {
-    "profil-ueberblick": "<p>Ihr Architekt für Neubau, Bestand und anspruchsvolle Bauaufgaben. <strong class=\"brand-name\">architekturbüro schels</strong> begleitet Bauvorhaben vom ersten Entwurf bis zur Umsetzung – in allen Leistungsphasen der HOAI.</p><p>Neubau, Umbau, Sanierung und Erweiterung werden mit klaren Konzepten und nachvollziehbarer Planung realisiert.</p>",
-    "profil-arbeitsweise": "<p>Planung ist Prozess. Sie beginnt mit einer genauen Analyse von Ort, Bestand, Budget und Bedarf.</p><p><strong class=\"brand-name\">architekturbüro schels</strong> arbeitet persönlich, strukturiert und lösungsorientiert.</p><p>Im Mittelpunkt stehen Sorgfalt und Verständlichkeit: verlässliche Planung, klare Kommunikation, nachvollziehbare Kosten. Test</p>",
+    "profil-ueberblick": "<p>Ihr Architekt für Neubau, Bestand und anspruchsvolle Bauaufgaben. </p><p><strong class=\"brand-name\">architekturbüro schels</strong> begleitet Bauvorhaben vom ersten Entwurf bis zur Umsetzung – in allen Leistungsphasen der HOAI.</p><p>Neubau, Umbau, Sanierung und Erweiterung werden mit klaren Konzepten und nachvollziehbarer Planung realisiert.</p>",
+    "profil-arbeitsweise": "<p>Planung ist Prozess. Sie beginnt mit einer genauen Analyse von Ort, Bestand, Budget und Bedarf.</p><p><strong class=\"brand-name\">architekturbüro schels</strong> arbeitet persönlich, strukturiert und lösungsorientiert.</p><p>Im Mittelpunkt stehen Sorgfalt und Verständlichkeit: verlässliche Planung, klare Kommunikation, nachvollziehbare Kosten.</p>",
     "profil-schwerpunkte": "<p>Ein besonderer Schwerpunkt liegt auf dem <em>Bauen im Bestand</em>, insbesondere im Umgang mit denkmalgeschützten Gebäuden.</p><p>Der Entwurfsansatz ist geprägt von einem präzisen und sensiblen Umgang mit dem Vorhandenen. Eingriffe erfolgen so gering wie möglich und so gezielt wie nötig.</p>",
     "profil-philosophie": "<p>Architektur entwickelt sich mit den Menschen, die sie nutzen, und mit den Anforderungen, die sich über die Zeit verändern.</p><p><strong class=\"brand-name\">architekturbüro schels</strong> versteht Architektur als sorgfältige Auseinandersetzung mit Ort, Aufgabe und Bestand – mit Respekt vor dem Vorhandenen und Mut zum Umbau.</p>",
-    "vita-zusatz": "<p>Mitglied der Bayerischen Architektenkammer</p><p><br></p><p>Architektenliste: 192.686</p>",
-    "leistungen-intro": "<p><strong class=\"brand-name\">architekturbüro schels</strong> begleitet Bauvorhaben im Hochbau in allen Leistungsphasen der HOAI (1–9).</p><p>Die Arbeit beginnt häufig nicht mit einem fertigen Bauwunsch, sondern mit offenen Fragen zum Bestand, zur Nutzung oder zu familiären und rechtlichen Rahmenbedingungen.</p>",
-    "leistungen-anfragen": "<p><br></p>",
-    "leistungen-planung": "<p><br></p>",
-    "referenzen-hinweis": "<p>Die Projekte wurden in Zusammenarbeit mit anderen Architekten und Mitarbeitenden der beteiligten Büros bearbeitet.</p>",
+    "vita": "<p><br></p><p>Mitglied der Bayerischen ArchitektenkammerArchitektenliste: 192.686</p>",
+    "leistungen": "<p><strong class=\"brand-name\">architekturbüro schels</strong> begleitet Bauvorhaben im Hochbau in allen Leistungsphasen der HOAI (1–9).</p><p>Die Arbeit beginnt häufig nicht mit einem fertigen Bauwunsch, sondern mit offenen Fragen zum Bestand, zur Nutzung oder zu familiären und rechtlichen Rahmenbedingungen.</p><h3>Typische Anfragen</h3><p><br></p><p>Wenn Sie sich in einer dieser Situationen wiederfinden, ist ein erstes Gespräch oft der sinnvollste Schritt.</p><h3>Planung und Umsetzung</h3><p><br></p><p>Die Planung umfasst Entwurf und Genehmigung, Ausführungsplanung und Bauleitung bis hin zur Objektbetreuung und Dokumentation.</p><h3>Klärung, Bestand und Struktur</h3><p><br></p><h3>Grundriss, Nutzung und Innenräume</h3><p><br></p><h3>Abstimmung und Begleitung</h3><p><br></p><p>Alle Leistungen können vollständig oder in einzelnen Abschnitten beauftragt werden. Auch frühe Klärungen oder einzelne Fragestellungen lassen sich unabhängig von einem konkreten Bauvorhaben sinnvoll begleiten.</p><p class=\"says\">« Architektur ist die Zeit, die man sich nimmt. »</p>",
+    "referenzen": "<h3>Ausgewählte Referenzen</h3><p><br></p><p><br></p>",
     "kontakt-intro": "<p><strong class=\"brand-name\">architekturbüro schels</strong></p><p> freut sich auf Ihre Anfrage.</p><p><br></p><p>Geschäftsbetrieb ab 01.01.2026.</p>",
-    "kontakt-email": "hello@schels.info",
-    "kontakt-telefon": "+49 8442 929 229 1",
-    "kontakt-adresse": "Schlachterstraße 9, 85283 Wolnzach",
-    "vita-rows": [
-      {
-        "zeit": "2026+",
-        "text": "architekturbüro schels, WolnzachFreier Architekt"
-      },
-      {
-        "zeit": "2022–25",
-        "text": "Deppisch Architekten GmbH, FreisingArchitekt, Projekt- und Bauleitung"
-      },
-      {
-        "zeit": "2019–22",
-        "text": "Planetz Architektenpartnerschaft, MünchenArchitekt, Bauleitung"
-      },
-      {
-        "zeit": "2017–19",
-        "text": "Architekturbüro von Friedrich-Liebenberg, MünchenFreier Mitarbeiter"
-      },
-      {
-        "zeit": "bis 2017",
-        "text": "Hochschule MünchenStudium der Architektur (M.A.)"
-      }
-    ],
-    "referenzen-rows": [
-      {
-        "content": "Christophstraße 4, MünchenSanierung eines denkmalgeschützten WohngebäudesLPH 3–8: Entwurf, Genehmigung, Ausführung, Vergabe, Bauleitung"
-      },
-      {
-        "content": "Realschule St. Immaculata, SchlehdorfBrandschutzsanierung einer denkmalgeschützten SchuleLPH 3–8: Entwurf, Genehmigung, Ausführung, Vergabe, Bauleitung"
-      },
-      {
-        "content": "Hof Berblinger Straße, Bad AiblingUmbau eines denkmalgeschützten Bauernhofs zu WohnnutzungLPH 1–5: Grundlagen, Vorplanung, Entwurf, Genehmigung, Ausführung"
-      },
-      {
-        "content": "Alte Allee, München-PasingUmbau und Sanierung einer denkmalgeschützten VillaLPH 1–5: Grundlagen, Vorplanung, Entwurf, Genehmigung, Ausführung"
-      },
-      {
-        "content": "EFH Wunderhornstraße, München-GrünwaldUmbau und Sanierung einer denkmalgeschützten VillaLPH 3–8: Entwurf, Genehmigung, Ausführung, Vergabe, Bauleitung"
-      },
-      {
-        "content": "Museum für Antike Schifffahrt, MainzAusstellungsplanung, Wettbewerb (gewonnen)LPH 1–3: Grundlagen, Vorplanung, Entwurf"
-      }
-    ]
+    "impressum": "<h2>Impressum</h2><p>\n</p><p>\n</p><h3>Inhaltlich Verantwortlicher</h3><p>\n</p><p><strong class=\"brand-name\">architekturbüro schels</strong></p><p><br></p><p>\nBenjamin Schels </p><p><br></p><p>\nArchitekt M.A.</p><p><br></p><p>\nSchlachterstraße 9</p><p><br></p><p>\nD-85283 Wolnzach</p><p><br></p><p>\ne-mail: </p><p><a href=\"mailto:hello@schels.info\">hello@schels.info</a></p><p><br></p><p>\n\n</p><h3>Berufsbezeichnung</h3><p>\n</p><p>Benjamin Schels ist Mitglied der Bayerischen Architektenkammer, dort mit der Berufbezeichnung Architekt (verliehen in der Bundesrepublik Deutschland) in die Architektenliste eingetragen und demnach berechtigt, eben diese Berufsbezeichnung zu führen.</p><p>\n</p><p>Listennummer: <em>ByAK 192.686.</em></p><p>\n\n</p><h3>Zuständige Behörde / Aufsichtbehörde</h3><p>\nBayerische Architektenkammer (ByAK)</p><p><br></p><p>\nWaisenhausstr. 4, 80637 München</p><p><br></p><p>\nTelefon: 089 139880-0</p><p><br></p><p>\nTelefax: 089 139880-55</p><p><br></p><p>\nE-Mail: info@byak.de</p><p><br></p><p>\nInternet: www.byak.de</p><p><br></p><p>\n\n</p><h3>Berufrechtliche Regelungen</h3><p>\n</p><p><br></p><p>\n</p><p><br></p><p>\n\n</p><h3>Streitbeilegung</h3><p>\n</p><p>Plattform der EU-Kommission zur Online-Streitbeilegung: <a href=\"https://ec.europa.eu/consumers/odr\" target=\"_blank\" rel=\"noopener noreferrer\">Link</a>.</p><p>\n</p><p>Ich bin zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.</p><p>\n\n</p><h3>Lizenz</h3><p>\n\n</p><p>Diese Website, ihr <a href=\"https://github.com/bschels/bschels.github.io/\">Quellcode</a> und die enthaltenen Bilder sind nach den Regeln der <em>freien Software (Open Source)</em> veröffentlicht.</p><p>\n\n</p><p>Copyright (c) 2025 Benjamin Schels (<a href=\"https://schels.info\" target=\"_blank\">https://schels.info</a>, <a href=\"mailto:hello@schels.info\">hello@schels.info</a>).</p><p>\n\n</p><p>Der Quellcode dieser Website ist unter den Bedingungen der MIT Lizenz veröffentlicht.</p><p>\n\n</p><p>Die auf dieser Website veröffentlichten Bilder sind -soweit nicht anders gekennzeichnet- unter den Bedingungen der 'CC Attribution-ShareAlike 4.0 International' (CC BY-SA 4.0) veröffentlicht.</p><p>\n\n</p><p>Alle Dateien, die in der Distribution dieser Website enthalten sind, dürfen benutzt, kopiert, verändert und verteilt werden, einzeln oder gesamt unter den Bedingungen der MIT Lizenz. Der vollständige Inhalt der Lizenz ist hier zu finden:\n<a href=\"https://schels.info/license/license-mit.txt\">MIT Lizenz (txt)</a>\n</p><p>\n\n</p><p>Ausserdem dürfen alle Bilder dieser Website benutzt, verändern, angepasst und verteilt werden, unter den Bedingungen der 'Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International' (CC BY-SA 4.0) Lizenz.\nDen vollen Inhalt dieser Lizenz finden Sie hier:\n<a href=\"https://schels.info/license/license-by-sa-4-0-de.txt\">CC BY-SA 4.0, txt</a>\n</p><p>\n</p><p>Der obige Urheberrechtshinweis und dieser Genehmigungshinweis müssen in allen Kopien oder Kopien von wesentlichen Teilen des Quellcodes enthalten sein.</p><p>\n\n</p><h3>Website Konzeption und Umsetzung</h3><p>\n  \n</p><p>Konzeption und Umsetzung:\nBenjamin Schels.</p><p>\n</p><p>Diese Seite ist auf Github gehosted, der Quellcode und das Repository kann vollständig <a href=\"https://github.com/bschels/bschels.github.io\" target=\"_blank\">hier</a> eingesehen werden.</p><p>\n</p>",
+    "datenschutz": "<h2>Datenschutzerklärung</h2><p> \n</p><p>Personenbezogene Daten (nachfolgend zumeist nur „Daten“ genannt) werden von mir nur im Rahmen der Erforderlichkeit sowie zum Zwecke der Bereitstellung eines funktionsfähigen und nutzerfreundlichen Internetauftritts, inklusive seiner Inhalte und der dort angebotenen Leistungen, verarbeitet.</p><p> \n\n</p><p>Gemäß Art. 4 Ziffer 1. der Verordnung (EU) 2016/679, also der Datenschutz-Grundverordnung (nachfolgend nur „DSGVO“ genannt), gilt als „Verarbeitung“ jeder mit oder ohne Hilfe automatisierter Verfahren ausgeführter Vorgang oder jede solche Vorgangsreihe im Zusammenhang mit personenbezogenen Daten, wie das Erheben, das Erfassen, die Organisation, das Ordnen, die Speicherung, die Anpassung oder Veränderung, das Auslesen, das Abfragen, die Verwendung, die Offenlegung durch Übermittlung, Verbreitung oder eine andere Form der Bereitstellung, den Abgleich oder die Verknüpfung, die Einschränkung, das Löschen oder die Vernichtung.</p><p> \n\n</p><p>Mit der nachfolgenden Datenschutzerklärung informiere ich Sie insbesondere über Art, Umfang, Zweck, Dauer und Rechtsgrundlage der Verarbeitung personenbezogener Daten, soweit ich entweder allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung entscheide. Zudem informiere ich Sie nachfolgend über die von mir zu Optimierungszwecken sowie zur Steigerung der Nutzungsqualität eingesetzten Fremdkomponenten, soweit hierdurch Dritte Daten in wiederum eigener Verantwortung verarbeiten.</p><p> \n</p><p>Diese Datenschutzerklärung ist wie folgt gegliedert:</p><p> \n\n</p><p>I. Informationen über mich als Verantwortlichen\n\nII. Rechte der Nutzer und Betroffenen\n\nIII. Informationen zur Datenverarbeitung</p><p>\n\n</p><h3>I. Informationen über mich als Verantwortlichen</h3><p> \n</p><p>Verantwortlicher Anbieter dieses Internetauftritts und Datenschutzbeauftragter im datenschutzrechtlichen Sinne ist:</p><p>\n\n</p><p><strong>Benjamin Schels</strong>\nSchlachterstraße 9\nD-85283 Wolnzach\nDeutschland</p><p> \nE-Mail: </p><p><a href=\"hello@schels.info\">hello@schels.info</a></p><p><br></p><p>\n\n</p><h3>II. Rechte der Nutzer und Betroffenen</h3><p>\n</p><p>Mit Blick auf die nachfolgend noch näher beschriebene Datenverarbeitung haben die Nutzer und Betroffenen das Recht</p><p>\n</p><p><br></p><p> \n\n</p><p>Darüber hinaus ist der Anbieter dazu verpflichtet, alle Empfänger, denen gegenüber Daten durch den Anbieter offengelegt worden sind, über jedwede Berichtigung oder Löschung von Daten oder die Einschränkung der Verarbeitung, die aufgrund der Artikel 16, 17 Abs. 1, 18 DSGVO erfolgt, zu unterrichten. Diese Verpflichtung besteht jedoch nicht, soweit diese Mitteilung unmöglich oder mit einem unverhältnismäßigen Aufwand verbunden ist. Unbeschadet dessen hat der Nutzer ein Recht auf Auskunft über diese Empfänger.</p><p> \n\n</p><p><strong>Ebenfalls haben die Nutzer und Betroffenen nach Art. 21 DSGVO das Recht auf Widerspruch gegen die künftige Verarbeitung der sie betreffenden Daten, sofern die Daten durch den Anbieter nach Maßgabe von Art. 6 Abs. 1 lit. f) DSGVO verarbeitet werden. Insbesondere ist ein Widerspruch gegen die Datenverarbeitung zum Zwecke der Direktwerbung statthaft.</strong></p><p> \n\n</p><h3>III. Informationen zur Datenverarbeitung</h3><p> \n\n</p><p>Ihre bei Nutzung meines Internetauftritts verarbeiteten Daten werden gelöscht oder gesperrt, sobald der Zweck der Speicherung entfällt, der Löschung der Daten keine gesetzlichen Aufbewahrungspflichten entgegenstehen und nachfolgend keine anderslautenden Angaben zu einzelnen Verarbeitungsverfahren gemacht werden.</p><p>  \n\n</p><h4>Serverdaten</h4><p> \n\n</p><p>Aus technischen Gründen, insbesondere zur Gewährleistung eines sicheren und stabilen Internetauftritts, werden Daten durch Ihren Internet-Browser an mich bzw. an meinen Webspace-Provider übermittelt. Mit diesen sog. Server-Logfiles werden u.a. Typ und Version Ihres Internetbrowsers, das Betriebssystem, die Website, von der aus Sie auf meinen Internetauftritt gewechselt haben (Referrer URL), die Website(s) meines Internetauftritts, die Sie besuchen, Datum und Uhrzeit des jeweiligen Zugriffs sowie die IP-Adresse des Internetanschlusses, von dem aus die Nutzung meines Internetauftritts erfolgt, erhoben.</p><p> \n\n</p><p>Diese so erhobenen Daten werden vorübergehend gespeichert, dies jedoch nicht gemeinsam mit anderen Daten von Ihnen.</p><p> \n\n</p><p>Diese Speicherung erfolgt auf der Rechtsgrundlage von Art. 6 Abs. 1 lit. f) DSGVO. Mein berechtigtes Interesse liegt in der Verbesserung, Stabilität, Funktionalität und Sicherheit meines Internetauftritts.</p><p>\n\n</p><p>Die Daten werden spätestens nach sieben Tage wieder gelöscht, soweit keine weitere Aufbewahrung erforderlich ist. Andernfalls sind die Daten bis zur endgültigen Klärung eines Vorfalls ganz oder teilweise von der Löschung ausgenommen.</p><p> \n\n</p><h4>Kontaktanfragen / Kontaktmöglichkeit</h4><p>\n\n </p><p>Sofern Sie per E-Mail mit mir in Kontakt treten, werden die dabei von Ihnen angegebenen Daten zur Bearbeitung Ihrer Anfrage genutzt. Die Angabe der Daten ist zur Bearbeitung und Beantwortung Ihre Anfrage erforderlich - ohne deren Bereitstellung kann ich Ihre Anfrage nicht oder allenfalls eingeschränkt beantworten.</p><p> \n\n</p><p>Rechtsgrundlage für diese Verarbeitung ist Art. 6 Abs. 1 lit. b) DSGVO.</p><p>\n\n </p><p>Ihre Daten werden gelöscht, sofern Ihre Anfrage abschließend beantwortet worden ist und der Löschung keine gesetzlichen Aufbewahrungspflichten entgegenstehen, wie bspw. bei einer sich etwaig anschließenden Vertragsabwicklung.</p><p>\n\n</p><h3>Verlinkung Social-Media über Grafik oder Textlink</h3><p> \n\n</p><p>Ich bewerbe auf meiner Webseite auch Präsenzen auf den nachstehend aufgeführten sozialen Netzwerken. Die Einbindung erfolgt dabei über eine verlinkte Grafik des jeweiligen Netzwerks. Durch den Einsatz dieser verlinkten Grafik wird verhindert, dass es bei dem Aufruf einer Website, die über eine Social-Media-Bewerbung verfügt, automatisch zu einem Verbindungsaufbau zum jeweiligen Server des sozialen Netzwerks kommt, um eine Grafik des jeweiligen Netzwerkes selbst darzustellen. Erst durch einen Klick auf die entsprechende Grafik wird der Nutzer zu dem Dienst des jeweiligen sozialen Netzwerks weitergeleitet.</p><p> \n\n</p><p>Nach der Weiterleitung des Nutzers werden durch das jeweilige Netzwerk Informationen über den Nutzer erfasst. Es kann hierbei nicht ausgeschlossen werden, dass eine Verarbeitung der so erhobenen&nbsp; Daten in den USA stattfindet.</p><p>\n\n</p><p>Dies sind zunächst Daten wie IP-Adresse, Datum, Uhrzeit und besuchte Seite. Ist der Nutzer währenddessen in seinem Benutzerkonto des jeweiligen Netzwerks eingeloggt, kann der Netzwerk-Betreiber ggf. die gesammelten Informationen des konkreten Besuchs des Nutzers dem persönlichen Account des Nutzers zuordnen. Interagiert der Nutzer über einen „Teilen“-Button des jeweiligen Netzwerks, können diese Informationen in dem persönlichen Benutzerkonto des Nutzers gespeichert und ggf. veröffentlicht werden. Will der Nutzer verhindern, dass die gesammelten Informationen unmittelbar seinem Benutzerkonto zugeordnet werden, muss er sich vor dem Anklicken der Grafik ausloggen. Zudem besteht die Möglichkeit, das jeweilige Benutzerkonto entsprechend zu konfigurieren.</p><p>\n\n </p><p>Folgende soziale Netzwerke werden in meiner Seite durch Verlinkung eingebunden:</p><p>  \n\n</p><p><br></p><p><br></p><p>\n\n</p><h4>Zusätzliche Hinweise</h4><p>\n</p><p>\nTeile dieser Erklärung basieren auf der <a href=\"https://www.ratgeberrecht.eu/leistungen/muster-datenschutzerklaerung.html\" target=\"_blank\" rel=\"noopener\">Muster-Datenschutzerklärung</a> der <a href=\"https://www.ratgeberrecht.eu/datenschutz/datenschutzerklaerung-generator-dsgvo.html\" target=\"_blank\" rel=\"noopener\">Anwaltskanzlei Weiß &amp; Partner</a>.</p><p> \n</p>"
+  },
+  "seo": {
+    "title": "Architekt Wolnzach | architekturbüro schels – Bauen im Bestand & Denkmalpflege",
+    "description": "Architekt in Wolnzach bei Pfaffenhofen – Spezialist für Bauen im Bestand und Denkmalpflege in der Hallertau. Neubau, Umbau & Sanierung. Projekte in München, Ingolstadt und Freising.",
+    "keywords": "Architekt Wolnzach, Architekt Hallertau, Bauen im Bestand, Denkmalpflege Bayern, HOAI Architekt, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Architekt Pfaffenhofen, denkmalgeschützte Gebäude, Sanierung Altbau",
+    "ogTitle": "Architekt Wolnzach | architekturbüro schels – Bauen im Bestand",
+    "ogDescription": "Architekt in Wolnzach bei Pfaffenhofen – Bauen im Bestand und Denkmalpflege in der Hallertau. Neubau, Umbau & Sanierung in Bayern."
   },
   "styles": {
     "bg": "#ffffff",
@@ -64,18 +26,21 @@
     "bg-dark": "#111111",
     "text-dark": "#e5e5e5",
     "accent-dark": "#4d9fff",
-    "font-family": "-apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', sans-serif",
-    "font-size": "1em",
-    "font-weight": "200",
-    "line-height": "1.6",
-    "h1-size": "1.6em",
-    "h2-size": "1.4em",
-    "h3-size": "1.2em",
-    "heading-weight": "200",
-    "letter-spacing": "0.2em",
-    "page-width": "70%",
-    "max-width": "60em",
-    "paragraph-margin": "1rem",
-    "section-margin": "2.5rem"
-  }
+    "font": "system",
+    "fontsize": "1em",
+    "weight": "200",
+    "lineheight": "1.6",
+    "h1": "1.6em",
+    "h2": "1.4em",
+    "h3": "1.2em",
+    "spacing": "0.2em",
+    "width": "70%",
+    "maxwidth": "60em"
+  },
+  "contact": {
+    "email": "hello@schels.info",
+    "telefon": "+49 8442 929 229 1",
+    "adresse": "Schlachterstraße 9, 85283 Wolnzach"
+  },
+  "updated": "2025-12-18T19:29:04.701Z"
 }
