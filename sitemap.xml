@@ -6,7 +6,7 @@
     <!-- Hauptseite (Single Page Application) -->
     <url>
         <loc>https://schels.info/</loc>
-        <lastmod>2025-12-18</lastmod>
+        <lastmod>2025-12-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <xhtml:link rel="alternate" hreflang="de" href="https://schels.info/" />
@@ -26,14 +26,14 @@
     <!-- Rechtliche Seiten -->
     <url>
         <loc>https://schels.info/pages/impressum.html</loc>
-        <lastmod>2025-12-18</lastmod>
+        <lastmod>2025-12-19</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
     
     <url>
         <loc>https://schels.info/pages/datenschutz.html</loc>
-        <lastmod>2025-12-18</lastmod>
+        <lastmod>2025-12-19</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>

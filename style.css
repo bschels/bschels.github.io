@@ -868,69 +868,12 @@ hr.z {
   }
 }
 
-/* ========== GEZIELTE ANPASSUNGEN (vom Kunden gewünscht) ========== */
-
-/* Header Schriftzug (Titel oben) - Hover-Effekt auf Blau */
-.title-link:hover {
-    color: var(--accent) !important; /* Text blau machen */
-    background-color: transparent !important; /* Hintergrund entfernen */
-    text-decoration-color: var(--accent) !important; /* Unterstrich blau machen */
-}
-
-/* Schriftzug rechts unten (Mini-Titel im Footer) - Hover-Effekt auf Blau */
+/* ========== Titel Hover-Effekte (Blau) ========== */
+.title-link:hover,
 .mini-title-link:hover {
-    color: var(--accent) !important; /* Text blau machen */
-    background-color: transparent !important; /* Hintergrund entfernen */
-    text-decoration-color: var(--accent) !important; /* Unterstrich blau machen */
-}
-
-/* WICHTIG: DE/EN Sprachenumschalter im Header - Hover-Zustand und Aktiver Zustand jetzt getrennt */
-/* Hover-Zustand (Schwarz hinterlegt, weißer Text) */
-.language-select a.switch-language:hover {
-    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
-    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
-    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
-}
-
-/* Aktiver Zustand (Normal Schwarz) */
-.language-select a.switch-language.active-lang-link {
-    color: var(--body) !important; /* Text normal schwarz */
-    background-color: transparent !important; /* Hintergrund transparent */
-    text-decoration-color: var(--body) !important; /* Unterstreichung normal schwarz */
-}
-
-/* Aktiver Zustand im Hover-Zustand (Soll sich wie Hover verhalten) */
-.language-select a.switch-language.active-lang-link:hover {
-    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
-    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
-    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
-}
-
-/* Lightbox DE/EN Sprachenumschalter - Hover-Zustand und Aktiver Zustand jetzt getrennt */
-/* Hover-Zustand (Schwarz hinterlegt, weißer Text) */
-.lb_language a.switch-language:hover {
-    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
-    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
-    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
-}
-
-/* Aktiver Zustand (Normal Schwarz) */
-.lb_language a.switch-language.active-lang-link {
-    color: var(--body) !important; /* Text normal schwarz */
-    background-color: transparent !important; /* Hintergrund transparent */
-    text-decoration-color: var(--body) !important; /* Unterstreichung normal schwarz */
-}
-
-/* Aktiver Zustand im Hover-Zustand (Soll sich wie Hover verhalten) */
-.lb_language a.switch-language.active-lang-link:hover {
-    color: var(--hover-text) !important; /* Weißer Text beim Hovern */
-    background-color: var(--hover-bg) !important; /* Schwarzer Hintergrund beim Hovern */
-    text-decoration-color: var(--hover-text) !important; /* Weiße Unterstreichung beim Hovern */
-}
-
-/* NEU: Transparenter Hintergrund für SPAN.white innerhalb von Lightbox-Sprachlinks */
-.lb_language a.switch-language span.white {
-    background-color: transparent !important; /* Macht den Hintergrund des SPAN transparent */
+  color: var(--accent) !important;
+  background-color: transparent !important;
+  text-decoration-color: var(--accent) !important;
 }
 
 /* ========== CV/Vita Profilbild ========== */
@@ -1217,7 +1160,7 @@ input[type=radio]:checked ~ .cat_text {
     width: 100%;
     font-size: 11pt;
   }
-  .logo-ru, .header-lang, .cta-link, #preloader {
+  .logo-ru, .header-lang, .cta-link {
     display: none !important;
   }
   .cat_text {

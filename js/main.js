@@ -1,28 +1,18 @@
-// Global helper function to load content via AJAX
+// Helper function to load content via AJAX (for Impressum/Datenschutz lightbox)
 function loadContent(pageFilename, targetElementId, callback) {
   var cacheBuster = "?_t=" + new Date().getTime();
   $.get('/pages/' + pageFilename + '.html' + cacheBuster)
     .done(function(data) {
       $('#' + targetElementId).html(data);
-      if (typeof callback === 'function') {
-        callback();
-      }
+      if (typeof callback === 'function') callback();
     })
-    .fail(function(jqXHR, textStatus, errorThrown) {
-      console.error("Failed to load content for: " + pageFilename, textStatus, errorThrown);
-      $('#' + targetElementId).html('<p>Error loading content. Please try again later.</p>');
-      if (typeof callback === 'function') {
-        callback();
-      }
+    .fail(function() {
+      $('#' + targetElementId).html('<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>');
+      if (typeof callback === 'function') callback();
     });
 }
 
 $(function() {
-  $(window).on('load', function() {
-    $('#status').fadeOut();
-    $('#preloader').delay(350).fadeOut('slow');
-    $('body').delay(550).css({'overflow':'visible'});
-  });
 
   // Language switcher
   $(document).on("click", ".switch-language", function(e) {
@@ -78,20 +68,6 @@ $(function() {
     $clickedRadio.prop("checked", !wasChecked);
     $clickedRadio.data("chk", !wasChecked);
     updateAccordionLabels();
-
-    // Auto-load content for accordion sections with data-auto-load
-    if (!wasChecked) {
-      var contentId = $clickedRadio.attr('id').replace('tog', 'content');
-      var $content = $('#' + contentId);
-      var $autoLoadElement = $content.find('[data-auto-load="true"]');
-      if ($autoLoadElement.length && !$autoLoadElement.data('loaded')) {
-        var pageFilename = $autoLoadElement.data('page');
-        var targetElementId = $autoLoadElement.attr('id');
-        loadContent(pageFilename, targetElementId, function() {
-          $autoLoadElement.data('loaded', true);
-        });
-      }
-    }
   });
 
   updateAccordionLabels();
