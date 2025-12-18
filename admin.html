@@ -134,6 +134,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <a href="#" class="nav-item" data-panel="datenschutz" data-file="pages/datenschutz.html">Datenschutz</a>
         <div class="nav-section">Einstellungen</div>
         <a href="#" class="nav-item" data-panel="seo">SEO & Meta</a>
+        <a href="#" class="nav-item" data-panel="styles">Styles</a>
         <a href="#" class="nav-item" data-panel="settings">GitHub</a>
       </nav>
       <div class="sidebar-footer">
@@ -197,6 +198,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
           </div>
         </div>
 
+        <!-- Styles Panel -->
+        <div id="styles-panel" class="panel">
+          <div class="editor-container">
+            <div class="code-pane" style="border-right:1px solid var(--border)">
+              <div class="cm-wrapper"><textarea id="editor-styles"></textarea></div>
+            </div>
+            <div class="preview-pane">
+              <iframe id="styles-preview" style="width:100%;height:100%;border:none;background:#fff"></iframe>
+            </div>
+          </div>
+        </div>
+
         <!-- Settings -->
         <div id="settings-panel" class="panel">
           <div class="seo-panel">
@@ -229,6 +242,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
   <script>
@@ -237,8 +251,32 @@ button:disabled{opacity:.4;cursor:not-allowed}
   const $$=s=>document.querySelectorAll(s);
   const hash=s=>s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
 
-  let editors={}, hasChanges=false, currentPanel='profil', currentView='split', indexHtml='';
+  let editors={}, hasChanges=false, currentPanel='profil', currentView='split', indexHtml='', cssEditor=null;
   const editorIds=['profil','vita','leistungen','projekte','kontakt','impressum','datenschutz'];
+  
+  // Beispiel-HTML für CSS-Preview
+  const cssPreviewHtml=`<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style id="live-css"></style></head><body style="padding:2rem;max-width:800px;margin:0 auto">
+<h1 class="title-text">architekturbüro<br><span>schels</span></h1>
+<hr class="y">
+<label class="cat" for="demo"><h2 class="cat">+ Kategorie</h2></label>
+<hr class="z">
+<h2>Überschrift H2</h2>
+<h3>Überschrift H3</h3>
+<p>Dies ist ein normaler Absatz mit <strong>fettem Text</strong>, <em>kursivem Text</em> und einem <a href="#">Link</a>. Das <span class="brand-name">architekturbüro schels</span> steht für Qualität.</p>
+<blockquote><p class="says">„Ein Zitat steht hier"</p><p>— Quelle des Zitats</p></blockquote>
+<h3>Liste</h3>
+<ul><li>Listenpunkt eins</li><li>Listenpunkt zwei</li><li>Listenpunkt drei</li></ul>
+<h3>Tabelle (Vita)</h3>
+<table><tr><td>2020–heute</td><td><strong>Position</strong><br>Beschreibung der Tätigkeit</td></tr><tr><td>2015–2020</td><td><strong>Position</strong><br>Beschreibung der Tätigkeit</td></tr><tr><td>2010–2015</td><td><strong>Position</strong><br>Beschreibung der Tätigkeit</td></tr></table>
+<h3>CV Header</h3>
+<div class="cv-header"><div class="cv-name"><p class="cv-role">Architekt M.A.</p><h2>Benjamin Schels</h2><p class="cv-subtitle">Inhaber</p></div></div>
+<h3>Buttons & Links</h3>
+<div class="cta-link"><a href="#" class="cta-contact">Kontakt aufnehmen →</a></div>
+<h3>Formular</h3>
+<div class="contact-form"><div class="form-group"><label>Name</label><input type="text" placeholder="Ihr Name"></div><div class="form-group"><label>Nachricht</label><textarea placeholder="Ihre Nachricht"></textarea></div><button class="form-submit">Senden</button></div>
+<hr class="z">
+<footer><div class="footer-bottom-container"><div class="footer-info-left"><span class="footer-name-title">architekturbüro schels</span><span class="footer-address-line">Schlachterstraße 9, 85283 Wolnzach</span></div><div class="footer-legal-links"><div><a href="#">Impressum</a></div><div><a href="#">Datenschutz</a></div></div></div></footer>
+</body></html>`;
   const sections={
     profil:{id:'content1',preserve:['.cv-header','blockquote','.cta-link']},
     vita:{id:'content2',preserve:[]},
@@ -313,6 +351,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
       $('panel-title').innerHTML=n.textContent+'<span class="unsaved'+(hasChanges?' active':'')+'" id="unsaved"></span>';
       currentPanel=panel;
       if(editors[panel])setTimeout(()=>editors[panel].refresh(),10);
+      if(panel==='styles'&&cssEditor)setTimeout(()=>{cssEditor.refresh();updateCssPreview();},10);
     });
     
     // View toggle
@@ -363,6 +402,27 @@ button:disabled{opacity:.4;cursor:not-allowed}
         editors[id].on('change',()=>{markChanged();updatePreview(id);});
       }
     });
+    
+    // CSS Editor
+    const cssTa=$('editor-styles');
+    if(cssTa){
+      cssEditor=CodeMirror.fromTextArea(cssTa,{
+        mode:'css',theme:'dracula',lineNumbers:true,lineWrapping:true,
+        indentUnit:2,tabSize:2
+      });
+      cssEditor.on('change',()=>{markChanged();updateCssPreview();});
+    }
+  }
+  
+  function updateCssPreview(){
+    const iframe=$('styles-preview');
+    if(!iframe||!cssEditor)return;
+    const doc=iframe.contentDocument||iframe.contentWindow.document;
+    doc.open();
+    doc.write(cssPreviewHtml);
+    doc.close();
+    const style=doc.getElementById('live-css');
+    if(style)style.textContent=cssEditor.getValue();
   }
 
   function execCmd(editorId,cmd){
@@ -449,6 +509,15 @@ button:disabled{opacity:.4;cursor:not-allowed}
       $('seo-og-description').value=doc.querySelector('meta[property="og:description"]')?.content||'';
       charCount($('seo-title'),60);
       charCount($('seo-description'),160);
+      
+      // Load CSS
+      try{
+        const cssRes=await fetch('/style.css?t='+Date.now());
+        if(cssRes.ok&&cssEditor){
+          cssEditor.setValue(await cssRes.text());
+          updateCssPreview();
+        }
+      }catch(e){}
 
       hasChanges=false;
       showStatus('Geladen ✓','success');
@@ -480,6 +549,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
       await saveIndexHtml();
       if(editors.impressum)await saveFile('pages/impressum.html',editors.impressum.getValue());
       if(editors.datenschutz)await saveFile('pages/datenschutz.html',editors.datenschutz.getValue());
+      if(cssEditor)await saveFile('style.css',cssEditor.getValue());
 
       hasChanges=false;
       $('unsaved')?.classList.remove('active');
