@@ -239,7 +239,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
                 <div class="cm-wrapper"><textarea id="editor-styles"></textarea></div>
               </div>
               <div class="preview-pane" style="flex:1;display:flex;justify-content:center;background:#e0e0e0;padding:1rem">
-                <iframe id="styles-preview" style="width:100%;height:100%;border:none;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);transition:width .3s"></iframe>
+                <iframe id="styles-preview" src="/" style="width:100%;height:100%;border:none;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);transition:width .3s"></iframe>
               </div>
             </div>
           </div>
@@ -289,150 +289,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
   let editors={}, hasChanges=false, currentPanel='profil', currentView='split', indexHtml='', cssEditor=null;
   const editorIds=['profil','leistungen','projekte','kontakt','vita','impressum','datenschutz'];
   
-  // Beispiel-HTML für CSS-Preview mit ALLEN verwendeten Elementen
-  const cssPreviewHtml=`<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style id="live-css"></style></head><body>
-<header>
-  <div class="header-row">
-    <div class="title-wrapper">
-      <a href="#" class="title-link">
-        <h1 class="title-text">archi­tektur­büro<br><span>schels</span></h1>
-      </a>
-    </div>
-  </div>
-</header>
-<main>
-  <hr class="y">
-  <hr class="z">
-  
-  <!-- Kategorie Label -->
-  <input type="radio" name="tog" id="tog-demo" checked>
-  <label class="cat expanded" for="tog-demo">
-    <h2 class="cat">profil</h2>
-  </label>
-  <hr class="z">
-  <div class="cat_text" style="max-height:none">
-    
-    <!-- CV Header -->
-    <div class="cv-header">
-      <div class="cv-name">
-        <p class="cv-role">Büroinhaber</p>
-        <h2>Benjamin Schels</h2>
-        <p class="cv-subtitle">Architekt M.A.</p>
-      </div>
-    </div>
-    
-    <!-- Überschriften -->
-    <h2>ÜBERSCHRIFT H2</h2>
-    <h3>ÜBERSCHRIFT H3</h3>
-    <h3 class="cat">h3.cat (Kategorie-Stil)</h3>
-    
-    <!-- Absätze & Text -->
-    <p>Normaler Absatz mit <strong>STRONG/FETT</strong> und <em>kursiv/italic</em> Text.</p>
-    <p>Das <strong class="brand-name">architekturbüro schels</strong> steht für Qualität. Die Klasse <code>.brand-name</code> verhindert uppercase.</p>
-    <p class="content">Absatz mit <code>p.content</code> Klasse – größere Schrift.</p>
-    <p>Text mit <span class="smallcaps">Small Caps Formatierung</span> für besondere Betonung.</p>
-    <p><small>Kleiner Text mit &lt;small&gt; Tag</small></p>
-    
-    <!-- Links -->
-    <p><a href="#">Ein Link</a> – hover zeigt Hintergrund</p>
-    
-    <!-- Blockquote -->
-    <blockquote>
-      <p class="says">« Der liebe Gott steckt im Detail. »</p>
-      <p>— Mies van der Rohe</p>
-    </blockquote>
-    
-    <!-- Listen -->
-    <h3>LISTE (UL)</h3>
-    <ul>
-      <li>Listenpunkt eins</li>
-      <li>Listenpunkt zwei</li>
-      <li>Listenpunkt drei</li>
-    </ul>
-    
-    <h3>NUMMERIERTE LISTE (OL)</h3>
-    <ol>
-      <li>Erster Punkt</li>
-      <li>Zweiter Punkt</li>
-      <li>Dritter Punkt</li>
-    </ol>
-    
-    <!-- Tabelle (Vita) -->
-    <h3>TABELLE (VITA-STIL)</h3>
-    <table>
-      <tr><td>2024–heute</td><td><strong class="brand-name">architekturbüro schels</strong>, Wolnzach<br>Freier Architekt</td></tr>
-      <tr><td>2018–2024</td><td><strong>POSITION</strong><br>Beschreibung der Tätigkeit</td></tr>
-      <tr><td>2012–2018</td><td><strong>POSITION</strong><br>Beschreibung der Tätigkeit</td></tr>
-    </table>
-    
-    <!-- Arrow Links -->
-    <h3>KONTAKT-LINKS</h3>
-    <div class="contact-info">
-      <div class="arrow-nohover">Email: <a href="#">hello@schels.info</a></div>
-      <div class="arrow-nohover">Telefon: <a href="#">+49 8442 929 229 1</a></div>
-      <div class="arrow-nohover">Adresse: <a href="#">Schlachterstraße 9, 85283 Wolnzach</a></div>
-    </div>
-    
-    <!-- CTA Button -->
-    <div class="cta-link">
-      <a href="#" class="cta-contact">→ Kontakt aufnehmen</a>
-    </div>
-    
-    <!-- Formular -->
-    <div class="contact-form-section">
-      <h3>KONTAKTFORMULAR</h3>
-      <form class="contact-form">
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" placeholder="Ihr Name">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="ihre@email.de">
-        </div>
-        <div class="form-group">
-          <label>Nachricht</label>
-          <textarea placeholder="Ihre Nachricht..."></textarea>
-        </div>
-        <button type="button" class="form-submit">Nachricht senden →</button>
-      </form>
-      <div class="form-success" style="display:block;margin-top:1rem">
-        <p class="success-icon">✓</p>
-        <p class="success-title">Nachricht gesendet!</p>
-        <p class="success-text">Vielen Dank für Ihre Nachricht.</p>
-      </div>
-    </div>
-    
-    <hr class="z">
-  </div>
-  
-  <!-- Zweite Kategorie (collapsed) -->
-  <input type="radio" name="tog" id="tog-demo2">
-  <label class="cat" for="tog-demo2">
-    <h2 class="cat">vita</h2>
-  </label>
-  <hr class="z">
-</main>
-
-<footer>
-  <div class="footer-bottom-container">
-    <div class="footer-info-left">
-      <span class="footer-name-title">Benjamin Schels, Architekt M.A.</span>
-      <span class="footer-address-line">Schlachterstraße 9, D-85283 Wolnzach</span>
-    </div>
-    <div class="footer-legal-links">
-      <div class="lb-link"><a href="#"><span class="white">Impressum</span></a></div>
-      <div class="lb-link"><a href="#"><span class="white">Datenschutz</span></a></div>
-    </div>
-  </div>
-</footer>
-
-<!-- Logo rechts unten -->
-<div class="logo-ru" style="position:relative;bottom:auto;right:auto;margin-top:2rem">
-  <a href="#" class="mini-title-link">architekturbüro<br><span class="mini-second-line">schels</span></a>
-</div>
-
-</body></html>`;
   const sections={
     profil:{id:'content1',preserve:['.cv-header','blockquote','.cta-link']},
     leistungen:{id:'content3',preserve:[]},
@@ -579,12 +435,29 @@ button:disabled{opacity:.4;cursor:not-allowed}
   function updateCssPreview(){
     const iframe=$('styles-preview');
     if(!iframe||!cssEditor)return;
-    const doc=iframe.contentDocument||iframe.contentWindow.document;
-    doc.open();
-    doc.write(cssPreviewHtml);
-    doc.close();
-    const style=doc.getElementById('live-css');
-    if(style)style.textContent=cssEditor.getValue();
+    try{
+      const doc=iframe.contentDocument||iframe.contentWindow.document;
+      if(!doc||!doc.head)return;
+      // Deaktiviere das originale Stylesheet
+      const origStyle=doc.querySelector('link[href*="style.css"]');
+      if(origStyle)origStyle.disabled=true;
+      // Füge/aktualisiere Live-CSS
+      let liveStyle=doc.getElementById('admin-live-css');
+      if(!liveStyle){
+        liveStyle=doc.createElement('style');
+        liveStyle.id='admin-live-css';
+        doc.head.appendChild(liveStyle);
+      }
+      liveStyle.textContent=cssEditor.getValue();
+    }catch(e){}
+  }
+  
+  // Warte bis iframe geladen ist
+  function setupPreviewIframe(){
+    const iframe=$('styles-preview');
+    if(iframe){
+      iframe.onload=()=>setTimeout(updateCssPreview,100);
+    }
   }
   
   // CSS Variablen aus dem Code extrahieren
@@ -630,6 +503,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
   
 // Responsive Preview
   function initStylesPanel(){
+    setupPreviewIframe();
+    
     // Color pickers
     ['bg','body','secondary','accent','hover-bg','hover-text'].forEach(v=>{
       const el=$('var-'+v);
