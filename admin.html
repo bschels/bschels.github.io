@@ -724,8 +724,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
     localStorage.setItem('ed_styles',JSON.stringify(styles));
     
     try{
-      // Save index.html with updated content
-      await saveIndexHtml();
+      // DISABLED: saveIndexHtml() zerstört komplexe HTML-Strukturen (Listen, Tabellen)
+      // Die Hauptseite muss manuell bearbeitet werden
+      // await saveIndexHtml();
       
       // Save impressum
       if(editors.impressum){
