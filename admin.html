@@ -168,6 +168,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <a href="#" class="nav-item" data-panel="settings">GitHub</a>
       </nav>
       <div class="sidebar-footer">
+        <button id="diff-btn" class="btn-secondary" onclick="showDiff()" style="font-size:.65rem">🔍 Änderungen</button>
         <button id="save-btn" class="btn-success">💾 Speichern</button>
         <button id="logout-btn" class="btn-secondary">Abmelden</button>
       </div>
@@ -664,7 +665,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
           temp.innerHTML=el.innerHTML;
           sec.preserve.forEach(s=>temp.querySelectorAll(s).forEach(e=>e.remove()));
           temp.querySelectorAll('hr.z').forEach(hr=>hr.remove());
-          editors[key].setValue(temp.innerHTML.trim());
+          const content=temp.innerHTML.trim();
+          editors[key].setValue(content);
+          originalContent[key]=content; // Save for diff
           updatePreview(key);
         }
       });
@@ -694,6 +697,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         if(cssRes.ok&&cssEditor){
           const cssText = await cssRes.text();
           cssEditor.setValue(cssText);
+          originalContent['style.css']=cssText; // Save for diff
           extractCssVars();
           updateCssPreview();
         }
@@ -857,7 +861,255 @@ button:disabled{opacity:.4;cursor:not-allowed}
     }
   };
 
+  // ========== FEATURE 1: Keyboard Shortcuts ==========
+  document.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey)&&e.key==='s'){
+      e.preventDefault();
+      if(hasChanges)saveAll();
+    }
+  });
+
+  // ========== FEATURE 2: Warnung bei ungespeicherten Änderungen ==========
+  window.addEventListener('beforeunload',e=>{
+    if(hasChanges){
+      e.preventDefault();
+      e.returnValue='';
+    }
+  });
+
+  // ========== FEATURE 3: Sitemap aktualisieren ==========
+  async function updateSitemap(){
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
+    const today=new Date().toISOString().split('T')[0];
+    
+    try{
+      const r=await fetch(`https://api.github.com/repos/${repo}/contents/sitemap.xml?ref=${branch}`,{
+        headers:{Authorization:`token ${token}`}
+      });
+      if(!r.ok)return;
+      const data=await r.json();
+      let xml=atob(data.content);
+      xml=xml.replace(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g,`<lastmod>${today}</lastmod>`);
+      await saveFile('sitemap.xml',xml,data.sha);
+    }catch(e){console.log('Sitemap update failed:',e);}
+  }
+
+  // ========== FEATURE 5: Backup vor Speichern ==========
+  let originalContent={};
+  
+  async function createBackup(){
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
+    
+    try{
+      const files=['index.html','style.css'];
+      for(const file of files){
+        const r=await fetch(`https://api.github.com/repos/${repo}/contents/${file}?ref=${branch}`,{
+          headers:{Authorization:`token ${token}`}
+        });
+        if(r.ok){
+          const data=await r.json();
+          originalContent[file]=atob(data.content);
+        }
+      }
+    }catch(e){}
+  }
+
+  // ========== FEATURE 6: Bilder-Verwaltung ==========
+  async function loadImages(){
+    const container=$('images-list');
+    if(!container)return;
+    container.innerHTML='<p style="color:#666">Lade Bilder...</p>';
+    
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
+    
+    try{
+      const r=await fetch(`https://api.github.com/repos/${repo}/contents/images?ref=${branch}`,{
+        headers:{Authorization:`token ${token}`}
+      });
+      if(!r.ok)throw new Error('Fehler');
+      const files=await r.json();
+      const images=files.filter(f=>f.name.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i));
+      
+      container.innerHTML=images.map(img=>`
+        <div class="image-card" style="position:relative" onclick="copyPath('/images/${img.name}')">
+          <img src="https://raw.githubusercontent.com/${repo}/${branch}/images/${img.name}" alt="${img.name}" onerror="this.style.display='none'">
+          <div class="name">${img.name}</div>
+          <button class="delete-img" onclick="event.stopPropagation();deleteImage('${img.name}','${img.sha}')" title="Löschen">×</button>
+        </div>
+      `).join('')||'<p style="color:#666">Keine Bilder gefunden</p>';
+    }catch(e){
+      container.innerHTML='<p style="color:#c00">Fehler beim Laden</p>';
+    }
+  }
+  
+  window.copyPath=function(path){
+    navigator.clipboard.writeText(path);
+    showStatus('Pfad kopiert: '+path,'success');
+    setTimeout(hideStatus,1500);
+  };
+  
+  window.deleteImage=async function(name,sha){
+    if(!confirm(`"${name}" wirklich löschen?`))return;
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
+    
+    try{
+      await fetch(`https://api.github.com/repos/${repo}/contents/images/${name}`,{
+        method:'DELETE',
+        headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
+        body:JSON.stringify({message:`Delete ${name}`,sha,branch})
+      });
+      showStatus('Gelöscht ✓','success');
+      loadImages();
+    }catch(e){showStatus('Fehler','error');}
+  };
+  
+  async function uploadImage(){
+    const input=$('image-upload');
+    const status=$('upload-status');
+    if(!input.files[0]){status.textContent='Keine Datei';return;}
+    
+    const file=input.files[0];
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
+    
+    status.textContent='Lädt hoch...';
+    
+    const reader=new FileReader();
+    reader.onload=async function(){
+      const base64=reader.result.split(',')[1];
+      try{
+        await fetch(`https://api.github.com/repos/${repo}/contents/images/${file.name}`,{
+          method:'PUT',
+          headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
+          body:JSON.stringify({message:`Upload ${file.name}`,content:base64,branch})
+        });
+        status.innerHTML='<span class="success">✓ Hochgeladen</span>';
+        input.value='';
+        loadImages();
+      }catch(e){status.innerHTML='<span class="error">Fehler</span>';}
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ========== FEATURE 7: GoatCounter Statistiken ==========
+  async function loadStats(){
+    const container=$('stats-container');
+    if(!container)return;
+    
+    // GoatCounter public stats (wenn verfügbar)
+    container.innerHTML=`
+      <div class="stat-card">
+        <h4>Statistiken ansehen</h4>
+        <p style="font-size:.85rem;color:#666">GoatCounter Dashboard öffnen für detaillierte Statistiken:</p>
+        <a href="https://schels.goatcounter.com" target="_blank" class="btn-secondary" style="display:inline-block;margin-top:.5rem;text-decoration:none">
+          📊 Dashboard öffnen →
+        </a>
+      </div>
+      <div class="info-box" style="margin-top:1rem">
+        <strong>Hinweis:</strong> GoatCounter ist datenschutzfreundlich und DSGVO-konform. Es werden keine Cookies gesetzt und keine persönlichen Daten gespeichert.
+      </div>
+    `;
+  }
+
+  // ========== FEATURE 8: Diff-Ansicht ==========
+  let pendingSave=null;
+  
+  function showDiff(){
+    const modal=$('diff-modal');
+    const content=$('diff-content');
+    if(!modal||!content)return;
+    
+    let diffHtml='';
+    
+    // Compare index.html sections
+    Object.keys(sections).forEach(key=>{
+      if(!editors[key])return;
+      const current=editors[key].getValue();
+      const original=originalContent[key]||'';
+      if(current!==original){
+        diffHtml+=`<div class="diff-file">📄 ${key}</div>`;
+        diffHtml+=`<div class="diff-remove">${escapeHtmlDiff(original.substring(0,500))}${original.length>500?'...':''}</div>`;
+        diffHtml+=`<div class="diff-add">${escapeHtmlDiff(current.substring(0,500))}${current.length>500?'...':''}</div>`;
+      }
+    });
+    
+    // CSS changes
+    if(cssEditor&&originalContent['style.css']){
+      const current=cssEditor.getValue();
+      const original=originalContent['style.css'];
+      if(current!==original){
+        diffHtml+=`<div class="diff-file">📄 style.css</div>`;
+        diffHtml+=`<div style="color:#666;font-size:11px">CSS wurde geändert (${current.length} Zeichen)</div>`;
+      }
+    }
+    
+    if(!diffHtml)diffHtml='<p style="color:#666">Keine Änderungen erkannt</p>';
+    
+    content.innerHTML=diffHtml;
+    modal.style.display='block';
+  }
+  
+  function escapeHtmlDiff(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+  
+  function closeDiff(){
+    $('diff-modal').style.display='none';
+  }
+
+  // ========== Event Bindings für neue Features ==========
+  function bindNewFeatures(){
+    // Bilder
+    $('upload-image-btn')?.addEventListener('click',uploadImage);
+    $('refresh-stats')?.addEventListener('click',loadStats);
+    
+    // Diff Modal
+    $('close-diff')?.addEventListener('click',closeDiff);
+    $('diff-cancel')?.addEventListener('click',closeDiff);
+    $('diff-save')?.addEventListener('click',()=>{closeDiff();saveAll();});
+    
+    // Navigation zu neuen Panels
+    $$('.nav-item').forEach(n=>{
+      const oldClick=n.onclick;
+      n.onclick=e=>{
+        if(oldClick)oldClick.call(n,e);
+        const panel=n.dataset.panel;
+        if(panel==='images')loadImages();
+        if(panel==='stats')loadStats();
+      };
+    });
+  }
+
+  // Erweitere saveAll mit Backup und Sitemap
+  const originalSaveAll=saveAll;
+  saveAll=async function(){
+    await createBackup();
+    await originalSaveAll();
+    await updateSitemap();
+  };
+
+  // Keyboard shortcut hint
+  setTimeout(()=>{
+    const saveBtn=$('save-btn');
+    if(saveBtn){
+      const hint=document.createElement('div');
+      hint.className='keyboard-hint';
+      hint.textContent='⌘S / Ctrl+S';
+      saveBtn.parentNode.appendChild(hint);
+    }
+  },100);
+
   init();
+  setTimeout(bindNewFeatures,200);
 })();
   </script>
 </body>
