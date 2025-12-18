@@ -1132,6 +1132,36 @@ input[type=radio]:checked ~ .cat_text {
   border-color: var(--hover-bg);
 }
 
+.form-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Erfolgsmeldung nach Formular-Absendung */
+.form-success {
+  text-align: center;
+  padding: 2rem 1rem;
+  max-width: 500px;
+}
+
+.form-success .success-icon {
+  font-size: 3em;
+  margin: 0 0 0.5rem;
+  color: var(--body);
+}
+
+.form-success .success-title {
+  font-size: 1.3em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.form-success .success-text {
+  color: var(--secondary);
+  margin: 0;
+}
+
 @media (max-width: 810px) {
   .contact-form {
     max-width: 100%;

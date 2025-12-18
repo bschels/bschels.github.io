@@ -153,4 +153,44 @@ $(function() {
     kb_source_2_datenschutz();
   });
 
+  // Kontaktformular AJAX-Absendung
+  $('.contact-form').on('submit', function(e) {
+    e.preventDefault();
+    
+    var $form = $(this);
+    var $section = $form.closest('.contact-form-section');
+    var $successMsg = $section.find('.form-success');
+    var $submitBtn = $form.find('.form-submit');
+    var originalBtnText = $submitBtn.text();
+    
+    // Button deaktivieren und Text ändern
+    $submitBtn.prop('disabled', true).text('...');
+    
+    // Formular per AJAX absenden
+    $.ajax({
+      url: $form.attr('action'),
+      method: 'POST',
+      data: $form.serialize(),
+      dataType: 'json',
+      success: function() {
+        // Formular ausblenden, Erfolgsmeldung einblenden
+        $form.fadeOut(300, function() {
+          $successMsg.fadeIn(300);
+        });
+      },
+      error: function(xhr) {
+        // Bei Erfolg (Formspree gibt manchmal 200 als error zurück)
+        if (xhr.status === 200 || xhr.status === 302) {
+          $form.fadeOut(300, function() {
+            $successMsg.fadeIn(300);
+          });
+        } else {
+          // Echter Fehler
+          alert('Es gab einen Fehler. Bitte versuchen Sie es erneut oder schreiben Sie direkt an hello@schels.info');
+          $submitBtn.prop('disabled', false).text(originalBtnText);
+        }
+      }
+    });
+  });
+
 });
