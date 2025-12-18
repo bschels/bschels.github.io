@@ -776,80 +776,95 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
   
   async function saveIndexHtml(){
-    // Fetch current index.html
-    const res=await fetch('/index.html?t='+Date.now());
-    if(!res.ok)throw new Error('index.html nicht gefunden');
-    let html=await res.text();
+    console.log('saveIndexHtml: Start');
+    
+    // Fetch current index.html from GitHub directly (not cached)
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
+    
+    const ghRes=await fetch(`https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,{
+      headers:{Authorization:`token ${token}`}
+    });
+    if(!ghRes.ok)throw new Error('index.html nicht gefunden auf GitHub');
+    const ghData=await ghRes.json();
+    let html=decodeURIComponent(escape(atob(ghData.content)));
+    console.log('saveIndexHtml: Fetched from GitHub, length='+html.length);
+    
     const doc=new DOMParser().parseFromString(html,'text/html');
     
     // Update SEO
     const title=doc.querySelector('title');
-    if(title)title.textContent=$('seo-title').value;
+    if(title&&$('seo-title').value)title.textContent=$('seo-title').value;
     const desc=doc.querySelector('meta[name="description"]');
-    if(desc)desc.setAttribute('content',$('seo-description').value);
+    if(desc&&$('seo-description').value)desc.setAttribute('content',$('seo-description').value);
     const keywords=doc.querySelector('meta[name="keywords"]');
-    if(keywords)keywords.setAttribute('content',$('seo-keywords').value);
+    if(keywords&&$('seo-keywords').value)keywords.setAttribute('content',$('seo-keywords').value);
     const ogTitle=doc.querySelector('meta[property="og:title"]');
-    if(ogTitle)ogTitle.setAttribute('content',$('seo-og-title').value);
+    if(ogTitle&&$('seo-og-title').value)ogTitle.setAttribute('content',$('seo-og-title').value);
     const ogDesc=doc.querySelector('meta[property="og:description"]');
-    if(ogDesc)ogDesc.setAttribute('content',$('seo-og-description').value);
+    if(ogDesc&&$('seo-og-description').value)ogDesc.setAttribute('content',$('seo-og-description').value);
+    console.log('saveIndexHtml: SEO updated');
     
     // Update Profil (content1)
     const profil=doc.querySelector('#content1');
-    if(profil){
-      // Keep header (cv-header), update sections
+    if(profil&&editors['profil-ueberblick']){
       const cvHeader=profil.querySelector('.cv-header');
       const cta=profil.querySelector('.cta-link');
       const blockquote=profil.querySelector('blockquote');
-      const hrEnd=profil.querySelector(':scope > hr.z');
       
       let newContent='';
       if(cvHeader)newContent+=cvHeader.outerHTML;
-      newContent+='<h3>Überblick</h3>'+(editors['profil-ueberblick']?.root.innerHTML||'');
+      newContent+='<h3>Überblick</h3>'+(editors['profil-ueberblick'].root.innerHTML||'');
       newContent+='<h3>Arbeitsweise</h3>'+(editors['profil-arbeitsweise']?.root.innerHTML||'');
       newContent+='<h3>Schwerpunkte</h3>'+(editors['profil-schwerpunkte']?.root.innerHTML||'');
       newContent+='<h3>Philosophie</h3>'+(editors['profil-philosophie']?.root.innerHTML||'');
       if(blockquote)newContent+=blockquote.outerHTML;
       if(cta)newContent+=cta.outerHTML;
-      if(hrEnd)newContent+=hrEnd.outerHTML;
+      newContent+='<hr class="z">';
       profil.innerHTML=newContent;
+      console.log('saveIndexHtml: Profil updated');
     }
     
     // Update Vita (content2)
     const vita=doc.querySelector('#content2');
     if(vita&&editors.vita){
-      const hrEnd=vita.querySelector(':scope > hr.z');
-      vita.innerHTML=(editors.vita.root.innerHTML||'')+(hrEnd?hrEnd.outerHTML:'<hr class="z">');
+      vita.innerHTML=(editors.vita.root.innerHTML||'')+'<hr class="z">';
+      console.log('saveIndexHtml: Vita updated');
     }
     
     // Update Leistungen (content3)
     const leist=doc.querySelector('#content3');
     if(leist&&editors.leistungen){
-      const hrEnd=leist.querySelector(':scope > hr.z');
-      leist.innerHTML=(editors.leistungen.root.innerHTML||'')+(hrEnd?hrEnd.outerHTML:'<hr class="z">');
+      leist.innerHTML=(editors.leistungen.root.innerHTML||'')+'<hr class="z">';
+      console.log('saveIndexHtml: Leistungen updated');
     }
     
     // Update Referenzen (content4)
     const refs=doc.querySelector('#content4');
     if(refs&&editors.referenzen){
-      const hrEnd=refs.querySelector(':scope > hr.z');
-      refs.innerHTML=(editors.referenzen.root.innerHTML||'')+(hrEnd?hrEnd.outerHTML:'<hr class="z">');
+      refs.innerHTML=(editors.referenzen.root.innerHTML||'')+'<hr class="z">';
+      console.log('saveIndexHtml: Referenzen updated');
     }
     
     // Update Kontakt (content5) - intro text
     const kontakt=doc.querySelector('#content5');
     if(kontakt&&editors['kontakt-intro']){
       const intro=kontakt.querySelector('p.content');
-      if(intro)intro.innerHTML=editors['kontakt-intro'].root.innerHTML;
+      if(intro){
+        intro.innerHTML=editors['kontakt-intro'].root.innerHTML.replace(/<p>/g,'').replace(/<\/p>/g,'<br>');
+        console.log('saveIndexHtml: Kontakt updated');
+      }
     }
     
-    // Serialize back to HTML
-    const serializer=new XMLSerializer();
-    let newHtml='<!DOCTYPE html>'+serializer.serializeToString(doc.documentElement);
-    // Clean up some serialization artifacts
+    // Serialize back to HTML - use doc.documentElement.outerHTML for cleaner output
+    let newHtml='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
+    // Clean up xmlns artifacts from XMLSerializer
     newHtml=newHtml.replace(/ xmlns="[^"]*"/g,'');
+    console.log('saveIndexHtml: Serialized, length='+newHtml.length);
     
     await saveFile('index.html',newHtml);
+    console.log('saveIndexHtml: Saved to GitHub');
   }
   
   function collectAllData(){
