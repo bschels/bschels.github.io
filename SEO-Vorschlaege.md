@@ -3,31 +3,31 @@
 ## Meta Description (max. 155-160 Zeichen)
 
 ### Aktuell:
-"Architekturbüro Schels – Architektur, Denkmalpflege und Bauen im Bestand mit Haltung. Benjamin Schels M.A., Architekt in Wolnzach, betreut Projekte in allen HOAI-Leistungsphasen – vom ersten Entwurf bis zur Bauleitung."
+"architekturbüro schels – Architektur, Denkmalpflege und Bauen im Bestand mit Haltung. Benjamin Schels M.A., Architekt in Wolnzach, betreut Projekte in allen HOAI-Leistungsphasen – vom ersten Entwurf bis zur Bauleitung."
 
 **Zeichen:** 195 (zu lang!)
 
 ### Vorschlag 1 (optimiert, 155 Zeichen):
-"Architekturbüro Schels in Wolnzach – Spezialist für Bauen im Bestand, Denkmalpflege & HOAI-Leistungsphasen 1-9. Neubau, Umbau, Sanierung in München, Ingolstadt, Freising."
+"architekturbüro schels in Wolnzach – Spezialist für Bauen im Bestand, Denkmalpflege & HOAI-Leistungsphasen 1-9. Neubau, Umbau, Sanierung in München, Ingolstadt, Freising."
 
 ### Vorschlag 2 (mit Call-to-Action, 158 Zeichen):
-"Architekturbüro Schels Wolnzach – Bauen im Bestand & Denkmalpflege. HOAI-Leistungsphasen 1-9, Neubau, Umbau, Sanierung. Region München, Ingolstadt, Freising."
+"architekturbüro schels Wolnzach – Bauen im Bestand & Denkmalpflege. HOAI-Leistungsphasen 1-9, Neubau, Umbau, Sanierung. Region München, Ingolstadt, Freising."
 
 ### Vorschlag 3 (fokussiert auf USP, 152 Zeichen):
-"Architekturbüro Schels – Spezialist für sensibles Bauen im Bestand & Denkmalpflege. HOAI 1-9, Neubau, Umbau, Sanierung. Wolnzach, München, Ingolstadt."
+"architekturbüro schels – Spezialist für sensibles Bauen im Bestand & Denkmalpflege. HOAI 1-9, Neubau, Umbau, Sanierung. Wolnzach, München, Ingolstadt."
 
 ### Vorschlag 4 (englisch, 156 Zeichen):
-"Architekturbüro Schels – Architecture office in Wolnzach specializing in heritage conservation & building in existing structures. HOAI phases 1-9, Munich region."
+"architekturbüro schels – Architecture office in Wolnzach specializing in heritage conservation & building in existing structures. HOAI phases 1-9, Munich region."
 
 ---
 
 ## Meta Keywords (komma-getrennt, max. 10-15 relevante Begriffe)
 
 ### Aktuell:
-"Architekturbüro Schels, Benjamin Schels, Architekt, Architekturbüro, Schels, München, Wolnzach, Hallertau, Ingolstadt, Freising, ..."
+"architekturbüro schels, Benjamin Schels, Architekt, Architekturbüro, Schels, München, Wolnzach, Hallertau, Ingolstadt, Freising, ..."
 
 ### Optimierter Vorschlag 1 (lokale + fachliche Keywords):
-"Architekturbüro Schels, Architekt Wolnzach, Bauen im Bestand, Denkmalpflege, HOAI Leistungsphasen, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Neubauplanung, Denkmalschutz, Hallertau Architekt"
+"architekturbüro schels, Architekt Wolnzach, Bauen im Bestand, Denkmalpflege, HOAI Leistungsphasen, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Neubauplanung, Denkmalschutz, Hallertau Architekt"
 
 ### Optimierter Vorschlag 2 (fokussiert auf Services):
 "Architekt Wolnzach, Bauen im Bestand München, Denkmalpflege Bayern, HOAI Architekt, Umbauplanung Ingolstadt, Sanierung Freising, Neubau Architekt, Denkmalschutz Architekt, Architekturbüro Hallertau, Innenausbau München"
@@ -47,13 +47,13 @@
 ### Alternative Vorschläge:
 
 **Vorschlag 1 (mit Standort, 58 Zeichen):**
-"Architekturbüro Schels Wolnzach | Bauen im Bestand & Denkmalpflege"
+"architekturbüro schels Wolnzach | Bauen im Bestand & Denkmalpflege"
 
 **Vorschlag 2 (mit Services, 59 Zeichen):**
-"Architekturbüro Schels | HOAI 1-9 | Bauen im Bestand München"
+"architekturbüro schels | HOAI 1-9 | Bauen im Bestand München"
 
 **Vorschlag 3 (fokussiert, 56 Zeichen):**
-"Architekturbüro Schels | Denkmalpflege & Bauen im Bestand"
+"architekturbüro schels | Denkmalpflege & Bauen im Bestand"
 
 **Vorschlag 4 (aktuell beibehalten - ist bereits gut):**
 "architekturbüro schels - Benjamin Schels Architekt M.A."
@@ -70,7 +70,7 @@ Implementiere strukturierte Daten für:
 
 ### 2. Alt-Texte für Bilder
 Stelle sicher, dass alle Bilder aussagekräftige Alt-Texte haben:
-- "Architekturbüro Schels - Bauen im Bestand Projekt München"
+- "architekturbüro schels - Bauen im Bestand Projekt München"
 - "Denkmalpflege Architektur Wolnzach"
 - etc.
 
@@ -101,15 +101,15 @@ Verlinke relevante Begriffe intern:
 
 ### Meta Description (empfohlen):
 **Vorschlag 1** (155 Zeichen):
-"Architekturbüro Schels in Wolnzach – Spezialist für Bauen im Bestand, Denkmalpflege & HOAI-Leistungsphasen 1-9. Neubau, Umbau, Sanierung in München, Ingolstadt, Freising."
+"architekturbüro schels in Wolnzach – Spezialist für Bauen im Bestand, Denkmalpflege & HOAI-Leistungsphasen 1-9. Neubau, Umbau, Sanierung in München, Ingolstadt, Freising."
 
 ### Meta Keywords (empfohlen):
 **Vorschlag 1**:
-"Architekturbüro Schels, Architekt Wolnzach, Bauen im Bestand, Denkmalpflege, HOAI Leistungsphasen, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Neubauplanung, Denkmalschutz, Hallertau Architekt"
+"architekturbüro schels, Architekt Wolnzach, Bauen im Bestand, Denkmalpflege, HOAI Leistungsphasen, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Neubauplanung, Denkmalschutz, Hallertau Architekt"
 
 ### Title (empfohlen):
 Aktueller Title ist gut, alternativ:
-"Architekturbüro Schels Wolnzach | Bauen im Bestand & Denkmalpflege"
+"architekturbüro schels Wolnzach | Bauen im Bestand & Denkmalpflege"
 
 
 

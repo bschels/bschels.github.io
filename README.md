@@ -1,4 +1,4 @@
-This is the website of Architekturbüro Schels - Benjamin Schels Architekt M.A.
+This is the website of architekturbüro schels - Benjamin Schels Architekt M.A.
 
 URL: <a href="https://schels.info">https://schels.info</a>
 

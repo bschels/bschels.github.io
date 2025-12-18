@@ -1,5 +1,5 @@
 /*******************************************************
-* Theme Name:      Architekturbüro Schels
+* Theme Name:      architekturbüro schels
 * Author:          Benjamin Schels
 * Version:         3.3
 * www.schels.info
@@ -351,6 +351,18 @@ strong, b {
   letter-spacing: 0.1em; /* Etwas mehr Abstand für bessere Lesbarkeit */
 }
 
+/* Firmenname immer klein schreiben */
+.brand-name {
+  text-transform: none !important;
+  letter-spacing: 0.2em;
+}
+
+/* CV Studium-Zeile bündig mit Tabelle */
+.cv-education {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
 em, i {
   font-family: var(--font-main);
   font-style: italic;
@@ -424,6 +436,7 @@ table {
   width: 100%;
   hyphens: manual;
   text-align: left;
+  margin-top: 1.5em;
 }
 td {
   vertical-align: top;

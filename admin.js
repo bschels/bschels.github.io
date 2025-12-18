@@ -1988,11 +1988,11 @@ function renderSpecialEditor(section, content) {
         </div>
         <div class="form-group">
           <label>Adresse (DE):</label>
-          <input type="text" id="contact-address-de" value="${escapeHtml(contactData.addressDE || '')}" placeholder="Schlachterstrasse 9, 85283 Wolnzach">
+          <input type="text" id="contact-address-de" value="${escapeHtml(contactData.addressDE || '')}" placeholder="Schlachterstraße 9, 85283 Wolnzach">
         </div>
         <div class="form-group">
           <label>Adresse (EN):</label>
-          <input type="text" id="contact-address-en" value="${escapeHtml(contactData.addressEN || '')}" placeholder="Schlachterstrasse 9, 85283 Wolnzach">
+          <input type="text" id="contact-address-en" value="${escapeHtml(contactData.addressEN || '')}" placeholder="Schlachterstraße 9, 85283 Wolnzach">
         </div>
         <button class="btn btn-success" onclick="saveSection('kontakt')">Speichern</button>
       </div>
@@ -5243,11 +5243,11 @@ function renderSpecialEditor(section, content) {
         </div>
         <div class="form-group">
           <label>Adresse (DE):</label>
-          <input type="text" id="contact-address-de" value="${escapeHtml(contactData.addressDE || '')}" placeholder="Schlachterstrasse 9, 85283 Wolnzach">
+          <input type="text" id="contact-address-de" value="${escapeHtml(contactData.addressDE || '')}" placeholder="Schlachterstraße 9, 85283 Wolnzach">
         </div>
         <div class="form-group">
           <label>Adresse (EN):</label>
-          <input type="text" id="contact-address-en" value="${escapeHtml(contactData.addressEN || '')}" placeholder="Schlachterstrasse 9, 85283 Wolnzach">
+          <input type="text" id="contact-address-en" value="${escapeHtml(contactData.addressEN || '')}" placeholder="Schlachterstraße 9, 85283 Wolnzach">
         </div>
         <button class="btn btn-success" onclick="saveSection('kontakt')">Speichern</button>
       </div>

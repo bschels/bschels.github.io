@@ -78,6 +78,20 @@ $(function() {
     $clickedRadio.prop("checked", !wasChecked);
     $clickedRadio.data("chk", !wasChecked);
     updateAccordionLabels();
+
+    // Auto-load content for accordion sections with data-auto-load
+    if (!wasChecked) {
+      var contentId = $clickedRadio.attr('id').replace('tog', 'content');
+      var $content = $('#' + contentId);
+      var $autoLoadElement = $content.find('[data-auto-load="true"]');
+      if ($autoLoadElement.length && !$autoLoadElement.data('loaded')) {
+        var pageFilename = $autoLoadElement.data('page');
+        var targetElementId = $autoLoadElement.attr('id');
+        loadContent(pageFilename, targetElementId, function() {
+          $autoLoadElement.data('loaded', true);
+        });
+      }
+    }
   });
 
   updateAccordionLabels();
