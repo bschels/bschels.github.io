@@ -258,9 +258,9 @@ b, strong {
 }
 
 strong.brand-name, .brand-name {
-  text-transform: none !important;
-  letter-spacing: normal;
-  font-weight: 400 !important;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: inherit;
 }
 
 em, i {
