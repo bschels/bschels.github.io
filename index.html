@@ -49,6 +49,7 @@
  <script src="/js/main.js" defer></script>
  </head>
  <body>
+ <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
  <header>
  <div class="header-row">
  <div class="title-wrapper">
@@ -62,7 +63,7 @@
  <hr class="y">
  <hr class="z">
  </header>
- <main>
+ <main id="main-content">
  <div>
  <label class="cat" for="tog1" role="button" aria-expanded="false" aria-controls="content1" tabindex="0">
  <h2 class="cat">profil</h2>
@@ -73,7 +74,7 @@
 <div class="cv-header">
 <picture>
 <source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
-<img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architekt" class="cv-portrait" loading="lazy" width="180" height="226">
+<img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels, Architekt M.A. und Büroinhaber von architekturbüro schels" class="cv-portrait" loading="lazy" width="180" height="226">
 </picture>
 <div class="cv-name">
 <p class="cv-role">Büroinhaber</p>
@@ -200,24 +201,24 @@
  <p>Architekturbüro Schels freut sich auf Ihre Anfrage.</p>
 <p>Gern auch, wenn Sie noch am Anfang stehen. Ein kurzes, unverbindliches Erstgespräch schafft oft schnell Klarheit über Möglichkeiten, Vorgehen und nächste Schritte.</p>
  <p>Start der Tätigkeit zum 01.01.2026. Anfragen und Vorgespräche sind bereits möglich.</p>
- <div class="contact-info">
+ <address class="contact-info">
  <div class="arrow-nohover">E-Mail: <a href="mailto:hello@schels.info">hello@schels.info</a></div>
  <div class="arrow-nohover">Telefon: <a href="tel:+4984429292291">+49 8442 929 2291</a></div>
  <div class="arrow-nohover">Adresse: <a href="https://maps.google.com/?q=Schlachterstraße+9,+85283+Wolnzach" target="_blank" rel="noopener">Schlachterstraße 9, 85283 Wolnzach</a></div>
- </div>
+ </address>
  <div class="contact-form-section">
  <form id="contact-form-de" action="https://formspree.io/f/mgowwkpq" method="POST" class="contact-form">
  <div class="form-group">
  <label for="name-de">Name</label>
- <input type="text" id="name-de" name="name" required>
+ <input type="text" id="name-de" name="name" autocomplete="name" required>
  </div>
  <div class="form-group">
  <label for="email-de">E-Mail</label>
- <input type="email" id="email-de" name="email" required>
+ <input type="email" id="email-de" name="email" autocomplete="email" required>
  </div>
  <div class="form-group">
  <label for="phone-de">Telefon <span class="optional">(optional)</span></label>
- <input type="tel" id="phone-de" name="phone">
+ <input type="tel" id="phone-de" name="phone" autocomplete="tel">
  </div>
  <div class="form-group">
  <label for="message-de">Nachricht</label>

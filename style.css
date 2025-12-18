@@ -16,6 +16,22 @@
   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* ===== SKIP LINK ===== */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--bg);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 /* ===== BASE ELEMENTS ===== */
 body {
   background: var(--bg);
@@ -31,6 +47,7 @@ body {
   text-align: left;
   hyphens: manual;
   font-variant-numeric: normal;
+  position: relative;
 }
 
 footer, header, main {
@@ -416,8 +433,12 @@ label.cat[for^=tog]:hover {
   font-weight: 200;
 }
 
-.cat_text > hr.z, .contact-info {
+.cat_text > hr.z, .contact-info, address.contact-info {
   margin-top: 1.5em;
+}
+
+address {
+  font-style: normal;
 }
 
 .cat_text .arrow-nohover {
@@ -979,6 +1000,14 @@ hr.z {
   .form-submit {
     width: 100%;
     text-align: center;
+    min-height: 44px;
+  }
+
+  .cta-link-line {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
