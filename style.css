@@ -338,6 +338,7 @@ blockquote footer {
   font-style: normal;
   font-weight: 200;
   display: block;
+  text-align: left;
   color: var(--secondary);
   font-size: .85em;
   margin-top: .3rem;

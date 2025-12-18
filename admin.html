@@ -178,7 +178,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
       <header class="main-header">
         <h2 id="panel-title">Profil <span class="unsaved" id="unsaved"></span></h2>
         <div class="header-actions">
-          <div class="view-toggle">
+          <div class="view-toggle" id="view-toggle" style="display:flex">
             <button data-view="split" class="active">Split</button>
             <button data-view="code">Code</button>
             <button data-view="preview">Vorschau</button>
@@ -461,6 +461,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     $('logout-btn').onclick=()=>{sessionStorage.removeItem('admin_auth');location.reload();};
     
     // Navigation
+    const editorPanels=['profil','leistungen','projekte','kontakt','vita','impressum','datenschutz','styles'];
     $$('.nav-item').forEach(n=>n.onclick=e=>{
       e.preventDefault();
       $$('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -470,6 +471,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
       $(panel+'-panel').classList.add('active');
       $('panel-title').innerHTML=n.textContent+'<span class="unsaved'+(hasChanges?' active':'')+'" id="unsaved"></span>';
       currentPanel=panel;
+      // View-Toggle nur bei Editor-Panels anzeigen
+      const vt=$('view-toggle');
+      if(vt)vt.style.display=editorPanels.includes(panel)?'flex':'none';
       if(editors[panel])setTimeout(()=>editors[panel].refresh(),10);
       if(panel==='styles'&&cssEditor)setTimeout(()=>{cssEditor.refresh();updateCssPreview();},10);
     });
