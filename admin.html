@@ -290,28 +290,36 @@ button:disabled{opacity:.4;cursor:not-allowed}
               <br><small style="color:#666">Funktioniert per Browser – auf jedem Gerät einmal klicken.</small>
             </div>
             
-            <div style="margin:1.5rem 0">
-              <a href="https://schels.goatcounter.com" target="_blank" class="btn-success" style="text-decoration:none;display:inline-block;padding:.8rem 1.5rem;font-size:1rem">
-                📊 GoatCounter Dashboard öffnen
-              </a>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0">
+              <select id="stats-period" style="padding:.4rem;font-size:.8rem">
+                <option value="day">Heute</option>
+                <option value="week" selected>Diese Woche</option>
+                <option value="month">Dieser Monat</option>
+                <option value="year">Dieses Jahr</option>
+              </select>
+              <button id="refresh-stats" class="btn-secondary btn-small">🔄 Aktualisieren</button>
+              <a href="https://schels.goatcounter.com" target="_blank" class="btn-secondary btn-small" style="text-decoration:none">📊 Dashboard →</a>
             </div>
             
-            <div class="info-box" style="background:#f5f5f5;border-color:#ddd">
-              <strong>Im Dashboard siehst du:</strong>
-              <ul style="margin:.5rem 0 0 1.2rem;font-size:.85rem">
-                <li>Seitenaufrufe & Besucher</li>
-                <li>Top Seiten</li>
-                <li>Referrer (woher kommen Besucher)</li>
-                <li>Browser & Betriebssysteme</li>
-                <li>Länder</li>
-                <li>Zeitverläufe</li>
-              </ul>
+            <div id="stats-overview" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem"></div>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+              <div>
+                <div class="section-title">Top Seiten</div>
+                <div id="stats-pages"></div>
+              </div>
+              <div>
+                <div class="section-title">Referrer</div>
+                <div id="stats-refs"></div>
+              </div>
             </div>
             
-            <p style="margin-top:1rem;font-size:.8rem;color:#666">
-              <strong>Warum nicht hier?</strong> GoatCounter blockiert API-Zugriffe von anderen Websites (CORS). 
-              Das Dashboard ist aber datenschutzfreundlich und DSGVO-konform.
-            </p>
+            <details style="margin-top:1.5rem">
+              <summary style="cursor:pointer;font-size:.8rem;color:#666">API Token</summary>
+              <div class="editor-group" style="margin-top:.5rem">
+                <input type="text" id="goat-token" value="t3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y" style="font-size:.75rem">
+              </div>
+            </details>
           </div>
         </div>
 
@@ -1030,7 +1038,81 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
 
   // ========== FEATURE 7: GoatCounter Statistiken ==========
-  // API-Zugriff nicht möglich (CORS) - Dashboard-Link wird verwendet
+  function getDateRange(period){
+    const today=new Date();
+    const end=today.toISOString().split('T')[0];
+    let start;
+    switch(period){
+      case 'day': start=end; break;
+      case 'week': start=new Date(Date.now()-7*24*60*60*1000).toISOString().split('T')[0]; break;
+      case 'month': start=new Date(Date.now()-30*24*60*60*1000).toISOString().split('T')[0]; break;
+      case 'year': start=new Date(Date.now()-365*24*60*60*1000).toISOString().split('T')[0]; break;
+      default: start=new Date(Date.now()-7*24*60*60*1000).toISOString().split('T')[0];
+    }
+    return {start,end};
+  }
+  
+  function renderStatRows(data,max=8){
+    if(!data||!data.length)return '<p style="color:#999;font-size:.8rem">Keine Daten</p>';
+    return data.slice(0,max).map(item=>{
+      const name=item.name||item.ref||item.path||'(unbekannt)';
+      const count=item.count||0;
+      return `<div class="stat-row"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span><span><strong>${count}</strong></span></div>`;
+    }).join('');
+  }
+  
+  async function loadStats(){
+    const token=$('goat-token')?.value||'t3ctjw810luj8f11jmq8qfwy1j0wdgfc4vk9m20vhdkt2v9f9y';
+    const period=$('stats-period')?.value||'week';
+    const {start,end}=getDateRange(period);
+    
+    const overview=$('stats-overview');
+    const pages=$('stats-pages');
+    const refs=$('stats-refs');
+    
+    if(overview)overview.innerHTML='<p style="color:#666">Lade...</p>';
+    
+    const headers={'Authorization':`Bearer ${token}`};
+    const base='https://schels.goatcounter.com/api/v0/stats';
+    
+    try{
+      const [totalRes,hitsRes,refsRes]=await Promise.all([
+        fetch(`${base}/total?start=${start}&end=${end}`,{headers}),
+        fetch(`${base}/hits?start=${start}&end=${end}&limit=10`,{headers}),
+        fetch(`${base}/refs?start=${start}&end=${end}&limit=10`,{headers})
+      ]);
+      
+      if(!totalRes.ok)throw new Error('API Fehler');
+      
+      const total=await totalRes.json();
+      const hitsData=hitsRes.ok?await hitsRes.json():null;
+      const refsData=refsRes.ok?await refsRes.json():null;
+      
+      if(overview){
+        const periodLabel={day:'Heute',week:'7 Tage',month:'30 Tage',year:'365 Tage'}[period];
+        overview.innerHTML=`
+          <div class="stat-card">
+            <h4>Aufrufe (${periodLabel})</h4>
+            <div class="value">${(total.total||0).toLocaleString('de-DE')}</div>
+          </div>
+          <div class="stat-card">
+            <h4>Besucher</h4>
+            <div class="value">${(total.total_unique||0).toLocaleString('de-DE')}</div>
+          </div>
+          <div class="stat-card">
+            <h4>Ø pro Tag</h4>
+            <div class="value">${Math.round((total.total||0)/({day:1,week:7,month:30,year:365}[period]||7))}</div>
+          </div>
+        `;
+      }
+      
+      if(pages)pages.innerHTML=renderStatRows(hitsData?.stats||hitsData);
+      if(refs)refs.innerHTML=renderStatRows(refsData?.stats||refsData);
+      
+    }catch(e){
+      if(overview)overview.innerHTML=`<div class="info-box" style="background:#fff3cd;border-color:#ffc107"><strong>Fehler:</strong> ${e.message}</div>`;
+    }
+  }
 
   // ========== FEATURE 8: Diff-Ansicht ==========
   let pendingSave=null;
@@ -1082,7 +1164,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
   function bindNewFeatures(){
     // Bilder
     $('upload-image-btn')?.addEventListener('click',uploadImage);
-    
+    $('refresh-stats')?.addEventListener('click',loadStats);
+    $('stats-period')?.addEventListener('change',loadStats);
+
     // Diff Modal
     $('close-diff')?.addEventListener('click',closeDiff);
     $('diff-cancel')?.addEventListener('click',closeDiff);
@@ -1095,6 +1179,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         if(oldClick)oldClick.call(n,e);
         const panel=n.dataset.panel;
         if(panel==='images')loadImages();
+        if(panel==='stats')loadStats();
       };
     });
   }
