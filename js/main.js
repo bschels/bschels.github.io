@@ -145,11 +145,23 @@
         event.preventDefault();
         const y = section.getBoundingClientRect().top + window.pageYOffset - 20;
         window.scrollTo({ top: y, behavior: "smooth" });
+        // Focus-Management für Accessibility
+        setTimeout(() => {
+          const firstFocusable = section.querySelector('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+          if (firstFocusable) {
+            firstFocusable.focus();
+          } else {
+            section.setAttribute('tabindex', '-1');
+            section.focus();
+            section.removeAttribute('tabindex');
+          }
+        }, 300);
       } else if (input) {
         const label = document.querySelector(`label.cat[for="${accordionId}"]`);
         if (label) {
           const y = label.getBoundingClientRect().top + window.pageYOffset - 20;
           window.scrollTo({ top: y, behavior: "smooth" });
+          setTimeout(() => label.focus(), 300);
         }
       }
     });
