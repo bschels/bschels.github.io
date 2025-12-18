@@ -241,52 +241,6 @@ label.cat[for^="tog"].expanded::before { /* Pfeil bleibt "−" wenn geöffnet */
   content: "−";
 }
 
-/* New CSS for Accordion Subcontent (Unter-Akkordeons) */
-.accordion-content {
-    max-height: 0;
-    overflow-y: hidden; /* Sicherstellen, dass kein temporärer Scrollbalken erscheint */
-    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-    padding: 0 1em; /* Initial padding when closed */
-    font-size: 1.05 em; /* Set a consistent font size for accordion content */
-}
-
-.accordion-content.active {
-    /* max-height wird jetzt dynamisch per JS gesetzt, daher hier kein fester Wert mehr */
-    overflow-y: auto; /* Vertikale Scrollleiste nur bei Bedarf */
-    overflow-x: hidden; /* Kein horizontales Scrollen */
-    padding: 1em; /* Padding when active */
-}
-
-/* Scrollbalken-Styling für .accordion-content - unsichtbar oder dezenter */
-.accordion-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.accordion-content::-webkit-scrollbar-track {
-  background: transparent; /* Transparenter Hintergrund statt schwarz */
-}
-
-.accordion-content::-webkit-scrollbar-thumb {
-  background: var(--body);
-  opacity: 0.3; /* Dezenter */
-  border-radius: 0;
-}
-
-.accordion-content::-webkit-scrollbar-thumb:hover {
-  opacity: 0.5;
-}
-
-.accordion-content {
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent; /* Transparente Scrollbalken für Firefox */
-}
-
-/* Anpassung der Schriftgröße für P-Tags in den Akkordeons, falls diese speziell betroffen sind */
-.accordion-content p {
-    font-size: 1em; /* 1em relative zum Parent (.accordion-content), also effektiv 1.2em insgesamt */
-    margin: 0.5em 0; /* Beispiel: Etwas vertikaler Abstand für Absätze */
-}
-
 /* ========== Typografie (vereinfacht) ========== */
 h1 {
   font-family: var(--font-main);
@@ -517,20 +471,6 @@ label.cat[for^="tog"]:focus {
   outline: none;
 }
 
-/* NEU: Aktiv-Status für Unter-Akkordeon-Links */
-.cat-link:hover,
-.cat-link:focus-within,
-.cat-link.active-sub-link { /* active-sub-link wird auf das .cat-link div gesetzt */
-  background-color: var(--hover-bg);
-}
-.cat-link:hover a,
-.cat-link:focus-within a,
-.cat-link.active-sub-link a { /* a-Tag innerhalb von .cat-link */
-  color: var(--hover-text);
-  background-color: transparent; /* Verhindert doppelte Hintergrundfarbe auf dem a-Tag */
-  text-decoration-color: var(--hover-text);
-}
-
 .lb-link {
   text-transform: uppercase;
   list-style-position: inside;
@@ -547,10 +487,10 @@ svg {
   stroke-linecap: round;
 }
 
-.arrow, .arrow-nohover {
+.arrow-nohover {
   margin: 0;
-  font-size: 1em; /* Standardgröße für Pfeile, falls nicht überschrieben */
-  font-weight: 200; /* Thin - leichterer Schnitt */
+  font-size: 1em;
+  font-weight: 200;
 }
 
 /* Kontakt-Informationen */
@@ -574,19 +514,6 @@ svg {
     padding: 0.6em 0; /* Noch mehr Padding auf Mobil für Touch */
     font-size: 1.05em; /* Etwas größer für bessere Lesbarkeit */
   }
-}
-
-.arrow::before {
-  content: '+';
-  display: inline-block;
-  margin-right: 0.3em;
-  color: currentColor;
-  vertical-align: middle;
-  letter-spacing: normal;
-}
-/* New rule for expanded arrow */
-.arrow.expanded::before {
-    content: '−'; /* Minus sign */
 }
 
 .arrow-nohover::before {
@@ -939,40 +866,6 @@ hr.z {
     font-size: 0.85em; /* Einheitliche Größe */
     padding: 0.2em 0.4em; /* Ggf. Padding anpassen für mobile Ansicht */
   }
-}
-
-/* pagination-controls */
-.pagination-controls {
-    text-align: center;
-    margin-top: 1.5em; /* Abstand zum Inhalt */
-    padding-top: 0.5em; /* Etwas Puffer über den Buttons */
-    border-top: 1px solid var(--body); /* Trennlinie */
-}
-
-.pagination-controls .page-link {
-    display: inline-block;
-    padding: 0.5em 0.8em;
-    margin: 0 0.2em;
-    background-color: var(--bg);
-    color: var(--body);
-    text-decoration: none;
-    border: 1px solid var(--body);
-    border-radius: 0 !important;
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.pagination-controls .page-link:hover {
-    background-color: var(--hover-bg);
-    color: var(--hover-text);
-}
-
-.pagination-controls .page-link.active {
-    background-color: var(--primary); /* Oder deine Akzentfarbe */
-    color: var(--bg);
-    border-color: var(--primary);
-    font-weight: 200; /* Thin - leichterer Schnitt */
 }
 
 /* ========== GEZIELTE ANPASSUNGEN (vom Kunden gewünscht) ========== */

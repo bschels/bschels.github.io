@@ -117,74 +117,7 @@ $(function() {
     }
   });
 
-  function generatePagination($contentContainer, totalPages, currentPageIndex) {
-    if (totalPages <= 1) return; // 🔧 NEU: Kein Paginator bei nur einer Seite
-    $contentContainer.find('.pagination-controls').remove();
-    let paginationHtml = '<div class="pagination-controls">';
-    for (let i = 0; i < totalPages; i++) {
-      paginationHtml += `<a href="#" class="page-link ${i === currentPageIndex ? 'active' : ''}" data-page-index="${i}">${i + 1}</a>`;
-    }
-    paginationHtml += '</div>';
-    $contentContainer.append(paginationHtml);
-  }
-
-  $('.accordion-sub-toggle').on('click', function(event) {
-    event.preventDefault();
-    var $this = $(this);
-    var pageFilename = $this.data('page');
-    var targetElementId = $this.data('target-id');
-    var $targetContent = $('#' + targetElementId);
-    var $arrowIcon = $this.find('.arrow');
-    var $parentCatLink = $this.closest('.cat-link');
-
-    $('.accordion-content.active').not($targetContent).css('max-height', '0px').removeClass('active').html('').css('overflow-y', 'hidden');
-    $('.accordion-sub-toggle .arrow.expanded').not($arrowIcon).removeClass('expanded');
-    $('.cat-link.active-sub-link').not($parentCatLink).removeClass('active-sub-link');
-
-    if ($targetContent.hasClass('active')) {
-      $targetContent.css('max-height', '0px').removeClass('active').html('').css('overflow-y', 'hidden');
-      $arrowIcon.removeClass('expanded');
-      $parentCatLink.removeClass('active-sub-link');
-    } else {
-      loadContent(pageFilename, targetElementId, function() {
-        const $projectPages = $targetContent.find('.project-page');
-        if ($projectPages.length > 0) {
-          if ($projectPages.length > 1) {
-            $projectPages.hide();
-            $projectPages.first().show();
-            generatePagination($targetContent, $projectPages.length, 0);
-            $targetContent.off('click', '.pagination-controls .page-link').on('click', '.pagination-controls .page-link', function(e) {
-              e.preventDefault();
-              const pageIndex = $(this).data('page-index');
-              $projectPages.hide();
-              $projectPages.eq(pageIndex).show();
-              $('.pagination-controls .page-link').removeClass('active');
-              $(this).addClass('active');
-              const currentPageElement = $projectPages.eq(pageIndex)[0];
-              const currentProjectPageHeight = currentPageElement ? currentPageElement.scrollHeight : 0;
-              const paginationHeight = $targetContent.find('.pagination-controls').outerHeight(true) || 0;
-              $targetContent.css('max-height', (currentProjectPageHeight + paginationHeight + 20) + 'px');
-              setTimeout(() => {
-                $targetContent.css('overflow-y', 'auto');
-              }, 500);
-            });
-          }
-        }
-
-        $targetContent.addClass('active');
-        $targetContent.outerHeight();
-        const contentHeight = $targetContent.prop('scrollHeight');
-        $targetContent.css('max-height', contentHeight + 'px');
-        setTimeout(function() {
-          $targetContent.css('overflow-y', 'auto');
-        }, 500);
-      });
-      $arrowIcon.addClass('expanded');
-      $parentCatLink.addClass('active-sub-link');
-    }
-  });
-
-  // Close lightbox handlers
+// Close lightbox handlers
   function closeLightbox(lightboxId) {
     document.getElementById(lightboxId).style.display = 'none';
     document.getElementById('fade').style.display = 'none';
