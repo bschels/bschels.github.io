@@ -307,19 +307,16 @@ blockquote, em, i, li, ol, ul {
 }
 
 blockquote {
-  margin: 2.5rem 0;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 2rem 0;
   padding: 0;
   border: none;
 }
 
 blockquote .says {
   font-style: normal;
-  font-size: 1em;
+  font-size: .9em;
   font-weight: 200;
-  display: block;
-  margin-bottom: .3rem;
+  display: inline;
   color: var(--secondary);
 }
 
@@ -339,11 +336,13 @@ blockquote p:not(.says) {
 blockquote footer {
   font-style: normal;
   font-weight: 200;
-  text-align: left;
-  display: block;
+  display: inline;
   color: var(--secondary);
-  font-size: .85em;
-  margin-top: .2rem;
+  font-size: .9em;
+}
+
+blockquote footer::before {
+  content: " – ";
 }
 
 small {
