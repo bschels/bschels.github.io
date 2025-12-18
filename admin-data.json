@@ -19,6 +19,15 @@
     "ogDescription": "Architekt in Wolnzach bei Pfaffenhofen – Bauen im Bestand und Denkmalpflege in der Hallertau. Neubau, Umbau & Sanierung in Bayern."
   },
   "styles": {
+    "font": "-apple-system,BlinkMacSystemFont,'Avenir Next','Segoe UI',sans-serif",
+    "fontsize": "1em",
+    "weight": "200",
+    "lineheight": "1.6",
+    "p-margin": "1rem",
+    "h-margin": "2.5rem",
+    "h2": "1.4em",
+    "h3": "1.2em",
+    "spacing": "0.2em",
     "bg": "#ffffff",
     "text": "#000000",
     "accent": "#0000ff",
@@ -26,14 +35,6 @@
     "bg-dark": "#111111",
     "text-dark": "#e5e5e5",
     "accent-dark": "#4d9fff",
-    "font": "system",
-    "fontsize": "1em",
-    "weight": "200",
-    "lineheight": "1.6",
-    "h1": "1.6em",
-    "h2": "1.4em",
-    "h3": "1.2em",
-    "spacing": "0.2em",
     "width": "70%",
     "maxwidth": "60em"
   },
@@ -42,5 +43,5 @@
     "telefon": "+49 8442 929 229 1",
     "adresse": "Schlachterstraße 9, 85283 Wolnzach"
   },
-  "updated": "2025-12-18T19:30:27.971Z"
+  "updated": "2025-12-18T19:32:19.195Z"
 }
