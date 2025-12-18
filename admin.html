@@ -1080,7 +1080,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
   // ========== FEATURE 8: Diff-Ansicht ==========
   let pendingSave=null;
   
-  function showDiff(){
+  window.showDiff=function(){
     const modal=$('diff-modal');
     const content=$('diff-content');
     if(!modal||!content)return;
@@ -1119,9 +1119,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
   }
   
-  function closeDiff(){
+  window.closeDiff=function(){
     $('diff-modal').style.display='none';
-  }
+  };
 
   // ========== Event Bindings für neue Features ==========
   function bindNewFeatures(){
