@@ -674,27 +674,33 @@ hr.z {
   font-size: .85em;
 }
 
-/* ===== CTA BUTTON ===== */
-.cta-link {
-  margin-top: 2rem;
+/* ===== CTA ROW ===== */
+.cta-row {
+  margin-top: 0;
 }
 
-.cta-contact {
+.cta-hint {
+  font-size: .85em;
+  color: var(--secondary);
+  margin: 0 0 .3em;
+  font-weight: 200;
+}
+
+.cta-link-line {
   display: block;
-  width: 100%;
-  text-align: center;
-  padding: .8em 1.2em;
-  border: 1px solid var(--body);
+  font-size: 1.2em;
+  font-weight: 200;
+  letter-spacing: .2em;
   text-decoration: none !important;
-  letter-spacing: .1em;
+  color: var(--body);
+  padding: 0;
+  margin: 0 0 .3em;
   transition: all .2s ease;
-  box-sizing: border-box;
 }
 
-.cta-contact:hover {
+.cta-link-line:hover {
   background-color: var(--hover-bg);
   color: var(--hover-text);
-  border-color: var(--hover-bg);
 }
 
 /* ===== CONTACT FORM ===== */
