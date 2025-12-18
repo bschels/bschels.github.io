@@ -255,7 +255,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
                 <div class="css-selector-bar">
                   <label>Selektor:</label>
                   <select id="css-selector-dropdown"></select>
-                  <button id="css-add-selector" class="btn-small btn-secondary" title="Neuen Selektor hinzufügen">+</button>
                 </div>
                 <div class="css-properties-list" id="css-properties-list"></div>
                 <div class="css-add-property">
@@ -735,38 +734,39 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const dropdown = $('css-selector-dropdown');
     if (!dropdown) return;
     
+    // Nur die WICHTIGSTEN Selektoren zeigen
+    const important = [
+      ':root',
+      'body',
+      'h1, h2',
+      'h2',
+      'h3',
+      'p',
+      'a:link, a:visited',
+      'strong.brand-name, .brand-name',
+      'b, strong',
+      '.cat',
+      '.cv-header',
+      '.cv-name h2',
+      '.cv-subtitle',
+      '.cta-contact',
+      'table',
+      'td',
+      '.footer-bottom-container'
+    ];
+    
     dropdown.innerHTML = '<option value="-1">-- Selektor wählen --</option>';
     
-    // Gruppiere Selektoren
-    const groups = {
-      'Variablen': [],
-      'Elemente': [],
-      'Klassen': [],
-      'Media Queries': [],
-      'Andere': []
-    };
-    
     parsedCss.forEach((block, idx) => {
-      const sel = block.selector;
-      if (sel.startsWith(':root')) groups['Variablen'].push({ idx, sel });
-      else if (sel.startsWith('@media')) groups['Media Queries'].push({ idx, sel });
-      else if (sel.startsWith('@')) groups['Andere'].push({ idx, sel });
-      else if (sel.startsWith('.') || sel.includes('.')) groups['Klassen'].push({ idx, sel });
-      else groups['Elemente'].push({ idx, sel });
-    });
-    
-    Object.keys(groups).forEach(group => {
-      if (groups[group].length === 0) return;
-      const optgroup = document.createElement('optgroup');
-      optgroup.label = group;
-      groups[group].forEach(item => {
-        const opt = document.createElement('option');
-        opt.value = item.idx;
-        opt.textContent = item.sel.length > 40 ? item.sel.substring(0, 40) + '...' : item.sel;
-        opt.title = item.sel;
-        optgroup.appendChild(opt);
-      });
-      dropdown.appendChild(optgroup);
+      const sel = block.selector.trim();
+      // Nur wichtige Selektoren zeigen (exakt oder am Anfang)
+      const isImportant = important.some(imp => sel === imp || sel.startsWith(imp + ' '));
+      if (!isImportant) return;
+      
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = sel;
+      dropdown.appendChild(opt);
     });
   }
   
@@ -925,9 +925,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
     
     const addPropBtn = $('css-add-property-btn');
     if (addPropBtn) addPropBtn.addEventListener('click', addProperty);
-    
-    const addSelBtn = $('css-add-selector');
-    if (addSelBtn) addSelBtn.addEventListener('click', addSelector);
   }
 
   function execCmd(editorId,cmd){
