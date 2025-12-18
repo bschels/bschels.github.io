@@ -778,14 +778,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
     return data;
   }
   
-  async function saveFile(path,content){
+  async function saveFile(path,content,retry=true){
     const token=localStorage.getItem('gh_token');
     const repo=localStorage.getItem('gh_repo');
     const branch=localStorage.getItem('gh_branch')||'main';
     
+    // Always fetch fresh SHA right before saving
     let sha;
     try{
-      const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,{headers:{Authorization:`token ${token}`}});
+      const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}&t=${Date.now()}`,{
+        headers:{Authorization:`token ${token}`},
+        cache:'no-store'
+      });
       if(r.ok)sha=(await r.json()).sha;
     }catch(e){}
     
@@ -797,7 +801,16 @@ button:disabled{opacity:.4;cursor:not-allowed}
       headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
       body:JSON.stringify(body)
     });
-    if(!res.ok)throw new Error((await res.json()).message||'GitHub Fehler');
+    
+    if(!res.ok){
+      const errData=await res.json();
+      // If SHA mismatch, retry once with fresh SHA
+      if(res.status===409 && retry){
+        console.log('SHA conflict, retrying...');
+        return saveFile(path,content,false);
+      }
+      throw new Error(errData.message||'GitHub Fehler');
+    }
   }
   
   async function testGitHub(){
