@@ -1090,33 +1090,27 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const locations=$('stats-locations');
     
     if(overview)overview.innerHTML='<p style="color:#666">Lade...</p>';
+    [pages,refs,browsers,systems,locations].forEach(el=>{if(el)el.innerHTML='';});
     
-    const headers={'Authorization':`Bearer ${token}`};
+    const headers={'Authorization':`Bearer ${token}`,'Content-Type':'application/json'};
     const base='https://schels.goatcounter.com/api/v0/stats';
     
+    // Hilfsfunktion für einzelne API-Calls
+    async function fetchStat(endpoint){
+      try{
+        const res=await fetch(`${base}/${endpoint}?start=${start}&end=${end}&limit=10`,{headers});
+        if(!res.ok)return null;
+        return await res.json();
+      }catch(e){return null;}
+    }
+    
     try{
-      // Parallel alle Statistiken laden
-      const [totalRes,hitsRes,refsRes,browsersRes,systemsRes,locationsRes]=await Promise.all([
-        fetch(`${base}/total?start=${start}&end=${end}`,{headers}),
-        fetch(`${base}/hits?start=${start}&end=${end}&limit=10`,{headers}),
-        fetch(`${base}/refs?start=${start}&end=${end}&limit=10`,{headers}),
-        fetch(`${base}/browsers?start=${start}&end=${end}&limit=8`,{headers}),
-        fetch(`${base}/systems?start=${start}&end=${end}&limit=8`,{headers}),
-        fetch(`${base}/locations?start=${start}&end=${end}&limit=10`,{headers})
-      ]);
+      // Erst die wichtigsten laden
+      const total=await fetchStat('total');
+      if(!total)throw new Error('API nicht erreichbar');
       
-      if(!totalRes.ok)throw new Error('API Fehler');
-      
-      const total=await totalRes.json();
-      const hitsData=hitsRes.ok?await hitsRes.json():null;
-      const refsData=refsRes.ok?await refsRes.json():null;
-      const browsersData=browsersRes.ok?await browsersRes.json():null;
-      const systemsData=systemsRes.ok?await systemsRes.json():null;
-      const locationsData=locationsRes.ok?await locationsRes.json():null;
-      
-      // Overview Cards
+      const periodLabel={day:'Heute',week:'7 Tage',month:'30 Tage',year:'365 Tage'}[period];
       if(overview){
-        const periodLabel={day:'Heute',week:'7 Tage',month:'30 Tage',year:'365 Tage'}[period];
         overview.innerHTML=`
           <div class="stat-card">
             <h4>Aufrufe (${periodLabel})</h4>
@@ -1133,15 +1127,24 @@ button:disabled{opacity:.4;cursor:not-allowed}
         `;
       }
       
-      // Detailstatistiken
-      if(pages)pages.innerHTML=renderStatRows(hitsData?.stats||hitsData);
-      if(refs)refs.innerHTML=renderStatRows(refsData?.stats||refsData);
-      if(browsers)browsers.innerHTML=renderStatRows(browsersData?.stats||browsersData);
-      if(systems)systems.innerHTML=renderStatRows(systemsData?.stats||systemsData);
-      if(locations)locations.innerHTML=renderStatRows(locationsData?.stats||locationsData);
+      // Dann die Details (einzeln, um Fehler zu isolieren)
+      const hitsData=await fetchStat('hits');
+      if(pages)pages.innerHTML=renderStatRows(hitsData?.stats||hitsData)||'<p style="color:#999;font-size:.8rem">–</p>';
+      
+      const refsData=await fetchStat('toprefs');
+      if(refs)refs.innerHTML=renderStatRows(refsData?.stats||refsData)||'<p style="color:#999;font-size:.8rem">–</p>';
+      
+      const browsersData=await fetchStat('browsers');
+      if(browsers)browsers.innerHTML=renderStatRows(browsersData?.stats||browsersData)||'<p style="color:#999;font-size:.8rem">–</p>';
+      
+      const systemsData=await fetchStat('systems');
+      if(systems)systems.innerHTML=renderStatRows(systemsData?.stats||systemsData)||'<p style="color:#999;font-size:.8rem">–</p>';
+      
+      const locationsData=await fetchStat('locations');
+      if(locations)locations.innerHTML=renderStatRows(locationsData?.stats||locationsData)||'<p style="color:#999;font-size:.8rem">–</p>';
       
     }catch(e){
-      if(overview)overview.innerHTML=`<div class="info-box" style="background:#fff3cd;border-color:#ffc107"><strong>Fehler:</strong> ${e.message}</div>`;
+      if(overview)overview.innerHTML=`<div class="info-box" style="background:#fff3cd;border-color:#ffc107"><strong>Fehler:</strong> ${e.message}<br><small>Für volle Statistiken: <a href="https://schels.goatcounter.com" target="_blank">Dashboard öffnen</a></small></div>`;
     }
   }
 
