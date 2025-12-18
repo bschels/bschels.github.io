@@ -118,6 +118,10 @@ button:disabled{opacity:.4;cursor:not-allowed}
 }
 .quill-container .ql-editor em{font-style:italic}
 .quill-container .ql-editor u{text-decoration:underline;text-underline-offset:2px}
+/* Small Caps */
+.quill-container .ql-editor .smallcaps{font-variant:small-caps;letter-spacing:.05em}
+.ql-smallcaps{font-size:11px !important}
+.ql-smallcaps::after{content:'Aa';font-variant:small-caps}
 .quill-container .ql-editor a{color:var(--text);text-decoration:underline;text-decoration-style:dotted}
 /* Tables (for Vita) */
 .quill-container .ql-editor table{width:100%;border-collapse:collapse;margin:var(--ed-p-margin) 0}
@@ -504,8 +508,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
   const $=id=>document.getElementById(id),$$=s=>document.querySelectorAll(s);
   const hash=s=>s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
   
+  // Register Small Caps format
+  const Inline=Quill.import('blots/inline');
+  class SmallCapsBlot extends Inline{
+    static create(){const node=super.create();node.classList.add('smallcaps');return node;}
+    static formats(node){return node.classList.contains('smallcaps');}
+  }
+  SmallCapsBlot.blotName='smallcaps';
+  SmallCapsBlot.tagName='span';
+  Quill.register(SmallCapsBlot);
+  
   let editors={},hasChanges=false,autoSaveTimer=null;
-  const toolbarOpts=[['bold','italic','underline'],['link'],[{'list':'bullet'},{'list':'ordered'}],[{'header':[2,3,false]}],['clean']];
+  const toolbarOpts=[['bold','italic','underline','smallcaps'],['link'],[{'list':'bullet'},{'list':'ordered'}],[{'header':[2,3,false]}],['clean']];
   
   // Init
   function init(){
@@ -592,8 +606,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
     ['profil-ueberblick','profil-arbeitsweise','profil-schwerpunkte','profil-philosophie','vita','leistungen','referenzen','kontakt-intro','impressum','datenschutz'].forEach(id=>{
       const el=$('ed-'+id);
       if(el){
-        editors[id]=new Quill(el,{theme:'snow',modules:{toolbar:toolbarOpts},placeholder:'Text eingeben...'});
-        editors[id].on('text-change',()=>markChanged());
+        const q=new Quill(el,{theme:'snow',modules:{toolbar:toolbarOpts},placeholder:'Text eingeben...'});
+        // Add smallcaps handler
+        const toolbar=q.getModule('toolbar');
+        toolbar.addHandler('smallcaps',function(){
+          const range=q.getSelection();
+          if(range){
+            const format=q.getFormat(range);
+            q.format('smallcaps',!format.smallcaps);
+          }
+        });
+        q.on('text-change',()=>markChanged());
+        editors[id]=q;
       }
     });
     $$('input:not([id^="st-"]),textarea,select:not([id^="st-"])').forEach(el=>el.addEventListener('input',markChanged));
