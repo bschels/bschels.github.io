@@ -45,8 +45,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .main-header h2{font-weight:400;font-size:.85rem;letter-spacing:.03em}
 .header-actions{display:flex;gap:.3rem;align-items:center}
 .view-toggle{display:flex;border:1px solid var(--border)}
-.view-toggle button{border:none;background:var(--bg);padding:.25rem .5rem;font-size:.65rem;border-right:1px solid var(--border)}
+.view-toggle button{border:none;background:var(--bg);color:var(--text);padding:.25rem .5rem;font-size:.65rem;border-right:1px solid var(--border);cursor:pointer}
 .view-toggle button:last-child{border-right:none}
+.view-toggle button:hover{background:var(--hover)}
 .view-toggle button.active{background:var(--accent);color:var(--bg)}
 .main-body{flex:1;display:flex;overflow:hidden}
 .panel{display:none;flex:1;flex-direction:column;overflow:hidden}
