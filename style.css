@@ -675,15 +675,23 @@ hr.z {
 }
 
 /* ===== CTA BUTTON ===== */
+.cta-hint {
+  margin: 2rem 0 .5rem;
+  font-size: .75em;
+  font-weight: 200;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--secondary);
+}
+
 .cta-link-line {
   display: inline-block;
-  margin-top: 1.5rem;
-  font-size: 1em;
+  font-size: .9em;
   font-weight: 200;
   letter-spacing: .1em;
   text-decoration: none !important;
   color: var(--body);
-  padding: .6em 1em;
+  padding: .5em .9em;
   border: 1px solid var(--body);
   transition: all .2s ease;
 }
