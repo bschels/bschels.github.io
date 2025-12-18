@@ -1191,6 +1191,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     // Bilder
     $('upload-image-btn')?.addEventListener('click',uploadImage);
     $('refresh-stats')?.addEventListener('click',loadStats);
+    $('stats-period')?.addEventListener('change',loadStats);
     
     // Diff Modal
     $('close-diff')?.addEventListener('click',closeDiff);
