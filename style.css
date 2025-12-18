@@ -728,6 +728,19 @@ hr.z {
   letter-spacing: .1em;
 }
 
+.form-group label .optional {
+  font-weight: 200;
+  color: var(--secondary);
+  letter-spacing: normal;
+}
+
+.field-hint {
+  font-size: .85em;
+  color: var(--secondary);
+  margin: 0 0 .5rem;
+  font-weight: 200;
+}
+
 .form-group input, .form-group textarea {
   width: 100%;
   max-width: 100%;
