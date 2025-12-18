@@ -852,6 +852,16 @@ hr.z {
   display: none;
 }
 
+.form-error .error-fallback {
+  color: var(--secondary);
+  font-size: 0.9em;
+}
+
+.form-error .error-fallback a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 /* ===== MEDIA QUERIES ===== */
 
 /* Mobile (max 810px) */
