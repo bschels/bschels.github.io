@@ -6,9 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Admin – architekturbüro schels</title>
   <style>
-:root{
-  --bg:#fff;--sidebar:#fafafa;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828;
-}
+:root{--bg:#fff;--sidebar:#fafafa;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828;--warning:#f57c00}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;height:100vh;overflow:hidden}
 .login-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--sidebar)}
@@ -40,7 +38,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .nav-item.active{background:var(--hover);border-left-color:var(--accent);font-weight:500}
 .sidebar-footer{padding:.8rem;border-top:1px solid var(--border);font-size:.75rem}
 .sidebar-footer button{width:100%;margin-bottom:.4rem}
-.autosave-status{color:#999;text-align:center;font-size:.7rem}
 .main-content{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .main-header{padding:.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
 .main-header h2{font-weight:400;font-size:1rem;letter-spacing:.04em}
@@ -51,15 +48,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .editor-group{margin-bottom:1.5rem}
 .editor-group>label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#666;margin-bottom:.4rem}
 .editor-group .hint{font-size:.75rem;color:#999;margin-top:.2rem}
-.editor-container{border:1px solid var(--border);background:var(--bg)}
-.editor-container textarea{border:none;min-height:350px}
 .section-title{font-size:.9rem;font-weight:500;margin:1.5rem 0 1rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 .section-title:first-child{margin-top:0}
-.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;margin-bottom:1rem}
-.style-item{display:flex;flex-direction:column;gap:.2rem}
-.style-item label{font-size:.65rem;text-transform:uppercase;letter-spacing:.04em;color:#666}
-.style-item input[type="color"]{width:100%;height:32px;padding:1px;cursor:pointer;border:1px solid var(--border)}
-.style-item input[type="text"],.style-item select{padding:.45rem .6rem;font-size:.85rem}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .status-bar{position:fixed;bottom:0;left:200px;right:0;padding:.6rem 1.2rem;background:var(--accent);color:var(--bg);display:none;font-size:.85rem}
 .status-bar.error{background:var(--error)}
@@ -67,10 +57,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .status-bar.active{display:flex;justify-content:space-between;align-items:center}
 .unsaved-indicator{display:none;width:8px;height:8px;background:orange;border-radius:50%;margin-left:.5rem}
 .unsaved-indicator.active{display:inline-block}
-/* TinyMCE Custom Styles */
-.tox-tinymce{border:1px solid var(--border)!important;border-radius:0!important}
-.tox .tox-edit-area__iframe{background:var(--bg)!important}
-@media(max-width:768px){.sidebar{width:160px}.main-body{padding:.8rem}.style-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
+.info-box{background:#fff8e1;border:1px solid #ffe082;padding:1rem;margin-bottom:1.5rem;font-size:.85rem}
+.info-box.blue{background:#e3f2fd;border-color:#90caf9}
+.info-box h4{margin:0 0 .5rem;font-weight:500}
+.char-count{font-size:.75rem;color:#999;margin-top:.2rem}
+.char-count.warning{color:var(--warning)}
+.char-count.error{color:var(--error)}
+@media(max-width:768px){.sidebar{width:160px}.main-body{padding:.8rem}.two-col{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -101,129 +94,107 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <h1>architekturbüro <span>schels</span></h1>
       </div>
       <nav class="sidebar-nav">
-        <div class="nav-section">Inhalte</div>
-        <a href="#" class="nav-item active" data-panel="profil">Profil</a>
-        <a href="#" class="nav-item" data-panel="vita">Vita</a>
-        <a href="#" class="nav-item" data-panel="leistungen">Leistungen</a>
-        <a href="#" class="nav-item" data-panel="referenzen">Referenzen</a>
-        <a href="#" class="nav-item" data-panel="kontakt">Kontakt</a>
-        <div class="nav-section">Rechtliches</div>
-        <a href="#" class="nav-item" data-panel="impressum">Impressum</a>
-        <a href="#" class="nav-item" data-panel="datenschutz">Datenschutz</a>
-        <div class="nav-section">Design & SEO</div>
-        <a href="#" class="nav-item" data-panel="seo">SEO & Meta-Tags</a>
+        <div class="nav-section">SEO</div>
+        <a href="#" class="nav-item active" data-panel="seo">Meta-Tags</a>
+        <a href="#" class="nav-item" data-panel="og">Open Graph</a>
+        <div class="nav-section">Info</div>
+        <a href="#" class="nav-item" data-panel="inhalte">Inhalte bearbeiten</a>
         <div class="nav-section">System</div>
         <a href="#" class="nav-item" data-panel="einstellungen">Einstellungen</a>
       </nav>
       <div class="sidebar-footer">
-        <button id="save-btn" class="btn-success">💾 Speichern & Veröffentlichen</button>
+        <button id="save-btn" class="btn-success">💾 SEO Speichern</button>
         <button id="logout-btn" class="btn-secondary">Abmelden</button>
-        <div class="autosave-status">Zuletzt: <span id="autosave-time">-</span></div>
       </div>
     </aside>
 
     <main class="main-content">
       <header class="main-header">
-        <h2 id="panel-title">Profil <span class="unsaved-indicator" id="unsaved"></span></h2>
+        <h2 id="panel-title">Meta-Tags <span class="unsaved-indicator" id="unsaved"></span></h2>
         <div class="header-actions">
           <button id="preview-btn" class="btn-secondary btn-small">Vorschau ↗</button>
         </div>
       </header>
 
       <div class="main-body">
-        <!-- Profil -->
-        <div id="profil-panel" class="panel active">
-          <div class="editor-group">
-            <label>Profil (kompletter Inhalt)</label>
-            <div class="editor-container"><textarea id="ed-profil"></textarea></div>
-            <p class="hint">CV-Header und Zitat bleiben automatisch erhalten</p>
-          </div>
-        </div>
-
-        <!-- Vita -->
-        <div id="vita-panel" class="panel">
-          <div class="editor-group">
-            <label>Vita (kompletter Inhalt mit Tabelle)</label>
-            <div class="editor-container"><textarea id="ed-vita"></textarea></div>
-          </div>
-        </div>
-
-        <!-- Leistungen -->
-        <div id="leistungen-panel" class="panel">
-          <div class="editor-group">
-            <label>Leistungen (kompletter Inhalt mit Listen)</label>
-            <div class="editor-container"><textarea id="ed-leistungen"></textarea></div>
-          </div>
-        </div>
-
-        <!-- Referenzen -->
-        <div id="referenzen-panel" class="panel">
-          <div class="editor-group">
-            <label>Referenzen (kompletter Inhalt mit Tabelle)</label>
-            <div class="editor-container"><textarea id="ed-referenzen"></textarea></div>
-          </div>
-        </div>
-
-        <!-- Kontakt -->
-        <div id="kontakt-panel" class="panel">
-          <div class="editor-group">
-            <label>Kontakt (kompletter Inhalt)</label>
-            <div class="editor-container"><textarea id="ed-kontakt"></textarea></div>
-            <p class="hint">Kontaktformular bleibt automatisch erhalten</p>
-          </div>
-        </div>
-
-        <!-- Impressum -->
-        <div id="impressum-panel" class="panel">
-          <div class="editor-group">
-            <label>Impressum (HTML)</label>
-            <div class="editor-container"><textarea id="ed-impressum"></textarea></div>
-            <p class="hint">Wird in pages/impressum.html gespeichert</p>
-          </div>
-        </div>
-
-        <!-- Datenschutz -->
-        <div id="datenschutz-panel" class="panel">
-          <div class="editor-group">
-            <label>Datenschutzerklärung (HTML)</label>
-            <div class="editor-container"><textarea id="ed-datenschutz"></textarea></div>
-            <p class="hint">Wird in pages/datenschutz.html gespeichert</p>
-          </div>
-        </div>
-
         <!-- SEO -->
-        <div id="seo-panel" class="panel">
-          <div class="section-title">Meta-Tags</div>
+        <div id="seo-panel" class="panel active">
+          <div class="info-box blue">
+            <h4>💡 SEO Meta-Tags</h4>
+            Diese Felder beeinflussen, wie deine Website in Google-Suchergebnissen erscheint.
+          </div>
+          
           <div class="editor-group">
             <label>Seitentitel (Title Tag)</label>
-            <input type="text" id="seo-title">
-            <p class="hint">Empfohlen: 50-60 Zeichen</p>
+            <input type="text" id="seo-title" oninput="updateCharCount(this, 60)">
+            <div class="char-count" id="seo-title-count">0/60 Zeichen</div>
           </div>
+          
           <div class="editor-group">
             <label>Beschreibung (Meta Description)</label>
-            <textarea id="seo-description"></textarea>
-            <p class="hint">Empfohlen: 150-160 Zeichen</p>
+            <textarea id="seo-description" rows="3" oninput="updateCharCount(this, 160)"></textarea>
+            <div class="char-count" id="seo-description-count">0/160 Zeichen</div>
           </div>
+          
           <div class="editor-group">
             <label>Keywords</label>
-            <textarea id="seo-keywords"></textarea>
-            <p class="hint">Kommagetrennt</p>
+            <textarea id="seo-keywords" rows="2"></textarea>
+            <p class="hint">Kommagetrennt, z.B.: Architekt Wolnzach, Denkmalpflege, Bauen im Bestand</p>
           </div>
-          <div class="section-title">Open Graph (Social Media)</div>
+        </div>
+
+        <!-- Open Graph -->
+        <div id="og-panel" class="panel">
+          <div class="info-box blue">
+            <h4>📱 Open Graph</h4>
+            Diese Felder bestimmen, wie deine Website aussieht, wenn sie auf Social Media geteilt wird.
+          </div>
+          
           <div class="editor-group">
             <label>OG Title</label>
-            <input type="text" id="seo-og-title">
+            <input type="text" id="seo-og-title" oninput="updateCharCount(this, 60)">
+            <div class="char-count" id="seo-og-title-count">0/60 Zeichen</div>
           </div>
+          
           <div class="editor-group">
             <label>OG Description</label>
-            <textarea id="seo-og-description"></textarea>
+            <textarea id="seo-og-description" rows="3" oninput="updateCharCount(this, 160)"></textarea>
+            <div class="char-count" id="seo-og-description-count">0/160 Zeichen</div>
+          </div>
+        </div>
+
+        <!-- Inhalte -->
+        <div id="inhalte-panel" class="panel">
+          <div class="info-box">
+            <h4>⚠️ Inhalte bearbeiten</h4>
+            <p>WYSIWYG-Editoren (wie Word) zerstören leider die HTML-Struktur deiner Website (Tabellen, Listen, CSS-Klassen).</p>
+            <p style="margin-top:.5rem"><strong>Daher können Inhalte nur direkt in den HTML-Dateien bearbeitet werden:</strong></p>
+          </div>
+          
+          <div class="section-title">Hauptseite (index.html)</div>
+          <ul style="margin-left:1.5rem;font-size:.9rem;line-height:1.8">
+            <li><strong>Profil</strong> – Abschnitt #content1</li>
+            <li><strong>Vita</strong> – Abschnitt #content2 (enthält Tabelle)</li>
+            <li><strong>Leistungen</strong> – Abschnitt #content3 (enthält Listen)</li>
+            <li><strong>Referenzen</strong> – Abschnitt #content4 (enthält Tabelle)</li>
+            <li><strong>Kontakt</strong> – Abschnitt #content5</li>
+          </ul>
+          
+          <div class="section-title">Unterseiten</div>
+          <ul style="margin-left:1.5rem;font-size:.9rem;line-height:1.8">
+            <li><strong>Impressum</strong> – pages/impressum.html</li>
+            <li><strong>Datenschutz</strong> – pages/datenschutz.html</li>
+          </ul>
+          
+          <div style="margin-top:2rem;padding:1rem;background:var(--sidebar);border:1px solid var(--border)">
+            <p style="font-size:.85rem"><strong>Tipp:</strong> Für Textänderungen frag einfach in Cursor – ich helfe dir gerne!</p>
           </div>
         </div>
 
         <!-- Einstellungen -->
         <div id="einstellungen-panel" class="panel">
           <div class="section-title">GitHub Verbindung</div>
-          <p style="font-size:.85rem;color:#666;margin-bottom:1rem">Änderungen werden direkt in dein Repository geschrieben.</p>
+          <p style="font-size:.85rem;color:#666;margin-bottom:1rem">SEO-Änderungen werden direkt in dein Repository geschrieben.</p>
           <div class="editor-group">
             <label>Personal Access Token</label>
             <input type="password" id="github-token" placeholder="ghp_...">
@@ -250,76 +221,14 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
   <div id="status-bar" class="status-bar"></div>
 
-  <!-- TinyMCE from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/tinymce@7/tinymce.min.js"></script>
   <script>
 (function(){
   'use strict';
   const $=id=>document.getElementById(id),$$=s=>document.querySelectorAll(s);
   const hash=s=>s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
   
-  let editors={},hasChanges=false;
+  let hasChanges=false;
   
-  // TinyMCE configuration - preserves ALL HTML
-  const editorConfig={
-    license_key:'gpl',
-    promotion:false,
-    branding:false,
-    menubar:false,
-    statusbar:true,
-    min_height:350,
-    // WICHTIG: Alle HTML-Elemente und Attribute erlauben
-    valid_elements:'*[*]',
-    valid_children:'+body[style],+div[style]',
-    extended_valid_elements:'*[*]',
-    custom_elements:'~small',
-    // Keine automatische Bereinigung
-    verify_html:false,
-    cleanup:false,
-    remove_trailing_brs:false,
-    forced_root_block:'p',
-    // Plugins für Listen, Tabellen, Code
-    plugins:'lists table link code fullscreen',
-    toolbar:'undo redo | bold italic underline | bullist numlist | table | link | code fullscreen',
-    table_toolbar:'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
-    // Content Styling (wie Website)
-    content_style:`
-      body { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', sans-serif;
-        font-size: 16px;
-        font-weight: 200;
-        line-height: 1.6;
-        color: #000;
-        padding: 1rem;
-      }
-      p { margin: 0 0 1rem; }
-      h2, h3 { 
-        font-weight: 200; 
-        letter-spacing: 0.15em; 
-        text-transform: uppercase;
-        margin: 2rem 0 0.75rem;
-      }
-      h2 { font-size: 1.4em; }
-      h3 { font-size: 1.2em; }
-      h2:first-child, h3:first-child { margin-top: 0; }
-      strong { font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; }
-      em, i { font-style: italic; }
-      ul, ol { margin: 0 0 1rem; padding-left: 1.5rem; }
-      li { margin-bottom: 0.5rem; }
-      table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-      td, th { padding: 0.5rem; vertical-align: top; border-bottom: 1px solid #e0e0e0; text-align: left; }
-      blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 2px solid #000; font-style: italic; }
-      a { color: #000; text-decoration: underline; text-decoration-style: dotted; }
-      .brand-name { font-weight: 400; }
-      small { font-size: 0.85em; color: #666; }
-    `,
-    setup:ed=>{
-      ed.on('change',()=>markChanged());
-      ed.on('input',()=>markChanged());
-    }
-  };
-  
-  // Init
   function init(){
     if(!localStorage.getItem('admin_pw')){$('login-form').style.display='none';$('setup-box').style.display='block';}
     if(sessionStorage.getItem('admin_auth'))showAdmin();
@@ -352,39 +261,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
     $('preview-btn').onclick=()=>window.open('/','_blank');
     $('test-github').onclick=testGitHub;
     $('change-pw').onclick=changePw;
+    
+    // Track changes on SEO inputs
+    ['seo-title','seo-description','seo-keywords','seo-og-title','seo-og-description'].forEach(id=>{
+      $(id).addEventListener('input',markChanged);
+    });
   }
   
   function showAdmin(){
     $('login-screen').style.display='none';
     $('admin-layout').classList.add('active');
     loadSettings();
-    initEditors();
-  }
-  
-  async function initEditors(){
-    showStatus('Initialisiere Editoren...');
-    
-    const editorIds=['ed-profil','ed-vita','ed-leistungen','ed-referenzen','ed-kontakt','ed-impressum','ed-datenschutz'];
-    
-    for(const id of editorIds){
-      const el=$(id);
-      if(el){
-        await tinymce.init({
-          ...editorConfig,
-          selector:'#'+id
-        });
-        const name=id.replace('ed-','');
-        editors[name]=tinymce.get(id);
-      }
-    }
-    
-    // Load content after editors are ready
-    await loadContent();
-    
-    // Mark other inputs for change tracking
-    $$('input,textarea,select').forEach(el=>{
-      if(!el.id.startsWith('ed-'))el.addEventListener('input',markChanged);
-    });
+    loadContent();
   }
   
   function markChanged(){
@@ -399,256 +287,110 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
   
   async function loadContent(){
-    showStatus('Lade Inhalte...');
+    showStatus('Lade SEO-Daten...');
     try{
-      // Load index.html
       const indexRes=await fetch('/index.html?t='+Date.now());
       if(!indexRes.ok)throw new Error('index.html nicht gefunden');
       const indexHtml=await indexRes.text();
       const doc=new DOMParser().parseFromString(indexHtml,'text/html');
       
-      extractFromDoc(doc);
+      // Load SEO fields
+      const title=$('seo-title');
+      title.value=doc.querySelector('title')?.textContent||'';
+      updateCharCount(title, 60);
       
-      // Load impressum
-      try{
-        const impRes=await fetch('/pages/impressum.html?t='+Date.now());
-        if(impRes.ok && editors.impressum){
-          editors.impressum.setContent(await impRes.text());
-        }
-      }catch(e){console.log('Impressum nicht geladen:',e);}
+      const desc=$('seo-description');
+      desc.value=doc.querySelector('meta[name="description"]')?.content||'';
+      updateCharCount(desc, 160);
       
-      // Load datenschutz
-      try{
-        const dsRes=await fetch('/pages/datenschutz.html?t='+Date.now());
-        if(dsRes.ok && editors.datenschutz){
-          editors.datenschutz.setContent(await dsRes.text());
-        }
-      }catch(e){console.log('Datenschutz nicht geladen:',e);}
-      
-      // Load SEO
-      $('seo-title').value=doc.querySelector('title')?.textContent||'';
-      $('seo-description').value=doc.querySelector('meta[name="description"]')?.content||'';
       $('seo-keywords').value=doc.querySelector('meta[name="keywords"]')?.content||'';
-      $('seo-og-title').value=doc.querySelector('meta[property="og:title"]')?.content||'';
-      $('seo-og-description').value=doc.querySelector('meta[property="og:description"]')?.content||'';
+      
+      const ogTitle=$('seo-og-title');
+      ogTitle.value=doc.querySelector('meta[property="og:title"]')?.content||'';
+      updateCharCount(ogTitle, 60);
+      
+      const ogDesc=$('seo-og-description');
+      ogDesc.value=doc.querySelector('meta[property="og:description"]')?.content||'';
+      updateCharCount(ogDesc, 160);
       
       hasChanges=false;
-      showStatus('Inhalte geladen ✓','success');
+      showStatus('SEO-Daten geladen ✓','success');
       setTimeout(hideStatus,2000);
     }catch(e){
       console.error(e);
-      showStatus('Fehler beim Laden: '+e.message,'error');
-    }
-  }
-  
-  function extractFromDoc(doc){
-    // Profil - content between cv-header and blockquote/cta
-    const profil=doc.querySelector('#content1');
-    if(profil && editors.profil){
-      let html='';
-      profil.querySelectorAll('h3,p,ul,ol').forEach(el=>{
-        // Skip special elements
-        if(el.classList.contains('cv-role')||el.classList.contains('cv-subtitle')||
-           el.classList.contains('cta-link')||el.classList.contains('says'))return;
-        if(el.closest('.cv-header')||el.closest('blockquote'))return;
-        html+=el.outerHTML;
-      });
-      editors.profil.setContent(html);
-    }
-    
-    // Vita - full table and content
-    const vita=doc.querySelector('#content2');
-    if(vita && editors.vita){
-      let html='';
-      vita.querySelectorAll('table,p,h3,ul,ol').forEach(el=>{
-        html+=el.outerHTML;
-      });
-      editors.vita.setContent(html);
-    }
-    
-    // Leistungen - all content with lists
-    const leist=doc.querySelector('#content3');
-    if(leist && editors.leistungen){
-      let html='';
-      leist.querySelectorAll('h3,p,ul,ol,blockquote').forEach(el=>{
-        html+=el.outerHTML;
-      });
-      editors.leistungen.setContent(html);
-    }
-    
-    // Referenzen - table and content
-    const refs=doc.querySelector('#content4');
-    if(refs && editors.referenzen){
-      let html='';
-      refs.querySelectorAll('h3,table,p,ul,ol,small').forEach(el=>{
-        html+=el.outerHTML;
-      });
-      editors.referenzen.setContent(html);
-    }
-    
-    // Kontakt - intro and contact info
-    const kontakt=doc.querySelector('#content5');
-    if(kontakt && editors.kontakt){
-      let html='';
-      const intro=kontakt.querySelector('p.content');
-      const info=kontakt.querySelector('.contact-info');
-      if(intro)html+=intro.outerHTML;
-      if(info)html+=info.outerHTML;
-      editors.kontakt.setContent(html);
+      showStatus('Fehler: '+e.message,'error');
     }
   }
   
   async function saveAll(){
     const btn=$('save-btn');
     btn.disabled=true;btn.textContent='Speichert...';
-    showStatus('Speichert...');
+    showStatus('Speichert SEO...');
     
     const token=localStorage.getItem('gh_token')||$('github-token').value;
     if(!token){
-      showStatus('GitHub Token fehlt! Bitte unter Einstellungen eingeben.','error');
-      btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';
+      showStatus('GitHub Token fehlt!','error');
+      btn.disabled=false;btn.textContent='💾 SEO Speichern';
       return;
     }
     
-    // Save settings
     localStorage.setItem('gh_token',$('github-token').value);
     localStorage.setItem('gh_repo',$('github-repo').value);
     localStorage.setItem('gh_branch',$('github-branch').value);
     
     try{
-      // 1. Save index.html with all content sections
-      await saveIndexHtml();
+      const repo=localStorage.getItem('gh_repo');
+      const branch=localStorage.getItem('gh_branch')||'main';
       
-      // 2. Save impressum
-      if(editors.impressum){
-        await saveFile('pages/impressum.html',editors.impressum.getContent());
-      }
+      // Fetch current index.html
+      const ghRes=await fetch(`https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,{
+        headers:{Authorization:`token ${token}`}
+      });
+      if(!ghRes.ok)throw new Error('index.html nicht gefunden');
+      const ghData=await ghRes.json();
+      let html=decodeURIComponent(escape(atob(ghData.content)));
       
-      // 3. Save datenschutz
-      if(editors.datenschutz){
-        await saveFile('pages/datenschutz.html',editors.datenschutz.getContent());
-      }
+      // Update SEO meta tags using string replacement (safe, no DOM manipulation)
+      const updates=[
+        {regex:/<title>[^<]*<\/title>/,value:`<title>${escapeHtml($('seo-title').value)}</title>`},
+        {regex:/<meta name="description" content="[^"]*"/,value:`<meta name="description" content="${escapeAttr($('seo-description').value)}"`},
+        {regex:/<meta name="keywords" content="[^"]*"/,value:`<meta name="keywords" content="${escapeAttr($('seo-keywords').value)}"`},
+        {regex:/<meta property="og:title" content="[^"]*"/,value:`<meta property="og:title" content="${escapeAttr($('seo-og-title').value)}"`},
+        {regex:/<meta property="og:description" content="[^"]*"/,value:`<meta property="og:description" content="${escapeAttr($('seo-og-description').value)}"`}
+      ];
+      
+      updates.forEach(u=>{
+        html=html.replace(u.regex,u.value);
+      });
+      
+      // Save to GitHub
+      await saveFile('index.html',html,ghData.sha);
       
       hasChanges=false;
       $('unsaved')?.classList.remove('active');
-      $('autosave-time').textContent=new Date().toLocaleTimeString('de');
-      showStatus('Gespeichert & veröffentlicht ✓','success');
+      showStatus('SEO gespeichert ✓','success');
       setTimeout(hideStatus,3000);
     }catch(e){
-      console.error('Save error:',e);
+      console.error(e);
       showStatus('Fehler: '+e.message,'error');
     }
-    btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';
+    btn.disabled=false;btn.textContent='💾 SEO Speichern';
   }
   
-  async function saveIndexHtml(){
-    console.log('saveIndexHtml: Start');
-    
+  function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function escapeAttr(s){return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  
+  async function saveFile(path,content,sha){
     const token=localStorage.getItem('gh_token');
     const repo=localStorage.getItem('gh_repo');
     const branch=localStorage.getItem('gh_branch')||'main';
-    
-    // Fetch current index.html from GitHub
-    const ghRes=await fetch(`https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,{
-      headers:{Authorization:`token ${token}`}
-    });
-    if(!ghRes.ok)throw new Error('index.html nicht gefunden auf GitHub');
-    const ghData=await ghRes.json();
-    let html=decodeURIComponent(escape(atob(ghData.content)));
-    console.log('saveIndexHtml: Fetched, length='+html.length);
-    
-    const doc=new DOMParser().parseFromString(html,'text/html');
-    
-    // Update SEO meta tags
-    const title=doc.querySelector('title');
-    if(title && $('seo-title').value)title.textContent=$('seo-title').value;
-    
-    const desc=doc.querySelector('meta[name="description"]');
-    if(desc && $('seo-description').value)desc.setAttribute('content',$('seo-description').value);
-    
-    const keywords=doc.querySelector('meta[name="keywords"]');
-    if(keywords && $('seo-keywords').value)keywords.setAttribute('content',$('seo-keywords').value);
-    
-    const ogTitle=doc.querySelector('meta[property="og:title"]');
-    if(ogTitle && $('seo-og-title').value)ogTitle.setAttribute('content',$('seo-og-title').value);
-    
-    const ogDesc=doc.querySelector('meta[property="og:description"]');
-    if(ogDesc && $('seo-og-description').value)ogDesc.setAttribute('content',$('seo-og-description').value);
-    
-    // Update Profil (content1) - preserve cv-header and blockquote
-    const profil=doc.querySelector('#content1');
-    if(profil && editors.profil){
-      const cvHeader=profil.querySelector('.cv-header');
-      const blockquote=profil.querySelector('blockquote');
-      const cta=profil.querySelector('.cta-link');
-      
-      let newContent='';
-      if(cvHeader)newContent+=cvHeader.outerHTML;
-      newContent+=editors.profil.getContent();
-      if(blockquote)newContent+=blockquote.outerHTML;
-      if(cta)newContent+=cta.outerHTML;
-      newContent+='<hr class="z">';
-      profil.innerHTML=newContent;
-    }
-    
-    // Update Vita (content2)
-    const vita=doc.querySelector('#content2');
-    if(vita && editors.vita){
-      vita.innerHTML=editors.vita.getContent()+'<hr class="z">';
-    }
-    
-    // Update Leistungen (content3)
-    const leist=doc.querySelector('#content3');
-    if(leist && editors.leistungen){
-      leist.innerHTML=editors.leistungen.getContent()+'<hr class="z">';
-    }
-    
-    // Update Referenzen (content4)
-    const refs=doc.querySelector('#content4');
-    if(refs && editors.referenzen){
-      refs.innerHTML=editors.referenzen.getContent()+'<hr class="z">';
-    }
-    
-    // Update Kontakt (content5) - preserve contact form
-    const kontakt=doc.querySelector('#content5');
-    if(kontakt && editors.kontakt){
-      const formSection=kontakt.querySelector('.contact-form-section');
-      let newContent='<div>'+editors.kontakt.getContent();
-      if(formSection)newContent+=formSection.outerHTML;
-      newContent+='<hr class="z"></div>';
-      kontakt.innerHTML=newContent;
-    }
-    
-    // Serialize back to HTML
-    let newHtml='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
-    newHtml=newHtml.replace(/ xmlns="[^"]*"/g,'');
-    console.log('saveIndexHtml: Serialized, length='+newHtml.length);
-    
-    await saveFile('index.html',newHtml);
-    console.log('saveIndexHtml: Saved');
-  }
-  
-  async function saveFile(path,content,retry=true){
-    const token=localStorage.getItem('gh_token');
-    const repo=localStorage.getItem('gh_repo');
-    const branch=localStorage.getItem('gh_branch')||'main';
-    
-    // Get fresh SHA
-    let sha;
-    try{
-      const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}&t=${Date.now()}`,{
-        headers:{Authorization:`token ${token}`},
-        cache:'no-store'
-      });
-      if(r.ok)sha=(await r.json()).sha;
-    }catch(e){}
     
     const body={
-      message:`Admin: ${path} aktualisiert`,
+      message:`SEO: ${path} aktualisiert`,
       content:btoa(unescape(encodeURIComponent(content))),
-      branch
+      branch,
+      sha
     };
-    if(sha)body.sha=sha;
     
     const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
       method:'PUT',
@@ -657,12 +399,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
     });
     
     if(!res.ok){
-      const errData=await res.json();
-      if(res.status===409 && retry){
-        console.log('SHA conflict, retrying...');
-        return saveFile(path,content,false);
-      }
-      throw new Error(errData.message||'GitHub Fehler');
+      const err=await res.json();
+      throw new Error(err.message||'GitHub Fehler');
     }
   }
   
@@ -686,12 +424,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
   
   function changePw(){
     const curr=$('pw-current').value,newPw=$('pw-new').value;
-    if(hash(curr)!==localStorage.getItem('admin_pw')){
-      return $('pw-status').innerHTML='<span class="error">Falsches Passwort</span>';
-    }
-    if(newPw.length<4){
-      return $('pw-status').innerHTML='<span class="error">Mind. 4 Zeichen</span>';
-    }
+    if(hash(curr)!==localStorage.getItem('admin_pw'))return $('pw-status').innerHTML='<span class="error">Falsches Passwort</span>';
+    if(newPw.length<4)return $('pw-status').innerHTML='<span class="error">Mind. 4 Zeichen</span>';
     localStorage.setItem('admin_pw',hash(newPw));
     $('pw-status').innerHTML='<span class="success">✓ Geändert</span>';
     $('pw-current').value='';$('pw-new').value='';
@@ -703,6 +437,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
     el.className='status-bar active'+(type?' '+type:'');
   }
   function hideStatus(){$('status-bar').classList.remove('active');}
+  
+  // Global function for char count
+  window.updateCharCount=function(el,max){
+    const len=el.value.length;
+    const countEl=$(el.id+'-count');
+    if(countEl){
+      countEl.textContent=`${len}/${max} Zeichen`;
+      countEl.className='char-count';
+      if(len>max)countEl.classList.add('error');
+      else if(len>max*0.9)countEl.classList.add('warning');
+    }
+  };
   
   init();
 })();
