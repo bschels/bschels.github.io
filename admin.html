@@ -281,35 +281,27 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
         <!-- Stats Panel -->
         <div id="stats-panel" class="panel">
-          <div class="seo-panel" style="max-width:1100px">
+          <div class="seo-panel" style="max-width:600px">
             <div class="section-title">Besucherstatistiken</div>
             
+            <div style="text-align:center;padding:2rem 1rem">
+              <p style="font-size:3rem;margin:0">📊</p>
+              <p style="margin:1rem 0 1.5rem;color:#666">Datenschutzfreundliche Statistiken via GoatCounter</p>
+              <a href="https://schels.goatcounter.com?access-token=6g2t5g6a1w1e2k1l156q6u45406k212e325e5812" 
+                 target="_blank" 
+                 class="btn-success" 
+                 style="display:inline-block;padding:1rem 2rem;font-size:1rem;text-decoration:none">
+                Dashboard öffnen →
+              </a>
+            </div>
+            
+            <hr style="border:none;border-top:1px solid #eee;margin:1.5rem 0">
+            
             <div class="info-box">
-              <strong>🚫 Dich selbst ausschließen:</strong> 
+              <strong>🚫 Dich selbst ausschließen:</strong><br>
               <a href="https://schels.info/#toggle-goatcounter" target="_blank">Klicke hier</a> um deine eigenen Besuche nicht zu zählen.
+              <br><small style="color:#666">Funktioniert per Browser – auf jedem Gerät einmal klicken.</small>
             </div>
-            
-            <div id="stats-embed-container" style="margin:1rem 0;background:#f9f9f9;border:1px solid #ddd;border-radius:4px;min-height:500px">
-              <iframe 
-                id="goat-iframe"
-                src="https://schels.goatcounter.com?access-token=6g2t5g6a1w1e2k1l156q6u45406k212e325e5812" 
-                style="width:100%;height:700px;border:none;border-radius:4px"
-                loading="lazy">
-              </iframe>
-            </div>
-            
-            <details style="margin-top:1rem">
-              <summary style="cursor:pointer;font-size:.8rem;color:#666">⚙️ Einrichtung (falls iframe leer)</summary>
-              <div class="info-box" style="margin-top:.5rem;background:#fff3cd;border-color:#ffc107">
-                <strong>Einmalige Einrichtung nötig:</strong>
-                <ol style="margin:.5rem 0 0 1.2rem;font-size:.85rem">
-                  <li>Öffne <a href="https://schels.goatcounter.com/settings/main" target="_blank">GoatCounter Einstellungen</a></li>
-                  <li>Unter "Dashboard viewable by" wähle: <strong>"logged in users or with secret token"</strong></li>
-                  <li>Unter "Sites that can embed GoatCounter" füge hinzu: <strong>schels.info</strong></li>
-                  <li>Speichern und diese Seite neu laden</li>
-                </ol>
-              </div>
-            </details>
             </details>
           </div>
         </div>
