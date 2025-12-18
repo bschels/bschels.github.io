@@ -6,9 +6,3 @@ Allow: /
 
 # Sitemap
 Sitemap: https://schels.info/sitemap.xml
-
-# Admin-Bereich ausschließen
-Disallow: /admin.html
-Disallow: /admin.js
-Disallow: /admin.css
-Disallow: /admin-config.js
