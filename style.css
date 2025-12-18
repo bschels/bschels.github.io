@@ -390,7 +390,7 @@ ul {
 ol {
   font-family: var(--font-main);
   font-weight: 200; /* Thin - leichterer Schnitt */
-  list-style-type: upper-roman;
+  list-style-type: decimal; /* Normale Zahlen für bessere Lesbarkeit */
   text-align: left;
   margin: 1rem 0;
   padding-left: 2rem;
@@ -461,9 +461,30 @@ td {
   vertical-align: top;
   hyphens: manual;
   text-align: left;
-  padding: 0.2em 0;
+  padding: 0.6em 0.5em; /* Mehr Padding für bessere Lesbarkeit und Touch */
+  line-height: 1.5;
+}
+td:first-child {
+  white-space: nowrap; /* Jahreszahlen nicht umbrechen */
+  padding-right: 1em;
+  width: 1%; /* Minimale Breite, passt sich an Inhalt an */
 }
 tr:nth-child(odd) { background: hsla(360,0%,80%,0.2); }
+
+/* Tabellen auf Mobil: horizontales Scrollen wenn nötig */
+@media (max-width: 810px) {
+  .cat_text table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  td {
+    padding: 0.5em 0.4em;
+  }
+  td:first-child {
+    padding-right: 0.8em;
+  }
+}
 
 /* ========== Formulareingaben resetten ========== */
 input[type=text], input[type=button] {
@@ -531,9 +552,28 @@ svg {
   font-size: 1em; /* Standardgröße für Pfeile, falls nicht überschrieben */
   font-weight: 200; /* Thin - leichterer Schnitt */
 }
-/* Anpassung der Schriftgröße für die Kontakteinträge, damit sie nicht kleiner sind */
-#content4 .arrow-nohover {
-    font-size: 1em; /* Setzt die Größe auf den Standard des Elternelements (.cat_text -> 1.2em) */
+
+/* Kontakt-Informationen */
+.contact-info {
+  margin-top: 1.5em;
+}
+
+.cat_text .arrow-nohover {
+  font-size: 1em;
+  padding: 0.4em 0; /* Mehr vertikaler Abstand für Touch */
+  display: block;
+  margin-bottom: 0.3em;
+}
+
+.cat_text .arrow-nohover a {
+  word-break: break-word; /* Email/Telefon umbrechen auf Mobil */
+}
+
+@media (max-width: 810px) {
+  .cat_text .arrow-nohover {
+    padding: 0.6em 0; /* Noch mehr Padding auf Mobil für Touch */
+    font-size: 1.05em; /* Etwas größer für bessere Lesbarkeit */
+  }
 }
 
 .arrow::before {
@@ -1086,15 +1126,15 @@ hr.z {
   border-color: var(--hover-bg);
 }
 
-/* ========== Fade-In Animation für Akkordeon-Inhalte ========== */
-.cat_text {
+/* ========== Fade-In Animation für Akkordeon-Inhalte (nur beim Öffnen) ========== */
+input[type=radio]:checked ~ .cat_text {
   animation: fadeIn 0.3s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -1106,5 +1146,31 @@ hr.z {
 @media (max-width: 810px) {
   .cta-link {
     text-align: center;
+  }
+  
+  .cta-contact {
+    width: 100%;
+    text-align: center;
+    padding: 0.8em 1em; /* Größerer Touch-Bereich */
+  }
+}
+
+/* ========== Print Styles ========== */
+@media print {
+  body {
+    width: 100%;
+    font-size: 11pt;
+  }
+  .logo-ru, .header-lang, .cta-link, #preloader {
+    display: none !important;
+  }
+  .cat_text {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
   }
 }
