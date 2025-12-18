@@ -955,8 +955,14 @@ hr.z {
     font-size: 1em;
   }
 
-  .cta-contact, .cta-link {
+  .cta-contact, .cta-link, .cta-link-line {
     text-align: center;
+  }
+
+  .cta-link-line {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .cta-contact {
