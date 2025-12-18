@@ -724,27 +724,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
     localStorage.setItem('ed_styles',JSON.stringify(styles));
     
     try{
-      // DISABLED: saveIndexHtml() zerstört komplexe HTML-Strukturen (Listen, Tabellen)
-      // Die Hauptseite muss manuell bearbeitet werden
-      // await saveIndexHtml();
-      
-      // Save impressum
-      if(editors.impressum){
-        await saveFile('pages/impressum.html',editors.impressum.root.innerHTML);
-      }
-      // Save datenschutz
-      if(editors.datenschutz){
-        await saveFile('pages/datenschutz.html',editors.datenschutz.root.innerHTML);
-      }
-      // Save backup data
-      const data=collectAllData();
-      await saveFile('admin-data.json',JSON.stringify(data,null,2));
+      // KOMPLETT DEAKTIVIERT - Quill zerstört HTML-Strukturen
+      // Alle Inhalte müssen direkt in den HTML-Dateien bearbeitet werden
+      showStatus('⚠️ Speichern deaktiviert – bitte Dateien direkt bearbeiten','error');
+      setTimeout(hideStatus,5000);
       
       hasChanges=false;
       $('unsaved')?.classList.remove('active');
-      $('autosave-time').textContent=new Date().toLocaleTimeString('de');
-      showStatus('Gespeichert & veröffentlicht ✓','success');
-      setTimeout(hideStatus,3000);
     }catch(e){
       console.error(e);
       showStatus('Fehler: '+e.message,'error');
@@ -910,12 +896,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
   
   function setupAutoSave(){
+    // DEAKTIVIERT - Auto-Save zerstört HTML
     if(autoSaveTimer)clearInterval(autoSaveTimer);
-    const interval=parseInt($('autosave-interval').value)*1000;
-    localStorage.setItem('autosave',$('autosave-interval').value);
-    if(interval>0){
-      autoSaveTimer=setInterval(()=>{if(hasChanges)saveAll();},interval);
-    }
   }
   
   function showStatus(msg,type=''){
