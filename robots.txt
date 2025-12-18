@@ -1,15 +1,13 @@
-# robots.txt für https://schels.info
+# robots.txt für architekturbüro schels
+# https://schels.info
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://schels.info/sitemap.xml
+
+# Admin-Bereich ausschließen
 Disallow: /admin.html
 Disallow: /admin.js
-Disallow: /admin.css
 Disallow: /admin-config.js
-
-# Block GoatCounter tracking URLs (external service)
-User-agent: *
-Disallow: /count
-Disallow: /*?*goatcounter*
-
-Sitemap: https://schels.info/sitemap.xml

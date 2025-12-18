@@ -1155,6 +1155,139 @@ input[type=radio]:checked ~ .cat_text {
   }
 }
 
+/* ========== Kontaktformular ========== */
+.contact-form-section {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+}
+
+.contact-form-section h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.contact-form {
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8em 1em;
+  border: 1px solid var(--body);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-size: 1em;
+  font-weight: 200;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--body);
+  box-shadow: 0 0 0 2px hsla(0, 0%, 0%, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--secondary);
+  opacity: 0.7;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  display: inline-block;
+  padding: 0.8em 2em;
+  border: 1px solid var(--body);
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-main);
+  font-size: 1em;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.form-submit:hover {
+  background: var(--hover-bg);
+  color: var(--hover-text);
+  border-color: var(--hover-bg);
+}
+
+@media (max-width: 810px) {
+  .contact-form {
+    max-width: 100%;
+  }
+  
+  .form-submit {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ========== Dark Mode ========== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #fff;
+    --bg: #111;
+    --body: #e5e5e5;
+    --secondary: #999;
+    --accent: #4d9fff;
+    --hover-bg: #fff;
+    --hover-text: #111;
+  }
+  
+  .cv-portrait {
+    filter: grayscale(100%) brightness(0.9);
+  }
+  
+  tr:nth-child(odd) {
+    background: hsla(0, 0%, 100%, 0.05);
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    box-shadow: 0 0 0 2px hsla(0, 0%, 100%, 0.2);
+  }
+  
+  .contact-form-section {
+    border-top-color: hsla(0, 0%, 100%, 0.1);
+  }
+  
+  hr.z {
+    background: var(--body);
+  }
+  
+  .white_content {
+    border-color: var(--body);
+  }
+}
+
 /* ========== Print Styles ========== */
 @media print {
   body {

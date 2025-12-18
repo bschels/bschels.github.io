@@ -31,16 +31,20 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "LocalBusiness",
+    "@id": "https://schels.info/#organization",
     "name": "architekturbüro schels",
     "alternateName": "Benjamin Schels Architekt M.A.",
-    "description": "Architekturbüro in Wolnzach – Spezialist für Bauen im Bestand, Denkmalpflege und alle HOAI-Leistungsphasen",
+    "description": "Architekturbüro in Wolnzach – Spezialist für Bauen im Bestand, Denkmalpflege und alle HOAI-Leistungsphasen. Neubau, Umbau, Sanierung in München, Ingolstadt, Freising und Umgebung.",
     "url": "https://schels.info",
+    "logo": "https://schels.info/images/SS_Logo_Single_Blue_01.svg",
+    "image": "https://schels.info/images/benjamin-schels-portrait.webp",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Schlachterstraße 9",
       "addressLocality": "Wolnzach",
       "postalCode": "85283",
+      "addressRegion": "Bayern",
       "addressCountry": "DE"
     },
     "geo": {
@@ -49,34 +53,43 @@
       "longitude": "11.6250"
     },
     "areaServed": [
-      {
-        "@type": "City",
-        "name": "München"
-      },
-      {
-        "@type": "City",
-        "name": "Ingolstadt"
-      },
-      {
-        "@type": "City",
-        "name": "Freising"
-      },
-      {
-        "@type": "City",
-        "name": "Wolnzach"
-      }
+      {"@type": "City", "name": "München"},
+      {"@type": "City", "name": "Ingolstadt"},
+      {"@type": "City", "name": "Freising"},
+      {"@type": "City", "name": "Wolnzach"},
+      {"@type": "City", "name": "Pfaffenhofen"},
+      {"@type": "State", "name": "Bayern"}
     ],
-    "serviceType": ["Architektur", "Denkmalpflege", "Bauen im Bestand", "HOAI Leistungsphasen"],
-    "telephone": "+4984429292291",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Architekturleistungen",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Neubauplanung"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Umbau und Sanierung"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Bauen im Bestand"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Denkmalpflege"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Bauleitung"}}
+      ]
+    },
+    "telephone": "+49 8442 929 229 1",
     "email": "hello@schels.info",
     "priceRange": "$$",
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Überweisung, Rechnung",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
     "founder": {
       "@type": "Person",
       "name": "Benjamin Schels",
-      "jobTitle": "Architekt",
-      "honorificSuffix": "M.A."
+      "jobTitle": "Architekt M.A.",
+      "image": "https://schels.info/images/benjamin-schels-portrait.webp"
     },
-    "sameAs": []
+    "knowsLanguage": ["de", "en"],
+    "slogan": "Architektur mit Respekt vor dem Vorhandenen und Mut zum Umbau"
   }
   </script>
   <!-- GoatCounter Analytics (Cookie-frei, DSGVO-konform, kostenlos) -->
@@ -170,7 +183,10 @@
       <div class="cat_text" id="content1" role="region" aria-labelledby="tog1">
         <div id="german" class="language active">
           <div class="cv-header">
-            <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architekt" class="cv-portrait">
+            <picture>
+              <source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
+              <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architekt" class="cv-portrait" loading="lazy">
+            </picture>
             <div class="cv-name">
               <p class="cv-role">Büroinhaber</p>
               <h2>Benjamin Schels, M.A.</h2>
@@ -199,7 +215,10 @@
         </div>
         <div id="english" class="language">
           <div class="cv-header">
-            <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architect" class="cv-portrait">
+            <picture>
+              <source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
+              <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architect" class="cv-portrait" loading="lazy">
+            </picture>
             <div class="cv-name">
               <p class="cv-role">Office Owner</p>
               <h2>Benjamin Schels, M.A.</h2>
@@ -411,6 +430,25 @@
             <div class="arrow-nohover">Phone: <a href="tel:+4984429292291">+49 8442 929 229 1</a></div>
             <div class="arrow-nohover">Address: <a href="https://maps.google.com/?q=Schlachterstraße+9,+85283+Wolnzach" target="_blank" rel="noopener">Schlachterstraße 9, 85283 Wolnzach</a></div>
           </div>
+          <div class="contact-form-section">
+            <h3>Send a Message</h3>
+            <form action="https://formspree.io/f/hello@schels.info" method="POST" class="contact-form">
+              <div class="form-group">
+                <label for="name-en">Name</label>
+                <input type="text" id="name-en" name="name" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="email-en">Email</label>
+                <input type="email" id="email-en" name="email" required placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label for="message-en">Message</label>
+                <textarea id="message-en" name="message" rows="5" required placeholder="How can I help you?"></textarea>
+              </div>
+              <input type="hidden" name="_language" value="en">
+              <button type="submit" class="form-submit">Send Message →</button>
+            </form>
+          </div>
         </div>
         <div id="german" class="language active">
           <p class="content">Kontaktanfragen sind willkommen – offizieller Geschäftsstart ab 01.01.2026.</p>
@@ -418,6 +456,25 @@
             <div class="arrow-nohover">Email: <a href="mailto:hello@schels.info">hello@schels.info</a></div>
             <div class="arrow-nohover">Telefon: <a href="tel:+4984429292291">+49 8442 929 229 1</a></div>
             <div class="arrow-nohover">Adresse: <a href="https://maps.google.com/?q=Schlachterstraße+9,+85283+Wolnzach" target="_blank" rel="noopener">Schlachterstraße 9, 85283 Wolnzach</a></div>
+          </div>
+          <div class="contact-form-section">
+            <h3>Nachricht senden</h3>
+            <form action="https://formspree.io/f/hello@schels.info" method="POST" class="contact-form">
+              <div class="form-group">
+                <label for="name-de">Name</label>
+                <input type="text" id="name-de" name="name" required placeholder="Ihr Name">
+              </div>
+              <div class="form-group">
+                <label for="email-de">Email</label>
+                <input type="email" id="email-de" name="email" required placeholder="ihre@email.de">
+              </div>
+              <div class="form-group">
+                <label for="message-de">Nachricht</label>
+                <textarea id="message-de" name="message" rows="5" required placeholder="Wie kann ich Ihnen helfen?"></textarea>
+              </div>
+              <input type="hidden" name="_language" value="de">
+              <button type="submit" class="form-submit">Nachricht senden →</button>
+            </form>
           </div>
         </div>
         <hr class="z" />
