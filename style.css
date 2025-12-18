@@ -10,7 +10,8 @@
   --primary: #000;
   --bg: #fff;
   --body: #000;
-  --accent: blue; /* Dies ist deine Akzentfarbe, die für die blauen Hover-Effekte verwendet wird */
+  --secondary: #555; /* Grauton für Sekundärtext */
+  --accent: blue;
   --hover-bg: #000;
   --hover-text: #fff;
   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
@@ -229,6 +230,9 @@ h3.cat {
 }
 
 /* Geändert: Haupt-Akkordeon-Labels bleiben NICHT schwarz, nur Hover-Effekt */
+label.cat[for^="tog"] {
+  transition: all 0.2s ease; /* Sanfte Hover-Transition */
+}
 label.cat[for^="tog"]:hover {
   color: var(--hover-text);
   background-color: var(--hover-bg);
@@ -312,8 +316,13 @@ h3 {
   text-align: left;
   letter-spacing: 0.2em;
   line-height: 1.4;
-  margin: 1.5rem 0 0.75rem 0;
+  margin: 2.5rem 0 0.75rem 0; /* Mehr Abstand nach oben für bessere Abschnittstrennung */
   text-transform: uppercase !important; /* Immer Großbuchstaben */
+}
+
+/* Erster h3 nach cv-header braucht weniger Abstand */
+.cv-header + h3 {
+  margin-top: 1.5rem;
 }
 
 h4, h5, h6 {
@@ -396,19 +405,22 @@ li {
 
 blockquote {
   font-family: var(--font-main);
-  font-weight: 200; /* Thin - leichterer Schnitt */
-  text-align: right;
-  margin: 1.5rem 0;
-  margin-left: auto;
+  font-weight: 300;
+  text-align: left;
+  margin: 2.5rem 0;
+  margin-left: 0;
   margin-right: 0;
-  padding: 0;
+  padding: 0 0 0 1.5rem;
+  border-left: 2px solid var(--body);
 }
 
 blockquote .says {
   font-style: italic;
-  font-weight: 200; /* Thin - leichterer Schnitt */
-  text-align: right; /* Zitattext rechts ausrichten */
-  display: block; /* Sicherstellen, dass es als Block-Element behandelt wird */
+  font-weight: 300;
+  font-size: 1.15em; /* Etwas größer für mehr Präsenz */
+  text-align: left;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 /* Anführungszeichen sind bereits im HTML als « » gesetzt, keine CSS-Anführungszeichen nötig */
@@ -425,9 +437,16 @@ p, blockquote, li, h1, h2, h3, h4, h5, h6 {
 
 blockquote p:not(.says) {
   font-style: normal;
-  font-weight: 200; /* Thin - leichterer Schnitt */
-  text-align: right; /* Autor (Zitatgeber) rechts ausrichten */
-  display: block; /* Sicherstellen, dass es als Block-Element behandelt wird */
+  font-weight: 300;
+  text-align: left;
+  display: block;
+  color: var(--secondary); /* Autor in Grau */
+  font-size: 0.9em;
+}
+
+/* ========== Small-Text in Grau ========== */
+small {
+  color: var(--secondary);
 }
 
 /* ========== Tabellen für Übersichtlichkeit ========== */
@@ -459,6 +478,7 @@ a:link, a:visited {
   text-decoration-color: var(--body);
   text-underline-offset: 2px;
   color: var(--body);
+  transition: all 0.2s ease; /* Sanfte Transitions */
 }
 a:hover,
 a:focus {
@@ -1043,5 +1063,81 @@ hr.z {
   }
   .cv-subtitle {
     font-size: 1em;
+  }
+}
+
+/* ========== Social Media Links im Footer ========== */
+.footer-social-links {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4em;
+  color: var(--body);
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.social-link:hover {
+  opacity: 1;
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
+}
+
+.social-link svg {
+  display: block;
+}
+
+/* ========== Call-to-Action Link ========== */
+.cta-link {
+  margin-top: 2rem;
+}
+
+.cta-contact {
+  display: inline-block;
+  padding: 0.6em 1.2em;
+  border: 1px solid var(--body);
+  text-decoration: none !important;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+}
+
+.cta-contact:hover {
+  background-color: var(--hover-bg);
+  color: var(--hover-text);
+  border-color: var(--hover-bg);
+}
+
+/* ========== Fade-In Animation für Akkordeon-Inhalte ========== */
+.cat_text {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Responsive Social Links ========== */
+@media (max-width: 810px) {
+  .footer-social-links {
+    justify-content: center;
+    margin-bottom: 0.8rem;
+  }
+  
+  .cta-link {
+    text-align: center;
   }
 }

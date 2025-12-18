@@ -96,6 +96,27 @@ $(function() {
 
   updateAccordionLabels();
 
+  // CTA-Links: Öffnet das entsprechende Akkordeon und scrollt dorthin
+  $(document).on('click', 'a[href^="#tog"]', function(e) {
+    e.preventDefault();
+    var targetId = $(this).attr('href').substring(1); // z.B. "tog5"
+    var $targetRadio = $('#' + targetId);
+    if ($targetRadio.length) {
+      // Alle anderen schließen
+      $('input[type="radio"][name="rdo"]').not($targetRadio).prop("checked", false).data("chk", false);
+      // Dieses öffnen
+      $targetRadio.prop("checked", true).data("chk", true);
+      updateAccordionLabels();
+      // Zum Akkordeon scrollen
+      var $label = $('label.cat[for="' + targetId + '"]');
+      if ($label.length) {
+        $('html, body').animate({
+          scrollTop: $label.offset().top - 20
+        }, 400);
+      }
+    }
+  });
+
   function generatePagination($contentContainer, totalPages, currentPageIndex) {
     if (totalPages <= 1) return; // 🔧 NEU: Kein Paginator bei nur einer Seite
     $contentContainer.find('.pagination-controls').remove();
