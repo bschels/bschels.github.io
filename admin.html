@@ -7,94 +7,72 @@
   <title>Admin – architekturbüro schels</title>
   <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
   <style>
-:root{--bg:#fff;--sidebar:#f8f8f8;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828}
+:root{--bg:#fff;--sidebar:#fafafa;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;height:100vh;overflow:hidden}
-/* Login */
 .login-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--sidebar)}
 .login-box{background:var(--bg);padding:3rem;max-width:360px;width:100%;border:1px solid var(--border)}
 .login-box h1{font-weight:200;font-size:1.3rem;letter-spacing:.2em;margin-bottom:.5rem}
 .login-box h1 span{display:block;font-size:1.5rem}
 .login-box .subtitle{font-size:.85rem;color:#666;margin-bottom:2rem}
-input[type="password"],input[type="text"],input[type="number"],select{width:100%;padding:.7rem .9rem;border:1px solid var(--border);font-size:.95rem;margin-bottom:.8rem;background:var(--bg);color:var(--text)}
-input:focus,select:focus{outline:none;border-color:var(--accent)}
-button{padding:.7rem 1.5rem;background:var(--accent);color:var(--bg);border:none;cursor:pointer;font-size:.9rem;letter-spacing:.03em;transition:opacity .2s}
+input[type="password"],input[type="text"],input[type="number"],select,textarea{width:100%;padding:.6rem .8rem;border:1px solid var(--border);font-size:.9rem;font-family:inherit;margin-bottom:.6rem;background:var(--bg);color:var(--text);border-radius:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:80px;resize:vertical}
+button{padding:.6rem 1.2rem;background:var(--accent);color:var(--bg);border:none;cursor:pointer;font-size:.85rem;letter-spacing:.02em;transition:opacity .2s;border-radius:0}
 button:hover{opacity:.8}
 button:disabled{opacity:.4;cursor:not-allowed}
 .btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
-.btn-small{padding:.4rem .8rem;font-size:.8rem}
-.error{color:var(--error);font-size:.85rem;margin-top:.5rem}
-.success{color:var(--success);font-size:.85rem}
-/* Admin Layout */
+.btn-small{padding:.35rem .7rem;font-size:.75rem}
+.btn-success{background:var(--success)}
+.error{color:var(--error);font-size:.8rem;margin-top:.3rem}
+.success{color:var(--success);font-size:.8rem}
 .admin-layout{display:none;height:100vh}
 .admin-layout.active{display:flex}
-/* Sidebar */
-.sidebar{width:220px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
-.sidebar-header{padding:1.5rem;border-bottom:1px solid var(--border)}
-.sidebar-header h1{font-weight:200;font-size:1rem;letter-spacing:.15em}
+.sidebar{width:200px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar-header{padding:1.2rem;border-bottom:1px solid var(--border)}
+.sidebar-header h1{font-weight:200;font-size:.9rem;letter-spacing:.12em}
 .sidebar-header h1 span{font-weight:400}
-.sidebar-nav{flex:1;overflow-y:auto;padding:.5rem 0}
-.nav-section{padding:.5rem 1rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#999;margin-top:.5rem}
-.nav-item{display:block;padding:.7rem 1.5rem;color:var(--text);text-decoration:none;font-size:.9rem;border-left:3px solid transparent;transition:all .15s}
+.sidebar-nav{flex:1;overflow-y:auto;padding:.3rem 0}
+.nav-section{padding:.5rem 1rem;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:#999;margin-top:.8rem}
+.nav-item{display:block;padding:.55rem 1.2rem;color:var(--text);text-decoration:none;font-size:.85rem;border-left:3px solid transparent;transition:all .12s}
 .nav-item:hover{background:var(--hover)}
 .nav-item.active{background:var(--hover);border-left-color:var(--accent);font-weight:500}
-.sidebar-footer{padding:1rem;border-top:1px solid var(--border)}
-.sidebar-footer button{width:100%;margin-bottom:.5rem}
-/* Main Content */
+.sidebar-footer{padding:.8rem;border-top:1px solid var(--border);font-size:.75rem}
+.sidebar-footer button{width:100%;margin-bottom:.4rem}
+.autosave-status{color:#999;text-align:center;font-size:.7rem}
 .main-content{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.main-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
-.main-header h2{font-weight:400;font-size:1.1rem;letter-spacing:.05em}
-.main-body{flex:1;overflow-y:auto;padding:1.5rem}
-/* Panels */
+.main-header{padding:.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
+.main-header h2{font-weight:400;font-size:1rem;letter-spacing:.04em}
+.header-actions{display:flex;gap:.4rem;align-items:center}
+.main-body{flex:1;overflow-y:auto;padding:1.2rem}
 .panel{display:none}
 .panel.active{display:block}
-/* Editor Groups */
-.editor-group{margin-bottom:2rem}
-.editor-group label{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#666;margin-bottom:.5rem}
-.editor-group .hint{font-size:.8rem;color:#999;margin-top:.3rem}
+.editor-group{margin-bottom:1.5rem}
+.editor-group label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#666;margin-bottom:.4rem}
+.editor-group .hint{font-size:.75rem;color:#999;margin-top:.2rem}
 .quill-container{background:var(--bg)}
-.quill-container .ql-container{font-family:inherit;font-size:1rem}
-.quill-container .ql-editor{min-height:120px}
-.quill-container .ql-editor.ql-blank::before{font-style:normal;color:#aaa}
-/* Table Editor */
-.table-editor{border:1px solid var(--border);margin-bottom:1rem}
-.table-editor-row{display:flex;border-bottom:1px solid var(--border);padding:.5rem}
-.table-editor-row:last-child{border-bottom:none}
-.table-editor-row input{flex:1;border:none;padding:.3rem;font-size:.9rem}
-.table-editor-row input:focus{outline:none;background:var(--hover)}
-.table-editor-row .row-actions{display:flex;gap:.3rem}
-.table-editor-row .row-actions button{padding:.2rem .5rem;font-size:.75rem}
-.add-row-btn{margin-top:.5rem}
-/* Style Editor */
-.style-section{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
-.style-section:last-child{border-bottom:none}
-.style-section h3{font-size:.85rem;font-weight:500;margin-bottom:1rem;letter-spacing:.05em}
-.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
-.style-item{display:flex;flex-direction:column;gap:.3rem}
-.style-item label{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#666}
-.style-item input[type="color"]{width:100%;height:36px;padding:2px;cursor:pointer}
-.style-item input[type="text"],.style-item input[type="number"],.style-item select{padding:.5rem}
-.style-preview{margin-top:1rem;padding:1rem;border:1px solid var(--border);background:var(--hover)}
-.style-preview p{margin:.5rem 0}
-/* Status */
-.status-bar{position:fixed;bottom:0;left:220px;right:0;padding:.8rem 1.5rem;background:var(--accent);color:var(--bg);display:none;animation:slideUp .3s}
+.quill-container .ql-toolbar{border-color:var(--border);background:var(--sidebar)}
+.quill-container .ql-container{border-color:var(--border);font-family:inherit;font-size:.95rem}
+.quill-container .ql-editor{min-height:100px;max-height:300px}
+.quill-container.tall .ql-editor{min-height:250px;max-height:500px}
+.section-title{font-size:.9rem;font-weight:500;margin:1.5rem 0 1rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;margin-bottom:1rem}
+.style-item{display:flex;flex-direction:column;gap:.2rem}
+.style-item label{font-size:.65rem;text-transform:uppercase;letter-spacing:.04em;color:#666}
+.style-item input[type="color"]{width:100%;height:32px;padding:1px;cursor:pointer;border:1px solid var(--border)}
+.style-item input[type="text"],.style-item select{padding:.45rem .6rem;font-size:.85rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.status-bar{position:fixed;bottom:0;left:200px;right:0;padding:.6rem 1.2rem;background:var(--accent);color:var(--bg);display:none;font-size:.85rem}
 .status-bar.error{background:var(--error)}
-.status-bar.active{display:block}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-/* Loading */
-.loading{text-align:center;padding:3rem;color:#999}
-.loading::after{content:'';display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin-left:.5rem;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-/* Responsive */
-@media(max-width:768px){
-  .sidebar{width:180px}
-  .main-body{padding:1rem}
-  .style-grid{grid-template-columns:1fr}
-}
+.status-bar.success{background:var(--success)}
+.status-bar.active{display:flex;justify-content:space-between;align-items:center}
+.unsaved-indicator{display:none;width:8px;height:8px;background:orange;border-radius:50%;margin-left:.5rem}
+.unsaved-indicator.active{display:inline-block}
+@media(max-width:768px){.sidebar{width:160px}.main-body{padding:.8rem}.style-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <!-- Login Screen -->
+  <!-- Login -->
   <div id="login-screen" class="login-screen">
     <div class="login-box">
       <h1>architekturbüro<span>schels</span></h1>
@@ -105,7 +83,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <div id="login-error" class="error"></div>
       </form>
       <div id="setup-box" style="display:none">
-        <p style="margin-bottom:1rem;font-size:.9rem">Erstes Login – Passwort festlegen:</p>
+        <p style="margin-bottom:.8rem;font-size:.85rem">Erstes Login – Passwort festlegen:</p>
         <input type="password" id="new-password" placeholder="Neues Passwort">
         <input type="password" id="confirm-password" placeholder="Passwort bestätigen">
         <button type="button" id="set-pw-btn" style="width:100%">Passwort setzen</button>
@@ -114,7 +92,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     </div>
   </div>
 
-  <!-- Admin Layout -->
+  <!-- Admin -->
   <div id="admin-layout" class="admin-layout">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -127,288 +105,222 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <a href="#" class="nav-item" data-panel="leistungen">Leistungen</a>
         <a href="#" class="nav-item" data-panel="referenzen">Referenzen</a>
         <a href="#" class="nav-item" data-panel="kontakt">Kontakt</a>
-        <div class="nav-section">Design</div>
+        <div class="nav-section">Rechtliches</div>
+        <a href="#" class="nav-item" data-panel="impressum">Impressum</a>
+        <a href="#" class="nav-item" data-panel="datenschutz">Datenschutz</a>
+        <div class="nav-section">Design & SEO</div>
+        <a href="#" class="nav-item" data-panel="seo">SEO & Meta-Tags</a>
         <a href="#" class="nav-item" data-panel="stile">Stile & Typografie</a>
         <div class="nav-section">System</div>
         <a href="#" class="nav-item" data-panel="einstellungen">Einstellungen</a>
       </nav>
       <div class="sidebar-footer">
-        <button id="save-btn">💾 Speichern</button>
+        <button id="save-btn" class="btn-success">💾 Speichern & Veröffentlichen</button>
         <button id="logout-btn" class="btn-secondary">Abmelden</button>
+        <div class="autosave-status">Auto-Save: <span id="autosave-time">-</span></div>
       </div>
     </aside>
 
     <main class="main-content">
       <header class="main-header">
-        <h2 id="panel-title">Profil</h2>
-        <div>
+        <h2 id="panel-title">Profil <span class="unsaved-indicator" id="unsaved"></span></h2>
+        <div class="header-actions">
           <button id="preview-btn" class="btn-secondary btn-small">Vorschau ↗</button>
         </div>
       </header>
+
       <div class="main-body">
-        <!-- Profil Panel -->
+        <!-- Profil -->
         <div id="profil-panel" class="panel active">
           <div class="editor-group">
             <label>Überblick</label>
-            <div class="quill-container"><div id="editor-profil-ueberblick"></div></div>
+            <div class="quill-container"><div id="ed-profil-ueberblick"></div></div>
           </div>
           <div class="editor-group">
             <label>Arbeitsweise</label>
-            <div class="quill-container"><div id="editor-profil-arbeitsweise"></div></div>
+            <div class="quill-container"><div id="ed-profil-arbeitsweise"></div></div>
           </div>
           <div class="editor-group">
             <label>Schwerpunkte</label>
-            <div class="quill-container"><div id="editor-profil-schwerpunkte"></div></div>
+            <div class="quill-container"><div id="ed-profil-schwerpunkte"></div></div>
           </div>
           <div class="editor-group">
             <label>Philosophie</label>
-            <div class="quill-container"><div id="editor-profil-philosophie"></div></div>
+            <div class="quill-container"><div id="ed-profil-philosophie"></div></div>
           </div>
         </div>
 
-        <!-- Vita Panel -->
+        <!-- Vita -->
         <div id="vita-panel" class="panel">
           <div class="editor-group">
-            <label>Lebenslauf-Einträge</label>
-            <div id="vita-table" class="table-editor"></div>
-            <button type="button" class="btn-secondary btn-small add-row-btn" data-table="vita">+ Eintrag hinzufügen</button>
-          </div>
-          <div class="editor-group">
-            <label>Zusatzinfo (Architektenkammer etc.)</label>
-            <div class="quill-container"><div id="editor-vita-zusatz"></div></div>
+            <label>Lebenslauf</label>
+            <div class="quill-container tall"><div id="ed-vita"></div></div>
+            <p class="hint">Formatiere als Tabelle oder Liste mit Zeiträumen</p>
           </div>
         </div>
 
-        <!-- Leistungen Panel -->
+        <!-- Leistungen -->
         <div id="leistungen-panel" class="panel">
           <div class="editor-group">
-            <label>Einleitung</label>
-            <div class="quill-container"><div id="editor-leistungen-intro"></div></div>
-          </div>
-          <div class="editor-group">
-            <label>Typische Anfragen</label>
-            <div class="quill-container"><div id="editor-leistungen-anfragen"></div></div>
-          </div>
-          <div class="editor-group">
-            <label>Planung und Umsetzung</label>
-            <div class="quill-container"><div id="editor-leistungen-planung"></div></div>
+            <label>Leistungen (kompletter Inhalt)</label>
+            <div class="quill-container tall"><div id="ed-leistungen"></div></div>
           </div>
         </div>
 
-        <!-- Referenzen Panel -->
+        <!-- Referenzen -->
         <div id="referenzen-panel" class="panel">
           <div class="editor-group">
-            <label>Projekte</label>
-            <div id="referenzen-table" class="table-editor"></div>
-            <button type="button" class="btn-secondary btn-small add-row-btn" data-table="referenzen">+ Projekt hinzufügen</button>
-          </div>
-          <div class="editor-group">
-            <label>Hinweistext</label>
-            <div class="quill-container"><div id="editor-referenzen-hinweis"></div></div>
+            <label>Referenzen (kompletter Inhalt)</label>
+            <div class="quill-container tall"><div id="ed-referenzen"></div></div>
           </div>
         </div>
 
-        <!-- Kontakt Panel -->
+        <!-- Kontakt -->
         <div id="kontakt-panel" class="panel">
           <div class="editor-group">
             <label>Begrüßungstext</label>
-            <div class="quill-container"><div id="editor-kontakt-intro"></div></div>
+            <div class="quill-container"><div id="ed-kontakt-intro"></div></div>
           </div>
-          <div class="editor-group">
-            <label>E-Mail</label>
-            <input type="text" id="kontakt-email" value="hello@schels.info">
-          </div>
-          <div class="editor-group">
-            <label>Telefon</label>
-            <input type="text" id="kontakt-telefon" value="+49 8442 929 229 1">
+          <div class="two-col">
+            <div class="editor-group">
+              <label>E-Mail</label>
+              <input type="text" id="kontakt-email">
+            </div>
+            <div class="editor-group">
+              <label>Telefon</label>
+              <input type="text" id="kontakt-telefon">
+            </div>
           </div>
           <div class="editor-group">
             <label>Adresse</label>
-            <input type="text" id="kontakt-adresse" value="Schlachterstraße 9, 85283 Wolnzach">
+            <input type="text" id="kontakt-adresse">
           </div>
         </div>
 
-        <!-- Stile Panel -->
+        <!-- Impressum -->
+        <div id="impressum-panel" class="panel">
+          <div class="editor-group">
+            <label>Impressum (HTML)</label>
+            <div class="quill-container tall"><div id="ed-impressum"></div></div>
+            <p class="hint">Wird in pages/impressum.html gespeichert</p>
+          </div>
+        </div>
+
+        <!-- Datenschutz -->
+        <div id="datenschutz-panel" class="panel">
+          <div class="editor-group">
+            <label>Datenschutzerklärung (HTML)</label>
+            <div class="quill-container tall"><div id="ed-datenschutz"></div></div>
+            <p class="hint">Wird in pages/datenschutz.html gespeichert</p>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div id="seo-panel" class="panel">
+          <div class="section-title">Meta-Tags</div>
+          <div class="editor-group">
+            <label>Seitentitel (Title Tag)</label>
+            <input type="text" id="seo-title">
+            <p class="hint">Empfohlen: 50-60 Zeichen</p>
+          </div>
+          <div class="editor-group">
+            <label>Beschreibung (Meta Description)</label>
+            <textarea id="seo-description"></textarea>
+            <p class="hint">Empfohlen: 150-160 Zeichen</p>
+          </div>
+          <div class="editor-group">
+            <label>Keywords</label>
+            <textarea id="seo-keywords"></textarea>
+            <p class="hint">Kommagetrennt</p>
+          </div>
+          <div class="section-title">Open Graph (Social Media)</div>
+          <div class="editor-group">
+            <label>OG Title</label>
+            <input type="text" id="seo-og-title">
+          </div>
+          <div class="editor-group">
+            <label>OG Description</label>
+            <textarea id="seo-og-description"></textarea>
+          </div>
+        </div>
+
+        <!-- Stile -->
         <div id="stile-panel" class="panel">
-          <div class="style-section">
-            <h3>Farben</h3>
-            <div class="style-grid">
-              <div class="style-item">
-                <label>Hintergrund</label>
-                <input type="color" id="style-bg" value="#ffffff">
-              </div>
-              <div class="style-item">
-                <label>Textfarbe</label>
-                <input type="color" id="style-text" value="#000000">
-              </div>
-              <div class="style-item">
-                <label>Akzentfarbe</label>
-                <input type="color" id="style-accent" value="#0000ff">
-              </div>
-              <div class="style-item">
-                <label>Sekundärfarbe</label>
-                <input type="color" id="style-secondary" value="#555555">
-              </div>
+          <div class="section-title">Farben (Light Mode)</div>
+          <div class="style-grid">
+            <div class="style-item"><label>Hintergrund</label><input type="color" id="st-bg" value="#ffffff"></div>
+            <div class="style-item"><label>Text</label><input type="color" id="st-text" value="#000000"></div>
+            <div class="style-item"><label>Akzent</label><input type="color" id="st-accent" value="#0000ff"></div>
+            <div class="style-item"><label>Sekundär</label><input type="color" id="st-secondary" value="#555555"></div>
+          </div>
+          <div class="section-title">Farben (Dark Mode)</div>
+          <div class="style-grid">
+            <div class="style-item"><label>Hintergrund</label><input type="color" id="st-bg-dark" value="#111111"></div>
+            <div class="style-item"><label>Text</label><input type="color" id="st-text-dark" value="#e5e5e5"></div>
+            <div class="style-item"><label>Akzent</label><input type="color" id="st-accent-dark" value="#4d9fff"></div>
+          </div>
+          <div class="section-title">Typografie</div>
+          <div class="style-grid">
+            <div class="style-item"><label>Schriftfamilie</label>
+              <select id="st-font"><option value="system">System (Standard)</option><option value="helvetica">Helvetica</option><option value="georgia">Georgia</option></select>
+            </div>
+            <div class="style-item"><label>Basisgröße</label>
+              <select id="st-fontsize"><option value="0.9em">Klein</option><option value="1em" selected>Normal</option><option value="1.1em">Groß</option></select>
+            </div>
+            <div class="style-item"><label>Schriftgewicht</label>
+              <select id="st-weight"><option value="100">100</option><option value="200" selected>200</option><option value="300">300</option><option value="400">400</option></select>
+            </div>
+            <div class="style-item"><label>Zeilenhöhe</label>
+              <select id="st-lineheight"><option value="1.4">1.4</option><option value="1.6" selected>1.6</option><option value="1.8">1.8</option></select>
             </div>
           </div>
-
-          <div class="style-section">
-            <h3>Dark Mode Farben</h3>
-            <div class="style-grid">
-              <div class="style-item">
-                <label>Hintergrund (Dark)</label>
-                <input type="color" id="style-bg-dark" value="#111111">
-              </div>
-              <div class="style-item">
-                <label>Textfarbe (Dark)</label>
-                <input type="color" id="style-text-dark" value="#e5e5e5">
-              </div>
-              <div class="style-item">
-                <label>Akzent (Dark)</label>
-                <input type="color" id="style-accent-dark" value="#4d9fff">
-              </div>
-            </div>
+          <div class="section-title">Überschriften</div>
+          <div class="style-grid">
+            <div class="style-item"><label>H1 Größe</label><input type="text" id="st-h1" value="1.6em"></div>
+            <div class="style-item"><label>H2 Größe</label><input type="text" id="st-h2" value="1.4em"></div>
+            <div class="style-item"><label>H3 Größe</label><input type="text" id="st-h3" value="1.2em"></div>
+            <div class="style-item"><label>Letter-Spacing</label><input type="text" id="st-spacing" value="0.2em"></div>
           </div>
-
-          <div class="style-section">
-            <h3>Typografie – Allgemein</h3>
-            <div class="style-grid">
-              <div class="style-item">
-                <label>Schriftfamilie</label>
-                <select id="style-font-family">
-                  <option value="-apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', sans-serif">System (Standard)</option>
-                  <option value="'Helvetica Neue', Helvetica, Arial, sans-serif">Helvetica</option>
-                  <option value="Georgia, 'Times New Roman', serif">Georgia (Serif)</option>
-                  <option value="'Courier New', monospace">Courier (Monospace)</option>
-                </select>
-              </div>
-              <div class="style-item">
-                <label>Basisgröße</label>
-                <select id="style-font-size">
-                  <option value="0.9em">Klein (0.9em)</option>
-                  <option value="1em" selected>Normal (1em)</option>
-                  <option value="1.1em">Groß (1.1em)</option>
-                  <option value="1.2em">Sehr groß (1.2em)</option>
-                </select>
-              </div>
-              <div class="style-item">
-                <label>Schriftgewicht Body</label>
-                <select id="style-font-weight">
-                  <option value="100">Ultraleicht (100)</option>
-                  <option value="200" selected>Leicht (200)</option>
-                  <option value="300">Light (300)</option>
-                  <option value="400">Normal (400)</option>
-                </select>
-              </div>
-              <div class="style-item">
-                <label>Zeilenhöhe</label>
-                <select id="style-line-height">
-                  <option value="1.4">Eng (1.4)</option>
-                  <option value="1.6" selected>Normal (1.6)</option>
-                  <option value="1.8">Locker (1.8)</option>
-                  <option value="2">Weit (2)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="style-section">
-            <h3>Typografie – Überschriften</h3>
-            <div class="style-grid">
-              <div class="style-item">
-                <label>H1 Größe</label>
-                <input type="text" id="style-h1-size" value="1.6em">
-              </div>
-              <div class="style-item">
-                <label>H2 Größe</label>
-                <input type="text" id="style-h2-size" value="1.4em">
-              </div>
-              <div class="style-item">
-                <label>H3 Größe</label>
-                <input type="text" id="style-h3-size" value="1.2em">
-              </div>
-              <div class="style-item">
-                <label>Überschriften Gewicht</label>
-                <select id="style-heading-weight">
-                  <option value="200" selected>Leicht (200)</option>
-                  <option value="300">Light (300)</option>
-                  <option value="400">Normal (400)</option>
-                  <option value="600">Semi-Bold (600)</option>
-                </select>
-              </div>
-              <div class="style-item">
-                <label>Letter-Spacing</label>
-                <select id="style-letter-spacing">
-                  <option value="0.1em">Eng (0.1em)</option>
-                  <option value="0.2em" selected>Normal (0.2em)</option>
-                  <option value="0.3em">Weit (0.3em)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="style-section">
-            <h3>Abstände</h3>
-            <div class="style-grid">
-              <div class="style-item">
-                <label>Seitenbreite</label>
-                <select id="style-page-width">
-                  <option value="60%">Schmal (60%)</option>
-                  <option value="70%" selected>Normal (70%)</option>
-                  <option value="80%">Breit (80%)</option>
-                  <option value="90%">Sehr breit (90%)</option>
-                </select>
-              </div>
-              <div class="style-item">
-                <label>Max. Breite</label>
-                <input type="text" id="style-max-width" value="60em">
-              </div>
-              <div class="style-item">
-                <label>Absatz-Abstand</label>
-                <input type="text" id="style-paragraph-margin" value="1rem">
-              </div>
-              <div class="style-item">
-                <label>Abschnitt-Abstand</label>
-                <input type="text" id="style-section-margin" value="2.5rem">
-              </div>
-            </div>
+          <div class="section-title">Layout</div>
+          <div class="style-grid">
+            <div class="style-item"><label>Seitenbreite</label><input type="text" id="st-width" value="70%"></div>
+            <div class="style-item"><label>Max-Breite</label><input type="text" id="st-maxwidth" value="60em"></div>
           </div>
         </div>
 
-        <!-- Einstellungen Panel -->
+        <!-- Einstellungen -->
         <div id="einstellungen-panel" class="panel">
-          <div class="style-section">
-            <h3>GitHub Verbindung</h3>
-            <p style="font-size:.9rem;color:#666;margin-bottom:1rem">Das Admin Panel speichert Änderungen direkt in dein GitHub Repository.</p>
-            <div class="editor-group">
-              <label>Personal Access Token</label>
-              <input type="password" id="github-token" placeholder="ghp_...">
-              <p class="hint">Token mit "repo" Berechtigung. <a href="https://github.com/settings/tokens" target="_blank">Token erstellen →</a></p>
-            </div>
-            <div class="editor-group">
-              <label>Repository</label>
-              <input type="text" id="github-repo" value="bschels/bschels.github.io">
-            </div>
-            <div class="editor-group">
-              <label>Branch</label>
-              <input type="text" id="github-branch" value="main">
-            </div>
-            <button id="test-github-btn" class="btn-secondary">Verbindung testen</button>
-            <span id="github-status" style="margin-left:1rem"></span>
+          <div class="section-title">GitHub Verbindung</div>
+          <p style="font-size:.85rem;color:#666;margin-bottom:1rem">Änderungen werden direkt in dein Repository geschrieben.</p>
+          <div class="editor-group">
+            <label>Personal Access Token</label>
+            <input type="password" id="github-token" placeholder="ghp_...">
+            <p class="hint"><a href="https://github.com/settings/tokens/new?scopes=repo&description=Admin%20Panel" target="_blank">Token erstellen →</a> (repo Berechtigung)</p>
           </div>
+          <div class="two-col">
+            <div class="editor-group"><label>Repository</label><input type="text" id="github-repo" value="bschels/bschels.github.io"></div>
+            <div class="editor-group"><label>Branch</label><input type="text" id="github-branch" value="main"></div>
+          </div>
+          <button id="test-github" class="btn-secondary">Verbindung testen</button>
+          <span id="github-status" style="margin-left:.5rem;font-size:.85rem"></span>
 
-          <div class="style-section">
-            <h3>Passwort ändern</h3>
-            <div class="editor-group">
-              <label>Aktuelles Passwort</label>
-              <input type="password" id="current-pw">
-            </div>
-            <div class="editor-group">
-              <label>Neues Passwort</label>
-              <input type="password" id="new-pw">
-            </div>
-            <button id="change-pw-btn" class="btn-secondary">Passwort ändern</button>
-            <span id="pw-status" style="margin-left:1rem"></span>
+          <div class="section-title" style="margin-top:2rem">Passwort ändern</div>
+          <div class="two-col">
+            <div class="editor-group"><label>Aktuelles Passwort</label><input type="password" id="pw-current"></div>
+            <div class="editor-group"><label>Neues Passwort</label><input type="password" id="pw-new"></div>
+          </div>
+          <button id="change-pw" class="btn-secondary">Passwort ändern</button>
+          <span id="pw-status" style="margin-left:.5rem;font-size:.85rem"></span>
+
+          <div class="section-title" style="margin-top:2rem">Auto-Save</div>
+          <div class="editor-group">
+            <label>Intervall</label>
+            <select id="autosave-interval">
+              <option value="0">Deaktiviert</option>
+              <option value="30">Alle 30 Sekunden</option>
+              <option value="60" selected>Alle 60 Sekunden</option>
+              <option value="120">Alle 2 Minuten</option>
+            </select>
           </div>
         </div>
       </div>
@@ -421,492 +333,281 @@ button:disabled{opacity:.4;cursor:not-allowed}
   <script>
 (function(){
   'use strict';
+  const $=id=>document.getElementById(id),$$=s=>document.querySelectorAll(s);
+  const hash=s=>s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
   
-  // Utilities
-  const $ = id => document.getElementById(id);
-  const $$ = sel => document.querySelectorAll(sel);
-  const hash = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
+  let editors={},hasChanges=false,autoSaveTimer=null;
+  const toolbarOpts=[['bold','italic','underline'],['link'],[{'list':'bullet'},{'list':'ordered'}],[{'header':[2,3,false]}],['clean']];
   
-  // State
-  let editors = {};
-  let siteContent = {};
-  let siteStyles = {};
-  
-  // Quill toolbar config
-  const toolbarOptions = [
-    ['bold', 'italic', 'underline'],
-    ['link'],
-    [{ 'list': 'bullet' }],
-    ['clean']
-  ];
-  
-  // Initialize
-  function init() {
-    const pwHash = localStorage.getItem('admin_pw');
-    if (!pwHash) {
-      $('login-form').style.display = 'none';
-      $('setup-box').style.display = 'block';
-    }
-    if (sessionStorage.getItem('admin_auth')) {
-      showAdmin();
-    }
+  // Init
+  function init(){
+    if(!localStorage.getItem('admin_pw')){$('login-form').style.display='none';$('setup-box').style.display='block';}
+    if(sessionStorage.getItem('admin_auth'))showAdmin();
     bindEvents();
   }
   
-  function bindEvents() {
-    // Setup password
-    $('set-pw-btn').onclick = () => {
-      const pw = $('new-password').value;
-      const confirm = $('confirm-password').value;
-      if (pw.length < 4) return showError('setup-error', 'Mind. 4 Zeichen');
-      if (pw !== confirm) return showError('setup-error', 'Passwörter stimmen nicht überein');
-      localStorage.setItem('admin_pw', hash(pw));
-      location.reload();
+  function bindEvents(){
+    $('set-pw-btn').onclick=()=>{
+      const pw=$('new-password').value,c=$('confirm-password').value;
+      if(pw.length<4)return $('setup-error').textContent='Mind. 4 Zeichen';
+      if(pw!==c)return $('setup-error').textContent='Passwörter stimmen nicht überein';
+      localStorage.setItem('admin_pw',hash(pw));location.reload();
     };
-    
-    // Login
-    $('login-form').onsubmit = e => {
+    $('login-form').onsubmit=e=>{
       e.preventDefault();
-      const pw = $('password').value;
-      if (hash(pw) === localStorage.getItem('admin_pw')) {
-        sessionStorage.setItem('admin_auth', '1');
-        showAdmin();
-      } else {
-        showError('login-error', 'Falsches Passwort');
-      }
+      if(hash($('password').value)===localStorage.getItem('admin_pw')){
+        sessionStorage.setItem('admin_auth','1');showAdmin();
+      }else $('login-error').textContent='Falsches Passwort';
     };
-    
-    // Logout
-    $('logout-btn').onclick = () => {
-      sessionStorage.removeItem('admin_auth');
-      location.reload();
-    };
-    
-    // Navigation
-    $$('.nav-item').forEach(item => {
-      item.onclick = e => {
-        e.preventDefault();
-        $$('.nav-item').forEach(i => i.classList.remove('active'));
-        $$('.panel').forEach(p => p.classList.remove('active'));
-        item.classList.add('active');
-        const panel = item.dataset.panel;
-        $(panel + '-panel').classList.add('active');
-        $('panel-title').textContent = item.textContent;
-      };
+    $('logout-btn').onclick=()=>{sessionStorage.removeItem('admin_auth');location.reload();};
+    $$('.nav-item').forEach(n=>n.onclick=e=>{
+      e.preventDefault();
+      $$('.nav-item').forEach(i=>i.classList.remove('active'));
+      $$('.panel').forEach(p=>p.classList.remove('active'));
+      n.classList.add('active');
+      $(n.dataset.panel+'-panel').classList.add('active');
+      $('panel-title').innerHTML=n.textContent+'<span class="unsaved-indicator'+(hasChanges?' active':'')+'"></span>';
     });
-    
-    // Save
-    $('save-btn').onclick = saveContent;
-    
-    // Preview
-    $('preview-btn').onclick = () => window.open('/', '_blank');
-    
-    // Change password
-    $('change-pw-btn').onclick = () => {
-      const curr = $('current-pw').value;
-      const newPw = $('new-pw').value;
-      if (hash(curr) !== localStorage.getItem('admin_pw')) {
-        $('pw-status').innerHTML = '<span class="error">Falsches Passwort</span>';
-        return;
-      }
-      if (newPw.length < 4) {
-        $('pw-status').innerHTML = '<span class="error">Mind. 4 Zeichen</span>';
-        return;
-      }
-      localStorage.setItem('admin_pw', hash(newPw));
-      $('pw-status').innerHTML = '<span class="success">Geändert!</span>';
-      $('current-pw').value = '';
-      $('new-pw').value = '';
-    };
-    
-    // Test GitHub
-    $('test-github-btn').onclick = async () => {
-      const token = $('github-token').value;
-      const repo = $('github-repo').value;
-      try {
-        const res = await fetch(`https://api.github.com/repos/${repo}`, {
-          headers: { Authorization: `token ${token}` }
-        });
-        if (res.ok) {
-          $('github-status').innerHTML = '<span class="success">✓ Verbunden</span>';
-          localStorage.setItem('github_token', token);
-          localStorage.setItem('github_repo', repo);
-          localStorage.setItem('github_branch', $('github-branch').value);
-        } else {
-          $('github-status').innerHTML = '<span class="error">Fehler: ' + res.status + '</span>';
-        }
-      } catch (e) {
-        $('github-status').innerHTML = '<span class="error">Verbindungsfehler</span>';
-      }
-    };
-    
-    // Add table row buttons
-    $$('.add-row-btn').forEach(btn => {
-      btn.onclick = () => addTableRow(btn.dataset.table);
-    });
+    $('save-btn').onclick=saveAll;
+    $('preview-btn').onclick=()=>window.open('/','_blank');
+    $('test-github').onclick=testGitHub;
+    $('change-pw').onclick=changePw;
+    $('autosave-interval').onchange=setupAutoSave;
   }
   
-  function showError(id, msg) {
-    $(id).textContent = msg;
-  }
-  
-  function showAdmin() {
-    $('login-screen').style.display = 'none';
+  function showAdmin(){
+    $('login-screen').style.display='none';
     $('admin-layout').classList.add('active');
     initEditors();
     loadSettings();
     loadContent();
+    setupAutoSave();
   }
   
-  function initEditors() {
-    const editorIds = [
-      'profil-ueberblick', 'profil-arbeitsweise', 'profil-schwerpunkte', 'profil-philosophie',
-      'vita-zusatz', 'leistungen-intro', 'leistungen-anfragen', 'leistungen-planung',
-      'referenzen-hinweis', 'kontakt-intro'
-    ];
-    editorIds.forEach(id => {
-      const el = $('editor-' + id);
-      if (el) {
-        editors[id] = new Quill(el, {
-          theme: 'snow',
-          modules: { toolbar: toolbarOptions },
-          placeholder: 'Text eingeben...'
-        });
+  function initEditors(){
+    ['profil-ueberblick','profil-arbeitsweise','profil-schwerpunkte','profil-philosophie','vita','leistungen','referenzen','kontakt-intro','impressum','datenschutz'].forEach(id=>{
+      const el=$('ed-'+id);
+      if(el){
+        editors[id]=new Quill(el,{theme:'snow',modules:{toolbar:toolbarOpts},placeholder:'Text eingeben...'});
+        editors[id].on('text-change',()=>markChanged());
       }
     });
+    $$('input,textarea,select').forEach(el=>el.addEventListener('input',markChanged));
   }
   
-  function loadSettings() {
-    $('github-token').value = localStorage.getItem('github_token') || '';
-    $('github-repo').value = localStorage.getItem('github_repo') || 'bschels/bschels.github.io';
-    $('github-branch').value = localStorage.getItem('github_branch') || 'main';
+  function markChanged(){
+    hasChanges=true;
+    $('unsaved')?.classList.add('active');
   }
   
-  async function loadContent() {
+  function loadSettings(){
+    $('github-token').value=localStorage.getItem('gh_token')||'';
+    $('github-repo').value=localStorage.getItem('gh_repo')||'bschels/bschels.github.io';
+    $('github-branch').value=localStorage.getItem('gh_branch')||'main';
+    $('autosave-interval').value=localStorage.getItem('autosave')||'60';
+  }
+  
+  async function loadContent(){
     showStatus('Lade Inhalte...');
-    try {
-      // Load from index.html
-      const res = await fetch('/index.html?t=' + Date.now());
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const html = await res.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
+    try{
+      // Load index.html
+      const indexRes=await fetch('/index.html?t='+Date.now());
+      if(!indexRes.ok)throw new Error('index.html nicht gefunden');
+      const indexHtml=await indexRes.text();
+      const doc=new DOMParser().parseFromString(indexHtml,'text/html');
       
-      // Extract content sections
-      extractContent(doc);
+      // Extract sections
+      extractFromDoc(doc);
       
-      // Load styles from CSS
-      await loadStyles();
+      // Load impressum
+      try{
+        const impRes=await fetch('/pages/impressum.html?t='+Date.now());
+        if(impRes.ok&&editors.impressum)editors.impressum.root.innerHTML=await impRes.text();
+      }catch(e){}
       
-      showStatus('Inhalte geladen ✓');
-      setTimeout(() => hideStatus(), 2000);
-    } catch (e) {
-      console.error('Load error:', e);
-      showStatus('Inhalte konnten nicht geladen werden – Editor ist leer', true);
-      setTimeout(() => hideStatus(), 4000);
+      // Load datenschutz
+      try{
+        const dsRes=await fetch('/pages/datenschutz.html?t='+Date.now());
+        if(dsRes.ok&&editors.datenschutz)editors.datenschutz.root.innerHTML=await dsRes.text();
+      }catch(e){}
+      
+      // Load SEO
+      $('seo-title').value=doc.querySelector('title')?.textContent||'';
+      $('seo-description').value=doc.querySelector('meta[name="description"]')?.content||'';
+      $('seo-keywords').value=doc.querySelector('meta[name="keywords"]')?.content||'';
+      $('seo-og-title').value=doc.querySelector('meta[property="og:title"]')?.content||'';
+      $('seo-og-description').value=doc.querySelector('meta[property="og:description"]')?.content||'';
+      
+      // Load contact
+      const kontaktDiv=doc.querySelector('#content5');
+      if(kontaktDiv){
+        const intro=kontaktDiv.querySelector('p.content');
+        if(intro&&editors['kontakt-intro'])editors['kontakt-intro'].root.innerHTML=intro.innerHTML;
+        const emailLink=kontaktDiv.querySelector('a[href^="mailto:"]');
+        if(emailLink)$('kontakt-email').value=emailLink.textContent;
+        const telLink=kontaktDiv.querySelector('a[href^="tel:"]');
+        if(telLink)$('kontakt-telefon').value=telLink.textContent;
+        const addrLink=kontaktDiv.querySelector('a[href*="maps.google"]');
+        if(addrLink)$('kontakt-adresse').value=addrLink.textContent;
+      }
+      
+      hasChanges=false;
+      showStatus('Inhalte geladen ✓','success');
+      setTimeout(hideStatus,2000);
+    }catch(e){
+      console.error(e);
+      showStatus('Fehler: '+e.message,'error');
     }
   }
   
-  function extractContent(doc) {
-    // Profil section
-    const profilSection = doc.querySelector('#content1');
-    if (profilSection) {
-      const paragraphs = profilSection.querySelectorAll('p:not(.cv-role):not(.cv-subtitle):not(.cta-link):not(.says)');
-      const groups = { ueberblick: [], arbeitsweise: [], schwerpunkte: [], philosophie: [] };
-      let currentGroup = 'ueberblick';
-      
-      profilSection.querySelectorAll('h3, p:not(.cv-role):not(.cv-subtitle):not(.cta-link):not(.says)').forEach(el => {
-        if (el.tagName === 'H3') {
-          const text = el.textContent.toLowerCase();
-          if (text.includes('arbeitsweise')) currentGroup = 'arbeitsweise';
-          else if (text.includes('schwerpunkt')) currentGroup = 'schwerpunkte';
-          else if (text.includes('philosophie')) currentGroup = 'philosophie';
-        } else if (el.tagName === 'P') {
-          groups[currentGroup].push(el.outerHTML);
-        }
+  function extractFromDoc(doc){
+    // Profil
+    const profil=doc.querySelector('#content1');
+    if(profil){
+      const sections={ueberblick:[],arbeitsweise:[],schwerpunkte:[],philosophie:[]};
+      let current='ueberblick';
+      profil.querySelectorAll('h3,p:not(.cv-role):not(.cv-subtitle):not(.cta-link):not(.says)').forEach(el=>{
+        if(el.tagName==='H3'){
+          const t=el.textContent.toLowerCase();
+          if(t.includes('arbeitsweise'))current='arbeitsweise';
+          else if(t.includes('schwerpunkt'))current='schwerpunkte';
+          else if(t.includes('philosophie'))current='philosophie';
+        }else if(el.tagName==='P')sections[current].push(el.outerHTML);
       });
-      
-      Object.keys(groups).forEach(key => {
-        if (editors['profil-' + key]) {
-          editors['profil-' + key].root.innerHTML = groups[key].join('');
-        }
-      });
+      Object.keys(sections).forEach(k=>{if(editors['profil-'+k])editors['profil-'+k].root.innerHTML=sections[k].join('');});
     }
-    
     // Vita
-    const vitaSection = doc.querySelector('#content2');
-    if (vitaSection) {
-      const rows = [];
-      vitaSection.querySelectorAll('tr').forEach(tr => {
-        const tds = tr.querySelectorAll('td');
-        if (tds.length >= 1) {
-          rows.push({
-            zeit: tds[0]?.textContent?.trim() || '',
-            text: tds[1]?.innerHTML || tds[0]?.innerHTML || ''
-          });
-        }
-      });
-      renderVitaTable(rows);
-      
-      const zusatz = vitaSection.querySelector('table + p, table ~ p');
-      if (zusatz && editors['vita-zusatz']) {
-        editors['vita-zusatz'].root.innerHTML = zusatz.innerHTML;
-      }
+    const vita=doc.querySelector('#content2');
+    if(vita&&editors.vita){
+      const table=vita.querySelector('table');
+      const extra=vita.querySelector('table~p');
+      editors.vita.root.innerHTML=(table?table.outerHTML:'')+(extra?extra.outerHTML:'');
     }
-    
-    // Referenzen
-    const refSection = doc.querySelector('#content4');
-    if (refSection) {
-      const rows = [];
-      refSection.querySelectorAll('tr').forEach(tr => {
-        const td = tr.querySelector('td');
-        if (td) rows.push({ content: td.innerHTML });
-      });
-      renderReferenzenTable(rows);
-      
-      const hinweis = refSection.querySelector('table ~ p small');
-      if (hinweis && editors['referenzen-hinweis']) {
-        editors['referenzen-hinweis'].root.innerHTML = hinweis.innerHTML;
-      }
-    }
-    
-    // Kontakt
-    const kontaktSection = doc.querySelector('#content5');
-    if (kontaktSection) {
-      const intro = kontaktSection.querySelector('p.content');
-      if (intro && editors['kontakt-intro']) {
-        editors['kontakt-intro'].root.innerHTML = intro.innerHTML;
-      }
-    }
-    
     // Leistungen
-    const leistSection = doc.querySelector('#content3');
-    if (leistSection) {
-      const paragraphs = leistSection.querySelectorAll('p');
-      if (paragraphs[0] && editors['leistungen-intro']) {
-        editors['leistungen-intro'].root.innerHTML = paragraphs[0].outerHTML + (paragraphs[1]?.outerHTML || '');
-      }
+    const leist=doc.querySelector('#content3');
+    if(leist&&editors.leistungen){
+      let html='';
+      leist.querySelectorAll('h3,p,ul').forEach(el=>html+=el.outerHTML);
+      editors.leistungen.root.innerHTML=html;
+    }
+    // Referenzen
+    const refs=doc.querySelector('#content4');
+    if(refs&&editors.referenzen){
+      let html='';
+      refs.querySelectorAll('h3,table,p').forEach(el=>html+=el.outerHTML);
+      editors.referenzen.root.innerHTML=html;
     }
   }
   
-  function renderVitaTable(rows) {
-    const container = $('vita-table');
-    container.innerHTML = rows.map((row, i) => `
-      <div class="table-editor-row" data-index="${i}">
-        <input type="text" value="${escapeHtml(row.zeit)}" placeholder="Zeitraum" style="width:100px;flex:none">
-        <input type="text" value="${escapeHtml(stripHtml(row.text))}" placeholder="Beschreibung">
-        <div class="row-actions">
-          <button type="button" class="btn-secondary" onclick="removeRow('vita', ${i})">×</button>
-        </div>
-      </div>
-    `).join('');
-  }
-  
-  function renderReferenzenTable(rows) {
-    const container = $('referenzen-table');
-    container.innerHTML = rows.map((row, i) => `
-      <div class="table-editor-row" data-index="${i}">
-        <input type="text" value="${escapeHtml(stripHtml(row.content))}" placeholder="Projekt">
-        <div class="row-actions">
-          <button type="button" class="btn-secondary" onclick="removeRow('referenzen', ${i})">×</button>
-        </div>
-      </div>
-    `).join('');
-  }
-  
-  window.removeRow = function(table, index) {
-    const container = $(table + '-table');
-    const rows = container.querySelectorAll('.table-editor-row');
-    if (rows[index]) rows[index].remove();
-  };
-  
-  function addTableRow(table) {
-    const container = $(table + '-table');
-    const index = container.children.length;
-    const html = table === 'vita' 
-      ? `<div class="table-editor-row" data-index="${index}">
-          <input type="text" placeholder="Zeitraum" style="width:100px;flex:none">
-          <input type="text" placeholder="Beschreibung">
-          <div class="row-actions"><button type="button" class="btn-secondary" onclick="removeRow('${table}', ${index})">×</button></div>
-        </div>`
-      : `<div class="table-editor-row" data-index="${index}">
-          <input type="text" placeholder="Projekt">
-          <div class="row-actions"><button type="button" class="btn-secondary" onclick="removeRow('${table}', ${index})">×</button></div>
-        </div>`;
-    container.insertAdjacentHTML('beforeend', html);
-  }
-  
-  async function loadStyles() {
-    try {
-      const res = await fetch('/style.css?t=' + Date.now());
-      const css = await res.text();
-      
-      // Extract CSS variables
-      const varMatch = css.match(/:root\{([^}]+)\}/);
-      if (varMatch) {
-        const vars = varMatch[1];
-        const extract = (name) => {
-          const m = vars.match(new RegExp('--' + name + ':([^;]+)'));
-          return m ? m[1].trim() : null;
-        };
-        
-        setColorValue('style-bg', extract('bg'));
-        setColorValue('style-text', extract('body') || extract('text'));
-        setColorValue('style-accent', extract('accent'));
-        setColorValue('style-secondary', extract('secondary'));
-      }
-      
-      // Extract dark mode
-      const darkMatch = css.match(/prefers-color-scheme:dark\)\{:root\{([^}]+)\}/);
-      if (darkMatch) {
-        const vars = darkMatch[1];
-        const extract = (name) => {
-          const m = vars.match(new RegExp('--' + name + ':([^;]+)'));
-          return m ? m[1].trim() : null;
-        };
-        setColorValue('style-bg-dark', extract('bg'));
-        setColorValue('style-text-dark', extract('body'));
-        setColorValue('style-accent-dark', extract('accent'));
-      }
-    } catch (e) {
-      console.error('Error loading styles:', e);
-    }
-  }
-  
-  function setColorValue(id, value) {
-    if (!value) return;
-    const el = $(id);
-    if (!el) return;
-    // Convert named colors or other formats to hex
-    if (value.startsWith('#')) {
-      el.value = value.length === 4 
-        ? '#' + value[1]+value[1]+value[2]+value[2]+value[3]+value[3]
-        : value;
-    }
-  }
-  
-  async function saveContent() {
-    const btn = $('save-btn');
-    btn.disabled = true;
-    btn.textContent = 'Speichert...';
+  async function saveAll(){
+    const btn=$('save-btn');
+    btn.disabled=true;btn.textContent='Speichert...';
     showStatus('Speichert...');
     
-    try {
-      // Collect all content
-      const data = collectData();
-      
-      // Save to GitHub
-      const token = localStorage.getItem('github_token');
-      if (!token) {
-        showStatus('GitHub Token fehlt – nur lokal gespeichert', true);
-        btn.disabled = false;
-        btn.textContent = '💾 Speichern';
-        return;
-      }
-      
-      await saveToGitHub(data);
-      showStatus('Gespeichert & veröffentlicht! ✓');
-      setTimeout(() => hideStatus(), 3000);
-    } catch (e) {
-      showStatus('Fehler: ' + e.message, true);
-    }
+    const token=localStorage.getItem('gh_token')||$('github-token').value;
+    if(!token){showStatus('GitHub Token fehlt!','error');btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';return;}
     
-    btn.disabled = false;
-    btn.textContent = '💾 Speichern';
+    // Save settings
+    localStorage.setItem('gh_token',$('github-token').value);
+    localStorage.setItem('gh_repo',$('github-repo').value);
+    localStorage.setItem('gh_branch',$('github-branch').value);
+    localStorage.setItem('autosave',$('autosave-interval').value);
+    
+    try{
+      // Save impressum
+      if(editors.impressum){
+        await saveFile('pages/impressum.html',editors.impressum.root.innerHTML);
+      }
+      // Save datenschutz
+      if(editors.datenschutz){
+        await saveFile('pages/datenschutz.html',editors.datenschutz.root.innerHTML);
+      }
+      // Save admin-data.json (backup)
+      const data=collectAllData();
+      await saveFile('admin-data.json',JSON.stringify(data,null,2));
+      
+      hasChanges=false;
+      $('unsaved')?.classList.remove('active');
+      $('autosave-time').textContent=new Date().toLocaleTimeString('de');
+      showStatus('Gespeichert & veröffentlicht ✓','success');
+      setTimeout(hideStatus,3000);
+    }catch(e){
+      console.error(e);
+      showStatus('Fehler: '+e.message,'error');
+    }
+    btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';
   }
   
-  function collectData() {
-    const data = { content: {}, styles: {} };
-    
-    // Collect editor content
-    Object.keys(editors).forEach(key => {
-      data.content[key] = editors[key].root.innerHTML;
-    });
-    
-    // Collect styles
-    $$('[id^="style-"]').forEach(el => {
-      data.styles[el.id.replace('style-', '')] = el.value;
-    });
-    
-    // Collect contact info
-    data.content['kontakt-email'] = $('kontakt-email').value;
-    data.content['kontakt-telefon'] = $('kontakt-telefon').value;
-    data.content['kontakt-adresse'] = $('kontakt-adresse').value;
-    
-    // Collect tables
-    data.content['vita-rows'] = collectTableRows('vita');
-    data.content['referenzen-rows'] = collectTableRows('referenzen');
-    
+  function collectAllData(){
+    const data={content:{},seo:{},styles:{},contact:{},updated:new Date().toISOString()};
+    Object.keys(editors).forEach(k=>data.content[k]=editors[k].root.innerHTML);
+    data.seo={title:$('seo-title').value,description:$('seo-description').value,keywords:$('seo-keywords').value,ogTitle:$('seo-og-title').value,ogDescription:$('seo-og-description').value};
+    data.contact={email:$('kontakt-email').value,telefon:$('kontakt-telefon').value,adresse:$('kontakt-adresse').value};
+    $$('[id^="st-"]').forEach(el=>data.styles[el.id.replace('st-','')]=el.value);
     return data;
   }
   
-  function collectTableRows(table) {
-    const rows = [];
-    $$(` #${table}-table .table-editor-row`).forEach(row => {
-      const inputs = row.querySelectorAll('input');
-      if (table === 'vita') {
-        rows.push({ zeit: inputs[0]?.value, text: inputs[1]?.value });
-      } else {
-        rows.push({ content: inputs[0]?.value });
-      }
-    });
-    return rows;
-  }
-  
-  async function saveToGitHub(data) {
-    const token = localStorage.getItem('github_token');
-    const repo = localStorage.getItem('github_repo');
-    const branch = localStorage.getItem('github_branch') || 'main';
+  async function saveFile(path,content){
+    const token=localStorage.getItem('gh_token');
+    const repo=localStorage.getItem('gh_repo');
+    const branch=localStorage.getItem('gh_branch')||'main';
     
-    // Save admin-data.json
-    const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-    
-    // Get SHA if file exists
+    // Get SHA
     let sha;
-    try {
-      const res = await fetch(`https://api.github.com/repos/${repo}/contents/admin-data.json?ref=${branch}`, {
-        headers: { Authorization: `token ${token}` }
-      });
-      if (res.ok) sha = (await res.json()).sha;
-    } catch (e) {}
+    try{
+      const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,{headers:{Authorization:`token ${token}`}});
+      if(r.ok)sha=(await r.json()).sha;
+    }catch(e){}
     
-    const body = {
-      message: 'Admin: Inhalte aktualisiert ' + new Date().toLocaleString('de'),
-      content: jsonContent,
-      branch
-    };
-    if (sha) body.sha = sha;
+    const body={message:`Admin: ${path} aktualisiert`,content:btoa(unescape(encodeURIComponent(content))),branch};
+    if(sha)body.sha=sha;
     
-    const res = await fetch(`https://api.github.com/repos/${repo}/contents/admin-data.json`, {
-      method: 'PUT',
-      headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+    const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+      method:'PUT',
+      headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
     });
-    
-    if (!res.ok) throw new Error((await res.json()).message);
+    if(!res.ok)throw new Error((await res.json()).message||'GitHub Fehler');
   }
   
-  function showStatus(msg, isError = false) {
-    const el = $('status-bar');
-    el.textContent = msg;
-    el.className = 'status-bar active' + (isError ? ' error' : '');
+  async function testGitHub(){
+    const token=$('github-token').value;
+    const repo=$('github-repo').value;
+    try{
+      const r=await fetch(`https://api.github.com/repos/${repo}`,{headers:{Authorization:`token ${token}`}});
+      if(r.ok){
+        $('github-status').innerHTML='<span class="success">✓ Verbunden</span>';
+        localStorage.setItem('gh_token',token);
+        localStorage.setItem('gh_repo',repo);
+        localStorage.setItem('gh_branch',$('github-branch').value);
+      }else $('github-status').innerHTML='<span class="error">Fehler '+r.status+'</span>';
+    }catch(e){$('github-status').innerHTML='<span class="error">Verbindungsfehler</span>';}
   }
   
-  function hideStatus() {
-    $('status-bar').classList.remove('active');
+  function changePw(){
+    const curr=$('pw-current').value,newPw=$('pw-new').value;
+    if(hash(curr)!==localStorage.getItem('admin_pw'))return $('pw-status').innerHTML='<span class="error">Falsches Passwort</span>';
+    if(newPw.length<4)return $('pw-status').innerHTML='<span class="error">Mind. 4 Zeichen</span>';
+    localStorage.setItem('admin_pw',hash(newPw));
+    $('pw-status').innerHTML='<span class="success">✓ Geändert</span>';
+    $('pw-current').value='';$('pw-new').value='';
   }
   
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function setupAutoSave(){
+    if(autoSaveTimer)clearInterval(autoSaveTimer);
+    const interval=parseInt($('autosave-interval').value)*1000;
+    localStorage.setItem('autosave',$('autosave-interval').value);
+    if(interval>0){
+      autoSaveTimer=setInterval(()=>{if(hasChanges)saveAll();},interval);
+    }
   }
   
-  function stripHtml(str) {
-    if (!str) return '';
-    const tmp = document.createElement('div');
-    tmp.innerHTML = str;
-    return tmp.textContent || tmp.innerText || '';
+  function showStatus(msg,type=''){
+    const el=$('status-bar');
+    el.textContent=msg;
+    el.className='status-bar active'+(type?' '+type:'');
   }
+  function hideStatus(){$('status-bar').classList.remove('active');}
   
   init();
 })();
