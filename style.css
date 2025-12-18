@@ -674,57 +674,6 @@ hr.z {
   font-size: .85em;
 }
 
-/* ===== PROJECTS ===== */
-.project {
-  margin: 1.5rem 0;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
-}
-
-.project:last-of-type {
-  border-bottom: none;
-}
-
-.project-title {
-  font-weight: 200;
-  font-size: 1em;
-  margin: 0 0 .3rem;
-  letter-spacing: .05em;
-}
-
-.project-status {
-  font-size: .75em;
-  color: var(--secondary);
-  font-weight: 200;
-  letter-spacing: .03em;
-}
-
-.project-desc {
-  margin: 0 0 .2rem;
-  font-size: .95em;
-  color: var(--body);
-}
-
-.project-lph {
-  margin: 0;
-  font-size: .8em;
-  color: var(--secondary);
-  letter-spacing: .05em;
-}
-
-.project-note {
-  margin-top: 2rem;
-  font-size: .85em;
-  color: var(--secondary);
-  line-height: 1.5;
-}
-
-@media (prefers-color-scheme: dark) {
-  .project {
-    border-bottom-color: rgba(255, 255, 255, .1);
-  }
-}
-
 /* ===== CTA BUTTON ===== */
 .cta-hint {
   margin: 2rem 0 .5rem;
