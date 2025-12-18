@@ -517,7 +517,7 @@ svg {
 }
 
 .arrow-nohover::before {
-  content: '+';
+  content: '–';
   display: inline-block;
   margin-right: 0.3em;
   color: var(--body);
