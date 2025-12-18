@@ -652,12 +652,19 @@ button:disabled{opacity:.4;cursor:not-allowed}
       const iframe=$('styles-preview');
       if(!iframe)return;
       const doc=iframe.contentDocument||iframe.contentWindow.document;
+      const darkCss=`:root{--primary:#fff;--bg:#111;--body:#e5e5e5;--secondary:#999;--accent:#4d9fff;--hover-bg:#fff;--hover-text:#111}body{background:#111;color:#e5e5e5}`;
+      let darkStyle=doc.getElementById('dark-override');
       if(this.classList.contains('active')){
-        doc.documentElement.style.colorScheme='dark';
-        doc.body.classList.add('dark-preview');
+        if(!darkStyle){
+          darkStyle=doc.createElement('style');
+          darkStyle.id='dark-override';
+          doc.head.appendChild(darkStyle);
+        }
+        darkStyle.textContent=darkCss;
+        this.textContent='☀️';
       }else{
-        doc.documentElement.style.colorScheme='light';
-        doc.body.classList.remove('dark-preview');
+        if(darkStyle)darkStyle.textContent='';
+        this.textContent='🌙';
       }
     };
   }
