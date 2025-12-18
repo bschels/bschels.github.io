@@ -863,6 +863,81 @@ button:disabled{opacity:.4;cursor:not-allowed}
     }
   };
 
+  // Toolbar formatting functions
+  window.formatTag = function(editorId, tag) {
+    const editor = editors[editorId];
+    if (!editor) return;
+    
+    const selection = editor.getSelection();
+    if (selection) {
+      editor.replaceSelection(`<${tag}>${selection}</${tag}>`);
+    } else {
+      const cursor = editor.getCursor();
+      editor.replaceRange(`<${tag}></${tag}>`, cursor);
+      editor.setCursor({ line: cursor.line, ch: cursor.ch + tag.length + 2 });
+    }
+    editor.focus();
+    markChanged();
+    updatePreview(editorId);
+  };
+
+  window.formatList = function(editorId, listType) {
+    const editor = editors[editorId];
+    if (!editor) return;
+    
+    const selection = editor.getSelection();
+    if (selection) {
+      // Split selection into lines and wrap each in <li>
+      const lines = selection.split('\n').filter(l => l.trim());
+      const items = lines.map(line => `  <li>${line.trim()}</li>`).join('\n');
+      editor.replaceSelection(`<${listType}>\n${items}\n</${listType}>`);
+    } else {
+      editor.replaceSelection(`<${listType}>\n  <li></li>\n</${listType}>`);
+    }
+    editor.focus();
+    markChanged();
+    updatePreview(editorId);
+  };
+
+  window.textTransform = function(editorId, transform) {
+    const editor = editors[editorId];
+    if (!editor) return;
+    
+    const selection = editor.getSelection();
+    if (selection) {
+      const transformed = transform === 'upper' ? selection.toUpperCase() : selection.toLowerCase();
+      editor.replaceSelection(transformed);
+    }
+    editor.focus();
+    markChanged();
+    updatePreview(editorId);
+  };
+
+  window.insertLink = function(editorId) {
+    const editor = editors[editorId];
+    if (!editor) return;
+    
+    const selection = editor.getSelection() || 'Linktext';
+    const url = prompt('URL eingeben:', 'https://');
+    if (url) {
+      editor.replaceSelection(`<a href="${url}">${selection}</a>`);
+      markChanged();
+      updatePreview(editorId);
+    }
+    editor.focus();
+  };
+
+  window.insertBr = function(editorId) {
+    const editor = editors[editorId];
+    if (!editor) return;
+    
+    const cursor = editor.getCursor();
+    editor.replaceRange('<br>\n', cursor);
+    editor.focus();
+    markChanged();
+    updatePreview(editorId);
+  };
+
   init();
 })();
   </script>
