@@ -109,25 +109,48 @@
     updateAccordionAria();
 
     document.addEventListener("click", function (event) {
-      const target = event.target.closest('a[href^="#tog"]');
+      const target = event.target.closest('a[href^="#"]');
       if (!target) return;
-      event.preventDefault();
-      const id = target.getAttribute("href").substring(1);
-      const input = document.getElementById(id);
-      if (!input) return;
-      document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
-        if (other !== input) {
-          other.checked = false;
-          accordionState.set(other.id, false);
-        }
-      });
-      input.checked = true;
-      accordionState.set(id, true);
-      updateAccordionAria();
-      const label = document.querySelector(`label.cat[for="${id}"]`);
-      if (label) {
-        const y = label.getBoundingClientRect().top + window.pageYOffset - 20;
+      const href = target.getAttribute("href");
+      if (!href || href === "#") return;
+      const id = href.substring(1);
+      
+      // Mapping für SEO-freundliche IDs zu Accordion-IDs
+      const idMap = {
+        "profil": "tog1",
+        "leistungen": "tog3",
+        "projekte": "tog4",
+        "kontakt": "tog5"
+      };
+      
+      const accordionId = idMap[id] || id;
+      const input = document.getElementById(accordionId);
+      const section = document.getElementById(id);
+      
+      if (input) {
+        event.preventDefault();
+        document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
+          if (other !== input) {
+            other.checked = false;
+            accordionState.set(other.id, false);
+          }
+        });
+        input.checked = true;
+        accordionState.set(accordionId, true);
+        updateAccordionAria();
+      }
+      
+      // Scroll zu Section oder Label
+      if (section) {
+        event.preventDefault();
+        const y = section.getBoundingClientRect().top + window.pageYOffset - 20;
         window.scrollTo({ top: y, behavior: "smooth" });
+      } else if (input) {
+        const label = document.querySelector(`label.cat[for="${accordionId}"]`);
+        if (label) {
+          const y = label.getBoundingClientRect().top + window.pageYOffset - 20;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
       }
     });
 
