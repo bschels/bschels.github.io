@@ -680,12 +680,15 @@ hr.z {
 }
 
 .cta-contact {
-  display: inline-block;
-  padding: .6em 1.2em;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: .8em 1.2em;
   border: 1px solid var(--body);
   text-decoration: none !important;
   letter-spacing: .1em;
   transition: all .2s ease;
+  box-sizing: border-box;
 }
 
 .cta-contact:hover {
