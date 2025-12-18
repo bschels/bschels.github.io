@@ -587,6 +587,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     try {
       // Load from index.html
       const res = await fetch('/index.html?t=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       const html = await res.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
@@ -597,10 +598,12 @@ button:disabled{opacity:.4;cursor:not-allowed}
       // Load styles from CSS
       await loadStyles();
       
-      showStatus('Inhalte geladen', false);
+      showStatus('Inhalte geladen ✓');
       setTimeout(() => hideStatus(), 2000);
     } catch (e) {
-      showStatus('Fehler beim Laden: ' + e.message, true);
+      console.error('Load error:', e);
+      showStatus('Inhalte konnten nicht geladen werden – Editor ist leer', true);
+      setTimeout(() => hideStatus(), 4000);
     }
   }
   
