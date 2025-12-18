@@ -2,7 +2,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
   <title>Architekt Wolnzach | architekturbüro schels – Bauen im Bestand & Denkmalpflege</title>
   <meta name="keywords" content="Architekt Wolnzach, Architekt Hallertau, Bauen im Bestand, Denkmalpflege Bayern, HOAI Architekt, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Architekt Pfaffenhofen, denkmalgeschützte Gebäude, Sanierung Altbau">
   <meta name="description" content="Architekt in Wolnzach bei Pfaffenhofen – Spezialist für Bauen im Bestand und Denkmalpflege in der Hallertau. Neubau, Umbau & Sanierung. Projekte in München, Ingolstadt und Freising.">
@@ -13,8 +15,7 @@
   <meta name="ICBM" content="48.6033, 11.6250">
   <link rel="canonical" href="https://schels.info/">
   <link rel="alternate" hreflang="de" href="https://schels.info/">
-  <link rel="alternate" hreflang="en" href="https://schels.info/">
-  <link rel="alternate" hreflang="x-default" href="https://schels.info/">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://schels.info/">
@@ -26,7 +27,6 @@
   <meta property="og:image:height" content="907">
   <meta property="og:image:alt" content="Benjamin Schels - Architekt M.A.">
   <meta property="og:locale" content="de_DE">
-  <meta property="og:locale:alternate" content="en_US">
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://schels.info/">
@@ -97,7 +97,7 @@
       "jobTitle": "Architekt M.A.",
       "image": "https://schels.info/images/benjamin-schels-portrait.webp"
     },
-    "knowsLanguage": ["de", "en"],
+    "knowsLanguage": ["de"],
     "slogan": "Architektur mit Respekt vor dem Vorhandenen und Mut zum Umbau"
   }
   </script>
@@ -142,37 +142,15 @@
     ]
   }
   </script>
-  <!-- GoatCounter Analytics (Cookie-frei, DSGVO-konform, kostenlos) -->
-  <script data-goatcounter="https://schels.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
-  <!-- Google Search Console Verification -->
-  <!--
-  ✅ Google Search Console ist bereits aktiviert!
-
-  Nächste Schritte:
-  1. Sitemap einreichen:
-     - Gehen Sie zu: https://search.google.com/search-console
-     - Klicken Sie auf "Sitemaps" im Menü
-     - Geben Sie ein: https://schels.info/sitemap.xml
-     - Klicken Sie auf "Einreichen"
-
-  2. URL-Prüfung:
-     - Nutzen Sie das "URL-Prüfung"-Tool, um einzelne Seiten zu indexieren
-
-  3. Leistungsbericht:
-     - Überwachen Sie Klicks, Impressionen und Positionen in der Google-Suche
-
-  4. Abdeckung prüfen:
-     - Unter "Abdeckung" sehen Sie indexierte Seiten und Fehler
-  -->
-  <!-- Critical CSS inline would be better, but for now we use preload -->
+  <script data-goatcounter="https://schels.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
 <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
 <link rel="manifest" href="/favicon/site.webmanifest">
-  <!-- DNS-Prefetch für externe Dienste -->
   <link rel="dns-prefetch" href="https://schels.goatcounter.com">
-  <!-- Preload CSS for faster loading -->
+  <link rel="preconnect" href="https://gc.zgo.at" crossorigin>
+  <link rel="preconnect" href="https://formspree.io" crossorigin>
   <link rel="preload" href="style.css" as="style">
   <link rel="stylesheet" href="style.css">
   <script src="/js/main.js" defer></script>
@@ -187,32 +165,6 @@
                 </h1>
               </a>
             </div>
-            <div class="header-lang">
-      <div id="english" class="language">
-        <div class="language-select">
-          <div class="tooltip">
-            <a href="#" id="german" class="switch-language" aria-label="Switch to German">DE</a>
-            <span class="tooltiptext">german</span>
-          </div>
-          <div class="tooltip">
-            <a href="#" id="english" class="switch-language" aria-label="Switch to English">EN</a>
-            <span class="tooltiptext">english</span>
-          </div>
-        </div>
-      </div>
-      <div id="german" class="language active">
-        <div class="language-select">
-          <div class="tooltip">
-            <a href="#" id="german" class="switch-language" aria-label="Zu Deutsch wechseln">DE</a>
-            <span class="tooltiptext">deutsch</span>
-          </div>
-          <div class="tooltip">
-            <a href="#" id="english" class="switch-language" aria-label="Switch to English">EN</a>
-            <span class="tooltiptext">englisch</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <hr class="y">
   <hr class="z">
@@ -221,17 +173,15 @@
     <!-- 1. Profil -->
     <div>
       <label class="cat" for="tog1" role="button" aria-expanded="false" aria-controls="content1" tabindex="0">
-        <div id="english" class="language"><h2 class="cat">profile</h2></div>
-        <div id="german" class="language active"><h2 class="cat">profil</h2></div>
+        <h2 class="cat">profil</h2>
         <hr class="z">
       </label>
       <input type="radio" name="rdo" id="tog1" aria-hidden="true">
       <div class="cat_text" id="content1" role="region" aria-labelledby="tog1">
-        <div id="german" class="language active">
           <div class="cv-header">
             <picture>
               <source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
-              <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architekt" class="cv-portrait" loading="lazy">
+              <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architekt" class="cv-portrait" loading="lazy" width="180" height="226">
             </picture>
             <div class="cv-name">
               <p class="cv-role">Büroinhaber</p>
@@ -257,52 +207,17 @@
             <footer>Aby Warburg</footer>
           </blockquote>
           <p class="cta-link"><a href="#tog5" class="cta-contact">→ Kontakt aufnehmen</a></p>
-        </div>
-        <div id="english" class="language">
-          <div class="cv-header">
-            <picture>
-              <source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
-              <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels - Architect" class="cv-portrait" loading="lazy">
-            </picture>
-            <div class="cv-name">
-              <p class="cv-role">Office Owner</p>
-              <h2>Benjamin Schels, M.A.</h2>
-              <p class="cv-subtitle">Architect</p>
-            </div>
-          </div>
-          <h3>Overview</h3>
-          <p>Your architect for new builds, existing structures and complex building projects. <strong class="brand-name">architekturbüro schels</strong> guides construction projects from initial design to completion – through all HOAI service phases.</p>
-          <p>New construction, conversion, renovation and extension are realised with clear concepts and transparent planning.</p>
-          <h3>How I Work</h3>
-          <p>Planning is a process. It begins with careful analysis of site, existing conditions, budget and requirements.</p>
-          <p><strong class="brand-name">architekturbüro schels</strong> works personally, in a structured manner, and solution-oriented.</p>
-          <p>At the core are diligence and clarity: reliable planning, clear communication, transparent costs.</p>
-          <h3>Focus</h3>
-          <p>A particular focus lies on <i>building within existing structures</i>, especially heritage buildings and listed properties.</p>
-          <p>The design approach is characterised by precise and sensitive engagement with the existing. Interventions are kept as minimal as possible and as targeted as necessary.</p>
-          <h3>Philosophy</h3>
-          <p>Architecture evolves with the people who use it and with requirements that change over time.</p>
-          <p><strong class="brand-name">architekturbüro schels</strong> understands architecture as careful engagement with place, task and existing fabric – with respect for what exists and the courage to transform.</p>
-          <blockquote>
-            <p class="says">« God is in the details. »</p>
-            <footer>Aby Warburg</footer>
-          </blockquote>
-          <p class="cta-link"><a href="#tog5" class="cta-contact">→ Get in touch</a></p>
-        </div>
         <hr class="z">
       </div>
     </div>
-
     <!-- 2. Vita -->
     <div>
       <label class="cat" for="tog2" role="button" aria-expanded="false" aria-controls="content2" tabindex="0">
-        <div id="english" class="language"><h2 class="cat">vita</h2></div>
-        <div id="german" class="language active"><h2 class="cat">vita</h2></div>
+        <h2 class="cat">vita</h2>
         <hr class="z">
       </label>
       <input type="radio" name="rdo" id="tog2" aria-hidden="true">
       <div class="cat_text" id="content2" role="region" aria-labelledby="tog2">
-        <div id="german" class="language active">
           <table>
           <tbody>
           <tr>
@@ -328,51 +243,19 @@
           </tbody>
           </table>
           <p>Mitglied der Bayerischen Architektenkammer<br>Architektenliste: 192.686</p>
-        </div>
-        <div id="english" class="language">
-          <table>
-          <tbody>
-          <tr>
-            <td><strong>2026+</strong></td>
-            <td><strong class="brand-name">architekturbüro schels</strong>, Wolnzach<br>Freelance Architect</td>
-          </tr>
-          <tr>
-            <td>2022–25</td>
-            <td><strong>Deppisch Architekten GmbH</strong>, Freising<br>Architect, Project and Construction Management</td>
-          </tr>
-          <tr>
-            <td>2019–22</td>
-            <td><strong>Planetz Architektenpartnerschaft</strong>, Munich<br>Architect, Construction Management</td>
-          </tr>
-          <tr>
-            <td>2017–19</td>
-            <td><strong>Architekturbüro von Friedrich-Liebenberg</strong>, Munich<br>Freelancer</td>
-          </tr>
-          <tr>
-            <td>until 2017</td>
-            <td><strong>Munich University of Applied Sciences</strong><br>Architecture studies (M.A.)</td>
-          </tr>
-          </tbody>
-          </table>
-          <p>Member of the Bavarian Chamber of Architects<br>Architect List: 192.686</p>
-        </div>
         <hr class="z">
       </div>
     </div>
-
     <!-- 3. Leistungen -->
     <div>
       <label class="cat" for="tog3" role="button" aria-expanded="false" aria-controls="content3" tabindex="0">
-        <div id="english" class="language"><h2 class="cat">services</h2></div>
-        <div id="german" class="language active"><h2 class="cat">leistungen</h2></div>
+        <h2 class="cat">leistungen</h2>
         <hr class="z">
       </label>
       <input type="radio" name="rdo" id="tog3" aria-hidden="true">
       <div class="cat_text" id="content3" role="region" aria-labelledby="tog3">
-        <div id="german" class="language active">
           <p><strong class="brand-name">architekturbüro schels</strong> begleitet Bauvorhaben im Hochbau in allen Leistungsphasen der HOAI (1–9).</p>
           <p>Die Arbeit beginnt häufig nicht mit einem fertigen Bauwunsch, sondern mit offenen Fragen zum Bestand, zur Nutzung oder zu familiären und rechtlichen Rahmenbedingungen.</p>
-
           <h3>Typische Anfragen</h3>
           <ul>
             <li>Wir haben ein Haus geerbt und wissen nicht, was sinnvoll oder möglich ist.</li>
@@ -384,7 +267,6 @@
             <li>Wir brauchen zunächst Klarheit, bevor wir entscheiden können, wie es weitergeht.</li>
           </ul>
           <p>Wenn Sie sich in einer dieser Situationen wiederfinden, ist ein erstes Gespräch oft der sinnvollste Schritt.</p>
-
           <h3>Planung und Umsetzung</h3>
           <ul>
             <li>Neubauten</li>
@@ -394,7 +276,6 @@
             <li>Wohn- und kleinere Gewerbebauten</li>
           </ul>
           <p>Die Planung umfasst Entwurf und Genehmigung, Ausführungsplanung und Bauleitung bis hin zur Objektbetreuung und Dokumentation.</p>
-
           <h3>Klärung, Bestand und Struktur</h3>
           <ul>
             <li>Bestandsaufnahmen als Grundlage für Entscheidungen</li>
@@ -403,7 +284,6 @@
             <li>Umnutzungs- und Nutzungskonzepte</li>
             <li>Beratung bei Erbschaften, Teilungen und familiären Baufragen</li>
           </ul>
-
           <h3>Grundriss, Nutzung und Innenräume</h3>
           <ul>
             <li>Anbauten und Aufstockungen</li>
@@ -412,7 +292,6 @@
             <li>Innenausbau und Ausbaukonzepte</li>
             <li>Einbauten, Möbel und Detailplanung als Teil der Architektur</li>
           </ul>
-
           <h3>Abstimmung und Begleitung</h3>
           <ul>
             <li>Abstimmung mit Bauämtern und Fachbehörden (z. B. Denkmalschutz)</li>
@@ -420,83 +299,21 @@
             <li>Unterstützung bei Fördermöglichkeiten</li>
           </ul>
           <p>Alle Leistungen können vollständig oder in einzelnen Abschnitten beauftragt werden. Auch frühe Klärungen oder einzelne Fragestellungen lassen sich unabhängig von einem konkreten Bauvorhaben sinnvoll begleiten.</p>
-
           <blockquote>
             <p class="says">« Architektur ist die Zeit, die man sich nimmt. »</p>
             <footer>Peter Zumthor</footer>
           </blockquote>
-        </div>
-        <div id="english" class="language">
-          <p><strong class="brand-name">architekturbüro schels</strong> guides building projects through all HOAI service phases (1–9).</p>
-          <p>The work often begins not with a finished building request, but with open questions about existing structures, usage, or family and legal circumstances.</p>
-
-          <h3>Typical Inquiries</h3>
-          <ul>
-            <li>We have inherited a house and don't know what is sensible or possible.</li>
-            <li>An existing building needs to be divided or reorganised within the family.</li>
-            <li>We would like to add an extension, add a storey, or change the floor plan.</li>
-            <li>An older house should be gradually renovated or modernised.</li>
-            <li>A listed building needs to be adapted for continued use.</li>
-            <li>It is unclear what is permitted under building regulations or how the approval process works.</li>
-            <li>We first need clarity before we can decide how to proceed.</li>
-          </ul>
-          <p>If you find yourself in one of these situations, an initial conversation is often the most sensible step.</p>
-
-          <h3>Planning and Implementation</h3>
-          <ul>
-            <li>New buildings</li>
-            <li>Conversions, renovations and extensions</li>
-            <li>Building within existing structures</li>
-            <li>Listed buildings</li>
-            <li>Residential and smaller commercial buildings</li>
-          </ul>
-          <p>Planning encompasses design and approval, detailed planning and construction management through to building support and documentation.</p>
-
-          <h3>Clarification, Existing Structures and Organisation</h3>
-          <ul>
-            <li>Building surveys as a basis for decisions</li>
-            <li>Feasibility studies for unclear situations</li>
-            <li>Division plans and clarification of existing building structures</li>
-            <li>Change of use and usage concepts</li>
-            <li>Advice on inheritances, divisions and family building matters</li>
-          </ul>
-
-          <h3>Floor Plan, Usage and Interior Spaces</h3>
-          <ul>
-            <li>Extensions and additional storeys</li>
-            <li>Floor plan changes and functional reorganisation</li>
-            <li>Multi-generational living and flexible housing concepts</li>
-            <li>Interior fit-out and conversion concepts</li>
-            <li>Built-in elements, furniture and detail planning as part of the architecture</li>
-          </ul>
-
-          <h3>Coordination and Support</h3>
-          <ul>
-            <li>Coordination with building authorities and specialist agencies (e.g. heritage conservation)</li>
-            <li>Coordination of specialist planners (structural engineering, building services, fire protection, etc.)</li>
-            <li>Support with funding opportunities</li>
-          </ul>
-          <p>All services can be commissioned in full or in individual sections. Early clarifications or individual questions can also be usefully supported independently of a specific building project.</p>
-
-          <blockquote>
-            <p class="says">« Architecture is the time you take. »</p>
-            <footer>Peter Zumthor</footer>
-          </blockquote>
-        </div>
         <hr class="z">
       </div>
     </div>
-
     <!-- 4. Referenzen -->
     <div>
       <label class="cat" for="tog4" role="button" aria-expanded="false" aria-controls="content4" tabindex="0">
-        <div id="english" class="language"><h2 class="cat">references</h2></div>
-        <div id="german" class="language active"><h2 class="cat">referenzen</h2></div>
+        <h2 class="cat">referenzen</h2>
         <hr class="z">
       </label>
       <input type="radio" name="rdo" id="tog4" aria-hidden="true">
       <div class="cat_text" id="content4" role="region" aria-labelledby="tog4">
-        <div id="german" class="language active">
           <table>
             <tbody>
             <tr><td><strong>Christophstraße 4</strong>, München<br>Sanierung eines denkmalgeschützten Wohngebäudes<br><small>LPH 3–8, Projekt- und Bauleitung</small></td></tr>
@@ -509,67 +326,18 @@
           </table>
           <br>
           <p><small>Die Projekte wurden jeweils in Zusammenarbeit mit anderen Architekten und Mitarbeitenden der beteiligten Büros bearbeitet.</small></p>
-        </div>
-        <div id="english" class="language">
-          <table>
-            <tbody>
-            <tr><td><strong>Christophstraße 4</strong>, Munich<br>Renovation of a listed residential building<br><small>LPH 3–8, Project and Construction Management</small></td></tr>
-            <tr><td><strong>Realschule St. Immaculata</strong>, Schlehdorf<br>Fire protection renovation of a heritage school<br><small>LPH 3–8, Project Management</small></td></tr>
-            <tr><td><strong>Hof Berblinger Straße</strong>, Bad Aibling<br>Conversion of a listed farmhouse to residential use<br><small>LPH 1–5</small></td></tr>
-            <tr><td><strong>Alte Allee</strong>, Munich-Pasing<br>Conversion and renovation of a listed villa<br><small>LPH 1–5</small></td></tr>
-            <tr><td><strong>SFH Wunderhornstraße</strong>, Munich-Grünwald<br>Conversion and renovation of a listed villa<br><small>LPH 3–8</small></td></tr>
-            <tr><td><strong>Museum of Ancient Seafaring</strong>, Mainz<br>Exhibition planning, competition (won)<br><small>LPH 1–3</small></td></tr>
-            </tbody>
-          </table>
-          <br>
-          <p><small>The projects were carried out in collaboration with other architects and staff of the offices involved.</small></p>
-        </div>
         <hr class="z">
       </div>
     </div>
-
     <!-- 5. Kontakt -->
     <div>
       <label class="cat" for="tog5" role="button" aria-expanded="false" aria-controls="content5" tabindex="0">
-        <div id="english" class="language"><h2 class="cat">contact</h2></div>
-        <div id="german" class="language active"><h2 class="cat">kontakt</h2></div>
+        <h2 class="cat">kontakt</h2>
         <hr class="z">
       </label>
       <input type="radio" name="rdo" id="tog5" aria-hidden="true">
       <div class="cat_text" id="content5" role="region" aria-labelledby="tog5">
-        <div id="english" class="language">
-          <p class="content">Inquiries are welcome.<br>Business operations from 01.01.2026.</p>
-          <div class="contact-info">
-            <div class="arrow-nohover">Email: <a href="mailto:hello@schels.info">hello@schels.info</a></div>
-            <div class="arrow-nohover">Phone: <a href="tel:+4984429292291">+49 8442 929 229 1</a></div>
-            <div class="arrow-nohover">Address: <a href="https://maps.google.com/?q=Schlachterstraße+9,+85283+Wolnzach" target="_blank" rel="noopener">Schlachterstraße 9, 85283 Wolnzach</a></div>
-          </div>
-          <div class="contact-form-section">
-            <h3>Send a Message</h3>
-            <form id="contact-form-en" action="https://formspree.io/f/mgowwkpq" method="POST" class="contact-form">
-              <div class="form-group">
-                <label for="name-en">Name</label>
-                <input type="text" id="name-en" name="name" required placeholder="Your name">
-              </div>
-              <div class="form-group">
-                <label for="email-en">Email</label>
-                <input type="email" id="email-en" name="email" required placeholder="your@email.com">
-              </div>
-              <div class="form-group">
-                <label for="message-en">Message</label>
-                <textarea id="message-en" name="message" rows="5" required placeholder="How can I help you?"></textarea>
-              </div>
-              <input type="hidden" name="_language" value="en">
-              <button type="submit" class="form-submit">Send Message →</button>
-            </form>
-            <div class="form-success" style="display: none;">
-              <p class="success-icon">✓</p>
-              <p class="success-title">Message sent!</p>
-              <p class="success-text">Thank you for your message.<br>I will get back to you as soon as possible.</p>
-            </div>
-          </div>
-        </div>
-        <div id="german" class="language active">
+        <div>
           <p class="content">Kontaktanfragen sind willkommen.<br>Geschäftsbetrieb ab 01.01.2026.</p>
           <div class="contact-info">
             <div class="arrow-nohover">Email: <a href="mailto:hello@schels.info">hello@schels.info</a></div>
@@ -599,13 +367,16 @@
               <p class="success-title">Nachricht gesendet!</p>
               <p class="success-text">Vielen Dank für Ihre Nachricht.<br>Ich melde mich so bald wie möglich bei Ihnen.</p>
             </div>
+            <div class="form-error" style="display: none;">
+              <p class="error-title">Senden fehlgeschlagen.</p>
+              <p class="error-text">Bitte versuchen Sie es später erneut.</p>
+            </div>
           </div>
         </div>
         <hr class="z">
       </div>
     </div>
   </main>
-
   <footer>
     <div class="footer-bottom-container">
       <div class="footer-info-left">
@@ -614,57 +385,34 @@
       <div class="footer-legal-links">
         <div class="lb-link">
           <a href="#" data-open-impressum="" aria-label="Impressum">
-            <div id="english" class="language"><span class="white">Imprint</span></div>
-            <div id="german" class="language active"><span class="white">Impressum</span></div>
+            <span class="white">Impressum</span>
           </a>
         </div>
         <div class="datenschutz-b">
           <a href="#" data-open-datenschutz="" aria-label="Datenschutz">
-            <div id="english" class="language"><span class="white">Privacy Policy</span></div>
-            <div id="german" class="language active"><span class="white">Datenschutz</span></div>
+            <span class="white">Datenschutz</span>
           </a>
         </div>
       </div>
     </div>
   </footer>
-
   <div id="fade" class="black_overlay" role="button" aria-label="Close overlay" tabindex="0"></div>
-
   <div id="impressum-p" class="white_content">
     <div class="lb_footer">
-      <div class="lb_language">
-        <a href="#" id="german" class="switch-language" aria-label="Zu Deutsch wechseln"><span class="white">DE</span></a>
-        <a href="#" id="english" class="switch-language" aria-label="Switch to English"><span class="white">EN</span></a>
-      </div>
       <div class="lb_close">
-        <div id="english" class="language">
-          <a href="#" data-close-lightbox="impressum-p" class="white" aria-label="Close">close</a>
-        </div>
-        <div id="german" class="language active">
-          <a href="#" data-close-lightbox="impressum-p" class="white" aria-label="Schließen">schließen</a>
-        </div>
+        <a href="#" data-close-lightbox="impressum-p" class="white" aria-label="Schließen">schließen</a>
       </div>
     </div>
     <div class="lightbox" id="impressum"></div>
   </div>
   <div id="datenschutz-p" class="white_content">
     <div class="lb_footer">
-      <div class="lb_language">
-        <a href="#" id="german" class="switch-language" aria-label="Zu Deutsch wechseln"><span class="white">DE</span></a>
-        <a href="#" id="english" class="switch-language" aria-label="Switch to English"><span class="white">EN</span></a>
-      </div>
       <div class="lb_close">
-        <div id="english" class="language">
-          <a href="#" data-close-lightbox="datenschutz-p" class="white" aria-label="Close">close</a>
-        </div>
-        <div id="german" class="language active">
-          <a href="#" data-close-lightbox="datenschutz-p" class="white" aria-label="Schließen">schließen</a>
-        </div>
+        <a href="#" data-close-lightbox="datenschutz-p" class="white" aria-label="Schließen">schließen</a>
       </div>
     </div>
     <div class="lightbox" id="datenschutz"></div>
   </div>
-
   <div class="logo-ru">
     <a href="./" class="mini-title-link">architekturbüro<br><span class="mini-second-line">schels</span></a>
   </div>

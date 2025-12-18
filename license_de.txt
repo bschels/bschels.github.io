@@ -5,16 +5,16 @@ Dieses Verzeichnis und die enthaltene Software ist unter den Bedingungen der MIT
 Die in diesem Verzeichnis enthaltenen Bilder im Ordner 'pictures' ist unter den Bedingungen der CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) veröffentlicht.
 
 Alle Dateien die in dieser Distribution enthalten sind dürfen benutzt, kopiert, verändert und verteilt werden, einzeln oder gesamt unter den Bedingungen der MIT Lizenz. Den vollständigen Inhalt der Lizenz hier: 
-Englisch: `http://schels.info/license/license-mit.txt'. 
-Deutsch: `http://schels.info/license/license-mit-de.txt'.
+Englisch: `https://schels.info/license/license-mit.txt'. 
+Deutsch: `https://schels.info/license/license-mit-de.txt'.
 
 Ausserdem dürfen alle Bilder dieser Distribution im Ordner 'pictures' benutzt, verändern, angepasst und weiter verteilt werden, unter den Bedingungen der Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International (CC BY-SA 4.0) Lizenz.
 Den Inhalt dieser Lizenz finden Sie hier:
 
-Englisch: `http://schels.info/license/license-by-sa-4-0.txt`
-Deutsch: `http://schels.info/license/license-by-sa-4-0-de.txt`
+Englisch: `https://schels.info/license/license-by-sa-4-0.txt`
+Deutsch: `https://schels.info/license/license-by-sa-4-0-de.txt`
 
 Der obige Urheberrechtshinweis und diese Genehmigungshinweis müssen in allen Kopien oder wesentlichen Teilen der Software und Bildern enthalten sein.
 
 Sie können diesen Text auch in englisch lesen:
-'http://schels.info/license.txt
+'https://schels.info/license.txt

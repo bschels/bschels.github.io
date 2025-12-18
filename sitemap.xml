@@ -10,8 +10,6 @@
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <xhtml:link rel="alternate" hreflang="de" href="https://schels.info/" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://schels.info/" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://schels.info/" />
         <image:image>
             <image:loc>https://schels.info/images/benjamin-schels-portrait.webp</image:loc>
             <image:title>Benjamin Schels - Architekt M.A.</image:title>

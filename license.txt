@@ -6,13 +6,13 @@ The images included in this distribution under the directory named `pictures` ar
 
 You may use, copy, modify and redistribute all files included in this
 distribution, individually or in aggregate, subject to the terms and conditions
-of the MIT license. See the file `http://schels.info/license/license-mit.txt` for details.
+of the MIT license. See the file `https://schels.info/license/license-mit.txt` for details.
 
 In addition, you may -- at your option -- use, copy, modify and redistribute all
 images included in this distribution under the directory named `pictures`
-according to the terms and conditions of the CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). See the file `http://schels.info/license/license-by-sa-4-0.txt` for details.
+according to the terms and conditions of the CC Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). See the file `https://schels.info/license/license-by-sa-4-0.txt` for details.
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software, source code and images.
 
 You can also read this license Information in german here: 
-'http://schels.info/license_de.txt'
+'https://schels.info/license_de.txt'
