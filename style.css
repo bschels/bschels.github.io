@@ -674,22 +674,16 @@ hr.z {
   font-size: .85em;
 }
 
-/* ===== CTA ROW ===== */
-.cta-hint {
-  font-size: .85em;
-  color: var(--secondary);
-  margin: 2rem 0 .4em;
-  font-weight: 200;
-}
-
+/* ===== CTA BUTTON ===== */
 .cta-link-line {
   display: inline-block;
+  margin-top: 1.5rem;
   font-size: 1em;
-  font-weight: 300;
-  letter-spacing: .08em;
+  font-weight: 200;
+  letter-spacing: .1em;
   text-decoration: none !important;
   color: var(--body);
-  padding: .5em .8em;
+  padding: .6em 1em;
   border: 1px solid var(--body);
   transition: all .2s ease;
 }
