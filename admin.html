@@ -748,12 +748,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
     localStorage.setItem('ed_styles',JSON.stringify(styles));
     
     try{
+      // Save index.html with updated content
+      await saveIndexHtml();
+      
+      // Save impressum
       if(editors.impressum){
         await saveFile('pages/impressum.html',editors.impressum.root.innerHTML);
       }
+      // Save datenschutz
       if(editors.datenschutz){
         await saveFile('pages/datenschutz.html',editors.datenschutz.root.innerHTML);
       }
+      // Save backup data
       const data=collectAllData();
       await saveFile('admin-data.json',JSON.stringify(data,null,2));
       
@@ -767,6 +773,83 @@ button:disabled{opacity:.4;cursor:not-allowed}
       showStatus('Fehler: '+e.message,'error');
     }
     btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';
+  }
+  
+  async function saveIndexHtml(){
+    // Fetch current index.html
+    const res=await fetch('/index.html?t='+Date.now());
+    if(!res.ok)throw new Error('index.html nicht gefunden');
+    let html=await res.text();
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    
+    // Update SEO
+    const title=doc.querySelector('title');
+    if(title)title.textContent=$('seo-title').value;
+    const desc=doc.querySelector('meta[name="description"]');
+    if(desc)desc.setAttribute('content',$('seo-description').value);
+    const keywords=doc.querySelector('meta[name="keywords"]');
+    if(keywords)keywords.setAttribute('content',$('seo-keywords').value);
+    const ogTitle=doc.querySelector('meta[property="og:title"]');
+    if(ogTitle)ogTitle.setAttribute('content',$('seo-og-title').value);
+    const ogDesc=doc.querySelector('meta[property="og:description"]');
+    if(ogDesc)ogDesc.setAttribute('content',$('seo-og-description').value);
+    
+    // Update Profil (content1)
+    const profil=doc.querySelector('#content1');
+    if(profil){
+      // Keep header (cv-header), update sections
+      const cvHeader=profil.querySelector('.cv-header');
+      const cta=profil.querySelector('.cta-link');
+      const blockquote=profil.querySelector('blockquote');
+      const hrEnd=profil.querySelector(':scope > hr.z');
+      
+      let newContent='';
+      if(cvHeader)newContent+=cvHeader.outerHTML;
+      newContent+='<h3>Überblick</h3>'+(editors['profil-ueberblick']?.root.innerHTML||'');
+      newContent+='<h3>Arbeitsweise</h3>'+(editors['profil-arbeitsweise']?.root.innerHTML||'');
+      newContent+='<h3>Schwerpunkte</h3>'+(editors['profil-schwerpunkte']?.root.innerHTML||'');
+      newContent+='<h3>Philosophie</h3>'+(editors['profil-philosophie']?.root.innerHTML||'');
+      if(blockquote)newContent+=blockquote.outerHTML;
+      if(cta)newContent+=cta.outerHTML;
+      if(hrEnd)newContent+=hrEnd.outerHTML;
+      profil.innerHTML=newContent;
+    }
+    
+    // Update Vita (content2)
+    const vita=doc.querySelector('#content2');
+    if(vita&&editors.vita){
+      const hrEnd=vita.querySelector(':scope > hr.z');
+      vita.innerHTML=(editors.vita.root.innerHTML||'')+(hrEnd?hrEnd.outerHTML:'<hr class="z">');
+    }
+    
+    // Update Leistungen (content3)
+    const leist=doc.querySelector('#content3');
+    if(leist&&editors.leistungen){
+      const hrEnd=leist.querySelector(':scope > hr.z');
+      leist.innerHTML=(editors.leistungen.root.innerHTML||'')+(hrEnd?hrEnd.outerHTML:'<hr class="z">');
+    }
+    
+    // Update Referenzen (content4)
+    const refs=doc.querySelector('#content4');
+    if(refs&&editors.referenzen){
+      const hrEnd=refs.querySelector(':scope > hr.z');
+      refs.innerHTML=(editors.referenzen.root.innerHTML||'')+(hrEnd?hrEnd.outerHTML:'<hr class="z">');
+    }
+    
+    // Update Kontakt (content5) - intro text
+    const kontakt=doc.querySelector('#content5');
+    if(kontakt&&editors['kontakt-intro']){
+      const intro=kontakt.querySelector('p.content');
+      if(intro)intro.innerHTML=editors['kontakt-intro'].root.innerHTML;
+    }
+    
+    // Serialize back to HTML
+    const serializer=new XMLSerializer();
+    let newHtml='<!DOCTYPE html>'+serializer.serializeToString(doc.documentElement);
+    // Clean up some serialization artifacts
+    newHtml=newHtml.replace(/ xmlns="[^"]*"/g,'');
+    
+    await saveFile('index.html',newHtml);
   }
   
   function collectAllData(){
