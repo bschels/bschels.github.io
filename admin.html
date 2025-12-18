@@ -237,29 +237,17 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <!-- Profil -->
         <div id="profil-panel" class="panel active">
           <div class="editor-group">
-            <label>Überblick</label>
-            <div class="quill-container"><div id="ed-profil-ueberblick"></div></div>
-          </div>
-          <div class="editor-group">
-            <label>Arbeitsweise</label>
-            <div class="quill-container"><div id="ed-profil-arbeitsweise"></div></div>
-          </div>
-          <div class="editor-group">
-            <label>Schwerpunkte</label>
-            <div class="quill-container"><div id="ed-profil-schwerpunkte"></div></div>
-          </div>
-          <div class="editor-group">
-            <label>Philosophie</label>
-            <div class="quill-container"><div id="ed-profil-philosophie"></div></div>
+            <label>Profil (kompletter Inhalt)</label>
+            <div class="quill-container tall"><div id="ed-profil"></div></div>
+            <p class="hint">CV-Header und Zitat bleiben erhalten</p>
           </div>
         </div>
 
         <!-- Vita -->
         <div id="vita-panel" class="panel">
           <div class="editor-group">
-            <label>Lebenslauf</label>
+            <label>Vita (kompletter Inhalt)</label>
             <div class="quill-container tall"><div id="ed-vita"></div></div>
-            <p class="hint">Formatiere als Tabelle oder Liste mit Zeiträumen</p>
           </div>
         </div>
 
@@ -282,22 +270,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <!-- Kontakt -->
         <div id="kontakt-panel" class="panel">
           <div class="editor-group">
-            <label>Begrüßungstext</label>
-            <div class="quill-container"><div id="ed-kontakt-intro"></div></div>
-          </div>
-          <div class="two-col">
-            <div class="editor-group">
-              <label>E-Mail</label>
-              <input type="text" id="kontakt-email">
-            </div>
-            <div class="editor-group">
-              <label>Telefon</label>
-              <input type="text" id="kontakt-telefon">
-            </div>
-          </div>
-          <div class="editor-group">
-            <label>Adresse</label>
-            <input type="text" id="kontakt-adresse">
+            <label>Kontakt (kompletter Inhalt)</label>
+            <div class="quill-container tall"><div id="ed-kontakt"></div></div>
+            <p class="hint">Kontaktformular bleibt erhalten</p>
           </div>
         </div>
 
@@ -603,7 +578,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
   
   function initEditors(){
-    ['profil-ueberblick','profil-arbeitsweise','profil-schwerpunkte','profil-philosophie','vita','leistungen','referenzen','kontakt-intro','impressum','datenschutz'].forEach(id=>{
+    ['profil','vita','leistungen','referenzen','kontakt','impressum','datenschutz'].forEach(id=>{
       const el=$('ed-'+id);
       if(el){
         const q=new Quill(el,{theme:'snow',modules:{toolbar:toolbarOpts},placeholder:'Text eingeben...'});
@@ -673,18 +648,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
       $('seo-og-title').value=doc.querySelector('meta[property="og:title"]')?.content||'';
       $('seo-og-description').value=doc.querySelector('meta[property="og:description"]')?.content||'';
       
-      const kontaktDiv=doc.querySelector('#content5');
-      if(kontaktDiv){
-        const intro=kontaktDiv.querySelector('p.content');
-        if(intro&&editors['kontakt-intro'])editors['kontakt-intro'].root.innerHTML=intro.innerHTML;
-        const emailLink=kontaktDiv.querySelector('a[href^="mailto:"]');
-        if(emailLink)$('kontakt-email').value=emailLink.textContent;
-        const telLink=kontaktDiv.querySelector('a[href^="tel:"]');
-        if(telLink)$('kontakt-telefon').value=telLink.textContent;
-        const addrLink=kontaktDiv.querySelector('a[href*="maps.google"]');
-        if(addrLink)$('kontakt-adresse').value=addrLink.textContent;
-      }
-      
       hasChanges=false;
       showStatus('Inhalte geladen ✓','success');
       setTimeout(hideStatus,2000);
@@ -695,37 +658,50 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
   
   function extractFromDoc(doc){
+    // Profil - alles zwischen cv-header und blockquote/cta
     const profil=doc.querySelector('#content1');
-    if(profil){
-      const sections={ueberblick:[],arbeitsweise:[],schwerpunkte:[],philosophie:[]};
-      let current='ueberblick';
-      profil.querySelectorAll('h3,p:not(.cv-role):not(.cv-subtitle):not(.cta-link):not(.says)').forEach(el=>{
-        if(el.tagName==='H3'){
-          const t=el.textContent.toLowerCase();
-          if(t.includes('arbeitsweise'))current='arbeitsweise';
-          else if(t.includes('schwerpunkt'))current='schwerpunkte';
-          else if(t.includes('philosophie'))current='philosophie';
-        }else if(el.tagName==='P')sections[current].push(el.outerHTML);
+    if(profil&&editors.profil){
+      let html='';
+      profil.querySelectorAll('h3,p,ul,ol').forEach(el=>{
+        if(el.classList.contains('cv-role')||el.classList.contains('cv-subtitle')||el.classList.contains('cta-link')||el.classList.contains('says'))return;
+        html+=el.outerHTML;
       });
-      Object.keys(sections).forEach(k=>{if(editors['profil-'+k])editors['profil-'+k].root.innerHTML=sections[k].join('');});
+      editors.profil.root.innerHTML=html;
     }
+    
+    // Vita
     const vita=doc.querySelector('#content2');
     if(vita&&editors.vita){
-      const table=vita.querySelector('table');
-      const extra=vita.querySelector('table~p');
-      editors.vita.root.innerHTML=(table?table.outerHTML:'')+(extra?extra.outerHTML:'');
+      let html='';
+      vita.querySelectorAll('table,p,h3,ul,ol').forEach(el=>html+=el.outerHTML);
+      editors.vita.root.innerHTML=html;
     }
+    
+    // Leistungen
     const leist=doc.querySelector('#content3');
     if(leist&&editors.leistungen){
       let html='';
-      leist.querySelectorAll('h3,p,ul').forEach(el=>html+=el.outerHTML);
+      leist.querySelectorAll('h3,p,ul,ol,blockquote').forEach(el=>html+=el.outerHTML);
       editors.leistungen.root.innerHTML=html;
     }
+    
+    // Referenzen
     const refs=doc.querySelector('#content4');
     if(refs&&editors.referenzen){
       let html='';
-      refs.querySelectorAll('h3,table,p').forEach(el=>html+=el.outerHTML);
+      refs.querySelectorAll('h3,table,p,ul,ol,small').forEach(el=>html+=el.outerHTML);
       editors.referenzen.root.innerHTML=html;
+    }
+    
+    // Kontakt
+    const kontakt=doc.querySelector('#content5');
+    if(kontakt&&editors.kontakt){
+      let html='';
+      const intro=kontakt.querySelector('p.content');
+      const info=kontakt.querySelector('.contact-info');
+      if(intro)html+=intro.outerHTML;
+      if(info)html+=info.outerHTML;
+      editors.kontakt.root.innerHTML=html;
     }
   }
   
@@ -808,17 +784,14 @@ button:disabled{opacity:.4;cursor:not-allowed}
     
     // Update Profil (content1)
     const profil=doc.querySelector('#content1');
-    if(profil&&editors['profil-ueberblick']){
+    if(profil&&editors.profil){
       const cvHeader=profil.querySelector('.cv-header');
       const cta=profil.querySelector('.cta-link');
       const blockquote=profil.querySelector('blockquote');
       
       let newContent='';
       if(cvHeader)newContent+=cvHeader.outerHTML;
-      newContent+='<h3>Überblick</h3>'+(editors['profil-ueberblick'].root.innerHTML||'');
-      newContent+='<h3>Arbeitsweise</h3>'+(editors['profil-arbeitsweise']?.root.innerHTML||'');
-      newContent+='<h3>Schwerpunkte</h3>'+(editors['profil-schwerpunkte']?.root.innerHTML||'');
-      newContent+='<h3>Philosophie</h3>'+(editors['profil-philosophie']?.root.innerHTML||'');
+      newContent+=(editors.profil.root.innerHTML||'');
       if(blockquote)newContent+=blockquote.outerHTML;
       if(cta)newContent+=cta.outerHTML;
       newContent+='<hr class="z">';
@@ -847,14 +820,15 @@ button:disabled{opacity:.4;cursor:not-allowed}
       console.log('saveIndexHtml: Referenzen updated');
     }
     
-    // Update Kontakt (content5) - intro text
+    // Update Kontakt (content5)
     const kontakt=doc.querySelector('#content5');
-    if(kontakt&&editors['kontakt-intro']){
-      const intro=kontakt.querySelector('p.content');
-      if(intro){
-        intro.innerHTML=editors['kontakt-intro'].root.innerHTML.replace(/<p>/g,'').replace(/<\/p>/g,'<br>');
-        console.log('saveIndexHtml: Kontakt updated');
-      }
+    if(kontakt&&editors.kontakt){
+      const formSection=kontakt.querySelector('.contact-form-section');
+      let newContent='<div>'+(editors.kontakt.root.innerHTML||'');
+      if(formSection)newContent+=formSection.outerHTML;
+      newContent+='<hr class="z"></div>';
+      kontakt.innerHTML=newContent;
+      console.log('saveIndexHtml: Kontakt updated');
     }
     
     // Serialize back to HTML - use doc.documentElement.outerHTML for cleaner output
