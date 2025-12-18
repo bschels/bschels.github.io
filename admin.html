@@ -7,7 +7,19 @@
   <title>Admin – architekturbüro schels</title>
   <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
   <style>
-:root{--bg:#fff;--sidebar:#fafafa;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828}
+:root{
+  --bg:#fff;--sidebar:#fafafa;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828;
+  /* Editor Typography - synced with style panel */
+  --ed-font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --ed-size:1em;
+  --ed-weight:200;
+  --ed-line-height:1.6;
+  --ed-h2-size:1.4em;
+  --ed-h3-size:1.2em;
+  --ed-spacing:0.2em;
+  --ed-p-margin:1rem;
+  --ed-h-margin:2rem;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;height:100vh;overflow:hidden}
 .login-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--sidebar)}
@@ -48,21 +60,102 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .panel{display:none}
 .panel.active{display:block}
 .editor-group{margin-bottom:1.5rem}
-.editor-group label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#666;margin-bottom:.4rem}
+.editor-group>label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#666;margin-bottom:.4rem}
 .editor-group .hint{font-size:.75rem;color:#999;margin-top:.2rem}
-.quill-container{background:var(--bg)}
-.quill-container .ql-toolbar{border-color:var(--border);background:var(--sidebar)}
-.quill-container .ql-container{border-color:var(--border);font-family:inherit;font-size:.95rem}
-.quill-container .ql-editor{min-height:100px;max-height:300px;font-weight:200;line-height:1.6}
-.quill-container .ql-editor p{margin:1rem 0}
-.quill-container .ql-editor h2{font-size:1.4em;font-weight:200;margin:1.5rem 0 .75rem;letter-spacing:.15em}
-.quill-container .ql-editor h3{font-size:1.2em;font-weight:200;margin:2rem 0 .75rem;letter-spacing:.15em}
-.quill-container .ql-editor ul,.quill-container .ql-editor ol{margin:1rem 0}
-.quill-container .ql-editor li{margin:.5em 0}
-.quill-container .ql-editor strong{font-weight:400;text-transform:uppercase;letter-spacing:.08em}
+
+/* Quill Editor - Typographic Styles */
+.quill-container{background:var(--bg);border:1px solid var(--border)}
+.quill-container .ql-toolbar{border:none;border-bottom:1px solid var(--border);background:var(--sidebar);padding:.5rem}
+.quill-container .ql-container{border:none;font-family:var(--ed-font);font-size:var(--ed-size)}
+.quill-container .ql-editor{
+  min-height:120px;
+  max-height:350px;
+  padding:1.5rem;
+  font-weight:var(--ed-weight);
+  line-height:var(--ed-line-height);
+  color:var(--text);
+}
+.quill-container .ql-editor:focus{outline:none}
+.quill-container .ql-editor.ql-blank::before{color:#aaa;font-style:normal}
+/* Paragraphs */
+.quill-container .ql-editor p{
+  margin:0;
+  margin-bottom:var(--ed-p-margin);
+}
+.quill-container .ql-editor p:last-child{margin-bottom:0}
+/* Headings */
+.quill-container .ql-editor h2{
+  font-size:var(--ed-h2-size);
+  font-weight:var(--ed-weight);
+  letter-spacing:var(--ed-spacing);
+  text-transform:uppercase;
+  margin:var(--ed-h-margin) 0 calc(var(--ed-p-margin) * 0.75);
+}
+.quill-container .ql-editor h2:first-child{margin-top:0}
+.quill-container .ql-editor h3{
+  font-size:var(--ed-h3-size);
+  font-weight:var(--ed-weight);
+  letter-spacing:var(--ed-spacing);
+  text-transform:uppercase;
+  margin:var(--ed-h-margin) 0 calc(var(--ed-p-margin) * 0.75);
+}
+.quill-container .ql-editor h3:first-child{margin-top:0}
+/* Lists */
+.quill-container .ql-editor ul,.quill-container .ql-editor ol{
+  margin:0 0 var(--ed-p-margin);
+  padding-left:1.5rem;
+}
+.quill-container .ql-editor li{
+  margin-bottom:calc(var(--ed-p-margin) * 0.5);
+  padding-left:.25rem;
+}
+.quill-container .ql-editor li:last-child{margin-bottom:0}
+/* Inline styles */
+.quill-container .ql-editor strong{
+  font-weight:400;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
 .quill-container .ql-editor em{font-style:italic}
-.quill-container.tall .ql-editor{min-height:250px;max-height:500px}
+.quill-container .ql-editor u{text-decoration:underline;text-underline-offset:2px}
+.quill-container .ql-editor a{color:var(--text);text-decoration:underline;text-decoration-style:dotted}
+/* Tables (for Vita) */
+.quill-container .ql-editor table{width:100%;border-collapse:collapse;margin:var(--ed-p-margin) 0}
+.quill-container .ql-editor td{padding:.5rem;vertical-align:top;border-bottom:1px solid var(--border)}
+/* Blockquotes */
+.quill-container .ql-editor blockquote{
+  margin:var(--ed-p-margin) 0;
+  padding-left:1rem;
+  border-left:2px solid var(--text);
+  font-style:italic;
+}
+/* Tall variant */
+.quill-container.tall .ql-editor{min-height:300px;max-height:500px}
+
+/* Style Preview Box */
+.style-preview{
+  margin:1rem 0;
+  padding:1.5rem;
+  border:1px solid var(--border);
+  background:var(--bg);
+  font-family:var(--ed-font);
+  font-size:var(--ed-size);
+  font-weight:var(--ed-weight);
+  line-height:var(--ed-line-height);
+}
+.style-preview h3{
+  font-size:var(--ed-h3-size);
+  font-weight:var(--ed-weight);
+  letter-spacing:var(--ed-spacing);
+  text-transform:uppercase;
+  margin:0 0 calc(var(--ed-p-margin) * 0.75);
+}
+.style-preview p{margin:0 0 var(--ed-p-margin)}
+.style-preview p:last-child{margin-bottom:0}
+.style-preview strong{font-weight:400;text-transform:uppercase;letter-spacing:.08em}
+
 .section-title{font-size:.9rem;font-weight:500;margin:1.5rem 0 1rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.section-title:first-child{margin-top:0}
 .style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;margin-bottom:1rem}
 .style-item{display:flex;flex-direction:column;gap:.2rem}
 .style-item label{font-size:.65rem;text-transform:uppercase;letter-spacing:.04em;color:#666}
@@ -253,6 +346,94 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
         <!-- Stile -->
         <div id="stile-panel" class="panel">
+          <div class="section-title">Typografie – Fließtext</div>
+          <div class="style-grid">
+            <div class="style-item"><label>Schriftfamilie</label>
+              <select id="st-font">
+                <option value="-apple-system,BlinkMacSystemFont,'Avenir Next','Segoe UI',sans-serif">System (Standard)</option>
+                <option value="'Helvetica Neue',Helvetica,Arial,sans-serif">Helvetica</option>
+                <option value="Georgia,'Times New Roman',serif">Georgia (Serif)</option>
+              </select>
+            </div>
+            <div class="style-item"><label>Schriftgröße</label>
+              <select id="st-fontsize">
+                <option value="0.9em">Klein (0.9em)</option>
+                <option value="1em" selected>Normal (1em)</option>
+                <option value="1.1em">Groß (1.1em)</option>
+              </select>
+            </div>
+            <div class="style-item"><label>Schriftgewicht</label>
+              <select id="st-weight">
+                <option value="100">Ultraleicht (100)</option>
+                <option value="200" selected>Leicht (200)</option>
+                <option value="300">Light (300)</option>
+                <option value="400">Normal (400)</option>
+              </select>
+            </div>
+            <div class="style-item"><label>Zeilenhöhe</label>
+              <select id="st-lineheight">
+                <option value="1.4">Eng (1.4)</option>
+                <option value="1.6" selected>Normal (1.6)</option>
+                <option value="1.8">Locker (1.8)</option>
+                <option value="2.0">Weit (2.0)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-title">Abstände</div>
+          <div class="style-grid">
+            <div class="style-item"><label>Absatz-Abstand</label>
+              <select id="st-p-margin">
+                <option value="0.5rem">Minimal (0.5rem)</option>
+                <option value="0.75rem">Klein (0.75rem)</option>
+                <option value="1rem" selected>Normal (1rem)</option>
+                <option value="1.25rem">Groß (1.25rem)</option>
+                <option value="1.5rem">Sehr groß (1.5rem)</option>
+              </select>
+            </div>
+            <div class="style-item"><label>Überschrift-Abstand oben</label>
+              <select id="st-h-margin">
+                <option value="1.5rem">Klein (1.5rem)</option>
+                <option value="2rem">Normal (2rem)</option>
+                <option value="2.5rem" selected>Groß (2.5rem)</option>
+                <option value="3rem">Sehr groß (3rem)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-title">Überschriften</div>
+          <div class="style-grid">
+            <div class="style-item"><label>H2 Größe</label>
+              <select id="st-h2">
+                <option value="1.2em">Klein (1.2em)</option>
+                <option value="1.4em" selected>Normal (1.4em)</option>
+                <option value="1.6em">Groß (1.6em)</option>
+              </select>
+            </div>
+            <div class="style-item"><label>H3 Größe</label>
+              <select id="st-h3">
+                <option value="1.0em">Klein (1.0em)</option>
+                <option value="1.2em" selected>Normal (1.2em)</option>
+                <option value="1.4em">Groß (1.4em)</option>
+              </select>
+            </div>
+            <div class="style-item"><label>Letter-Spacing</label>
+              <select id="st-spacing">
+                <option value="0.1em">Eng (0.1em)</option>
+                <option value="0.15em">Normal (0.15em)</option>
+                <option value="0.2em" selected>Weit (0.2em)</option>
+                <option value="0.25em">Sehr weit (0.25em)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-title">Live-Vorschau</div>
+          <div class="style-preview" id="style-preview">
+            <h3>Überschrift Beispiel</h3>
+            <p>Dies ist ein Beispiel-Absatz mit normalem Fließtext. <strong>architekturbüro schels</strong> begleitet Bauvorhaben vom ersten Entwurf bis zur Umsetzung.</p>
+            <p>Ein zweiter Absatz zeigt den Abstand zwischen den Absätzen. Die <em>Typografie</em> sollte der Website entsprechen.</p>
+          </div>
+
           <div class="section-title">Farben (Light Mode)</div>
           <div class="style-grid">
             <div class="style-item"><label>Hintergrund</label><input type="color" id="st-bg" value="#ffffff"></div>
@@ -260,34 +441,14 @@ button:disabled{opacity:.4;cursor:not-allowed}
             <div class="style-item"><label>Akzent</label><input type="color" id="st-accent" value="#0000ff"></div>
             <div class="style-item"><label>Sekundär</label><input type="color" id="st-secondary" value="#555555"></div>
           </div>
+
           <div class="section-title">Farben (Dark Mode)</div>
           <div class="style-grid">
             <div class="style-item"><label>Hintergrund</label><input type="color" id="st-bg-dark" value="#111111"></div>
             <div class="style-item"><label>Text</label><input type="color" id="st-text-dark" value="#e5e5e5"></div>
             <div class="style-item"><label>Akzent</label><input type="color" id="st-accent-dark" value="#4d9fff"></div>
           </div>
-          <div class="section-title">Typografie</div>
-          <div class="style-grid">
-            <div class="style-item"><label>Schriftfamilie</label>
-              <select id="st-font"><option value="system">System (Standard)</option><option value="helvetica">Helvetica</option><option value="georgia">Georgia</option></select>
-            </div>
-            <div class="style-item"><label>Basisgröße</label>
-              <select id="st-fontsize"><option value="0.9em">Klein</option><option value="1em" selected>Normal</option><option value="1.1em">Groß</option></select>
-            </div>
-            <div class="style-item"><label>Schriftgewicht</label>
-              <select id="st-weight"><option value="100">100</option><option value="200" selected>200</option><option value="300">300</option><option value="400">400</option></select>
-            </div>
-            <div class="style-item"><label>Zeilenhöhe</label>
-              <select id="st-lineheight"><option value="1.4">1.4</option><option value="1.6" selected>1.6</option><option value="1.8">1.8</option></select>
-            </div>
-          </div>
-          <div class="section-title">Überschriften</div>
-          <div class="style-grid">
-            <div class="style-item"><label>H1 Größe</label><input type="text" id="st-h1" value="1.6em"></div>
-            <div class="style-item"><label>H2 Größe</label><input type="text" id="st-h2" value="1.4em"></div>
-            <div class="style-item"><label>H3 Größe</label><input type="text" id="st-h3" value="1.2em"></div>
-            <div class="style-item"><label>Letter-Spacing</label><input type="text" id="st-spacing" value="0.2em"></div>
-          </div>
+
           <div class="section-title">Layout</div>
           <div class="style-grid">
             <div class="style-item"><label>Seitenbreite</label><input type="text" id="st-width" value="70%"></div>
@@ -380,6 +541,41 @@ button:disabled{opacity:.4;cursor:not-allowed}
     $('test-github').onclick=testGitHub;
     $('change-pw').onclick=changePw;
     $('autosave-interval').onchange=setupAutoSave;
+    
+    // Style inputs - update CSS variables live
+    $$('[id^="st-"]').forEach(el=>{
+      el.addEventListener('input',()=>{
+        updateEditorStyles();
+        markChanged();
+      });
+      el.addEventListener('change',()=>{
+        updateEditorStyles();
+        markChanged();
+      });
+    });
+  }
+  
+  function updateEditorStyles(){
+    const root=document.documentElement;
+    const font=$('st-font')?.value;
+    const size=$('st-fontsize')?.value;
+    const weight=$('st-weight')?.value;
+    const lineHeight=$('st-lineheight')?.value;
+    const h2=$('st-h2')?.value;
+    const h3=$('st-h3')?.value;
+    const spacing=$('st-spacing')?.value;
+    const pMargin=$('st-p-margin')?.value;
+    const hMargin=$('st-h-margin')?.value;
+    
+    if(font)root.style.setProperty('--ed-font',font);
+    if(size)root.style.setProperty('--ed-size',size);
+    if(weight)root.style.setProperty('--ed-weight',weight);
+    if(lineHeight)root.style.setProperty('--ed-line-height',lineHeight);
+    if(h2)root.style.setProperty('--ed-h2-size',h2);
+    if(h3)root.style.setProperty('--ed-h3-size',h3);
+    if(spacing)root.style.setProperty('--ed-spacing',spacing);
+    if(pMargin)root.style.setProperty('--ed-p-margin',pMargin);
+    if(hMargin)root.style.setProperty('--ed-h-margin',hMargin);
   }
   
   function showAdmin(){
@@ -389,6 +585,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     loadSettings();
     loadContent();
     setupAutoSave();
+    updateEditorStyles();
   }
   
   function initEditors(){
@@ -399,7 +596,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         editors[id].on('text-change',()=>markChanged());
       }
     });
-    $$('input,textarea,select').forEach(el=>el.addEventListener('input',markChanged));
+    $$('input:not([id^="st-"]),textarea,select:not([id^="st-"])').forEach(el=>el.addEventListener('input',markChanged));
   }
   
   function markChanged(){
@@ -412,40 +609,46 @@ button:disabled{opacity:.4;cursor:not-allowed}
     $('github-repo').value=localStorage.getItem('gh_repo')||'bschels/bschels.github.io';
     $('github-branch').value=localStorage.getItem('gh_branch')||'main';
     $('autosave-interval').value=localStorage.getItem('autosave')||'60';
+    
+    // Load saved styles
+    const savedStyles=localStorage.getItem('ed_styles');
+    if(savedStyles){
+      try{
+        const styles=JSON.parse(savedStyles);
+        Object.keys(styles).forEach(k=>{
+          const el=$('st-'+k);
+          if(el)el.value=styles[k];
+        });
+      }catch(e){}
+    }
   }
   
   async function loadContent(){
     showStatus('Lade Inhalte...');
     try{
-      // Load index.html
       const indexRes=await fetch('/index.html?t='+Date.now());
       if(!indexRes.ok)throw new Error('index.html nicht gefunden');
       const indexHtml=await indexRes.text();
       const doc=new DOMParser().parseFromString(indexHtml,'text/html');
       
-      // Extract sections
       extractFromDoc(doc);
       
-      // Load impressum
       try{
         const impRes=await fetch('/pages/impressum.html?t='+Date.now());
         if(impRes.ok&&editors.impressum)editors.impressum.root.innerHTML=await impRes.text();
       }catch(e){}
       
-      // Load datenschutz
       try{
         const dsRes=await fetch('/pages/datenschutz.html?t='+Date.now());
         if(dsRes.ok&&editors.datenschutz)editors.datenschutz.root.innerHTML=await dsRes.text();
       }catch(e){}
       
-      // Load SEO
       $('seo-title').value=doc.querySelector('title')?.textContent||'';
       $('seo-description').value=doc.querySelector('meta[name="description"]')?.content||'';
       $('seo-keywords').value=doc.querySelector('meta[name="keywords"]')?.content||'';
       $('seo-og-title').value=doc.querySelector('meta[property="og:title"]')?.content||'';
       $('seo-og-description').value=doc.querySelector('meta[property="og:description"]')?.content||'';
       
-      // Load contact
       const kontaktDiv=doc.querySelector('#content5');
       if(kontaktDiv){
         const intro=kontaktDiv.querySelector('p.content');
@@ -468,7 +671,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
   }
   
   function extractFromDoc(doc){
-    // Profil
     const profil=doc.querySelector('#content1');
     if(profil){
       const sections={ueberblick:[],arbeitsweise:[],schwerpunkte:[],philosophie:[]};
@@ -483,21 +685,18 @@ button:disabled{opacity:.4;cursor:not-allowed}
       });
       Object.keys(sections).forEach(k=>{if(editors['profil-'+k])editors['profil-'+k].root.innerHTML=sections[k].join('');});
     }
-    // Vita
     const vita=doc.querySelector('#content2');
     if(vita&&editors.vita){
       const table=vita.querySelector('table');
       const extra=vita.querySelector('table~p');
       editors.vita.root.innerHTML=(table?table.outerHTML:'')+(extra?extra.outerHTML:'');
     }
-    // Leistungen
     const leist=doc.querySelector('#content3');
     if(leist&&editors.leistungen){
       let html='';
       leist.querySelectorAll('h3,p,ul').forEach(el=>html+=el.outerHTML);
       editors.leistungen.root.innerHTML=html;
     }
-    // Referenzen
     const refs=doc.querySelector('#content4');
     if(refs&&editors.referenzen){
       let html='';
@@ -514,22 +713,23 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const token=localStorage.getItem('gh_token')||$('github-token').value;
     if(!token){showStatus('GitHub Token fehlt!','error');btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';return;}
     
-    // Save settings
     localStorage.setItem('gh_token',$('github-token').value);
     localStorage.setItem('gh_repo',$('github-repo').value);
     localStorage.setItem('gh_branch',$('github-branch').value);
     localStorage.setItem('autosave',$('autosave-interval').value);
     
+    // Save styles to localStorage
+    const styles={};
+    $$('[id^="st-"]').forEach(el=>styles[el.id.replace('st-','')]=el.value);
+    localStorage.setItem('ed_styles',JSON.stringify(styles));
+    
     try{
-      // Save impressum
       if(editors.impressum){
         await saveFile('pages/impressum.html',editors.impressum.root.innerHTML);
       }
-      // Save datenschutz
       if(editors.datenschutz){
         await saveFile('pages/datenschutz.html',editors.datenschutz.root.innerHTML);
       }
-      // Save admin-data.json (backup)
       const data=collectAllData();
       await saveFile('admin-data.json',JSON.stringify(data,null,2));
       
@@ -559,7 +759,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const repo=localStorage.getItem('gh_repo');
     const branch=localStorage.getItem('gh_branch')||'main';
     
-    // Get SHA
     let sha;
     try{
       const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,{headers:{Authorization:`token ${token}`}});
