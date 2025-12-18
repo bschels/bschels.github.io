@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin – architekturbüro schels</title>
+  <style>
+:root{--bg:#fff;--text:#000;--border:#ddd;--accent:#000;--hover:#f5f5f5;--success:#2e7d32;--error:#c62828}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:2rem}
+h1{font-weight:200;font-size:1.5rem;letter-spacing:.2em;margin-bottom:2rem}
+h1 span{display:block;font-size:.9rem;opacity:.6;margin-top:.3rem;letter-spacing:.1em}
+h2{font-weight:200;font-size:1.1rem;letter-spacing:.15em;text-transform:uppercase;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+/* Login */
+.login-box{max-width:320px;margin:15vh auto;text-align:center}
+.login-box h1{margin-bottom:1rem}
+.login-box p{font-size:.9rem;opacity:.7;margin-bottom:2rem}
+input[type="password"],input[type="text"]{width:100%;padding:.8rem 1rem;border:1px solid var(--border);font-size:1rem;margin-bottom:1rem}
+input:focus{outline:none;border-color:var(--accent)}
+button{padding:.8rem 2rem;background:var(--accent);color:var(--bg);border:none;cursor:pointer;font-size:1rem;letter-spacing:.05em;transition:opacity .2s}
+button:hover{opacity:.8}
+button:disabled{opacity:.4;cursor:not-allowed}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
+.error{color:var(--error);font-size:.85rem;margin-top:.5rem}
+.success{color:var(--success);font-size:.85rem;margin-top:.5rem}
+/* Layout */
+.admin{display:none}
+.admin.active{display:block}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.header h1{margin:0}
+.header-actions{display:flex;gap:.5rem}
+.tabs{display:flex;gap:0;margin-bottom:2rem;border-bottom:1px solid var(--border)}
+.tab{padding:.8rem 1.5rem;cursor:pointer;opacity:.5;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{opacity:.8}
+.tab.active{opacity:1;border-bottom-color:var(--accent)}
+.panel{display:none}
+.panel.active{display:block}
+/* Editor */
+.editor-group{margin-bottom:1.5rem}
+.editor-group label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;opacity:.7}
+.editor{border:1px solid var(--border);min-height:150px;padding:1rem;outline:none}
+.editor:focus{border-color:var(--accent)}
+.editor:empty:before{content:attr(data-placeholder);opacity:.4}
+.toolbar{display:flex;gap:.25rem;padding:.5rem;border:1px solid var(--border);border-bottom:none;background:var(--hover)}
+.toolbar button{padding:.4rem .6rem;background:none;border:1px solid transparent;cursor:pointer;font-size:.85rem}
+.toolbar button:hover{background:var(--bg);border-color:var(--border)}
+/* Styles Panel */
+.style-group{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.style-item{display:flex;flex-direction:column;gap:.3rem}
+.style-item label{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;opacity:.7}
+.style-item input[type="color"]{width:100%;height:40px;border:1px solid var(--border);cursor:pointer;padding:0}
+.style-item input[type="text"]{padding:.5rem}
+/* Status */
+.status{position:fixed;bottom:2rem;right:2rem;padding:1rem 1.5rem;background:var(--accent);color:var(--bg);border-radius:4px;display:none;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* Setup */
+.setup-info{background:var(--hover);padding:1rem;margin-bottom:1rem;font-size:.9rem}
+.setup-info code{background:var(--bg);padding:.2rem .4rem}
+@media(max-width:600px){.container{padding:1rem}.style-group{grid-template-columns:1fr}.header{flex-direction:column;gap:1rem;align-items:flex-start}.tabs{overflow-x:auto}.tab{white-space:nowrap;padding:.6rem 1rem;font-size:.9rem}}
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login" class="login-box">
+    <h1>architekturbüro<span>schels</span></h1>
+    <p>Admin Panel</p>
+    <form id="login-form">
+      <input type="password" id="password" placeholder="Passwort" required autocomplete="current-password">
+      <button type="submit">Anmelden</button>
+      <div id="login-error" class="error"></div>
+    </form>
+    <div id="setup-password" style="display:none;margin-top:2rem">
+      <p style="margin-bottom:1rem">Erstes Login – Passwort festlegen:</p>
+      <input type="password" id="new-password" placeholder="Neues Passwort" required>
+      <input type="password" id="confirm-password" placeholder="Passwort bestätigen" required>
+      <button type="button" id="set-password-btn">Passwort setzen</button>
+      <div id="setup-error" class="error"></div>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="admin" class="admin container">
+    <div class="header">
+      <h1>architekturbüro<span>schels</span></h1>
+      <div class="header-actions">
+        <button id="save-btn">Speichern</button>
+        <button id="logout-btn" class="btn-secondary">Abmelden</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-panel="content">Inhalte</div>
+      <div class="tab" data-panel="styles">Stile</div>
+      <div class="tab" data-panel="settings">Einstellungen</div>
+    </div>
+
+    <!-- Content Panel -->
+    <div id="content-panel" class="panel active">
+      <h2>Profil</h2>
+      <div class="editor-group">
+        <label>Überblick</label>
+        <div class="toolbar">
+          <button type="button" data-cmd="bold" title="Fett"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Kursiv"><i>I</i></button>
+          <button type="button" data-cmd="createLink" title="Link">🔗</button>
+          <button type="button" data-cmd="insertUnorderedList" title="Liste">•</button>
+        </div>
+        <div class="editor" contenteditable="true" data-field="profil-ueberblick" data-placeholder="Text eingeben..."></div>
+      </div>
+
+      <div class="editor-group">
+        <label>Arbeitsweise</label>
+        <div class="toolbar">
+          <button type="button" data-cmd="bold" title="Fett"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Kursiv"><i>I</i></button>
+          <button type="button" data-cmd="createLink" title="Link">🔗</button>
+        </div>
+        <div class="editor" contenteditable="true" data-field="profil-arbeitsweise" data-placeholder="Text eingeben..."></div>
+      </div>
+
+      <div class="editor-group">
+        <label>Schwerpunkte</label>
+        <div class="toolbar">
+          <button type="button" data-cmd="bold" title="Fett"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Kursiv"><i>I</i></button>
+        </div>
+        <div class="editor" contenteditable="true" data-field="profil-schwerpunkte" data-placeholder="Text eingeben..."></div>
+      </div>
+
+      <div class="editor-group">
+        <label>Philosophie</label>
+        <div class="toolbar">
+          <button type="button" data-cmd="bold" title="Fett"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Kursiv"><i>I</i></button>
+        </div>
+        <div class="editor" contenteditable="true" data-field="profil-philosophie" data-placeholder="Text eingeben..."></div>
+      </div>
+
+      <h2>Kontakt</h2>
+      <div class="editor-group">
+        <label>Begrüßungstext</label>
+        <div class="editor" contenteditable="true" data-field="kontakt-intro" data-placeholder="Text eingeben..."></div>
+      </div>
+    </div>
+
+    <!-- Styles Panel -->
+    <div id="styles-panel" class="panel">
+      <h2>Farben</h2>
+      <div class="style-group">
+        <div class="style-item">
+          <label>Hintergrund</label>
+          <input type="color" id="style-bg" value="#ffffff">
+        </div>
+        <div class="style-item">
+          <label>Text</label>
+          <input type="color" id="style-text" value="#000000">
+        </div>
+        <div class="style-item">
+          <label>Akzent</label>
+          <input type="color" id="style-accent" value="#0000ff">
+        </div>
+        <div class="style-item">
+          <label>Sekundär</label>
+          <input type="color" id="style-secondary" value="#555555">
+        </div>
+      </div>
+
+      <h2>Typografie</h2>
+      <div class="style-group">
+        <div class="style-item">
+          <label>Schriftfamilie</label>
+          <input type="text" id="style-font" value="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+        </div>
+        <div class="style-item">
+          <label>Basisgröße</label>
+          <input type="text" id="style-fontsize" value="1em">
+        </div>
+      </div>
+
+      <h2>Dark Mode Farben</h2>
+      <div class="style-group">
+        <div class="style-item">
+          <label>Hintergrund (Dark)</label>
+          <input type="color" id="style-bg-dark" value="#111111">
+        </div>
+        <div class="style-item">
+          <label>Text (Dark)</label>
+          <input type="color" id="style-text-dark" value="#e5e5e5">
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="panel">
+      <h2>GitHub Verbindung</h2>
+      <div class="setup-info">
+        <p>Das Admin Panel speichert Änderungen direkt auf GitHub.</p>
+        <p>Du brauchst einen <strong>Personal Access Token</strong> mit <code>repo</code> Berechtigung.</p>
+      </div>
+      <div class="editor-group">
+        <label>GitHub Token</label>
+        <input type="password" id="github-token" placeholder="ghp_...">
+      </div>
+      <div class="editor-group">
+        <label>Repository</label>
+        <input type="text" id="github-repo" value="bschels/bschels.github.io">
+      </div>
+      <div class="editor-group">
+        <label>Branch</label>
+        <input type="text" id="github-branch" value="main">
+      </div>
+      <button id="save-settings-btn">Einstellungen speichern</button>
+      <div id="settings-status"></div>
+
+      <h2>Passwort ändern</h2>
+      <div class="editor-group">
+        <label>Aktuelles Passwort</label>
+        <input type="password" id="current-pw">
+      </div>
+      <div class="editor-group">
+        <label>Neues Passwort</label>
+        <input type="password" id="new-pw">
+      </div>
+      <button id="change-pw-btn" class="btn-secondary">Passwort ändern</button>
+      <div id="pw-status"></div>
+    </div>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <script>
+(function(){
+  'use strict';
+  
+  // Simple hash function for password
+  const hash = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
+  
+  // DOM Elements
+  const $ = id => document.getElementById(id);
+  const loginBox = $('login');
+  const adminPanel = $('admin');
+  const loginForm = $('login-form');
+  const passwordInput = $('password');
+  const loginError = $('login-error');
+  const setupDiv = $('setup-password');
+  const statusEl = $('status');
+  
+  // State
+  let content = {};
+  let styles = {};
+  
+  // Check if password is set
+  function init() {
+    const pwHash = localStorage.getItem('admin_pw');
+    if (!pwHash) {
+      loginForm.style.display = 'none';
+      setupDiv.style.display = 'block';
+    }
+    
+    // Auto-login if session exists
+    if (sessionStorage.getItem('admin_logged_in')) {
+      showAdmin();
+    }
+  }
+  
+  // Set initial password
+  $('set-password-btn').onclick = function() {
+    const pw = $('new-password').value;
+    const confirm = $('confirm-password').value;
+    const err = $('setup-error');
+    
+    if (pw.length < 4) {
+      err.textContent = 'Mindestens 4 Zeichen';
+      return;
+    }
+    if (pw !== confirm) {
+      err.textContent = 'Passwörter stimmen nicht überein';
+      return;
+    }
+    
+    localStorage.setItem('admin_pw', hash(pw));
+    setupDiv.style.display = 'none';
+    loginForm.style.display = 'block';
+    showStatus('Passwort gesetzt!');
+  };
+  
+  // Login
+  loginForm.onsubmit = function(e) {
+    e.preventDefault();
+    const pw = passwordInput.value;
+    const stored = localStorage.getItem('admin_pw');
+    
+    if (hash(pw) === stored) {
+      sessionStorage.setItem('admin_logged_in', '1');
+      showAdmin();
+    } else {
+      loginError.textContent = 'Falsches Passwort';
+      passwordInput.value = '';
+    }
+  };
+  
+  // Show admin panel
+  function showAdmin() {
+    loginBox.style.display = 'none';
+    adminPanel.classList.add('active');
+    loadContent();
+    loadSettings();
+  }
+  
+  // Logout
+  $('logout-btn').onclick = function() {
+    sessionStorage.removeItem('admin_logged_in');
+    location.reload();
+  };
+  
+  // Tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.onclick = function() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      $(this.dataset.panel + '-panel').classList.add('active');
+    };
+  });
+  
+  // Toolbar commands
+  document.querySelectorAll('.toolbar button').forEach(btn => {
+    btn.onmousedown = function(e) {
+      e.preventDefault();
+      const cmd = this.dataset.cmd;
+      if (cmd === 'createLink') {
+        const url = prompt('URL eingeben:', 'https://');
+        if (url) document.execCommand(cmd, false, url);
+      } else {
+        document.execCommand(cmd, false, null);
+      }
+    };
+  });
+  
+  // Load content from localStorage (or fetch from site)
+  function loadContent() {
+    const saved = localStorage.getItem('admin_content');
+    if (saved) {
+      content = JSON.parse(saved);
+      document.querySelectorAll('.editor').forEach(el => {
+        const field = el.dataset.field;
+        if (content[field]) el.innerHTML = content[field];
+      });
+    }
+    
+    // Load styles
+    const savedStyles = localStorage.getItem('admin_styles');
+    if (savedStyles) {
+      styles = JSON.parse(savedStyles);
+      Object.keys(styles).forEach(key => {
+        const input = $('style-' + key);
+        if (input) input.value = styles[key];
+      });
+    }
+  }
+  
+  // Load settings
+  function loadSettings() {
+    $('github-token').value = localStorage.getItem('github_token') || '';
+    $('github-repo').value = localStorage.getItem('github_repo') || 'bschels/bschels.github.io';
+    $('github-branch').value = localStorage.getItem('github_branch') || 'main';
+  }
+  
+  // Save settings
+  $('save-settings-btn').onclick = function() {
+    localStorage.setItem('github_token', $('github-token').value);
+    localStorage.setItem('github_repo', $('github-repo').value);
+    localStorage.setItem('github_branch', $('github-branch').value);
+    $('settings-status').innerHTML = '<span class="success">Gespeichert!</span>';
+    setTimeout(() => $('settings-status').innerHTML = '', 2000);
+  };
+  
+  // Change password
+  $('change-pw-btn').onclick = function() {
+    const current = $('current-pw').value;
+    const newPw = $('new-pw').value;
+    const status = $('pw-status');
+    
+    if (hash(current) !== localStorage.getItem('admin_pw')) {
+      status.innerHTML = '<span class="error">Aktuelles Passwort falsch</span>';
+      return;
+    }
+    if (newPw.length < 4) {
+      status.innerHTML = '<span class="error">Mindestens 4 Zeichen</span>';
+      return;
+    }
+    
+    localStorage.setItem('admin_pw', hash(newPw));
+    status.innerHTML = '<span class="success">Passwort geändert!</span>';
+    $('current-pw').value = '';
+    $('new-pw').value = '';
+  };
+  
+  // Save content
+  $('save-btn').onclick = async function() {
+    // Collect content
+    document.querySelectorAll('.editor').forEach(el => {
+      content[el.dataset.field] = el.innerHTML;
+    });
+    
+    // Collect styles
+    document.querySelectorAll('[id^="style-"]').forEach(el => {
+      const key = el.id.replace('style-', '');
+      styles[key] = el.value;
+    });
+    
+    // Save locally
+    localStorage.setItem('admin_content', JSON.stringify(content));
+    localStorage.setItem('admin_styles', JSON.stringify(styles));
+    
+    // Save to GitHub
+    const token = localStorage.getItem('github_token');
+    if (!token) {
+      showStatus('Gespeichert (lokal) – GitHub Token fehlt für Online-Sync');
+      return;
+    }
+    
+    this.disabled = true;
+    this.textContent = 'Speichert...';
+    
+    try {
+      await saveToGitHub();
+      showStatus('Gespeichert & veröffentlicht!');
+    } catch (err) {
+      showStatus('Fehler: ' + err.message, true);
+    }
+    
+    this.disabled = false;
+    this.textContent = 'Speichern';
+  };
+  
+  // GitHub API
+  async function saveToGitHub() {
+    const token = localStorage.getItem('github_token');
+    const repo = localStorage.getItem('github_repo');
+    const branch = localStorage.getItem('github_branch') || 'main';
+    
+    // For now, just save content.json
+    const data = { content, styles, updated: new Date().toISOString() };
+    const contentB64 = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    
+    // Get current file SHA (if exists)
+    let sha;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/contents/admin-data.json?ref=${branch}`, {
+        headers: { Authorization: `token ${token}` }
+      });
+      if (res.ok) {
+        const file = await res.json();
+        sha = file.sha;
+      }
+    } catch (e) {}
+    
+    // Update or create file
+    const body = {
+      message: 'Admin: Inhalte aktualisiert',
+      content: contentB64,
+      branch
+    };
+    if (sha) body.sha = sha;
+    
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/admin-data.json`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'GitHub API Fehler');
+    }
+  }
+  
+  // Status message
+  function showStatus(msg, isError) {
+    statusEl.textContent = msg;
+    statusEl.style.background = isError ? 'var(--error)' : 'var(--accent)';
+    statusEl.style.display = 'block';
+    setTimeout(() => statusEl.style.display = 'none', 3000);
+  }
+  
+  init();
+})();
+  </script>
+</body>
+</html>
