@@ -310,15 +310,17 @@ blockquote {
   margin: 2.5rem 0;
   margin-left: 0;
   margin-right: 0;
-  padding: 0 0 0 1.5rem;
-  border-left: 2px solid var(--body);
+  padding: 0;
+  border: none;
 }
 
 blockquote .says {
-  font-style: italic;
-  font-size: 1.15em;
+  font-style: normal;
+  font-size: 1em;
+  font-weight: 200;
   display: block;
-  margin-bottom: .5rem;
+  margin-bottom: .3rem;
+  color: var(--secondary);
 }
 
 blockquote, h1, h2, h3, h4, h5, h6, li, p {
@@ -336,11 +338,12 @@ blockquote p:not(.says) {
 
 blockquote footer {
   font-style: normal;
-  font-weight: 300;
+  font-weight: 200;
   text-align: left;
   display: block;
   color: var(--secondary);
-  font-size: .9em;
+  font-size: .85em;
+  margin-top: .2rem;
 }
 
 small {
