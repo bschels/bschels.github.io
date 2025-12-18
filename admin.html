@@ -5,20 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Admin – architekturbüro schels</title>
-  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
   <style>
 :root{
   --bg:#fff;--sidebar:#fafafa;--text:#000;--border:#e0e0e0;--accent:#000;--hover:#f0f0f0;--success:#2e7d32;--error:#c62828;
-  /* Editor Typography - synced with style panel */
-  --ed-font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --ed-size:1em;
-  --ed-weight:200;
-  --ed-line-height:1.6;
-  --ed-h2-size:1.4em;
-  --ed-h3-size:1.2em;
-  --ed-spacing:0.2em;
-  --ed-p-margin:1rem;
-  --ed-h-margin:2rem;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;height:100vh;overflow:hidden}
@@ -62,102 +51,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .editor-group{margin-bottom:1.5rem}
 .editor-group>label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#666;margin-bottom:.4rem}
 .editor-group .hint{font-size:.75rem;color:#999;margin-top:.2rem}
-
-/* Quill Editor - Typographic Styles */
-.quill-container{background:var(--bg);border:1px solid var(--border)}
-.quill-container .ql-toolbar{border:none;border-bottom:1px solid var(--border);background:var(--sidebar);padding:.5rem}
-.quill-container .ql-container{border:none;font-family:var(--ed-font);font-size:var(--ed-size)}
-.quill-container .ql-editor{
-  min-height:120px;
-  max-height:350px;
-  padding:1.5rem;
-  font-weight:var(--ed-weight);
-  line-height:var(--ed-line-height);
-  color:var(--text);
-}
-.quill-container .ql-editor:focus{outline:none}
-.quill-container .ql-editor.ql-blank::before{color:#aaa;font-style:normal}
-/* Paragraphs */
-.quill-container .ql-editor p{
-  margin:0;
-  margin-bottom:var(--ed-p-margin);
-}
-.quill-container .ql-editor p:last-child{margin-bottom:0}
-/* Headings */
-.quill-container .ql-editor h2{
-  font-size:var(--ed-h2-size);
-  font-weight:var(--ed-weight);
-  letter-spacing:var(--ed-spacing);
-  text-transform:uppercase;
-  margin:var(--ed-h-margin) 0 calc(var(--ed-p-margin) * 0.75);
-}
-.quill-container .ql-editor h2:first-child{margin-top:0}
-.quill-container .ql-editor h3{
-  font-size:var(--ed-h3-size);
-  font-weight:var(--ed-weight);
-  letter-spacing:var(--ed-spacing);
-  text-transform:uppercase;
-  margin:var(--ed-h-margin) 0 calc(var(--ed-p-margin) * 0.75);
-}
-.quill-container .ql-editor h3:first-child{margin-top:0}
-/* Lists */
-.quill-container .ql-editor ul,.quill-container .ql-editor ol{
-  margin:0 0 var(--ed-p-margin);
-  padding-left:1.5rem;
-}
-.quill-container .ql-editor li{
-  margin-bottom:calc(var(--ed-p-margin) * 0.5);
-  padding-left:.25rem;
-}
-.quill-container .ql-editor li:last-child{margin-bottom:0}
-/* Inline styles */
-.quill-container .ql-editor strong{
-  font-weight:400;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-.quill-container .ql-editor em{font-style:italic}
-.quill-container .ql-editor u{text-decoration:underline;text-underline-offset:2px}
-/* Small Caps */
-.quill-container .ql-editor .smallcaps{font-variant:small-caps;letter-spacing:.05em}
-.ql-smallcaps{font-size:11px !important}
-.ql-smallcaps::after{content:'Aa';font-variant:small-caps}
-.quill-container .ql-editor a{color:var(--text);text-decoration:underline;text-decoration-style:dotted}
-/* Tables (for Vita) */
-.quill-container .ql-editor table{width:100%;border-collapse:collapse;margin:var(--ed-p-margin) 0}
-.quill-container .ql-editor td{padding:.5rem;vertical-align:top;border-bottom:1px solid var(--border)}
-/* Blockquotes */
-.quill-container .ql-editor blockquote{
-  margin:var(--ed-p-margin) 0;
-  padding-left:1rem;
-  border-left:2px solid var(--text);
-  font-style:italic;
-}
-/* Tall variant */
-.quill-container.tall .ql-editor{min-height:300px;max-height:500px}
-
-/* Style Preview Box */
-.style-preview{
-  margin:1rem 0;
-  padding:1.5rem;
-  border:1px solid var(--border);
-  background:var(--bg);
-  font-family:var(--ed-font);
-  font-size:var(--ed-size);
-  font-weight:var(--ed-weight);
-  line-height:var(--ed-line-height);
-}
-.style-preview h3{
-  font-size:var(--ed-h3-size);
-  font-weight:var(--ed-weight);
-  letter-spacing:var(--ed-spacing);
-  text-transform:uppercase;
-  margin:0 0 calc(var(--ed-p-margin) * 0.75);
-}
-.style-preview p{margin:0 0 var(--ed-p-margin)}
-.style-preview p:last-child{margin-bottom:0}
-.style-preview strong{font-weight:400;text-transform:uppercase;letter-spacing:.08em}
-
+.editor-container{border:1px solid var(--border);background:var(--bg)}
+.editor-container textarea{border:none;min-height:350px}
 .section-title{font-size:.9rem;font-weight:500;margin:1.5rem 0 1rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 .section-title:first-child{margin-top:0}
 .style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;margin-bottom:1rem}
@@ -172,6 +67,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .status-bar.active{display:flex;justify-content:space-between;align-items:center}
 .unsaved-indicator{display:none;width:8px;height:8px;background:orange;border-radius:50%;margin-left:.5rem}
 .unsaved-indicator.active{display:inline-block}
+/* TinyMCE Custom Styles */
+.tox-tinymce{border:1px solid var(--border)!important;border-radius:0!important}
+.tox .tox-edit-area__iframe{background:var(--bg)!important}
 @media(max-width:768px){.sidebar{width:160px}.main-body{padding:.8rem}.style-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
   </style>
 </head>
@@ -214,14 +112,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <a href="#" class="nav-item" data-panel="datenschutz">Datenschutz</a>
         <div class="nav-section">Design & SEO</div>
         <a href="#" class="nav-item" data-panel="seo">SEO & Meta-Tags</a>
-        <a href="#" class="nav-item" data-panel="stile">Stile & Typografie</a>
         <div class="nav-section">System</div>
         <a href="#" class="nav-item" data-panel="einstellungen">Einstellungen</a>
       </nav>
       <div class="sidebar-footer">
         <button id="save-btn" class="btn-success">💾 Speichern & Veröffentlichen</button>
         <button id="logout-btn" class="btn-secondary">Abmelden</button>
-        <div class="autosave-status">Auto-Save: <span id="autosave-time">-</span></div>
+        <div class="autosave-status">Zuletzt: <span id="autosave-time">-</span></div>
       </div>
     </aside>
 
@@ -238,32 +135,32 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <div id="profil-panel" class="panel active">
           <div class="editor-group">
             <label>Profil (kompletter Inhalt)</label>
-            <div class="quill-container tall"><div id="ed-profil"></div></div>
-            <p class="hint">CV-Header und Zitat bleiben erhalten</p>
+            <div class="editor-container"><textarea id="ed-profil"></textarea></div>
+            <p class="hint">CV-Header und Zitat bleiben automatisch erhalten</p>
           </div>
         </div>
 
         <!-- Vita -->
         <div id="vita-panel" class="panel">
           <div class="editor-group">
-            <label>Vita (kompletter Inhalt)</label>
-            <div class="quill-container tall"><div id="ed-vita"></div></div>
+            <label>Vita (kompletter Inhalt mit Tabelle)</label>
+            <div class="editor-container"><textarea id="ed-vita"></textarea></div>
           </div>
         </div>
 
         <!-- Leistungen -->
         <div id="leistungen-panel" class="panel">
           <div class="editor-group">
-            <label>Leistungen (kompletter Inhalt)</label>
-            <div class="quill-container tall"><div id="ed-leistungen"></div></div>
+            <label>Leistungen (kompletter Inhalt mit Listen)</label>
+            <div class="editor-container"><textarea id="ed-leistungen"></textarea></div>
           </div>
         </div>
 
         <!-- Referenzen -->
         <div id="referenzen-panel" class="panel">
           <div class="editor-group">
-            <label>Referenzen (kompletter Inhalt)</label>
-            <div class="quill-container tall"><div id="ed-referenzen"></div></div>
+            <label>Referenzen (kompletter Inhalt mit Tabelle)</label>
+            <div class="editor-container"><textarea id="ed-referenzen"></textarea></div>
           </div>
         </div>
 
@@ -271,8 +168,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <div id="kontakt-panel" class="panel">
           <div class="editor-group">
             <label>Kontakt (kompletter Inhalt)</label>
-            <div class="quill-container tall"><div id="ed-kontakt"></div></div>
-            <p class="hint">Kontaktformular bleibt erhalten</p>
+            <div class="editor-container"><textarea id="ed-kontakt"></textarea></div>
+            <p class="hint">Kontaktformular bleibt automatisch erhalten</p>
           </div>
         </div>
 
@@ -280,7 +177,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <div id="impressum-panel" class="panel">
           <div class="editor-group">
             <label>Impressum (HTML)</label>
-            <div class="quill-container tall"><div id="ed-impressum"></div></div>
+            <div class="editor-container"><textarea id="ed-impressum"></textarea></div>
             <p class="hint">Wird in pages/impressum.html gespeichert</p>
           </div>
         </div>
@@ -289,7 +186,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
         <div id="datenschutz-panel" class="panel">
           <div class="editor-group">
             <label>Datenschutzerklärung (HTML)</label>
-            <div class="quill-container tall"><div id="ed-datenschutz"></div></div>
+            <div class="editor-container"><textarea id="ed-datenschutz"></textarea></div>
             <p class="hint">Wird in pages/datenschutz.html gespeichert</p>
           </div>
         </div>
@@ -323,118 +220,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
           </div>
         </div>
 
-        <!-- Stile -->
-        <div id="stile-panel" class="panel">
-          <div class="section-title">Typografie – Fließtext</div>
-          <div class="style-grid">
-            <div class="style-item"><label>Schriftfamilie</label>
-              <select id="st-font">
-                <option value="-apple-system,BlinkMacSystemFont,'Avenir Next','Segoe UI',sans-serif">System (Standard)</option>
-                <option value="'Helvetica Neue',Helvetica,Arial,sans-serif">Helvetica</option>
-                <option value="Georgia,'Times New Roman',serif">Georgia (Serif)</option>
-              </select>
-            </div>
-            <div class="style-item"><label>Schriftgröße</label>
-              <select id="st-fontsize">
-                <option value="0.9em">Klein (0.9em)</option>
-                <option value="1em" selected>Normal (1em)</option>
-                <option value="1.1em">Groß (1.1em)</option>
-              </select>
-            </div>
-            <div class="style-item"><label>Schriftgewicht</label>
-              <select id="st-weight">
-                <option value="100">Ultraleicht (100)</option>
-                <option value="200" selected>Leicht (200)</option>
-                <option value="300">Light (300)</option>
-                <option value="400">Normal (400)</option>
-              </select>
-            </div>
-            <div class="style-item"><label>Zeilenhöhe</label>
-              <select id="st-lineheight">
-                <option value="1.4">Eng (1.4)</option>
-                <option value="1.6" selected>Normal (1.6)</option>
-                <option value="1.8">Locker (1.8)</option>
-                <option value="2.0">Weit (2.0)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="section-title">Abstände</div>
-          <div class="style-grid">
-            <div class="style-item"><label>Absatz-Abstand</label>
-              <select id="st-p-margin">
-                <option value="0.5rem">Minimal (0.5rem)</option>
-                <option value="0.75rem">Klein (0.75rem)</option>
-                <option value="1rem" selected>Normal (1rem)</option>
-                <option value="1.25rem">Groß (1.25rem)</option>
-                <option value="1.5rem">Sehr groß (1.5rem)</option>
-              </select>
-            </div>
-            <div class="style-item"><label>Überschrift-Abstand oben</label>
-              <select id="st-h-margin">
-                <option value="1.5rem">Klein (1.5rem)</option>
-                <option value="2rem">Normal (2rem)</option>
-                <option value="2.5rem" selected>Groß (2.5rem)</option>
-                <option value="3rem">Sehr groß (3rem)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="section-title">Überschriften</div>
-          <div class="style-grid">
-            <div class="style-item"><label>H2 Größe</label>
-              <select id="st-h2">
-                <option value="1.2em">Klein (1.2em)</option>
-                <option value="1.4em" selected>Normal (1.4em)</option>
-                <option value="1.6em">Groß (1.6em)</option>
-              </select>
-            </div>
-            <div class="style-item"><label>H3 Größe</label>
-              <select id="st-h3">
-                <option value="1.0em">Klein (1.0em)</option>
-                <option value="1.2em" selected>Normal (1.2em)</option>
-                <option value="1.4em">Groß (1.4em)</option>
-              </select>
-            </div>
-            <div class="style-item"><label>Letter-Spacing</label>
-              <select id="st-spacing">
-                <option value="0.1em">Eng (0.1em)</option>
-                <option value="0.15em">Normal (0.15em)</option>
-                <option value="0.2em" selected>Weit (0.2em)</option>
-                <option value="0.25em">Sehr weit (0.25em)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="section-title">Live-Vorschau</div>
-          <div class="style-preview" id="style-preview">
-            <h3>Überschrift Beispiel</h3>
-            <p>Dies ist ein Beispiel-Absatz mit normalem Fließtext. <strong>architekturbüro schels</strong> begleitet Bauvorhaben vom ersten Entwurf bis zur Umsetzung.</p>
-            <p>Ein zweiter Absatz zeigt den Abstand zwischen den Absätzen. Die <em>Typografie</em> sollte der Website entsprechen.</p>
-          </div>
-
-          <div class="section-title">Farben (Light Mode)</div>
-          <div class="style-grid">
-            <div class="style-item"><label>Hintergrund</label><input type="color" id="st-bg" value="#ffffff"></div>
-            <div class="style-item"><label>Text</label><input type="color" id="st-text" value="#000000"></div>
-            <div class="style-item"><label>Akzent</label><input type="color" id="st-accent" value="#0000ff"></div>
-            <div class="style-item"><label>Sekundär</label><input type="color" id="st-secondary" value="#555555"></div>
-          </div>
-
-          <div class="section-title">Farben (Dark Mode)</div>
-          <div class="style-grid">
-            <div class="style-item"><label>Hintergrund</label><input type="color" id="st-bg-dark" value="#111111"></div>
-            <div class="style-item"><label>Text</label><input type="color" id="st-text-dark" value="#e5e5e5"></div>
-            <div class="style-item"><label>Akzent</label><input type="color" id="st-accent-dark" value="#4d9fff"></div>
-          </div>
-
-          <div class="section-title">Layout</div>
-          <div class="style-grid">
-            <div class="style-item"><label>Seitenbreite</label><input type="text" id="st-width" value="70%"></div>
-            <div class="style-item"><label>Max-Breite</label><input type="text" id="st-maxwidth" value="60em"></div>
-          </div>
-        </div>
-
         <!-- Einstellungen -->
         <div id="einstellungen-panel" class="panel">
           <div class="section-title">GitHub Verbindung</div>
@@ -458,17 +243,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
           </div>
           <button id="change-pw" class="btn-secondary">Passwort ändern</button>
           <span id="pw-status" style="margin-left:.5rem;font-size:.85rem"></span>
-
-          <div class="section-title" style="margin-top:2rem">Auto-Save</div>
-          <div class="editor-group">
-            <label>Intervall</label>
-            <select id="autosave-interval">
-              <option value="0">Deaktiviert</option>
-              <option value="30">Alle 30 Sekunden</option>
-              <option value="60" selected>Alle 60 Sekunden</option>
-              <option value="120">Alle 2 Minuten</option>
-            </select>
-          </div>
         </div>
       </div>
     </main>
@@ -476,25 +250,74 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
   <div id="status-bar" class="status-bar"></div>
 
-  <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <!-- TinyMCE from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tinymce@7/tinymce.min.js"></script>
   <script>
 (function(){
   'use strict';
   const $=id=>document.getElementById(id),$$=s=>document.querySelectorAll(s);
   const hash=s=>s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
   
-  // Register Small Caps format
-  const Inline=Quill.import('blots/inline');
-  class SmallCapsBlot extends Inline{
-    static create(){const node=super.create();node.classList.add('smallcaps');return node;}
-    static formats(node){return node.classList.contains('smallcaps');}
-  }
-  SmallCapsBlot.blotName='smallcaps';
-  SmallCapsBlot.tagName='span';
-  Quill.register(SmallCapsBlot);
+  let editors={},hasChanges=false;
   
-  let editors={},hasChanges=false,autoSaveTimer=null;
-  const toolbarOpts=[['bold','italic','underline','smallcaps'],['link'],[{'list':'bullet'},{'list':'ordered'}],[{'header':[2,3,false]}],['clean']];
+  // TinyMCE configuration - preserves ALL HTML
+  const editorConfig={
+    license_key:'gpl',
+    promotion:false,
+    branding:false,
+    menubar:false,
+    statusbar:true,
+    min_height:350,
+    // WICHTIG: Alle HTML-Elemente und Attribute erlauben
+    valid_elements:'*[*]',
+    valid_children:'+body[style],+div[style]',
+    extended_valid_elements:'*[*]',
+    custom_elements:'~small',
+    // Keine automatische Bereinigung
+    verify_html:false,
+    cleanup:false,
+    remove_trailing_brs:false,
+    forced_root_block:'p',
+    // Plugins für Listen, Tabellen, Code
+    plugins:'lists table link code fullscreen',
+    toolbar:'undo redo | bold italic underline | bullist numlist | table | link | code fullscreen',
+    table_toolbar:'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+    // Content Styling (wie Website)
+    content_style:`
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', sans-serif;
+        font-size: 16px;
+        font-weight: 200;
+        line-height: 1.6;
+        color: #000;
+        padding: 1rem;
+      }
+      p { margin: 0 0 1rem; }
+      h2, h3 { 
+        font-weight: 200; 
+        letter-spacing: 0.15em; 
+        text-transform: uppercase;
+        margin: 2rem 0 0.75rem;
+      }
+      h2 { font-size: 1.4em; }
+      h3 { font-size: 1.2em; }
+      h2:first-child, h3:first-child { margin-top: 0; }
+      strong { font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; }
+      em, i { font-style: italic; }
+      ul, ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+      li { margin-bottom: 0.5rem; }
+      table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+      td, th { padding: 0.5rem; vertical-align: top; border-bottom: 1px solid #e0e0e0; text-align: left; }
+      blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 2px solid #000; font-style: italic; }
+      a { color: #000; text-decoration: underline; text-decoration-style: dotted; }
+      .brand-name { font-weight: 400; }
+      small { font-size: 0.85em; color: #666; }
+    `,
+    setup:ed=>{
+      ed.on('change',()=>markChanged());
+      ed.on('input',()=>markChanged());
+    }
+  };
   
   // Init
   function init(){
@@ -529,73 +352,39 @@ button:disabled{opacity:.4;cursor:not-allowed}
     $('preview-btn').onclick=()=>window.open('/','_blank');
     $('test-github').onclick=testGitHub;
     $('change-pw').onclick=changePw;
-    $('autosave-interval').onchange=setupAutoSave;
-    
-    // Style inputs - update CSS variables live
-    $$('[id^="st-"]').forEach(el=>{
-      el.addEventListener('input',()=>{
-        updateEditorStyles();
-        markChanged();
-      });
-      el.addEventListener('change',()=>{
-        updateEditorStyles();
-        markChanged();
-      });
-    });
-  }
-  
-  function updateEditorStyles(){
-    const root=document.documentElement;
-    const font=$('st-font')?.value;
-    const size=$('st-fontsize')?.value;
-    const weight=$('st-weight')?.value;
-    const lineHeight=$('st-lineheight')?.value;
-    const h2=$('st-h2')?.value;
-    const h3=$('st-h3')?.value;
-    const spacing=$('st-spacing')?.value;
-    const pMargin=$('st-p-margin')?.value;
-    const hMargin=$('st-h-margin')?.value;
-    
-    if(font)root.style.setProperty('--ed-font',font);
-    if(size)root.style.setProperty('--ed-size',size);
-    if(weight)root.style.setProperty('--ed-weight',weight);
-    if(lineHeight)root.style.setProperty('--ed-line-height',lineHeight);
-    if(h2)root.style.setProperty('--ed-h2-size',h2);
-    if(h3)root.style.setProperty('--ed-h3-size',h3);
-    if(spacing)root.style.setProperty('--ed-spacing',spacing);
-    if(pMargin)root.style.setProperty('--ed-p-margin',pMargin);
-    if(hMargin)root.style.setProperty('--ed-h-margin',hMargin);
   }
   
   function showAdmin(){
     $('login-screen').style.display='none';
     $('admin-layout').classList.add('active');
-    initEditors();
     loadSettings();
-    loadContent();
-    setupAutoSave();
-    updateEditorStyles();
+    initEditors();
   }
   
-  function initEditors(){
-    ['profil','vita','leistungen','referenzen','kontakt','impressum','datenschutz'].forEach(id=>{
-      const el=$('ed-'+id);
+  async function initEditors(){
+    showStatus('Initialisiere Editoren...');
+    
+    const editorIds=['ed-profil','ed-vita','ed-leistungen','ed-referenzen','ed-kontakt','ed-impressum','ed-datenschutz'];
+    
+    for(const id of editorIds){
+      const el=$(id);
       if(el){
-        const q=new Quill(el,{theme:'snow',modules:{toolbar:toolbarOpts},placeholder:'Text eingeben...'});
-        // Add smallcaps handler
-        const toolbar=q.getModule('toolbar');
-        toolbar.addHandler('smallcaps',function(){
-          const range=q.getSelection();
-          if(range){
-            const format=q.getFormat(range);
-            q.format('smallcaps',!format.smallcaps);
-          }
+        await tinymce.init({
+          ...editorConfig,
+          selector:'#'+id
         });
-        q.on('text-change',()=>markChanged());
-        editors[id]=q;
+        const name=id.replace('ed-','');
+        editors[name]=tinymce.get(id);
       }
+    }
+    
+    // Load content after editors are ready
+    await loadContent();
+    
+    // Mark other inputs for change tracking
+    $$('input,textarea,select').forEach(el=>{
+      if(!el.id.startsWith('ed-'))el.addEventListener('input',markChanged);
     });
-    $$('input:not([id^="st-"]),textarea,select:not([id^="st-"])').forEach(el=>el.addEventListener('input',markChanged));
   }
   
   function markChanged(){
@@ -607,24 +396,12 @@ button:disabled{opacity:.4;cursor:not-allowed}
     $('github-token').value=localStorage.getItem('gh_token')||'';
     $('github-repo').value=localStorage.getItem('gh_repo')||'bschels/bschels.github.io';
     $('github-branch').value=localStorage.getItem('gh_branch')||'main';
-    $('autosave-interval').value=localStorage.getItem('autosave')||'60';
-    
-    // Load saved styles
-    const savedStyles=localStorage.getItem('ed_styles');
-    if(savedStyles){
-      try{
-        const styles=JSON.parse(savedStyles);
-        Object.keys(styles).forEach(k=>{
-          const el=$('st-'+k);
-          if(el)el.value=styles[k];
-        });
-      }catch(e){}
-    }
   }
   
   async function loadContent(){
     showStatus('Lade Inhalte...');
     try{
+      // Load index.html
       const indexRes=await fetch('/index.html?t='+Date.now());
       if(!indexRes.ok)throw new Error('index.html nicht gefunden');
       const indexHtml=await indexRes.text();
@@ -632,16 +409,23 @@ button:disabled{opacity:.4;cursor:not-allowed}
       
       extractFromDoc(doc);
       
+      // Load impressum
       try{
         const impRes=await fetch('/pages/impressum.html?t='+Date.now());
-        if(impRes.ok&&editors.impressum)editors.impressum.root.innerHTML=await impRes.text();
-      }catch(e){}
+        if(impRes.ok && editors.impressum){
+          editors.impressum.setContent(await impRes.text());
+        }
+      }catch(e){console.log('Impressum nicht geladen:',e);}
       
+      // Load datenschutz
       try{
         const dsRes=await fetch('/pages/datenschutz.html?t='+Date.now());
-        if(dsRes.ok&&editors.datenschutz)editors.datenschutz.root.innerHTML=await dsRes.text();
-      }catch(e){}
+        if(dsRes.ok && editors.datenschutz){
+          editors.datenschutz.setContent(await dsRes.text());
+        }
+      }catch(e){console.log('Datenschutz nicht geladen:',e);}
       
+      // Load SEO
       $('seo-title').value=doc.querySelector('title')?.textContent||'';
       $('seo-description').value=doc.querySelector('meta[name="description"]')?.content||'';
       $('seo-keywords').value=doc.querySelector('meta[name="keywords"]')?.content||'';
@@ -653,55 +437,64 @@ button:disabled{opacity:.4;cursor:not-allowed}
       setTimeout(hideStatus,2000);
     }catch(e){
       console.error(e);
-      showStatus('Fehler: '+e.message,'error');
+      showStatus('Fehler beim Laden: '+e.message,'error');
     }
   }
   
   function extractFromDoc(doc){
-    // Profil - alles zwischen cv-header und blockquote/cta
+    // Profil - content between cv-header and blockquote/cta
     const profil=doc.querySelector('#content1');
-    if(profil&&editors.profil){
+    if(profil && editors.profil){
       let html='';
       profil.querySelectorAll('h3,p,ul,ol').forEach(el=>{
-        if(el.classList.contains('cv-role')||el.classList.contains('cv-subtitle')||el.classList.contains('cta-link')||el.classList.contains('says'))return;
+        // Skip special elements
+        if(el.classList.contains('cv-role')||el.classList.contains('cv-subtitle')||
+           el.classList.contains('cta-link')||el.classList.contains('says'))return;
+        if(el.closest('.cv-header')||el.closest('blockquote'))return;
         html+=el.outerHTML;
       });
-      editors.profil.root.innerHTML=html;
+      editors.profil.setContent(html);
     }
     
-    // Vita
+    // Vita - full table and content
     const vita=doc.querySelector('#content2');
-    if(vita&&editors.vita){
+    if(vita && editors.vita){
       let html='';
-      vita.querySelectorAll('table,p,h3,ul,ol').forEach(el=>html+=el.outerHTML);
-      editors.vita.root.innerHTML=html;
+      vita.querySelectorAll('table,p,h3,ul,ol').forEach(el=>{
+        html+=el.outerHTML;
+      });
+      editors.vita.setContent(html);
     }
     
-    // Leistungen
+    // Leistungen - all content with lists
     const leist=doc.querySelector('#content3');
-    if(leist&&editors.leistungen){
+    if(leist && editors.leistungen){
       let html='';
-      leist.querySelectorAll('h3,p,ul,ol,blockquote').forEach(el=>html+=el.outerHTML);
-      editors.leistungen.root.innerHTML=html;
+      leist.querySelectorAll('h3,p,ul,ol,blockquote').forEach(el=>{
+        html+=el.outerHTML;
+      });
+      editors.leistungen.setContent(html);
     }
     
-    // Referenzen
+    // Referenzen - table and content
     const refs=doc.querySelector('#content4');
-    if(refs&&editors.referenzen){
+    if(refs && editors.referenzen){
       let html='';
-      refs.querySelectorAll('h3,table,p,ul,ol,small').forEach(el=>html+=el.outerHTML);
-      editors.referenzen.root.innerHTML=html;
+      refs.querySelectorAll('h3,table,p,ul,ol,small').forEach(el=>{
+        html+=el.outerHTML;
+      });
+      editors.referenzen.setContent(html);
     }
     
-    // Kontakt
+    // Kontakt - intro and contact info
     const kontakt=doc.querySelector('#content5');
-    if(kontakt&&editors.kontakt){
+    if(kontakt && editors.kontakt){
       let html='';
       const intro=kontakt.querySelector('p.content');
       const info=kontakt.querySelector('.contact-info');
       if(intro)html+=intro.outerHTML;
       if(info)html+=info.outerHTML;
-      editors.kontakt.root.innerHTML=html;
+      editors.kontakt.setContent(html);
     }
   }
   
@@ -711,28 +504,38 @@ button:disabled{opacity:.4;cursor:not-allowed}
     showStatus('Speichert...');
     
     const token=localStorage.getItem('gh_token')||$('github-token').value;
-    if(!token){showStatus('GitHub Token fehlt!','error');btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';return;}
+    if(!token){
+      showStatus('GitHub Token fehlt! Bitte unter Einstellungen eingeben.','error');
+      btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';
+      return;
+    }
     
+    // Save settings
     localStorage.setItem('gh_token',$('github-token').value);
     localStorage.setItem('gh_repo',$('github-repo').value);
     localStorage.setItem('gh_branch',$('github-branch').value);
-    localStorage.setItem('autosave',$('autosave-interval').value);
-    
-    // Save styles to localStorage
-    const styles={};
-    $$('[id^="st-"]').forEach(el=>styles[el.id.replace('st-','')]=el.value);
-    localStorage.setItem('ed_styles',JSON.stringify(styles));
     
     try{
-      // KOMPLETT DEAKTIVIERT - Quill zerstört HTML-Strukturen
-      // Alle Inhalte müssen direkt in den HTML-Dateien bearbeitet werden
-      showStatus('⚠️ Speichern deaktiviert – bitte Dateien direkt bearbeiten','error');
-      setTimeout(hideStatus,5000);
+      // 1. Save index.html with all content sections
+      await saveIndexHtml();
+      
+      // 2. Save impressum
+      if(editors.impressum){
+        await saveFile('pages/impressum.html',editors.impressum.getContent());
+      }
+      
+      // 3. Save datenschutz
+      if(editors.datenschutz){
+        await saveFile('pages/datenschutz.html',editors.datenschutz.getContent());
+      }
       
       hasChanges=false;
       $('unsaved')?.classList.remove('active');
+      $('autosave-time').textContent=new Date().toLocaleTimeString('de');
+      showStatus('Gespeichert & veröffentlicht ✓','success');
+      setTimeout(hideStatus,3000);
     }catch(e){
-      console.error(e);
+      console.error('Save error:',e);
       showStatus('Fehler: '+e.message,'error');
     }
     btn.disabled=false;btn.textContent='💾 Speichern & Veröffentlichen';
@@ -741,100 +544,88 @@ button:disabled{opacity:.4;cursor:not-allowed}
   async function saveIndexHtml(){
     console.log('saveIndexHtml: Start');
     
-    // Fetch current index.html from GitHub directly (not cached)
     const token=localStorage.getItem('gh_token');
     const repo=localStorage.getItem('gh_repo');
     const branch=localStorage.getItem('gh_branch')||'main';
     
+    // Fetch current index.html from GitHub
     const ghRes=await fetch(`https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,{
       headers:{Authorization:`token ${token}`}
     });
     if(!ghRes.ok)throw new Error('index.html nicht gefunden auf GitHub');
     const ghData=await ghRes.json();
     let html=decodeURIComponent(escape(atob(ghData.content)));
-    console.log('saveIndexHtml: Fetched from GitHub, length='+html.length);
+    console.log('saveIndexHtml: Fetched, length='+html.length);
     
     const doc=new DOMParser().parseFromString(html,'text/html');
     
-    // Update SEO
+    // Update SEO meta tags
     const title=doc.querySelector('title');
-    if(title&&$('seo-title').value)title.textContent=$('seo-title').value;
-    const desc=doc.querySelector('meta[name="description"]');
-    if(desc&&$('seo-description').value)desc.setAttribute('content',$('seo-description').value);
-    const keywords=doc.querySelector('meta[name="keywords"]');
-    if(keywords&&$('seo-keywords').value)keywords.setAttribute('content',$('seo-keywords').value);
-    const ogTitle=doc.querySelector('meta[property="og:title"]');
-    if(ogTitle&&$('seo-og-title').value)ogTitle.setAttribute('content',$('seo-og-title').value);
-    const ogDesc=doc.querySelector('meta[property="og:description"]');
-    if(ogDesc&&$('seo-og-description').value)ogDesc.setAttribute('content',$('seo-og-description').value);
-    console.log('saveIndexHtml: SEO updated');
+    if(title && $('seo-title').value)title.textContent=$('seo-title').value;
     
-    // Update Profil (content1)
+    const desc=doc.querySelector('meta[name="description"]');
+    if(desc && $('seo-description').value)desc.setAttribute('content',$('seo-description').value);
+    
+    const keywords=doc.querySelector('meta[name="keywords"]');
+    if(keywords && $('seo-keywords').value)keywords.setAttribute('content',$('seo-keywords').value);
+    
+    const ogTitle=doc.querySelector('meta[property="og:title"]');
+    if(ogTitle && $('seo-og-title').value)ogTitle.setAttribute('content',$('seo-og-title').value);
+    
+    const ogDesc=doc.querySelector('meta[property="og:description"]');
+    if(ogDesc && $('seo-og-description').value)ogDesc.setAttribute('content',$('seo-og-description').value);
+    
+    // Update Profil (content1) - preserve cv-header and blockquote
     const profil=doc.querySelector('#content1');
-    if(profil&&editors.profil){
+    if(profil && editors.profil){
       const cvHeader=profil.querySelector('.cv-header');
-      const cta=profil.querySelector('.cta-link');
       const blockquote=profil.querySelector('blockquote');
+      const cta=profil.querySelector('.cta-link');
       
       let newContent='';
       if(cvHeader)newContent+=cvHeader.outerHTML;
-      newContent+=(editors.profil.root.innerHTML||'');
+      newContent+=editors.profil.getContent();
       if(blockquote)newContent+=blockquote.outerHTML;
       if(cta)newContent+=cta.outerHTML;
       newContent+='<hr class="z">';
       profil.innerHTML=newContent;
-      console.log('saveIndexHtml: Profil updated');
     }
     
     // Update Vita (content2)
     const vita=doc.querySelector('#content2');
-    if(vita&&editors.vita){
-      vita.innerHTML=(editors.vita.root.innerHTML||'')+'<hr class="z">';
-      console.log('saveIndexHtml: Vita updated');
+    if(vita && editors.vita){
+      vita.innerHTML=editors.vita.getContent()+'<hr class="z">';
     }
     
     // Update Leistungen (content3)
     const leist=doc.querySelector('#content3');
-    if(leist&&editors.leistungen){
-      leist.innerHTML=(editors.leistungen.root.innerHTML||'')+'<hr class="z">';
-      console.log('saveIndexHtml: Leistungen updated');
+    if(leist && editors.leistungen){
+      leist.innerHTML=editors.leistungen.getContent()+'<hr class="z">';
     }
     
     // Update Referenzen (content4)
     const refs=doc.querySelector('#content4');
-    if(refs&&editors.referenzen){
-      refs.innerHTML=(editors.referenzen.root.innerHTML||'')+'<hr class="z">';
-      console.log('saveIndexHtml: Referenzen updated');
+    if(refs && editors.referenzen){
+      refs.innerHTML=editors.referenzen.getContent()+'<hr class="z">';
     }
     
-    // Update Kontakt (content5)
+    // Update Kontakt (content5) - preserve contact form
     const kontakt=doc.querySelector('#content5');
-    if(kontakt&&editors.kontakt){
+    if(kontakt && editors.kontakt){
       const formSection=kontakt.querySelector('.contact-form-section');
-      let newContent='<div>'+(editors.kontakt.root.innerHTML||'');
+      let newContent='<div>'+editors.kontakt.getContent();
       if(formSection)newContent+=formSection.outerHTML;
       newContent+='<hr class="z"></div>';
       kontakt.innerHTML=newContent;
-      console.log('saveIndexHtml: Kontakt updated');
     }
     
-    // Serialize back to HTML - use doc.documentElement.outerHTML for cleaner output
+    // Serialize back to HTML
     let newHtml='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
-    // Clean up xmlns artifacts from XMLSerializer
     newHtml=newHtml.replace(/ xmlns="[^"]*"/g,'');
     console.log('saveIndexHtml: Serialized, length='+newHtml.length);
     
     await saveFile('index.html',newHtml);
-    console.log('saveIndexHtml: Saved to GitHub');
-  }
-  
-  function collectAllData(){
-    const data={content:{},seo:{},styles:{},contact:{},updated:new Date().toISOString()};
-    Object.keys(editors).forEach(k=>data.content[k]=editors[k].root.innerHTML);
-    data.seo={title:$('seo-title').value,description:$('seo-description').value,keywords:$('seo-keywords').value,ogTitle:$('seo-og-title').value,ogDescription:$('seo-og-description').value};
-    data.contact={email:$('kontakt-email').value,telefon:$('kontakt-telefon').value,adresse:$('kontakt-adresse').value};
-    $$('[id^="st-"]').forEach(el=>data.styles[el.id.replace('st-','')]=el.value);
-    return data;
+    console.log('saveIndexHtml: Saved');
   }
   
   async function saveFile(path,content,retry=true){
@@ -842,7 +633,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const repo=localStorage.getItem('gh_repo');
     const branch=localStorage.getItem('gh_branch')||'main';
     
-    // Always fetch fresh SHA right before saving
+    // Get fresh SHA
     let sha;
     try{
       const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}&t=${Date.now()}`,{
@@ -852,7 +643,11 @@ button:disabled{opacity:.4;cursor:not-allowed}
       if(r.ok)sha=(await r.json()).sha;
     }catch(e){}
     
-    const body={message:`Admin: ${path} aktualisiert`,content:btoa(unescape(encodeURIComponent(content))),branch};
+    const body={
+      message:`Admin: ${path} aktualisiert`,
+      content:btoa(unescape(encodeURIComponent(content))),
+      branch
+    };
     if(sha)body.sha=sha;
     
     const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
@@ -863,7 +658,6 @@ button:disabled{opacity:.4;cursor:not-allowed}
     
     if(!res.ok){
       const errData=await res.json();
-      // If SHA mismatch, retry once with fresh SHA
       if(res.status===409 && retry){
         console.log('SHA conflict, retrying...');
         return saveFile(path,content,false);
@@ -882,22 +676,25 @@ button:disabled{opacity:.4;cursor:not-allowed}
         localStorage.setItem('gh_token',token);
         localStorage.setItem('gh_repo',repo);
         localStorage.setItem('gh_branch',$('github-branch').value);
-      }else $('github-status').innerHTML='<span class="error">Fehler '+r.status+'</span>';
-    }catch(e){$('github-status').innerHTML='<span class="error">Verbindungsfehler</span>';}
+      }else{
+        $('github-status').innerHTML='<span class="error">Fehler '+r.status+'</span>';
+      }
+    }catch(e){
+      $('github-status').innerHTML='<span class="error">Verbindungsfehler</span>';
+    }
   }
   
   function changePw(){
     const curr=$('pw-current').value,newPw=$('pw-new').value;
-    if(hash(curr)!==localStorage.getItem('admin_pw'))return $('pw-status').innerHTML='<span class="error">Falsches Passwort</span>';
-    if(newPw.length<4)return $('pw-status').innerHTML='<span class="error">Mind. 4 Zeichen</span>';
+    if(hash(curr)!==localStorage.getItem('admin_pw')){
+      return $('pw-status').innerHTML='<span class="error">Falsches Passwort</span>';
+    }
+    if(newPw.length<4){
+      return $('pw-status').innerHTML='<span class="error">Mind. 4 Zeichen</span>';
+    }
     localStorage.setItem('admin_pw',hash(newPw));
     $('pw-status').innerHTML='<span class="success">✓ Geändert</span>';
     $('pw-current').value='';$('pw-new').value='';
-  }
-  
-  function setupAutoSave(){
-    // DEAKTIVIERT - Auto-Save zerstört HTML
-    if(autoSaveTimer)clearInterval(autoSaveTimer);
   }
   
   function showStatus(msg,type=''){
