@@ -1304,19 +1304,21 @@ hr.z {
   }
 
   .footer-info-left .footer-postal {
-    display: block;
+    display: inline-block;
     margin-top: 0.2em;
-    white-space: nowrap;
+    white-space: nowrap !important;
     text-align: center;
-    max-width: 100%;
-    overflow-wrap: break-word;
-    word-break: keep-all;
   }
 
   .footer-info-left .footer-plz,
   .footer-info-left .footer-ort {
-    white-space: nowrap;
+    white-space: nowrap !important;
     display: inline;
+  }
+
+  .footer-info-left .footer-plz::after {
+    content: " ";
+    white-space: pre;
   }
 
   .footer-info-left, .footer-legal-links {
