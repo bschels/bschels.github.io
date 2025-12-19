@@ -10,52 +10,32 @@
   --hover-text: #fff;
   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   
-  /* Spacing System */
+  /* Spacing */
   --spacing-xs: 0.3rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-2xl: 2.5rem;
-  --spacing-3xl: 3rem;
   
-  /* Padding System */
-  --padding-xs: 0.2em;
+  /* Padding */
   --padding-sm: 0.4em;
-  --padding-sm-px: 8px;
   --padding-md: 0.5em;
   --padding-lg: 0.8em;
   --padding-xl: 1em;
-  --padding-2xl: 1.2em;
   --padding-section: 8%;
   --padding-section-mobile: clamp(16px, 3vw, 24px);
   
-  /* Margin System */
-  --margin-xs: 0.3rem;
-  --margin-sm: 0.5rem;
-  --margin-md: 1rem;
-  --margin-lg: 1.5rem;
-  --margin-xl: 2rem;
-  --margin-2xl: 2.5rem;
-  
-  /* Breakpoints */
-  --breakpoint-mobile: 810px;
-  --breakpoint-tablet: 830px;
-  --breakpoint-desktop: 1100px;
-  
   /* Typography - Font Sizes */
-  --font-size-xs: 0.75em;
   --font-size-sm: 0.85em;
   --font-size-base: 0.9em;
   --font-size-md: 1em;
   --font-size-lg: 1.1em;
   --font-size-xl: 1.2em;
-  --font-size-2xl: 1.3em;
   --font-size-3xl: 1.4em;
   --font-size-4xl: 1.6em;
   
   /* Typography - Letter Spacing */
-  --letter-spacing-xs: 0.05em;
   --letter-spacing-sm: 0.08em;
   --letter-spacing-md: 0.1em;
   --letter-spacing-lg: 0.12em;
@@ -64,15 +44,11 @@
   --letter-spacing-3xl: 0.2em;
   
   /* Typography - Line Height */
-  --line-height-tight: 1.1;
   --line-height-normal: 1.2;
   --line-height-relaxed: 1.5;
   --line-height-loose: 1.6;
   
-  /* Z-Index Scale */
-  --z-index-base: 1;
-  --z-index-dropdown: 10;
-  --z-index-sticky: 50;
+  /* Z-Index */
   --z-index-overlay: 100;
   
   /* Transitions */
@@ -80,13 +56,8 @@
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
   
-  /* Animation Duration */
+  /* Animation */
   --animation-duration-fast: 0.3s;
-  --animation-duration-base: 0.5s;
-  --animation-duration-slow: 0.8s;
-  
-  /* Animation Variables */
-  --animation-fade-in: fadeIn var(--animation-duration-fast) ease-out;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -675,23 +646,6 @@ address {
 
 .white_content td {
   word-break: break-word;
-}
-
-/* Lightbox-Tabelle: Erste Spalte fixieren, zweite Spalte umbrechen */
-@media (max-width: 400px) {
-  .white_content table {
-    font-size: var(--font-size-sm);
-  }
-  
-  .white_content td:first-child {
-    white-space: nowrap;
-    width: auto;
-    padding-right: var(--padding-sm);
-  }
-  
-  .white_content td:last-child {
-    word-break: break-word;
-  }
 }
 
 /* ===== FOOTER ===== */
@@ -1458,7 +1412,9 @@ hr.z {
   }
 }
 
+/* Sehr kleine Bildschirme (<400px) */
 @media (max-width: 400px) {
+  /* Header */
   .header-row {
     flex-direction: column;
     align-items: flex-start;
@@ -1476,22 +1432,34 @@ hr.z {
     align-self: flex-start;
   }
 
+  /* CV Portrait */
   .cv-portrait {
     width: 120px;
   }
 
-  /* Schwarze Linie oben bei sehr kleinen Bildschirmen verstecken */
-  header hr.z:first-of-type {
-    display: none !important;
+  /* Lightbox-Tabelle */
+  .white_content table {
+    font-size: var(--font-size-sm);
+  }
+  
+  .white_content td:first-child {
+    white-space: nowrap;
+    width: auto;
+    padding-right: var(--padding-sm);
+  }
+  
+  .white_content td:last-child {
+    word-break: break-word;
   }
 
+  /* Lightbox Positionierung */
   .white_content {
     top: clamp(3%, 2vh, 5%);
     left: clamp(1%, 2vw, 2%);
     right: clamp(1%, 2vw, 2%);
     height: clamp(88%, 90vh, 92%);
     padding: clamp(0.75em, 3vw, 1.25em) !important;
-    padding-bottom: clamp(2.5em, 8vw, 3.5em) !important; /* Platz für Close-Button */
+    padding-bottom: clamp(2.5em, 8vw, 3.5em) !important;
   }
 
   .lb_footer {
