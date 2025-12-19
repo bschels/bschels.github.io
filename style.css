@@ -763,6 +763,7 @@ hr.z {
   gap: var(--spacing-xl);
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
 }
 
 .cv-portrait {
@@ -1014,8 +1015,23 @@ hr.z {
     overflow-x: hidden;
   }
 
-  footer {
-    overflow-x: hidden;
+  /* CV Header: Text unter Bild bei schmalen Bildschirmen */
+  .cv-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-lg);
+  }
+
+  .cv-portrait {
+    width: 150px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .cv-name {
+    width: 100%;
+    text-align: center;
   }
 
   .header-row {
@@ -1181,6 +1197,12 @@ hr.z {
   .cv-portrait {
     width: 150px;
     height: auto;
+    flex-shrink: 0;
+  }
+
+  .cv-name {
+    width: 100%;
+    text-align: center;
   }
 
   .cv-name h2 {
