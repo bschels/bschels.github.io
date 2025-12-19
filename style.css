@@ -4,6 +4,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Animation Variables */
+:root {
+  --animation-fade-in: fadeIn var(--animation-duration-fast) ease-out;
+}
+
 /* ===== CSS VARIABLES ===== */
 :root {
   /* Colors */
@@ -82,6 +87,17 @@
   --transition-fast: 0.2s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
+  
+  /* Animation Duration */
+  --animation-duration-fast: 0.3s;
+  --animation-duration-base: 0.5s;
+  --animation-duration-slow: 0.8s;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== SKIP LINK ===== */
@@ -111,7 +127,7 @@ body {
   min-width: 10em;
   margin: auto;
   padding-bottom: 2%;
-  font-size: 1em;
+  font-size: var(--font-size-md);
   text-align: left;
   hyphens: manual;
   font-variant-numeric: normal;
@@ -187,7 +203,7 @@ main {
 .cat_text {
   max-height: 0;
   overflow: hidden;
-  transition: max-height .5s;
+  transition: max-height var(--transition-slow);
   margin-bottom: 0;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -197,7 +213,7 @@ input[type=radio]:checked ~ .cat_text {
   max-height: 9999px;
   overflow-y: auto;
   overflow-x: hidden;
-  animation: fadeIn .3s ease-out;
+  animation: fadeIn var(--transition-base) ease-out;
 }
 
 .cat_text::-webkit-scrollbar {
@@ -227,7 +243,7 @@ label {
 
 label.cat[for^=tog] {
   position: relative;
-  transition: all .2s ease;
+  transition: all var(--transition-fast);
   white-space: nowrap;
 }
 
@@ -236,7 +252,7 @@ label.cat[for^=tog]::before {
   color: currentColor;
   margin-right: .3em;
   letter-spacing: normal;
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
   font-weight: 200;
 }
 
@@ -276,13 +292,13 @@ h1, h2 {
   font-weight: 200;
   font-size: 1.6em;
   text-align: left;
-  line-height: 1.4;
-  margin: 1.5rem 0 .75rem;
+  line-height: var(--line-height-relaxed);
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
 }
 
 h2 {
   font-weight: 200 !important;
-  font-size: 1.4em;
+  font-size: var(--font-size-3xl);
   text-transform: uppercase !important;
 }
 
@@ -291,12 +307,12 @@ h2 {
 }
 
 h3, p.content {
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
 }
 
 h3, h4, h5, h6 {
   text-align: left;
-  line-height: 1.4;
+  line-height: var(--line-height-relaxed);
 }
 
 h3 {
@@ -306,7 +322,7 @@ h3 {
 }
 
 .cv-header + h3 {
-  margin-top: 1.5rem;
+  margin-top: var(--spacing-lg);
 }
 
 h4, h5, h6 {
@@ -317,7 +333,7 @@ h4, h5, h6 {
 
 h5, h6 {
   font-family: var(--font-main);
-  font-size: 1em;
+  font-size: var(--font-size-md);
 }
 
 b, h3, h4, p, strong {
@@ -400,7 +416,7 @@ blockquote {
 
 blockquote .says {
   font-style: italic;
-  font-size: 1em;
+  font-size: var(--font-size-md);
   font-weight: 200;
   display: block;
   margin-bottom: .3rem;
@@ -454,7 +470,7 @@ td {
 
 td:first-child {
   white-space: nowrap;
-  padding-right: 1em;
+  padding-right: var(--padding-xl);
   width: 1%;
 }
 
@@ -475,7 +491,7 @@ a:link, a:visited {
   text-decoration-color: var(--body);
   text-underline-offset: 2px;
   color: var(--body);
-  transition: all .2s ease;
+  transition: all var(--transition-fast);
 }
 
 a:focus, a:hover {
@@ -498,12 +514,12 @@ label.cat[for^=tog]:hover {
 /* ===== ARROW / NOHOVER ===== */
 .arrow-nohover {
   margin: 0;
-  font-size: 1em;
+  font-size: var(--font-size-md);
   font-weight: 200;
 }
 
 .cat_text > hr.z, .contact-info, address.contact-info {
-  margin-top: 1.5em;
+  margin-top: var(--spacing-lg);
 }
 
 address {
@@ -511,7 +527,7 @@ address {
 }
 
 .cat_text .arrow-nohover {
-  font-size: 1em;
+  font-size: var(--font-size-md);
   padding: .4em 0;
   display: block;
   margin-bottom: .3em;
@@ -610,7 +626,7 @@ address {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 1em 0;
+  padding: var(--padding-xl) 0;
   flex-wrap: wrap;
 }
 
@@ -659,7 +675,7 @@ address {
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
-  transition: color .2s, background-color .2s, text-decoration-color .2s;
+  transition: color var(--transition-fast), background-color var(--transition-fast), text-decoration-color var(--transition-fast);
 }
 
 .footer-legal-links a:hover {
@@ -797,13 +813,13 @@ hr.z {
 .contact-form-section {
   margin-top: var(--spacing-2xl);
   margin-bottom: var(--spacing-xl);
-  padding-top: 2rem;
+  padding-top: var(--spacing-xl);
   border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .contact-form-section h3 {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .contact-form {
@@ -842,9 +858,9 @@ hr.z {
   background: var(--bg);
   color: var(--body);
   font-family: var(--font-main);
-  font-size: 1em;
+  font-size: var(--font-size-md);
   font-weight: 200;
-  transition: border-color .2s ease, box-shadow .2s ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   -webkit-appearance: none;
   border-radius: 0;
 }
@@ -872,11 +888,11 @@ hr.z {
   background: var(--bg);
   color: var(--body);
   font-family: var(--font-main);
-  font-size: 1em;
+  font-size: var(--font-size-md);
   font-weight: 200;
   letter-spacing: .1em;
   cursor: pointer;
-  transition: all .2s ease;
+  transition: all var(--transition-fast);
   -webkit-appearance: none;
   border-radius: 0;
 }
@@ -1054,7 +1070,7 @@ hr.z {
   }
 
   .cv-subtitle {
-    font-size: 1em;
+    font-size: var(--font-size-md);
   }
 
   .cta-contact, .cta-link, .cta-link-line {
@@ -1115,7 +1131,7 @@ hr.z {
     color: var(--body);
     font-weight: 200;
     display: inline-block;
-    transition: color .3s;
+    transition: color var(--transition-base);
     background: 0 0;
   }
 }
