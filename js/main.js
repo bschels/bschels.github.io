@@ -250,21 +250,31 @@
         const submitBtn = this.querySelector(".form-submit");
         const originalText = submitBtn ? submitBtn.textContent : "";
 
+        // Honeypot-Check: Wenn website-Feld ausgefüllt ist, abbrechen (Spam)
+        const honeypot = this.querySelector(".website-field");
+        if (honeypot && honeypot.value) {
+          // Spam erkannt, stillschweigend abbrechen
+          return;
+        }
+
         if (errorBox) errorBox.style.display = "none";
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.textContent = "...";
         }
 
-        const formData = new FormData(this);
-        fetch(this.action, {
+        // Formulardaten sammeln
+        const formDataObj = new FormData(this);
+
+        // An Netlify senden
+        fetch("https://abschels.netlify.app/", {
           method: "POST",
-          body: formData,
-          headers: { Accept: "application/json" },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formDataObj).toString(),
         })
           .then(async (res) => {
             const data = await res.json().catch(() => ({}));
-            if (!res.ok) {
+            if (!res.ok && res.status !== 201) {
               const errorMsg = data.error || data.message || "Unbekannter Fehler";
               throw new Error(errorMsg);
             }

@@ -20,7 +20,7 @@
  <meta name="geo.placename" content="Wolnzach">
  <meta name="geo.position" content="48.6033;11.6250">
  <meta name="ICBM" content="48.6033, 11.6250">
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://schels.goatcounter.com https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://schels.goatcounter.com https://formspree.io https://gc.zgo.at; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://schels.goatcounter.com https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://schels.goatcounter.com https://gc.zgo.at https://api.netlify.com; frame-src 'none'; base-uri 'self'; form-action 'self';">
  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
  <meta name="referrer" content="strict-origin-when-cross-origin">
  <meta http-equiv="content-language" content="de-DE">
@@ -76,9 +76,8 @@
  <link rel="dns-prefetch" href="https://schels.goatcounter.com">
  <link rel="dns-prefetch" href="https://maps.google.com">
  <link rel="dns-prefetch" href="https://gc.zgo.at">
- <link rel="dns-prefetch" href="https://formspree.io">
+ <link rel="dns-prefetch" href="https://api.netlify.com">
  <link rel="preconnect" href="https://gc.zgo.at" crossorigin>
- <link rel="preconnect" href="https://formspree.io" crossorigin>
  <link rel="preload" href="style.css" as="style">
  <link rel="preload" href="/images/benjamin-schels-portrait.webp" as="image" type="image/webp" fetchpriority="high">
  <link rel="preload" href="/js/main.js" as="script" crossorigin="anonymous">
@@ -253,7 +252,9 @@
  <div class="arrow-nohover" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">Adresse: <a href="https://maps.google.com/?q=Schlachterstraße+9,+85283+Wolnzach" target="_blank" rel="noopener noreferrer" aria-label="Adresse auf Google Maps öffnen"><span itemprop="streetAddress">Schlachterstraße 9</span>, <span itemprop="postalCode">85283</span> <span itemprop="addressLocality">Wolnzach</span></a></div>
  </address>
  <div class="contact-form-section">
- <form id="contact-form-de" action="https://formspree.io/f/mgowwkpq" method="POST" class="contact-form">
+ <form id="contact-form-de" method="POST" data-netlify="true" netlify-honeypot="website" name="contact-form-de" class="contact-form" action="https://abschels.netlify.app/">
+ <input type="text" name="website" class="website-field" style="display: none;" tabindex="-1" autocomplete="off">
+ <input type="hidden" name="form-name" value="contact-form-de">
  <div class="form-group">
  <label for="name-de">Name</label>
  <input type="text" id="name-de" name="name" autocomplete="name" required>
@@ -271,7 +272,6 @@
  <p class="field-hint">Worum geht es? Ort/Adresse und ein kurzer Überblick reichen.</p>
  <textarea id="message-de" name="message" rows="5" required></textarea>
  </div>
- <input type="hidden" name="_language" value="de">
  <button type="submit" class="form-submit" aria-label="Kontaktformular absenden">→ Nachricht senden</button>
  </form>
  <div class="form-success" style="display: none;" role="status" aria-live="polite" aria-atomic="true">
