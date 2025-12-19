@@ -1168,10 +1168,22 @@ hr.z {
     align-items: center;
     text-align: center;
     gap: .5em;
+    flex-wrap: wrap;
   }
 
   .footer-info-left {
     margin: 0;
+    max-width: 100%;
+    margin-bottom: 0.5em;
+  }
+
+  .footer-info-left .footer-address-line {
+    display: block;
+    margin-top: 0.2em;
+  }
+
+  .footer-info-left .footer-name-title::after {
+    content: "";
   }
 
   .footer-legal-links {
