@@ -1161,7 +1161,7 @@ hr.z {
 /* Desktop Logo */
 @media (min-width: var(--breakpoint-tablet)) {
   .logo-ru {
-    display: block;
+    display: block !important;
     position: fixed;
     bottom: 2%;
     right: 2%;
@@ -1256,28 +1256,6 @@ hr.z {
 
   .cta-hint {
     text-align: center;
-  }
-
-  /* Footer-Adresse: Automatischer Umbruch bei sehr schmalen Bildschirmen */
-  .footer-info-left {
-    word-break: break-word;
-  }
-
-  .footer-info-left .footer-address-line {
-    display: block;
-  }
-
-  .footer-info-left .footer-street {
-    display: block;
-  }
-
-  .footer-info-left .footer-comma {
-    display: none;
-  }
-
-  .footer-info-left .footer-postal {
-    display: block;
-    margin-top: 0.2em;
   }
 }
 
