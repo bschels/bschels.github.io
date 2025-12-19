@@ -677,14 +677,17 @@ address {
   display: inline-block;
 }
 
-/* Kommas standardmäßig verstecken - werden nur bei Desktop angezeigt */
+/* Alle Separatoren standardmäßig verstecken */
 .footer-comma-name,
-.footer-comma-street {
+.footer-comma-street,
+.footer-separator-name-address,
+.footer-separator-street-plz {
   display: none;
 }
 
-/* Desktop: Alles in einer Zeile - Kommas und Trennstriche anzeigen */
-@media (min-width: 701px) {
+/* Desktop: Alles in einer Zeile - ALLE Separatoren anzeigen */
+/* Format: "Benjamin Schels, Architekt M.A. - Schlachterstraße 9, D-85283 Wolnzach" */
+@media (min-width: 900px) {
   .footer-bottom-container {
     justify-content: space-between !important;
     flex-direction: row !important;
@@ -702,10 +705,19 @@ address {
     width: auto !important;
   }
 
-  /* Wenn alles nebeneinander passt: Kommas anzeigen */
+  /* Alle Separatoren anzeigen wenn alles in einer Zeile */
   .footer-comma-name,
   .footer-comma-street {
     display: inline;
+  }
+
+  .footer-separator-name-address {
+    display: inline;
+    white-space: pre;
+  }
+
+  .footer-separator-street-plz {
+    display: none; /* Leerzeichen zwischen Straße und PLZ nicht nötig, Komma reicht */
   }
 
   .footer-info-left .footer-address-line,
@@ -716,15 +728,40 @@ address {
   .footer-address-line {
     white-space: normal;
   }
+}
 
-  /* Trennstrich zwischen Name-Title und Adresse */
-  .footer-info-left .footer-name-title::after {
-    content: " - ";
+/* Mittelbreite: Wenn Elemente umbrechen, Separatoren entfernen */
+@media (min-width: 701px) and (max-width: 899px) {
+  .footer-bottom-container {
+    justify-content: space-between !important;
+    flex-direction: row !important;
+  }
+
+  .footer-info-left {
+    text-align: left !important;
+    margin-right: auto !important;
+    width: auto !important;
+  }
+
+  .footer-legal-links {
+    text-align: right !important;
+    margin-left: auto !important;
+    width: auto !important;
+  }
+
+  /* Separatoren können hier umbrechen, daher vorsichtig */
+  .footer-comma-name,
+  .footer-comma-street {
+    display: inline;
+  }
+
+  .footer-separator-name-address {
+    display: inline;
     white-space: pre;
   }
 }
 
-/* Mobile: Untereinander - KEINE Kommas, KEINE Trennstriche */
+/* Mobile: Untereinander - KEINE Separatoren */
 @media (max-width: 700px) {
   .footer-bottom-container {
     justify-content: center;
@@ -744,27 +781,13 @@ address {
     width: 100%;
   }
 
-  /* Kommas verstecken wenn untereinander */
+  /* Alle Separatoren verstecken wenn untereinander */
   .footer-comma-name,
-  .footer-comma-street {
+  .footer-comma-street,
+  .footer-separator-name-address,
+  .footer-separator-street-plz {
     display: none !important;
   }
-
-  /* Trennstrich verstecken wenn untereinander */
-  .footer-info-left .footer-name-title::after {
-    content: "" !important;
-  }
-
-  /* Separator verstecken wenn untereinander */
-  .footer-separator {
-    display: none !important;
-  }
-}
-
-/* Separator standardmäßig anzeigen (Leerzeichen zwischen Name-Title und Adresse) */
-.footer-separator {
-  display: inline;
-  white-space: pre;
 }
 
 .footer-legal-links {
