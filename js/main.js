@@ -98,10 +98,24 @@
           if (other !== this) {
             other.checked = false;
             accordionState.set(other.id, false);
+            // HR im Label wieder anzeigen wenn Bereich eingeklappt wird
+            const otherLabel = document.querySelector(`label[for="${other.id}"]`);
+            if (otherLabel) {
+              const hrInLabel = otherLabel.querySelector('hr.z');
+              if (hrInLabel) hrInLabel.style.display = '';
+            }
           }
         });
         this.checked = !prevState;
         accordionState.set(this.id, !prevState);
+        // HR im Label verstecken/anzeigen basierend auf checked Status
+        const label = document.querySelector(`label[for="${this.id}"]`);
+        if (label) {
+          const hrInLabel = label.querySelector('hr.z');
+          if (hrInLabel) {
+            hrInLabel.style.display = this.checked ? 'none' : '';
+          }
+        }
         updateAccordionAria();
       });
     });

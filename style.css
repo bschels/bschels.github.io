@@ -223,10 +223,6 @@ input[type=radio]:checked ~ .cat_text {
   animation: fadeIn var(--transition-base) ease-out;
 }
 
-input[type=radio]:checked ~ label.cat hr.z {
-  display: none;
-}
-
 .cat_text::-webkit-scrollbar {
   width: 8px;
 }
