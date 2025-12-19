@@ -151,9 +151,9 @@ main {
 /* ===== HEADER ===== */
 .header-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   padding-bottom: 0;
   gap: 0;
@@ -165,6 +165,16 @@ main {
 
 .title-text span {
   display: block;
+}
+
+.slogan {
+  font-weight: 200;
+  font-size: var(--font-size-md);
+  letter-spacing: var(--letter-spacing-md);
+  text-align: right;
+  margin: 0;
+  align-self: flex-start;
+  padding-top: 0.2em;
 }
 
 .title-wrapper {
@@ -963,15 +973,23 @@ hr.z {
   }
 
   .header-row {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
+    justify-content: space-between;
     margin-bottom: .4em;
-    gap: .1em;
+    gap: 1em;
   }
 
   .title-wrapper {
-    width: 100%;
+    flex: 1;
     margin-bottom: 0;
+  }
+
+  .slogan {
+    font-size: 0.9em;
+    padding-top: 0.3em;
+    text-align: right;
+    flex-shrink: 0;
   }
 
   .title-text {
