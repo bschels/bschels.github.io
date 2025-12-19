@@ -83,13 +83,7 @@
    // Service Worker Registration
    if ('serviceWorker' in navigator) {
      window.addEventListener('load', () => {
-       navigator.serviceWorker.register('/sw.js')
-         .then((registration) => {
-           console.log('SW registered:', registration);
-         })
-         .catch((error) => {
-           console.log('SW registration failed:', error);
-         });
+       navigator.serviceWorker.register('/sw.js').catch(() => {});
      });
    }
  </script>
@@ -143,9 +137,9 @@
  </ul>
  <p>Im Mittelpunkt stehen Sorgfalt und Verständlichkeit: klare Kommunikation, saubere Unterlagen und transparente Schritte.</p>
  <h3>Schwerpunkte</h3>
- <p>Ein besonderer Schwerpunkt liegt auf dem <em>Bauen im Bestand</em>. Dazu gehören behutsame Sanierungen ebenso wie gezielte Erweiterungen, Umnutzungen oder Modernisierungen.</p>
+ <p>Ein besonderer Schwerpunkt liegt auf dem Bauen im Bestand. Dazu gehören behutsame Sanierungen ebenso wie gezielte Erweiterungen, Umnutzungen oder Modernisierungen.</p>
  <p>Gerade bei komplexen Ausgangslagen sind Erfahrung und Präzision entscheidend, etwa bei Substanzfragen, Schnittstellen oder Auflagen.</p>
- <p>Im <em>denkmalgeschützten Kontext</em> bedeutet das: Eingriffe so zurückhaltend wie möglich und so gezielt wie nötig – im Dialog mit Bestand, Nutzung und Genehmigungsanforderungen.</p>
+ <p>Im denkmalgeschützten Kontext bedeutet das: Eingriffe so zurückhaltend wie möglich und so gezielt wie nötig – im Dialog mit Bestand, Nutzung und Genehmigungsanforderungen.</p>
  <h3>Haltung</h3>
  <p>Architektur entsteht aus Ort, Aufgabe und Bestand. Sie muss sich im Alltag bewähren.</p>
  <p>Ich verstehe Gestaltung als sorgfältige Auseinandersetzung mit Proportion, Material und Funktion. Respekt vor dem Vorhandenen gehört dabei ebenso dazu wie Mut zum Umbau.</p>
