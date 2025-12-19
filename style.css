@@ -635,20 +635,28 @@ address {
 /* ===== FOOTER ===== */
 .footer-bottom-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
   gap: 1em;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .footer-info-left {
   font-size: var(--font-size-sm);
   color: var(--body);
-  margin-right: auto;
+  margin-right: 0;
   flex-shrink: 0;
-  text-align: left;
+  max-width: 100%;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Adresse normal in einer Zeile */
@@ -678,9 +686,8 @@ address {
 }
 
 .footer-legal-links {
-  text-align: right;
+  text-align: center;
   flex-shrink: 0;
-  margin-left: auto;
 }
 
 .footer-legal-links > div {
@@ -776,6 +783,9 @@ hr.z {
   min-width: 0;
   flex: 1;
   /* Flex-wrap sorgt dafür, dass bei Platzmangel alles unter das Bild geht */
+  /* Verhindert, dass Text abgeschnitten wird */
+  overflow: visible;
+  word-wrap: break-word;
 }
 
 .cv-role, .form-group label {
@@ -1060,20 +1070,15 @@ hr.z {
   }
 
   .footer-bottom-container {
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
     max-width: 500px;
     margin: 0 auto;
   }
 
   .footer-info-left {
     margin-bottom: .5em;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+    margin-right: 0;
     font-size: var(--font-size-sm);
-    text-align: center !important;
+    text-align: center;
     width: 100%;
     max-width: 100%;
     display: flex;
@@ -1085,14 +1090,13 @@ hr.z {
   }
 
   .footer-info-left, .footer-legal-links {
-    text-align: center !important;
+    text-align: center;
     width: 100%;
   }
 
   .footer-legal-links {
-    text-align: center !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    text-align: center;
+    margin-left: 0;
   }
 
   .footer-legal-links > div {
