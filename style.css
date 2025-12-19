@@ -1313,16 +1313,20 @@ hr.z {
   }
 
   .footer-info-left .footer-postal {
-    display: inline-block;
+    display: inline-block !important;
     margin-top: 0.2em;
     white-space: nowrap !important;
     text-align: center;
+    max-width: none !important;
+    overflow: visible !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
   }
 
   .footer-info-left .footer-plz,
   .footer-info-left .footer-ort {
     white-space: nowrap !important;
-    display: inline;
+    display: inline !important;
   }
 
   .footer-info-left .footer-plz::after {
