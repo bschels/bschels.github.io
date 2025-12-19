@@ -635,10 +635,14 @@ address {
 .footer-bottom-container {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
+  flex-direction: column;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
   gap: 1em;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .footer-info-left {
@@ -648,38 +652,58 @@ address {
   flex-shrink: 0;
   max-width: 100%;
   text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.footer-street {
+/* Adresse immer in drei Zeilen: Name, Straße, PLZ/Ort */
+.footer-info-left .footer-name-title {
+  display: block;
+  margin-bottom: 0.2em;
+}
+
+.footer-info-left .footer-name-title::after {
+  content: "";
+}
+
+.footer-info-left .footer-address-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.footer-info-left .footer-street {
+  display: block;
   white-space: nowrap;
+  margin-bottom: 0.2em;
 }
 
-/* Desktop: Standard-Layout mit Bindestrich - wenn genug Platz vorhanden */
-@media (min-width: 701px) {
-  .footer-info-left .footer-address-line,
-  .footer-info-left .footer-name-title {
-    display: inline;
-  }
+.footer-info-left .footer-street::after {
+  content: "";
+}
 
-  .footer-address-line {
-    white-space: normal;
-  }
+.footer-info-left .footer-comma {
+  display: none;
+}
 
-  .footer-info-left .footer-name-title::after {
-    content: " - ";
-    white-space: pre;
-  }
+.footer-info-left .footer-postal {
+  display: block;
+  white-space: nowrap !important;
+  text-align: center;
+}
 
-  .footer-info-left .footer-postal {
-    white-space: nowrap !important;
-    display: inline-block !important;
-  }
+.footer-info-left .footer-plz,
+.footer-info-left .footer-ort {
+  white-space: nowrap !important;
+  display: inline !important;
+}
 
-  .footer-info-left .footer-plz,
-  .footer-info-left .footer-ort {
-    white-space: nowrap !important;
-    display: inline !important;
-  }
+.footer-info-left .footer-plz::after {
+  content: " ";
+  white-space: pre;
 }
 
 .footer-legal-links {
@@ -1201,6 +1225,8 @@ hr.z {
     width: 150px;
     height: auto;
     flex-shrink: 0;
+    margin: 0 auto;
+    display: block;
   }
 
   .cv-name {
@@ -1319,14 +1345,8 @@ hr.z {
   }
 
   .footer-bottom-container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    box-sizing: border-box;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   .footer-info-left {
@@ -1342,69 +1362,6 @@ hr.z {
     box-sizing: border-box;
     padding-left: 0.5em;
     padding-right: 0.5em;
-  }
-
-  .footer-info-left .footer-address-line,
-  .footer-info-left .footer-name-title {
-    display: block;
-    text-align: center;
-  }
-
-  .footer-info-left .footer-name-title::after {
-    content: "";
-  }
-
-  .footer-info-left .footer-name-title {
-    margin-bottom: .2em;
-    display: block;
-  }
-
-  .footer-info-left .footer-address-line {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .footer-info-left .footer-street {
-    white-space: nowrap;
-    display: block;
-    max-width: 100%;
-    overflow-wrap: break-word;
-    word-break: keep-all;
-  }
-
-  .footer-info-left .footer-street::after {
-    content: "";
-  }
-
-  .footer-info-left .footer-comma {
-    display: none;
-  }
-
-  .footer-info-left .footer-postal {
-    display: inline-block !important;
-    margin-top: 0.2em;
-    white-space: nowrap !important;
-    text-align: center;
-    max-width: none !important;
-    overflow: visible !important;
-    overflow-wrap: normal !important;
-    word-break: normal !important;
-  }
-
-  .footer-info-left .footer-plz,
-  .footer-info-left .footer-ort {
-    white-space: nowrap !important;
-    display: inline !important;
-  }
-
-  .footer-info-left .footer-plz::after {
-    content: " ";
-    white-space: pre;
   }
 
   .footer-info-left, .footer-legal-links {
