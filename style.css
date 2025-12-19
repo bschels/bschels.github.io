@@ -1215,8 +1215,8 @@ hr.z {
 
 /* CV Header: Bei Platzmangel unter Bild verschieben - BEVOR Text abgeschnitten wird */
 /* Diese Media Query kommt NACH der 810px-Regel, damit sie definitiv greift */
-/* Bei 650px greifen, damit genug Platz für alle Wörter ist */
-@media (max-width: 650px) {
+/* Bei 700px greifen, damit genug Platz für alle Wörter ist und nichts abgeschnitten wird */
+@media (max-width: 700px) {
   .cv-header {
     flex-direction: column !important;
     align-items: center;
