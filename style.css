@@ -639,7 +639,7 @@ address {
   align-items: baseline;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
-  gap: 1em;
+  gap: 0.5em;
 }
 
 .footer-info-left {
@@ -767,6 +767,7 @@ address {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    gap: 0.3em;
   }
 
   .footer-info-left {
