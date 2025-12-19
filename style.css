@@ -635,28 +635,20 @@ address {
 /* ===== FOOTER ===== */
 .footer-bottom-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
   gap: 1em;
-  max-width: 500px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 .footer-info-left {
   font-size: var(--font-size-sm);
   color: var(--body);
-  margin-right: 0;
+  margin-right: auto;
   flex-shrink: 0;
-  max-width: 100%;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: left;
 }
 
 /* Adresse normal in einer Zeile */
@@ -686,8 +678,9 @@ address {
 }
 
 .footer-legal-links {
-  text-align: center;
+  text-align: right;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .footer-legal-links > div {
@@ -802,14 +795,14 @@ hr.z {
   font-size: var(--font-size-xl);
   letter-spacing: var(--letter-spacing-lg);
   white-space: normal;
+  word-break: keep-all;
 }
 
-/* "Benjamin" immer zusammenhalten */
+/* "Benjamin" immer zusammenhalten - verhindert Trennung */
 .cv-name-first {
   white-space: nowrap;
+  display: inline-block;
 }
-
-/* CV Header: Bei Platzmangel unter Bild verschieben - wird in Haupt-Media-Query abgedeckt */
 
 .cv-subtitle {
   margin: 0;
@@ -1023,26 +1016,7 @@ hr.z {
     overflow-x: hidden;
   }
 
-  /* CV Header: Text unter Bild bei schmalen Bildschirmen */
-  .cv-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--spacing-lg);
-  }
-
-  .cv-portrait {
-    width: 150px;
-    height: auto;
-    flex-shrink: 0;
-    margin: 0 auto;
-    display: block;
-  }
-
-  .cv-name {
-    width: 100%;
-    text-align: center;
-  }
+  /* CV Header wird in der 500px Media Query behandelt */
 
   .header-row {
     flex-direction: row;
@@ -1082,6 +1056,10 @@ hr.z {
   }
 
   .footer-bottom-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     max-width: 500px;
     margin: 0 auto;
   }
@@ -1104,6 +1082,11 @@ hr.z {
   .footer-info-left, .footer-legal-links {
     text-align: center;
     width: 100%;
+  }
+
+  .footer-legal-links {
+    text-align: center;
+    margin-left: 0;
   }
 
   .footer-legal-links > div {
@@ -1221,6 +1204,40 @@ hr.z {
     display: inline-block;
     transition: color var(--transition-base);
     background: 0 0;
+  }
+}
+
+/* CV Header: Bei Platzmangel (wenn "Benjamin" nicht mehr passt) unter Bild verschieben */
+/* Diese Media Query kommt NACH der 810px-Regel, damit sie definitiv greift */
+@media (max-width: 500px) {
+  .cv-header {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-lg);
+  }
+
+  .cv-portrait {
+    width: 150px;
+    height: auto;
+    flex-shrink: 0;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .cv-name {
+    width: 100% !important;
+    flex: none !important;
+    min-width: auto !important;
+    text-align: center;
+  }
+
+  .cv-name h2 {
+    white-space: normal;
+  }
+
+  .cv-name-first {
+    white-space: nowrap;
   }
 }
 
