@@ -278,10 +278,8 @@ label.cat[for^=tog].expanded {
 
 /* ===== TYPOGRAPHY ===== */
 h1, h2 {
-  font-family: var(--font-main);
   font-weight: 200;
   font-size: var(--font-size-4xl);
-  text-align: left;
   line-height: var(--line-height-relaxed);
   margin: var(--spacing-lg) 0 var(--spacing-sm);
 }
@@ -301,7 +299,6 @@ h3, p.content {
 }
 
 h3, h4, h5, h6 {
-  text-align: left;
   line-height: var(--line-height-relaxed);
 }
 
@@ -322,12 +319,7 @@ h4, h5, h6 {
 }
 
 h5, h6 {
-  font-family: var(--font-main);
   font-size: var(--font-size-md);
-}
-
-b, h3, h4, p, strong {
-  font-family: var(--font-main);
 }
 
 p {
@@ -335,7 +327,6 @@ p {
   font-size: var(--font-size-md);
   line-height: var(--line-height-loose);
   margin: var(--spacing-md) 0;
-  text-align: left;
 }
 
 p.content {
@@ -375,7 +366,6 @@ em, i, li, ol, ul {
 }
 
 ol, ul {
-  text-align: left;
   margin: var(--spacing-md) 0;
   padding-left: var(--spacing-xl);
 }
@@ -392,11 +382,6 @@ li {
 /* ===== BLOCKQUOTE ===== */
 blockquote, blockquote .says {
   font-weight: 300;
-  text-align: left;
-}
-
-blockquote, em, i, li, ol, ul {
-  font-family: var(--font-main);
 }
 
 blockquote {
@@ -421,8 +406,6 @@ blockquote, h1, h2, h3, h4, h5, h6, li, p {
 blockquote p:not(.says) {
   font-style: normal;
   font-weight: 300;
-  text-align: left;
-  display: block;
   color: var(--secondary);
   font-size: var(--font-size-base);
 }
@@ -430,8 +413,6 @@ blockquote p:not(.says) {
 blockquote footer {
   font-style: normal;
   font-weight: 200;
-  display: block;
-  text-align: left;
   color: var(--secondary);
   font-size: var(--font-size-sm);
   margin-top: var(--spacing-xs);
