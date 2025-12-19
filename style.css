@@ -186,7 +186,6 @@ main {
   font-size: var(--font-size-3xl);
   letter-spacing: var(--letter-spacing-3xl);
   line-height: var(--line-height-normal);
-  align-self: flex-end;
 }
 
 .title-link {
