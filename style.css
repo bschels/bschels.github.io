@@ -56,8 +56,6 @@
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
   
-  /* Animation */
-  --animation-duration-fast: 0.3s;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -143,12 +141,10 @@ main {
   font-size: var(--font-size-md);
   letter-spacing: var(--letter-spacing-md);
   text-align: right;
-  margin: 0;
+  margin: auto 0 0;
   line-height: 1;
   padding: 0;
-  margin-bottom: 0;
   align-self: flex-end;
-  margin-top: auto;
 }
 
 .title-wrapper {
@@ -341,7 +337,7 @@ p {
   font-weight: 200;
   font-size: var(--font-size-md);
   line-height: var(--line-height-loose);
-  margin: var(--margin-md) 0;
+  margin: var(--spacing-md) 0;
   text-align: left;
 }
 
@@ -383,7 +379,7 @@ em, i, li, ol, ul {
 
 ol, ul {
   text-align: left;
-  margin: var(--margin-md) 0;
+  margin: var(--spacing-md) 0;
   padding-left: var(--spacing-xl);
 }
 
@@ -408,7 +404,7 @@ blockquote, em, i, li, ol, ul {
 
 blockquote {
   margin: var(--spacing-xl) 0;
-  padding: 0 0 0 var(--margin-md);
+  padding: 0 0 0 var(--spacing-md);
   border-left: 1px solid var(--secondary);
 }
 
