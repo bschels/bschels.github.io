@@ -1216,12 +1216,15 @@ hr.z {
 
   .cta-contact, .cta-link, .cta-link-line {
     text-align: center;
+    margin: 0 auto;
   }
 
   .cta-link-line {
     display: block;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
+    margin: 0 auto;
   }
 
   .cta-contact {
@@ -1229,16 +1232,30 @@ hr.z {
     max-width: 100%;
     padding: var(--padding-lg) var(--padding-xl);
     box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .cta-hint {
+    text-align: center;
   }
 
   .contact-form {
     max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .contact-form-section {
+    text-align: center;
   }
 
   .form-submit {
     width: 100%;
     text-align: center;
     min-height: 44px;
+  }
+
+  .form-success {
+    margin: 0 auto;
   }
 
   .cta-link-line {
@@ -1279,6 +1296,26 @@ hr.z {
 
 /* Mobile: Zentriert, Block-Layout, keine Bindestriche/Kommas - NUR wenn Text wirklich keinen Platz mehr hat */
 @media (max-width: 700px) {
+  .contact-form {
+    margin: 0 auto;
+  }
+
+  .contact-form-section {
+    text-align: center;
+  }
+
+  .form-success {
+    margin: 0 auto;
+  }
+
+  .cta-link-line, .cta-contact {
+    margin: 0 auto;
+  }
+
+  .cta-hint {
+    text-align: center;
+  }
+
   .footer-bottom-container {
     flex-direction: column;
     align-items: center;
