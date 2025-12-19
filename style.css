@@ -121,7 +121,7 @@ body {
   max-width: 60em;
   min-width: 10em;
   margin: auto;
-  padding-bottom: 2%;
+  padding-bottom: clamp(1rem, 2vh, 2%);
   font-size: var(--font-size-md);
   text-align: left;
   hyphens: manual;
@@ -137,11 +137,11 @@ footer, header, main {
 
 header, main {
   padding-bottom: 0;
-  padding-top: var(--padding-xl);
+  padding-top: clamp(1rem, 2vh, var(--padding-xl));
 }
 
 footer {
-  padding-bottom: 2%;
+  padding-bottom: clamp(1rem, 2vh, 2%);
 }
 
 main {
@@ -222,6 +222,20 @@ input[type=radio]:checked ~ .cat_text {
   overflow-y: auto;
   overflow-x: hidden;
   animation: fadeIn var(--transition-base) ease-out;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Ersten Element im geöffneten Akkordeon den oberen Abstand entfernen */
+input[type=radio]:checked ~ .cat_text > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+input[type=radio]:checked ~ .cat_text > div:first-child,
+input[type=radio]:checked ~ .cat_text > p:first-child,
+input[type=radio]:checked ~ .cat_text > h3:first-child {
+  margin-top: 0 !important;
 }
 
 .cat_text::-webkit-scrollbar {
@@ -556,18 +570,15 @@ address {
 .lb_footer {
   font-size: 150%;
   text-transform: uppercase;
-  position: fixed;
-  margin: 0 auto;
-  left: 4%;
-  right: 4%;
-  top: 85%;
-  bottom: 30%;
-  max-width: 27em;
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
   z-index: 2;
+  text-align: right;
 }
 
 .lb_close {
-  float: right;
+  display: inline-block;
 }
 
 .black_overlay, .white {
@@ -608,6 +619,7 @@ address {
   min-height: 10em;
   height: 72%;
   padding: var(--padding-sm);
+  padding-bottom: 3em; /* Platz für Close-Button */
   border: .2em solid var(--primary);
   background-color: var(--bg);
   z-index: 1;
@@ -1135,6 +1147,7 @@ hr.z {
     max-width: none;
   }
 
+  /* Padding wird durch spezifischere Media Queries weiter unten überschrieben */
   footer, header, main {
     padding-left: var(--padding-section-mobile);
     padding-right: var(--padding-section-mobile);
@@ -1180,9 +1193,6 @@ hr.z {
     letter-spacing: var(--letter-spacing-3xl);
   }
 
-  .logo-ru {
-    display: none !important;
-  }
 
 
   .footer-legal-links > div {
@@ -1275,8 +1285,8 @@ hr.z {
   }
 }
 
-/* Desktop Logo */
-@media (min-width: var(--breakpoint-tablet)) {
+/* Desktop Logo - Ab 830px sichtbar */
+@media (min-width: 830px) {
   .logo-ru {
     display: block !important;
     position: fixed;
@@ -1377,6 +1387,38 @@ hr.z {
 }
 
 /* Sehr schmale Bildschirme (<400px): Header und weitere Optimierungen */
+/* ===== RESPONSIVE PADDING: Optimiert nach Best Practices ===== */
+
+/* Tablet (481px - 768px): Reduziertes, fließendes Padding */
+@media (max-width: 768px) {
+  footer, header, main {
+    padding-left: clamp(16px, 2.5vw, 24px) !important;
+    padding-right: clamp(16px, 2.5vw, 24px) !important;
+  }
+}
+
+/* Mobile (320px - 480px): Standard-Padding für optimale Lesbarkeit */
+@media (max-width: 480px) {
+  footer, header, main {
+    padding-left: clamp(16px, 4vw, 20px) !important;
+    padding-right: clamp(16px, 4vw, 20px) !important;
+  }
+
+  /* Schwarze Linie oben bei sehr kleinen Bildschirmen verstecken */
+  header hr.y,
+  header hr.z {
+    display: none !important;
+  }
+}
+
+/* Sehr kleine Mobile-Geräte (bis 360px): Minimales aber lesbares Padding */
+@media (max-width: 360px) {
+  footer, header, main {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
 @media (max-width: 400px) {
   .header-row {
     flex-direction: column;
@@ -1399,18 +1441,25 @@ hr.z {
     width: 120px;
   }
 
+  /* Schwarze Linie oben bei sehr kleinen Bildschirmen verstecken */
+  header hr.z:first-of-type {
+    display: none !important;
+  }
+
   .white_content {
-    top: 5%;
-    left: 1%;
-    right: 1%;
-    height: 90%;
-    padding: var(--padding-md);
+    top: clamp(3%, 2vh, 5%);
+    left: clamp(1%, 2vw, 2%);
+    right: clamp(1%, 2vw, 2%);
+    height: clamp(88%, 90vh, 92%);
+    padding: clamp(0.75em, 3vw, 1.25em) !important;
+    padding-bottom: clamp(2.5em, 8vw, 3.5em) !important; /* Platz für Close-Button */
   }
 
   .lb_footer {
-    top: 92%;
-    left: 1%;
-    right: 1%;
+    bottom: 0.5em !important;
+    right: 0.5em !important;
+    left: auto !important;
+    top: auto !important;
   }
 }
 
