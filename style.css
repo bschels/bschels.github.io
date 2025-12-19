@@ -669,6 +669,17 @@ address {
     content: " - ";
     white-space: pre;
   }
+
+  .footer-info-left .footer-postal {
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
+
+  .footer-info-left .footer-plz,
+  .footer-info-left .footer-ort {
+    white-space: nowrap !important;
+    display: inline !important;
+  }
 }
 
 .footer-legal-links {
