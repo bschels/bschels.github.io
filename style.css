@@ -767,7 +767,7 @@ address {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 0.3em;
+    gap: 0.2em;
   }
 
   .footer-info-left {
@@ -788,6 +788,13 @@ address {
   .footer-separator-name-address,
   .footer-separator-street-plz {
     display: none !important;
+  }
+
+  /* Leerzeichen nach Name und Straße hinzufügen, wenn Kommas versteckt sind */
+  .footer-name::after,
+  .footer-street::after {
+    content: " ";
+    white-space: pre;
   }
 }
 
