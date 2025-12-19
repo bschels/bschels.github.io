@@ -152,7 +152,7 @@ main {
 .header-row {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
   width: 100%;
   padding-bottom: 0;
@@ -185,6 +185,7 @@ main {
   font-size: var(--font-size-3xl);
   letter-spacing: var(--letter-spacing-3xl);
   line-height: var(--line-height-normal);
+  align-self: flex-end;
 }
 
 .title-link {
@@ -220,6 +221,10 @@ input[type=radio]:checked ~ .cat_text {
   overflow-y: auto;
   overflow-x: hidden;
   animation: fadeIn var(--transition-base) ease-out;
+}
+
+input[type=radio]:checked ~ label.cat hr.z {
+  display: none;
 }
 
 .cat_text::-webkit-scrollbar {
