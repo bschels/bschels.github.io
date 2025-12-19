@@ -775,6 +775,7 @@ hr.z {
   justify-content: center;
   min-width: 0;
   flex: 1;
+  /* Flex-wrap sorgt dafür, dass bei Platzmangel alles unter das Bild geht */
 }
 
 .cv-role, .form-group label {
@@ -788,13 +789,14 @@ hr.z {
   letter-spacing: var(--letter-spacing-3xl);
   color: var(--body);
   opacity: .7;
+  white-space: nowrap;
 }
 
 .cv-name h2 {
   margin: 0 0 var(--spacing-xs);
   font-size: var(--font-size-xl);
   letter-spacing: var(--letter-spacing-lg);
-  white-space: normal;
+  white-space: nowrap;
   word-break: keep-all;
 }
 
@@ -810,9 +812,11 @@ hr.z {
   font-weight: 200;
   letter-spacing: var(--letter-spacing-xl);
   color: var(--body);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
+  white-space: nowrap;
+}
+
+.cv-vita {
+  white-space: nowrap;
 }
 
 .cv-vita {
@@ -1207,9 +1211,10 @@ hr.z {
   }
 }
 
-/* CV Header: Bei Platzmangel (wenn "Benjamin" nicht mehr passt) unter Bild verschieben */
+/* CV Header: Bei Platzmangel unter Bild verschieben - BEVOR Text abgeschnitten wird */
 /* Diese Media Query kommt NACH der 810px-Regel, damit sie definitiv greift */
-@media (max-width: 500px) {
+/* Bei 650px greifen, damit genug Platz für alle Wörter ist */
+@media (max-width: 650px) {
   .cv-header {
     flex-direction: column !important;
     align-items: center;
@@ -1232,12 +1237,25 @@ hr.z {
     text-align: center;
   }
 
+  /* Alle Texte können jetzt normal umbrochen werden, da sie unter dem Bild sind */
+  .cv-role {
+    white-space: normal;
+  }
+
   .cv-name h2 {
     white-space: normal;
   }
 
   .cv-name-first {
-    white-space: nowrap;
+    white-space: normal;
+  }
+
+  .cv-subtitle {
+    white-space: normal;
+  }
+
+  .cv-vita {
+    white-space: normal;
   }
 }
 
