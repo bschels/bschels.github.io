@@ -7,7 +7,24 @@
     fetch(`/pages/${page}.html${cacheBust}`)
       .then((res) => (res.ok ? res.text() : Promise.reject()))
       .then((html) => {
-        document.getElementById(targetId).innerHTML = html;
+        // Parse HTML und extrahiere nur den Inhalt aus .cat_text
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('.cat_text');
+        if (content) {
+          // Entferne Header und Footer falls vorhanden
+          content.querySelectorAll('header, footer').forEach(el => el.remove());
+          document.getElementById(targetId).innerHTML = content.innerHTML;
+        } else {
+          // Fallback: Versuche main zu finden
+          const main = doc.querySelector('main');
+          if (main) {
+            main.querySelectorAll('header, footer').forEach(el => el.remove());
+            document.getElementById(targetId).innerHTML = main.innerHTML;
+          } else {
+            document.getElementById(targetId).innerHTML = html;
+          }
+        }
         cb && cb();
       })
       .catch(() => {
