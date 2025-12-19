@@ -1031,6 +1031,7 @@ hr.z {
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: 100%;
   }
 
   .footer-info-left {
