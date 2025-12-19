@@ -1022,12 +1022,19 @@ hr.z {
   .footer-bottom-container {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .footer-info-left {
     margin-bottom: .5em;
     margin-right: 0;
     font-size: var(--font-size-sm);
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .footer-info-left .footer-address-line,
@@ -1042,6 +1049,15 @@ hr.z {
 
   .footer-info-left .footer-name-title {
     margin-bottom: .2em;
+  }
+
+  .footer-info-left .footer-street::after {
+    content: "";
+  }
+
+  .footer-info-left .footer-postal {
+    display: block;
+    margin-top: 0.2em;
   }
 
   .footer-info-left, .footer-legal-links {
