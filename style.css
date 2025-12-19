@@ -120,12 +120,9 @@ main {
 /* ===== HEADER ===== */
 .header-row {
   display: flex;
-  flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
   width: 100%;
-  padding-bottom: 0;
-  gap: 0;
 }
 
 .header-row, .title-wrapper {
@@ -513,8 +510,7 @@ label.cat[for^=tog]:hover {
 }
 
 .cat_text > hr.z, .contact-info, address.contact-info {
-  margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-sm);
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
 }
 
 /* HR am Ende des geöffneten Akkordeons: Kein unterer Abstand */
@@ -663,7 +659,7 @@ address {
 }
 
 .footer-legal-links {
-  text-align: right;
+  text-align: center;
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -813,11 +809,6 @@ address {
   }
 }
 
-.footer-legal-links {
-  text-align: center;
-  flex-shrink: 0;
-}
-
 .footer-legal-links > div {
   display: inline-block;
   vertical-align: middle;
@@ -871,19 +862,17 @@ address {
 /* ===== HORIZONTAL RULES ===== */
 hr {
   margin: 0;
+  border: 0;
 }
 
 hr.y {
   height: 1.2em;
-  border: 0;
   background: var(--bg);
 }
 
 hr.z {
   height: 1px;
-  border: 0;
   background: var(--body);
-  margin: 0;
   padding: 0;
 }
 
@@ -892,8 +881,7 @@ hr.z {
   display: flex;
   align-items: center;
   gap: var(--spacing-xl);
-  margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
   flex-wrap: wrap;
 }
 
