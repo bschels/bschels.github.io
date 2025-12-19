@@ -1199,8 +1199,8 @@ hr.z {
   }
 }
 
-/* Medium screens */
-@media (max-width: var(--breakpoint-desktop)) and (min-width: 811px) {
+/* Medium screens and smaller desktop */
+@media (max-width: 1400px) {
   .footer-bottom-container {
     justify-content: center;
     align-items: center;
