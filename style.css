@@ -672,22 +672,10 @@ address {
   margin-left: auto;
 }
 
-/* Alle Footer-Textteile unteilbar - bekommen bei Platzmangel neue Zeile */
-.footer-name {
-  white-space: nowrap;
-  display: inline-block;
-}
-
-.footer-title {
-  white-space: nowrap;
-  display: inline-block;
-}
-
-.footer-street {
-  white-space: nowrap;
-  display: inline-block;
-}
-
+/* Footer-Textteile: unteilbar, bei Platzmangel neue Zeile */
+.footer-name,
+.footer-title,
+.footer-street,
 .footer-plz-ort {
   white-space: nowrap;
   display: inline-block;
@@ -1314,23 +1302,11 @@ hr.z {
     text-align: center;
   }
 
-  /* Alle Texte können jetzt normal umbrochen werden, da sie unter dem Bild sind */
-  .cv-role {
-    white-space: normal;
-  }
-
-  .cv-name h2 {
-    white-space: normal;
-  }
-
-  .cv-name-first {
-    white-space: normal;
-  }
-
-  .cv-subtitle {
-    white-space: normal;
-  }
-
+  /* Alle Texte können umbrochen werden, da sie unter dem Bild sind */
+  .cv-role,
+  .cv-name h2,
+  .cv-name-first,
+  .cv-subtitle,
   .cv-vita {
     white-space: normal;
   }
@@ -1383,32 +1359,18 @@ hr.z {
 /* ===== RESPONSIVE PADDING: Optimiert nach Best Practices ===== */
 
 /* Tablet (481px - 768px): Reduziertes, fließendes Padding */
+/* Responsive Padding */
 @media (max-width: 768px) {
   footer, header, main {
-    padding-left: clamp(16px, 2.5vw, 24px) !important;
-    padding-right: clamp(16px, 2.5vw, 24px) !important;
+    padding-left: clamp(16px, 4vw, 24px) !important;
+    padding-right: clamp(16px, 4vw, 24px) !important;
   }
 }
 
-/* Mobile (320px - 480px): Standard-Padding für optimale Lesbarkeit */
 @media (max-width: 480px) {
-  footer, header, main {
-    padding-left: clamp(16px, 4vw, 20px) !important;
-    padding-right: clamp(16px, 4vw, 20px) !important;
-  }
-
-  /* Schwarze Linie oben bei sehr kleinen Bildschirmen verstecken */
   header hr.y,
   header hr.z {
     display: none !important;
-  }
-}
-
-/* Sehr kleine Mobile-Geräte (bis 360px): Minimales aber lesbares Padding */
-@media (max-width: 360px) {
-  footer, header, main {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
   }
 }
 
