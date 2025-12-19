@@ -745,16 +745,36 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
   function markChanged(){
     hasChanges=true;
-    $('unsaved')?.classList.add('active');
+    const unsaved=$('unsaved');
+    if(unsaved)unsaved.classList.add('active');
+    // Update save button state
+    const saveBtn=$('save-btn');
+    if(saveBtn&&!saveBtn.disabled){
+      saveBtn.style.opacity='1';
+      saveBtn.style.cursor='pointer';
+    }
   }
 
   async function saveAll(){
     const btn=$('save-btn');
+    if(btn.disabled)return; // Prevent double-save
     btn.disabled=true;btn.textContent='Speichert...';
-    showStatus('Speichert...');
+    showStatus('Speichert...','');
 
     const token=localStorage.getItem('gh_token')||$('github-token').value;
-    if(!token){showStatus('Token fehlt!','error');btn.disabled=false;btn.textContent='💾 Speichern';return;}
+    if(!token){
+      showStatus('Token fehlt! Bitte in GitHub-Einstellungen eintragen.','error');
+      btn.disabled=false;btn.textContent='💾 Speichern';
+      // Navigate to settings
+      setTimeout(()=>{
+        $$('.nav-item').forEach(i=>i.classList.remove('active'));
+        $$('.panel').forEach(p=>p.classList.remove('active'));
+        $('settings-panel').classList.add('active');
+        $$('.nav-item[data-panel="settings"]')[0]?.classList.add('active');
+        $('panel-title').innerHTML='GitHub <span class="unsaved"></span>';
+      },1500);
+      return;
+    }
 
     localStorage.setItem('gh_token',$('github-token').value);
     localStorage.setItem('gh_repo',$('github-repo').value);
@@ -768,11 +788,15 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
       hasChanges=false;
       $('unsaved')?.classList.remove('active');
-      showStatus('Gespeichert ✓','success');
-      setTimeout(hideStatus,2500);
+      showStatus('Gespeichert ✓ - Änderungen werden in 1-2 Minuten live sein','success');
+      setTimeout(hideStatus,4000);
     }catch(e){
-      console.error(e);
-      showStatus('Fehler: '+e.message,'error');
+      console.error('Save Error:',e);
+      const errMsg=e.message||'Unbekannter Fehler';
+      showStatus(`Fehler beim Speichern: ${errMsg}`,'error');
+      setTimeout(()=>{
+        if(confirm(`Speichern fehlgeschlagen: ${errMsg}\n\nMöchten Sie es erneut versuchen?`))saveAll();
+      },2000);
     }
     btn.disabled=false;btn.textContent='💾 Speichern';
   }
@@ -901,9 +925,23 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
   // ========== FEATURE 1: Keyboard Shortcuts ==========
   document.addEventListener('keydown',e=>{
+    // Save: Cmd/Ctrl+S
     if((e.metaKey||e.ctrlKey)&&e.key==='s'){
       e.preventDefault();
       if(hasChanges)saveAll();
+    }
+    // Escape: Close modals
+    if(e.key==='Escape'){
+      const diffModal=$('diff-modal');
+      if(diffModal&&diffModal.style.display!=='none')closeDiff();
+    }
+    // Tab navigation in editors
+    if(e.key==='Tab'&&e.target.tagName==='TEXTAREA'&&!e.shiftKey){
+      const editor=Object.values(editors).find(ed=>ed.getInputField()===e.target);
+      if(editor){
+        e.preventDefault();
+        editor.replaceSelection('  '); // 2 spaces for indentation
+      }
     }
   });
 
