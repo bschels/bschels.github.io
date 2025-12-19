@@ -28,7 +28,7 @@
   --padding-xl: 1em;
   --padding-2xl: 1.2em;
   --padding-section: 8%;
-  --padding-section-mobile: 0;
+  --padding-section-mobile: clamp(16px, 3vw, 24px);
   
   /* Margin System */
   --margin-xs: 0.3rem;
@@ -220,22 +220,20 @@ main {
 input[type=radio]:checked ~ .cat_text {
   max-height: 9999px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: clip;
   animation: fadeIn var(--transition-base) ease-out;
   margin-top: 0;
   padding-top: 0;
 }
 
-/* Ersten Element im geöffneten Akkordeon den oberen Abstand entfernen */
+/* Oberer Abstand für erstes Element im geöffneten Akkordeon */
 input[type=radio]:checked ~ .cat_text > *:first-child {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+  margin-top: var(--spacing-md);
 }
 
-input[type=radio]:checked ~ .cat_text > div:first-child,
-input[type=radio]:checked ~ .cat_text > p:first-child,
-input[type=radio]:checked ~ .cat_text > h3:first-child {
-  margin-top: 0 !important;
+/* CV-Header braucht mehr Abstand */
+input[type=radio]:checked ~ .cat_text > .cv-header:first-child {
+  margin-top: var(--spacing-lg);
 }
 
 .cat_text::-webkit-scrollbar {
@@ -306,6 +304,12 @@ label.cat[for^=tog]:hover {
 
 label.cat[for^=tog].expanded::before {
   content: "−";
+}
+
+/* Geöffnetes Akkordeon bleibt schwarz */
+label.cat[for^=tog].expanded {
+  color: var(--hover-text);
+  background-color: var(--hover-bg);
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -546,6 +550,11 @@ label.cat[for^=tog]:hover {
   margin-bottom: var(--spacing-sm);
 }
 
+/* HR am Ende des geöffneten Akkordeons: Kein unterer Abstand */
+.cat_text > hr.z:last-child {
+  margin-bottom: 0;
+}
+
 address {
   font-style: normal;
 }
@@ -568,13 +577,22 @@ address {
 
 /* ===== LIGHTBOX ===== */
 .lb_footer {
-  font-size: 150%;
-  text-transform: uppercase;
+  font-size: var(--font-size-md);
+  font-weight: 200;
+  letter-spacing: var(--letter-spacing-md);
   position: absolute;
-  bottom: 0.5em;
-  right: 0.5em;
-  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   text-align: right;
+  background: linear-gradient(transparent 0%, var(--bg) 40%);
+  padding: 1.5em 0.8em 0.5em;
+  pointer-events: none;
+}
+
+.lb_footer a {
+  pointer-events: auto;
 }
 
 .lb_close {
@@ -583,10 +601,6 @@ address {
 
 .black_overlay, .white {
   background-color: var(--bg);
-}
-
-.white {
-  text-transform: lowercase;
 }
 
 .black_overlay {
@@ -598,6 +612,7 @@ address {
   height: 100%;
   opacity: .8;
   filter: alpha(opacity=80);
+  z-index: var(--z-index-overlay);
 }
 
 .black_overlay:focus {
@@ -618,30 +633,65 @@ address {
   min-width: 10em;
   min-height: 10em;
   height: 72%;
-  padding: var(--padding-sm);
-  padding-bottom: 3em; /* Platz für Close-Button */
+  padding: 0;
   border: .2em solid var(--primary);
   background-color: var(--bg);
-  z-index: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+  z-index: calc(var(--z-index-overlay) + 1);
+  overflow: hidden;
   box-sizing: border-box;
 }
 
-.white_content::-webkit-scrollbar {
+/* Innerer scrollbarer Bereich der Lightbox */
+.white_content .lightbox {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--padding-sm);
+  padding-bottom: 3em;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.white_content .lightbox::-webkit-scrollbar {
   width: 8px;
 }
 
-.white_content::-webkit-scrollbar-track {
+.white_content .lightbox::-webkit-scrollbar-track {
   background: 0 0;
 }
 
-.white_content::-webkit-scrollbar-thumb {
+.white_content .lightbox::-webkit-scrollbar-thumb {
   background: var(--body);
   opacity: .3;
   border-radius: 0;
+}
+
+/* Lightbox Tabelle auf schmalen Bildschirmen */
+.white_content table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.white_content td {
+  word-break: break-word;
+}
+
+/* Lightbox-Tabelle: Erste Spalte fixieren, zweite Spalte umbrechen */
+@media (max-width: 400px) {
+  .white_content table {
+    font-size: var(--font-size-sm);
+  }
+  
+  .white_content td:first-child {
+    white-space: nowrap;
+    width: auto;
+    padding-right: var(--padding-sm);
+  }
+  
+  .white_content td:last-child {
+    word-break: break-word;
+  }
 }
 
 /* ===== FOOTER ===== */
@@ -802,11 +852,26 @@ address {
     display: none !important;
   }
 
-  /* Leerzeichen nach Name und Straße hinzufügen, wenn Kommas versteckt sind */
-  .footer-name::after,
-  .footer-street::after {
-    content: " ";
-    white-space: pre;
+  /* Name-Title und Adresse als separate Zeilen mit natürlichem Abstand */
+  .footer-name-title,
+  .footer-address-line {
+    display: block;
+    text-align: center;
+  }
+
+  /* Flex-gap zwischen den Elementen innerhalb der Gruppen */
+  .footer-name-title {
+    display: flex;
+    justify-content: center;
+    gap: 0.3em;
+    flex-wrap: wrap;
+  }
+
+  .footer-address-line {
+    display: flex;
+    justify-content: center;
+    gap: 0.3em;
+    flex-wrap: wrap;
   }
 }
 
@@ -954,9 +1019,6 @@ hr.z {
 
 .cv-vita {
   white-space: nowrap;
-}
-
-.cv-vita {
   margin: var(--spacing-sm) 0 0;
   font-size: var(--font-size-base);
 }
@@ -971,10 +1033,9 @@ hr.z {
 /* ===== CTA BUTTON ===== */
 .cta-hint {
   margin: var(--spacing-xl) 0 var(--spacing-sm);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-base);
   font-weight: 200;
-  letter-spacing: var(--letter-spacing-lg);
-  text-transform: uppercase;
+  font-style: italic;
   color: var(--secondary);
 }
 
@@ -988,6 +1049,9 @@ hr.z {
   padding: var(--spacing-sm) var(--padding-lg);
   border: 1px solid var(--body);
   transition: all var(--transition-fast);
+  white-space: nowrap;
+  width: auto;
+  max-width: fit-content;
 }
 
 .cta-link-line:hover {
@@ -1137,7 +1201,7 @@ hr.z {
 /* ===== MEDIA QUERIES ===== */
 
 /* Mobile (max 810px) */
-@media (max-width: var(--breakpoint-mobile)) {
+@media (max-width: 810px) {
   body {
     width: 100%;
     padding-left: 0;
@@ -1207,9 +1271,16 @@ hr.z {
   }
 
   .cat_text table {
-    display: block;
+    display: table;
+    width: 100%;
+    table-layout: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Tabellen-Container für horizontales Scrollen auf Mobile */
+  input[type=radio]:checked ~ .cat_text {
+    overflow-x: auto;
   }
 
   td {
@@ -1233,56 +1304,6 @@ hr.z {
     font-size: var(--font-size-md);
   }
 
-  .cta-contact, .cta-link, .cta-link-line {
-    text-align: center;
-    margin: 0 auto;
-  }
-
-  .cta-link-line {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin: 0 auto;
-  }
-
-  .cta-contact {
-    width: 100%;
-    max-width: 100%;
-    padding: var(--padding-lg) var(--padding-xl);
-    box-sizing: border-box;
-    margin: 0 auto;
-  }
-
-  .cta-hint {
-    text-align: center;
-  }
-
-  .contact-form {
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  .contact-form-section {
-    text-align: center;
-  }
-
-  .form-submit {
-    width: 100%;
-    text-align: center;
-    min-height: 44px;
-  }
-
-  .form-success {
-    margin: 0 auto;
-  }
-
-  .cta-link-line {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
 
 /* Desktop Logo - Ab 830px sichtbar */
@@ -1364,6 +1385,7 @@ hr.z {
 /* Sehr schmale Bildschirme (<550px): Footer-Adresse wird drei-zeilig, CTA/Form zentrieren */
 @media (max-width: 550px) {
   .contact-form {
+    max-width: 100%;
     margin: 0 auto;
   }
 
@@ -1371,14 +1393,31 @@ hr.z {
     text-align: center;
   }
 
+  .form-submit {
+    width: 100%;
+    text-align: center;
+    min-height: 44px;
+  }
+
   .form-success {
     margin: 0 auto;
   }
 
-  .cta-link-line, .cta-contact {
-    margin: 0 auto;
-    display: block;
+  .cta-contact, .cta-link, .cta-link-line {
     text-align: center;
+    margin: 0 auto;
+  }
+
+  .cta-link-line {
+    display: block;
+    white-space: normal;
+  }
+
+  .cta-contact {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--padding-lg) var(--padding-xl);
+    box-sizing: border-box;
   }
 
   .cta-hint {
@@ -1456,10 +1495,11 @@ hr.z {
   }
 
   .lb_footer {
-    bottom: 0.5em !important;
-    right: 0.5em !important;
+    bottom: 0 !important;
+    right: 0 !important;
     left: auto !important;
     top: auto !important;
+    padding: 0.8em 0.5em 0.5em !important;
   }
 }
 
