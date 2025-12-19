@@ -365,10 +365,10 @@ button:disabled{opacity:.4;cursor:not-allowed}
   const editorIds=['profil','leistungen','projekte','kontakt','vita','impressum','datenschutz'];
   
   const sections={
-    profil:{id:'content1',preserve:['.cv-header','blockquote']},
-    leistungen:{id:'content3',preserve:[]},
-    projekte:{id:'content4',preserve:[]},
-    kontakt:{id:'content5',preserve:['.contact-form-section']},
+    profil:{id:'profil',preserve:['.cv-header','blockquote']},
+    leistungen:{id:'leistungen',preserve:[]},
+    projekte:{id:'projekte',preserve:[]},
+    kontakt:{id:'kontakt',preserve:['.contact-form-section']},
     vita:{id:'vita-content',preserve:['h2']}
   };
 
@@ -792,7 +792,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
     Object.keys(sections).forEach(key=>{
       if(!editors[key])return;
       const sec=sections[key];
-      const regex=new RegExp(`(<div[^>]*id="${sec.id}"[^>]*>)([\\s\\S]*?)(<hr class="z">\\s*</div>)`,'i');
+      const regex=new RegExp(`(<section[^>]*id="${sec.id}"[^>]*>)([\\s\\S]*?)(<hr class="z">\\s*</section>)`,'i');
       const match=html.match(regex);
       if(match){
         const tempDoc=new DOMParser().parseFromString(html,'text/html');
@@ -807,7 +807,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
             }
           });
         }
-        html=html.replace(regex,`$1${pre}${editors[key].getValue()}${post}<hr class="z"></div>`);
+        html=html.replace(regex,`$1${pre}${editors[key].getValue()}${post}<hr class="z"></section>`);
       }
     });
 
