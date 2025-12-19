@@ -810,12 +810,14 @@ hr.z {
   margin: 0 0 var(--spacing-xs);
   font-size: var(--font-size-xl);
   letter-spacing: var(--letter-spacing-lg);
-  white-space: nowrap;
+  white-space: normal;
   word-break: keep-all;
 }
 
-/* "Benjamin" immer zusammenhalten - verhindert Trennung */
-.cv-name-first {
+/* Alle Namensteile zusammenhalten - verhindert Trennung */
+.cv-name-first,
+.cv-name-last,
+.cv-name-title {
   white-space: nowrap;
   display: inline-block;
 }
