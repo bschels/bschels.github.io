@@ -651,8 +651,25 @@ address {
   text-align: center;
 }
 
+/* Alle Footer-Textteile unteilbar - bekommen bei Platzmangel neue Zeile */
+.footer-name {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.footer-title {
+  white-space: nowrap;
+  display: inline-block;
+}
+
 .footer-street {
   white-space: nowrap;
+  display: inline-block;
+}
+
+.footer-plz-ort {
+  white-space: nowrap;
+  display: inline-block;
 }
 
 /* Desktop: Standard-Layout mit Bindestrich - wenn genug Platz vorhanden */
@@ -669,17 +686,6 @@ address {
   .footer-info-left .footer-name-title::after {
     content: " - ";
     white-space: pre;
-  }
-
-  .footer-info-left .footer-postal {
-    white-space: nowrap !important;
-    display: inline-block !important;
-  }
-
-  .footer-info-left .footer-plz,
-  .footer-info-left .footer-ort {
-    white-space: nowrap !important;
-    display: inline !important;
   }
 }
 
