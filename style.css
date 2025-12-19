@@ -529,6 +529,7 @@ label.cat[for^=tog]:hover {
 
 .cat_text > hr.z, .contact-info, address.contact-info {
   margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
 }
 
 address {
@@ -840,7 +841,7 @@ hr.z {
 
 /* ===== CONTACT FORM ===== */
 .contact-form-section {
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-xl);
   padding-top: 0;
 }
