@@ -840,9 +840,9 @@ hr.z {
 
 /* ===== CONTACT FORM ===== */
 .contact-form-section {
-  margin-top: var(--spacing-2xl);
+  margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-xl);
-  padding-top: var(--spacing-xl);
+  padding-top: 0;
 }
 
 .contact-form-section h3 {
