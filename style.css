@@ -1060,19 +1060,20 @@ hr.z {
   }
 
   .footer-bottom-container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
     max-width: 500px;
     margin: 0 auto;
   }
 
   .footer-info-left {
     margin-bottom: .5em;
-    margin-right: 0;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
     font-size: var(--font-size-sm);
-    text-align: center;
+    text-align: center !important;
     width: 100%;
     max-width: 100%;
     display: flex;
@@ -1084,13 +1085,14 @@ hr.z {
   }
 
   .footer-info-left, .footer-legal-links {
-    text-align: center;
+    text-align: center !important;
     width: 100%;
   }
 
   .footer-legal-links {
-    text-align: center;
-    margin-left: 0;
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   .footer-legal-links > div {
