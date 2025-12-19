@@ -615,6 +615,7 @@ address {
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
+  box-sizing: border-box;
 }
 
 .white_content::-webkit-scrollbar {
@@ -658,52 +659,30 @@ address {
   align-items: center;
 }
 
-/* Adresse immer in drei Zeilen: Name, Straße, PLZ/Ort */
+/* Adresse normal in einer Zeile */
 .footer-info-left .footer-name-title {
-  display: block;
-  margin-bottom: 0.2em;
-}
-
-.footer-info-left .footer-name-title::after {
-  content: "";
+  display: inline;
 }
 
 .footer-info-left .footer-address-line {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
+  display: inline;
 }
 
 .footer-info-left .footer-street {
-  display: block;
-  white-space: nowrap;
-  margin-bottom: 0.2em;
-}
-
-.footer-info-left .footer-street::after {
-  content: "";
+  display: inline;
 }
 
 .footer-info-left .footer-comma {
-  display: none;
+  display: inline;
 }
 
 .footer-info-left .footer-postal {
-  display: block;
-  white-space: nowrap !important;
-  text-align: center;
+  display: inline;
 }
 
 .footer-info-left .footer-plz,
 .footer-info-left .footer-ort {
-  white-space: nowrap !important;
-  display: inline !important;
-}
-
-.footer-info-left .footer-plz::after {
-  content: " ";
-  white-space: pre;
+  display: inline;
 }
 
 .footer-legal-links {
@@ -822,10 +801,15 @@ hr.z {
   margin: 0 0 var(--spacing-xs);
   font-size: var(--font-size-xl);
   letter-spacing: var(--letter-spacing-lg);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
   white-space: normal;
 }
+
+/* "Benjamin" immer zusammenhalten */
+.cv-name-first {
+  white-space: nowrap;
+}
+
+/* CV Header: Bei Platzmangel unter Bild verschieben - wird in Haupt-Media-Query abgedeckt */
 
 .cv-subtitle {
   margin: 0;
@@ -1066,6 +1050,7 @@ hr.z {
     justify-content: space-between;
     margin-bottom: .4em;
     gap: 1em;
+    flex-wrap: wrap;
   }
 
   .title-wrapper {
@@ -1097,14 +1082,8 @@ hr.z {
   }
 
   .footer-bottom-container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    box-sizing: border-box;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   .footer-info-left {
@@ -1120,63 +1099,6 @@ hr.z {
     box-sizing: border-box;
     padding-left: 0.5em;
     padding-right: 0.5em;
-  }
-
-  .footer-info-left .footer-address-line,
-  .footer-info-left .footer-name-title {
-    display: block;
-    text-align: center;
-  }
-
-  .footer-info-left .footer-name-title::after {
-    content: "";
-  }
-
-  .footer-info-left .footer-name-title {
-    margin-bottom: .2em;
-    display: block;
-  }
-
-  .footer-info-left .footer-address-line {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-
-  .footer-info-left .footer-street {
-    white-space: nowrap;
-    display: block;
-  }
-
-  .footer-info-left .footer-street::after {
-    content: "";
-  }
-
-  .footer-info-left .footer-comma {
-    display: none;
-  }
-
-  .footer-info-left .footer-postal {
-    display: inline-block !important;
-    margin-top: 0.2em;
-    white-space: nowrap !important;
-    text-align: center;
-    max-width: none !important;
-    overflow: visible !important;
-    overflow-wrap: normal !important;
-    word-break: normal !important;
-  }
-
-  .footer-info-left .footer-plz,
-  .footer-info-left .footer-ort {
-    white-space: nowrap !important;
-    display: inline !important;
-  }
-
-  .footer-info-left .footer-plz::after {
-    content: " ";
-    white-space: pre;
   }
 
   .footer-info-left, .footer-legal-links {
@@ -1212,26 +1134,6 @@ hr.z {
   .cat_text .arrow-nohover {
     padding: var(--padding-sm) 0;
     font-size: 1.05em;
-  }
-
-  .cv-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--spacing-lg);
-  }
-
-  .cv-portrait {
-    width: 150px;
-    height: auto;
-    flex-shrink: 0;
-    margin: 0 auto;
-    display: block;
-  }
-
-  .cv-name {
-    width: 100%;
-    text-align: center;
   }
 
   .cv-name h2 {
@@ -1322,8 +1224,8 @@ hr.z {
   }
 }
 
-/* Mobile: Zentriert, Block-Layout, keine Bindestriche/Kommas - NUR wenn Text wirklich keinen Platz mehr hat */
-@media (max-width: 700px) {
+/* Sehr schmale Bildschirme (<550px): Footer-Adresse wird drei-zeilig, CTA/Form zentrieren */
+@media (max-width: 550px) {
   .contact-form {
     margin: 0 auto;
   }
@@ -1338,51 +1240,72 @@ hr.z {
 
   .cta-link-line, .cta-contact {
     margin: 0 auto;
+    display: block;
+    text-align: center;
   }
 
   .cta-hint {
     text-align: center;
   }
 
-  .footer-bottom-container {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
+  /* Footer-Adresse: Automatischer Umbruch bei sehr schmalen Bildschirmen */
   .footer-info-left {
-    margin-bottom: .5em;
-    margin-right: 0;
-    font-size: var(--font-size-sm);
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    display: flex;
+    word-break: break-word;
+  }
+
+  .footer-info-left .footer-address-line {
+    display: block;
+  }
+
+  .footer-info-left .footer-street {
+    display: block;
+  }
+
+  .footer-info-left .footer-comma {
+    display: none;
+  }
+
+  .footer-info-left .footer-postal {
+    display: block;
+    margin-top: 0.2em;
+  }
+}
+
+/* Sehr schmale Bildschirme (<400px): Header und weitere Optimierungen */
+@media (max-width: 400px) {
+  .header-row {
     flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    align-items: flex-start;
+    gap: 0.5em;
   }
 
-  .footer-info-left, .footer-legal-links {
-    text-align: center;
-    width: 100%;
+  .title-text {
+    font-size: 1.1em;
+    line-height: 1.2;
   }
 
-  .footer-legal-links {
-    text-align: center;
-    width: 100%;
+  .slogan {
+    font-size: 0.85em;
+    text-align: left;
+    align-self: flex-start;
   }
 
-  .footer-legal-links > div {
-    display: inline-block;
-    margin: 0 0.5em;
-    vertical-align: middle;
+  .cv-portrait {
+    width: 120px;
   }
 
-  .footer-legal-links a {
-    font-size: var(--font-size-sm);
-    padding: .2em .4em;
+  .white_content {
+    top: 5%;
+    left: 1%;
+    right: 1%;
+    height: 90%;
+    padding: var(--padding-md);
+  }
+
+  .lb_footer {
+    top: 92%;
+    left: 1%;
+    right: 1%;
   }
 }
 
