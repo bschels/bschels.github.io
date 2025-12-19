@@ -6,6 +6,7 @@
 
 /* ===== CSS VARIABLES ===== */
 :root {
+  /* Colors */
   --primary: #000;
   --bg: #fff;
   --body: #000;
@@ -14,6 +15,73 @@
   --hover-bg: #000;
   --hover-text: #fff;
   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  
+  /* Spacing System */
+  --spacing-xs: 0.3rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  
+  /* Padding System */
+  --padding-xs: 0.2em;
+  --padding-sm: 0.4em;
+  --padding-md: 0.5em;
+  --padding-lg: 0.8em;
+  --padding-xl: 1em;
+  --padding-section: 8%;
+  --padding-section-mobile: 0;
+  
+  /* Margin System */
+  --margin-xs: 0.3rem;
+  --margin-sm: 0.5rem;
+  --margin-md: 1rem;
+  --margin-lg: 1.5rem;
+  --margin-xl: 2rem;
+  --margin-2xl: 2.5rem;
+  
+  /* Breakpoints */
+  --breakpoint-mobile: 810px;
+  --breakpoint-tablet: 830px;
+  --breakpoint-desktop: 1100px;
+  
+  /* Typography - Font Sizes */
+  --font-size-xs: 0.75em;
+  --font-size-sm: 0.85em;
+  --font-size-base: 0.9em;
+  --font-size-md: 1em;
+  --font-size-lg: 1.1em;
+  --font-size-xl: 1.2em;
+  --font-size-2xl: 1.3em;
+  --font-size-3xl: 1.4em;
+  
+  /* Typography - Letter Spacing */
+  --letter-spacing-xs: 0.05em;
+  --letter-spacing-sm: 0.08em;
+  --letter-spacing-md: 0.1em;
+  --letter-spacing-lg: 0.12em;
+  --letter-spacing-xl: 0.15em;
+  --letter-spacing-2xl: 0.18em;
+  --letter-spacing-3xl: 0.2em;
+  
+  /* Typography - Line Height */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.2;
+  --line-height-relaxed: 1.5;
+  --line-height-loose: 1.6;
+  
+  /* Z-Index Scale */
+  --z-index-base: 1;
+  --z-index-dropdown: 10;
+  --z-index-sticky: 50;
+  --z-index-overlay: 100;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
 /* ===== SKIP LINK ===== */
@@ -23,9 +91,9 @@
   left: 0;
   background: var(--primary);
   color: var(--bg);
-  padding: 8px;
+  padding: var(--padding-sm);
   text-decoration: none;
-  z-index: 100;
+  z-index: var(--z-index-overlay);
 }
 
 .skip-link:focus {
@@ -52,17 +120,17 @@ body {
 
 footer, header, main {
   background-color: var(--bg);
-  padding-left: 8%;
-  padding-right: 8%;
+  padding-left: var(--padding-section);
+  padding-right: var(--padding-section);
 }
 
 header, main {
   padding-bottom: 0;
-  padding-top: 1em;
+  padding-top: var(--padding-xl);
 }
 
 footer {
-  padding-bottom: 2%;
+  padding-bottom: var(--spacing-xl);
 }
 
 main {
@@ -92,9 +160,9 @@ main {
   display: inline-block;
   text-align: left;
   font-weight: 200;
-  font-size: 1.4em;
-  letter-spacing: .2em;
-  line-height: 1.2;
+  font-size: var(--font-size-3xl);
+  letter-spacing: var(--letter-spacing-3xl);
+  line-height: var(--line-height-normal);
 }
 
 .title-link {
@@ -107,9 +175,9 @@ main {
 /* ===== CATEGORY ACCORDION ===== */
 .cat {
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
   margin: 0;
-  letter-spacing: .2em;
+  letter-spacing: var(--letter-spacing-3xl);
 }
 
 [id^=tog] {
@@ -257,9 +325,9 @@ b, h3, h4, p, strong {
 
 p {
   font-weight: 200;
-  font-size: 1em;
-  line-height: 1.6;
-  margin: 1rem 0;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-loose);
+  margin: var(--margin-md) 0;
   text-align: left;
 }
 
@@ -271,12 +339,12 @@ p.content {
 b, strong {
   font-weight: 200 !important;
   text-transform: uppercase !important;
-  letter-spacing: .1em;
+  letter-spacing: var(--letter-spacing-md);
 }
 
 strong.brand-name, .brand-name {
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: var(--letter-spacing-sm);
   font-weight: inherit;
 }
 
@@ -300,8 +368,8 @@ em, i, li, ol, ul {
 
 ol, ul {
   text-align: left;
-  margin: 1rem 0;
-  padding-left: 2rem;
+  margin: var(--margin-md) 0;
+  padding-left: var(--spacing-xl);
 }
 
 ol {
@@ -309,8 +377,8 @@ ol {
 }
 
 li {
-  line-height: 1.6;
-  margin: .5em 0;
+  line-height: var(--line-height-loose);
+  margin: var(--spacing-sm) 0;
 }
 
 /* ===== BLOCKQUOTE ===== */
@@ -324,8 +392,8 @@ blockquote, em, i, li, ol, ul {
 }
 
 blockquote {
-  margin: 2rem 0;
-  padding: 0 0 0 1rem;
+  margin: var(--spacing-xl) 0;
+  padding: 0 0 0 var(--margin-md);
   border-left: 1px solid var(--secondary);
 }
 
@@ -374,7 +442,7 @@ table, td {
 table {
   border-collapse: collapse;
   width: 100%;
-  margin-top: 1.5em;
+  margin-top: var(--spacing-lg);
 }
 
 td {
@@ -639,9 +707,9 @@ hr.z {
 .cv-header {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
 }
 
 .cv-portrait {
@@ -664,58 +732,58 @@ hr.z {
 }
 
 .cv-role {
-  margin: 0 0 .3rem;
-  letter-spacing: .2em;
+  margin: 0 0 var(--spacing-xs);
+  letter-spacing: var(--letter-spacing-3xl);
   color: var(--body);
   opacity: .7;
 }
 
 .cv-name h2 {
-  margin: 0 0 .3rem;
-  font-size: 1.2em;
-  letter-spacing: .12em;
+  margin: 0 0 var(--spacing-xs);
+  font-size: var(--font-size-xl);
+  letter-spacing: var(--letter-spacing-lg);
 }
 
 .cv-subtitle {
   margin: 0;
-  font-size: 1.1em;
+  font-size: var(--font-size-lg);
   font-weight: 200;
-  letter-spacing: .15em;
+  letter-spacing: var(--letter-spacing-xl);
   color: var(--body);
 }
 
 .cv-vita {
-  margin: .5rem 0 0;
-  font-size: .9em;
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-base);
 }
 
 .vita-link {
   font-weight: 200;
-  letter-spacing: .1em;
+  letter-spacing: var(--letter-spacing-md);
   text-transform: uppercase;
-  font-size: .85em;
+  font-size: var(--font-size-sm);
 }
 
 /* ===== CTA BUTTON ===== */
 .cta-hint {
-  margin: 2rem 0 .5rem;
-  font-size: .75em;
+  margin: var(--spacing-xl) 0 var(--spacing-sm);
+  font-size: var(--font-size-xs);
   font-weight: 200;
-  letter-spacing: .12em;
+  letter-spacing: var(--letter-spacing-lg);
   text-transform: uppercase;
   color: var(--secondary);
 }
 
 .cta-link-line {
   display: inline-block;
-  font-size: .9em;
+  font-size: var(--font-size-base);
   font-weight: 200;
-  letter-spacing: .1em;
+  letter-spacing: var(--letter-spacing-md);
   text-decoration: none !important;
   color: var(--body);
-  padding: .5em .9em;
+  padding: var(--spacing-sm) var(--padding-lg);
   border: 1px solid var(--body);
-  transition: all .2s ease;
+  transition: all var(--transition-fast);
 }
 
 .cta-link-line:hover {
@@ -725,7 +793,7 @@ hr.z {
 
 /* ===== CONTACT FORM ===== */
 .contact-form-section {
-  margin-top: 2.5rem;
+  margin-top: var(--spacing-2xl);
   padding-top: 2rem;
   border-top: 1px solid rgba(0, 0, 0, .1);
 }
@@ -865,7 +933,7 @@ hr.z {
 /* ===== MEDIA QUERIES ===== */
 
 /* Mobile (max 810px) */
-@media (max-width: 810px) {
+@media (max-width: var(--breakpoint-mobile)) {
   body {
     width: 90%;
     padding-left: 2%;
@@ -876,8 +944,8 @@ hr.z {
   }
 
   footer, header, main {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: var(--padding-section-mobile);
+    padding-right: var(--padding-section-mobile);
   }
 
   .header-row {
@@ -1022,7 +1090,7 @@ hr.z {
 }
 
 /* Desktop Logo */
-@media (min-width: 830px) {
+@media (min-width: var(--breakpoint-tablet)) {
   .logo-ru {
     display: block;
     position: fixed;
@@ -1050,7 +1118,7 @@ hr.z {
 }
 
 /* Medium screens */
-@media (max-width: 1100px) and (min-width: 811px) {
+@media (max-width: var(--breakpoint-desktop)) and (min-width: 811px) {
   .footer-bottom-container {
     justify-content: center;
     align-items: center;

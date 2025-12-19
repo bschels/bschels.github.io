@@ -7,7 +7,7 @@
  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
- <title>Architekt Wolnzach | architekturbüro schels – Bauen im Bestand</title>
+ <title>Architekt Wolnzach | architekturbüro schels</title>
  <meta name="keywords" content="Architekt Wolnzach, Architekt Hallertau, Bauen im Bestand, Denkmalpflege Bayern, HOAI Architekt, Architekt München, Umbau Sanierung, Architekt Ingolstadt, Architekt Freising, Architekt Pfaffenhofen, denkmalgeschützte Gebäude, Sanierung Altbau, Architekturbüro Wolnzach, Architekturplanung, Bauleitung, Genehmigungsplanung">
  <meta name="description" content="Architekt in Wolnzach – Spezialist für Bauen im Bestand und Denkmalpflege. Neubau, Umbau & Sanierung. HOAI-Leistungsphasen in Bayern.">
  <meta name="author" content="Benjamin Schels, Architekt M.A.">
@@ -63,6 +63,20 @@
  <link rel="prefetch" href="/pages/impressum.html" as="document">
  <link rel="prefetch" href="/pages/datenschutz.html" as="document">
  <script src="/js/main.js" defer></script>
+ <script>
+   // Service Worker Registration
+   if ('serviceWorker' in navigator) {
+     window.addEventListener('load', () => {
+       navigator.serviceWorker.register('/sw.js')
+         .then((registration) => {
+           console.log('SW registered:', registration);
+         })
+         .catch((error) => {
+           console.log('SW registration failed:', error);
+         });
+     });
+   }
+ </script>
 </head>
 <body>
  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
