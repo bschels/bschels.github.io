@@ -988,6 +988,11 @@ hr.z {
   footer, header, main {
     padding-left: var(--padding-section-mobile);
     padding-right: var(--padding-section-mobile);
+    box-sizing: border-box;
+  }
+
+  footer {
+    overflow-x: hidden;
   }
 
   .header-row {
@@ -1032,6 +1037,9 @@ hr.z {
     justify-content: center;
     text-align: center;
     width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
   }
 
   .footer-info-left {
@@ -1040,9 +1048,13 @@ hr.z {
     font-size: var(--font-size-sm);
     text-align: center;
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
 
   .footer-info-left .footer-address-line,
@@ -1085,6 +1097,9 @@ hr.z {
     margin-top: 0.2em;
     white-space: nowrap;
     text-align: center;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: keep-all;
   }
 
   .footer-info-left .footer-plz,
