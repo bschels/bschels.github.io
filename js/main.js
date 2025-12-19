@@ -120,6 +120,17 @@
       });
     });
 
+    // Initial: HR in Labels verstecken wenn Bereich bereits ausgeklappt ist
+    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
+      if (input.checked) {
+        const label = document.querySelector(`label[for="${input.id}"]`);
+        if (label) {
+          const hrInLabel = label.querySelector('hr.z');
+          if (hrInLabel) hrInLabel.style.display = 'none';
+        }
+      }
+    });
+
     updateAccordionAria();
 
     document.addEventListener("click", function (event) {
