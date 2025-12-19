@@ -995,6 +995,10 @@ hr.z {
     overflow-x: hidden;
   }
 
+  footer {
+    overflow-x: hidden;
+  }
+
   .header-row {
     flex-direction: row;
     align-items: flex-end;
