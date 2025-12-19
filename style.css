@@ -1199,8 +1199,8 @@ hr.z {
   }
 }
 
-/* Medium screens and smaller desktop */
-@media (max-width: 1400px) {
+/* Medium screens - nur bei kleineren Bildschirmen */
+@media (max-width: 1100px) {
   .footer-bottom-container {
     justify-content: center;
     align-items: center;
