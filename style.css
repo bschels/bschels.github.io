@@ -188,6 +188,7 @@ main {
   max-height: 0;
   overflow: hidden;
   transition: max-height .5s;
+  margin-bottom: 0;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
@@ -701,6 +702,7 @@ hr.z {
   border: 0;
   background: var(--body);
   margin: 0;
+  padding: 0;
 }
 
 /* ===== CV HEADER ===== */
