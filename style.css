@@ -1084,6 +1084,13 @@ hr.z {
     display: block;
     margin-top: 0.2em;
     white-space: nowrap;
+    text-align: center;
+  }
+
+  .footer-info-left .footer-plz,
+  .footer-info-left .footer-ort {
+    white-space: nowrap;
+    display: inline;
   }
 
   .footer-info-left, .footer-legal-links {
