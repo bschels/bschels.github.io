@@ -685,12 +685,21 @@ address {
 
 /* Desktop: Alles in einer Zeile - Kommas und Trennstriche anzeigen */
 @media (min-width: 701px) {
+  .footer-bottom-container {
+    justify-content: space-between !important;
+    flex-direction: row !important;
+  }
+
   .footer-info-left {
-    text-align: left;
+    text-align: left !important;
+    margin-right: auto !important;
+    width: auto !important;
   }
 
   .footer-legal-links {
-    text-align: right;
+    text-align: right !important;
+    margin-left: auto !important;
+    width: auto !important;
   }
 
   /* Wenn alles nebeneinander passt: Kommas anzeigen */
