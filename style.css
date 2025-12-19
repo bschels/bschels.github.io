@@ -656,6 +656,10 @@ address {
   white-space: pre;
 }
 
+.footer-street {
+  white-space: nowrap;
+}
+
 .footer-info-left {
   max-width: 100%;
 }
@@ -1049,15 +1053,33 @@ hr.z {
 
   .footer-info-left .footer-name-title {
     margin-bottom: .2em;
+    display: block;
+  }
+
+  .footer-info-left .footer-address-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-info-left .footer-street {
+    white-space: nowrap;
+    display: block;
   }
 
   .footer-info-left .footer-street::after {
     content: "";
   }
 
+  .footer-info-left .footer-comma {
+    display: none;
+  }
+
   .footer-info-left .footer-postal {
     display: block;
     margin-top: 0.2em;
+    white-space: nowrap;
   }
 
   .footer-info-left, .footer-legal-links {
@@ -1200,6 +1222,33 @@ hr.z {
 
   .footer-info-left .footer-name-title::after {
     content: "";
+  }
+
+  .footer-info-left .footer-name-title {
+    display: block;
+    margin-bottom: .2em;
+  }
+
+  .footer-info-left .footer-address-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-info-left .footer-street {
+    white-space: nowrap;
+    display: block;
+  }
+
+  .footer-info-left .footer-comma {
+    display: none;
+  }
+
+  .footer-info-left .footer-postal {
+    display: block;
+    margin-top: 0.2em;
+    white-space: nowrap;
   }
 
   .footer-legal-links {
