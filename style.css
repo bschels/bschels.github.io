@@ -1027,6 +1027,8 @@ hr.z {
     width: 150px;
     height: auto;
     flex-shrink: 0;
+    margin: 0 auto;
+    display: block;
   }
 
   .cv-name {
