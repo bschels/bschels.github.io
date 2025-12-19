@@ -362,6 +362,7 @@ strong.brand-name, .brand-name {
 
 em, i {
   font-style: italic;
+  text-transform: none !important;
 }
 
 .smallcaps {
