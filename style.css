@@ -651,8 +651,8 @@ address {
   white-space: nowrap;
 }
 
-/* Desktop: Standard-Layout mit Bindestrich - NUR bei sehr breiten Bildschirmen */
-@media (min-width: 1101px) {
+/* Desktop: Standard-Layout mit Bindestrich - wenn genug Platz vorhanden */
+@media (min-width: 701px) {
   .footer-info-left .footer-address-line,
   .footer-info-left .footer-name-title {
     display: inline;
@@ -1226,8 +1226,8 @@ hr.z {
   }
 }
 
-/* Mobile und Medium: Zentriert, Block-Layout, keine Bindestriche/Kommas - erst wenn Text keinen Platz mehr hat */
-@media (max-width: 900px) {
+/* Mobile: Zentriert, Block-Layout, keine Bindestriche/Kommas - NUR wenn Text wirklich keinen Platz mehr hat */
+@media (max-width: 700px) {
   .footer-bottom-container {
     flex-direction: column;
     align-items: center;
