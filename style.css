@@ -656,6 +656,14 @@ address {
   white-space: pre;
 }
 
+.footer-info-left {
+  max-width: 100%;
+}
+
+.footer-address-line {
+  white-space: normal;
+}
+
 .footer-legal-links {
   text-align: right;
   flex-shrink: 0;
