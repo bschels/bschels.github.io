@@ -152,7 +152,7 @@ main {
 .header-row {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
   width: 100%;
   padding-bottom: 0;
@@ -173,8 +173,8 @@ main {
   letter-spacing: var(--letter-spacing-md);
   text-align: right;
   margin: 0;
-  align-self: flex-start;
-  padding-top: 0.2em;
+  align-self: flex-end;
+  padding-bottom: 0.1em;
 }
 
 .title-wrapper {
@@ -974,7 +974,7 @@ hr.z {
 
   .header-row {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: space-between;
     margin-bottom: .4em;
     gap: 1em;
@@ -987,7 +987,7 @@ hr.z {
 
   .slogan {
     font-size: 0.9em;
-    padding-top: 0.3em;
+    padding-bottom: 0.1em;
     text-align: right;
     flex-shrink: 0;
   }
