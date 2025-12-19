@@ -636,14 +636,10 @@ address {
 .footer-bottom-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  align-items: baseline;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
   gap: 1em;
-  max-width: 500px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 .footer-info-left {
@@ -653,36 +649,38 @@ address {
   flex-shrink: 0;
   max-width: 100%;
   text-align: center;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-/* Adresse normal in einer Zeile */
-.footer-info-left .footer-name-title {
-  display: inline;
+.footer-street {
+  white-space: nowrap;
 }
 
-.footer-info-left .footer-address-line {
-  display: inline;
-}
+/* Desktop: Standard-Layout mit Bindestrich - wenn genug Platz vorhanden */
+@media (min-width: 701px) {
+  .footer-info-left .footer-address-line,
+  .footer-info-left .footer-name-title {
+    display: inline;
+  }
 
-.footer-info-left .footer-street {
-  display: inline;
-}
+  .footer-address-line {
+    white-space: normal;
+  }
 
-.footer-info-left .footer-comma {
-  display: inline;
-}
+  .footer-info-left .footer-name-title::after {
+    content: " - ";
+    white-space: pre;
+  }
 
-.footer-info-left .footer-postal {
-  display: inline;
-}
+  .footer-info-left .footer-postal {
+    white-space: nowrap !important;
+    display: inline-block !important;
+  }
 
-.footer-info-left .footer-plz,
-.footer-info-left .footer-ort {
-  display: inline;
+  .footer-info-left .footer-plz,
+  .footer-info-left .footer-ort {
+    white-space: nowrap !important;
+    display: inline !important;
+  }
 }
 
 .footer-legal-links {
@@ -1069,35 +1067,6 @@ hr.z {
     display: none !important;
   }
 
-  .footer-bottom-container {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .footer-info-left {
-    margin-bottom: .5em;
-    margin-right: 0;
-    font-size: var(--font-size-sm);
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
-
-  .footer-info-left, .footer-legal-links {
-    text-align: center;
-    width: 100%;
-  }
-
-  .footer-legal-links {
-    text-align: center;
-    margin-left: 0;
-  }
 
   .footer-legal-links > div {
     display: inline-block;
