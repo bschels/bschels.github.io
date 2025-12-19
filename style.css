@@ -822,8 +822,6 @@ address {
 .footer-legal-links a span.white {
   background-color: transparent !important;
   color: inherit !important;
-  padding: 0;
-  display: inline;
 }
 
 /* ===== LOGO CORNER ===== */
@@ -851,7 +849,6 @@ hr.y {
 hr.z {
   height: 1px;
   background: var(--body);
-  padding: 0;
 }
 
 /* ===== CV HEADER ===== */
@@ -876,9 +873,6 @@ hr.z {
   justify-content: center;
   min-width: 0;
   flex: 1;
-  /* Flex-wrap sorgt dafür, dass bei Platzmangel alles unter das Bild geht */
-  /* Verhindert, dass Text abgeschnitten wird */
-  overflow: visible;
   word-wrap: break-word;
 }
 
