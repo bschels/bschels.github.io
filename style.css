@@ -762,6 +762,8 @@ hr.z {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
+  flex: 1;
 }
 
 .cv-role, .form-group label {
@@ -781,6 +783,9 @@ hr.z {
   margin: 0 0 var(--spacing-xs);
   font-size: var(--font-size-xl);
   letter-spacing: var(--letter-spacing-lg);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .cv-subtitle {
@@ -789,6 +794,9 @@ hr.z {
   font-weight: 200;
   letter-spacing: var(--letter-spacing-xl);
   color: var(--body);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .cv-vita {
