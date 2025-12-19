@@ -634,18 +634,20 @@ address {
 /* ===== FOOTER ===== */
 .footer-bottom-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: baseline;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
+  gap: 1em;
 }
 
 .footer-info-left {
   font-size: var(--font-size-sm);
   color: var(--body);
-  margin-right: 1em;
+  margin-right: 0;
   flex-shrink: 0;
   max-width: 100%;
+  text-align: center;
 }
 
 .footer-street {
@@ -670,7 +672,7 @@ address {
 }
 
 .footer-legal-links {
-  text-align: right;
+  text-align: center;
   flex-shrink: 0;
 }
 
