@@ -361,6 +361,15 @@ button:disabled{opacity:.4;cursor:not-allowed}
   const $$=s=>document.querySelectorAll(s);
   const hash=s=>s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString(16);
 
+  // Helper: GitHub API Authorization Header (Bearer statt deprecated token)
+  const getAuthHeader=token=>token?{Authorization:`Bearer ${token}`}:{};
+  
+  // Helper: Debounce function
+  const debounce=(fn,delay)=>{let timeout;return (...args)=>{clearTimeout(timeout);timeout=setTimeout(()=>fn(...args),delay);};};
+  
+  // Helper: Retry function
+  const retry=async(fn,retries=3,delay=1000)=>{for(let i=0;i<retries;i++){try{return await fn();}catch(e){if(i===retries-1)throw e;await new Promise(r=>setTimeout(r,delay*(i+1)));}}};
+
   let editors={}, hasChanges=false, currentPanel='profil', currentView='split', indexHtml='', cssEditor=null;
   const editorIds=['profil','leistungen','projekte','kontakt','vita','impressum','datenschutz'];
   
@@ -502,11 +511,14 @@ button:disabled{opacity:.4;cursor:not-allowed}
         mode:'css',theme:'dracula',lineNumbers:true,lineWrapping:true,
         indentUnit:2,tabSize:2
       });
+      // Debounced CSS preview update for better performance
+      const debouncedUpdate=debounce(()=>{
+        updateCssPreview();
+        extractCssVars();
+      },300);
       cssEditor.on('change',()=>{
         markChanged();
-        updateCssPreview();
-        // Update color pickers when CSS changes
-        setTimeout(extractCssVars, 300);
+        debouncedUpdate();
       });
     }
   }
@@ -670,8 +682,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
   async function loadContent(){
     showStatus('Lade...');
     try{
-      const res=await fetch('/index.html?t='+Date.now());
-      if(!res.ok)throw new Error('index.html nicht gefunden');
+      const res=await retry(()=>fetch('/index.html?t='+Date.now()),3,500);
+      if(!res.ok)throw new Error(`index.html nicht gefunden (${res.status})`);
       indexHtml=await res.text();
       const doc=new DOMParser().parseFromString(indexHtml,'text/html');
 
@@ -693,13 +705,13 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
       // Load subpages
       try{
-        const imp=await fetch('/pages/impressum.html?t='+Date.now());
+        const imp=await retry(()=>fetch('/pages/impressum.html?t='+Date.now()),2,500);
         if(imp.ok&&editors.impressum){editors.impressum.setValue(await imp.text());updatePreview('impressum');}
-      }catch(e){}
+      }catch(e){console.warn('Impressum konnte nicht geladen werden:',e);}
       try{
-        const ds=await fetch('/pages/datenschutz.html?t='+Date.now());
+        const ds=await retry(()=>fetch('/pages/datenschutz.html?t='+Date.now()),2,500);
         if(ds.ok&&editors.datenschutz){editors.datenschutz.setValue(await ds.text());updatePreview('datenschutz');}
-      }catch(e){}
+      }catch(e){console.warn('Datenschutz konnte nicht geladen werden:',e);}
 
       // SEO
       $('seo-title').value=doc.querySelector('title')?.textContent||'';
@@ -712,7 +724,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
       
       // Load CSS
       try{
-        const cssRes=await fetch('/style.css?t='+Date.now());
+        const cssRes=await retry(()=>fetch('/style.css?t='+Date.now()),2,500);
         if(cssRes.ok&&cssEditor){
           const cssText = await cssRes.text();
           cssEditor.setValue(cssText);
@@ -720,7 +732,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
           extractCssVars();
           updateCssPreview();
         }
-      }catch(e){}
+      }catch(e){console.warn('CSS konnte nicht geladen werden:',e);}
 
       hasChanges=false;
       showStatus('Geladen ✓','success');
@@ -770,9 +782,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const repo=localStorage.getItem('gh_repo');
     const branch=localStorage.getItem('gh_branch')||'main';
 
-    const ghRes=await fetch(`https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,{
-      headers:{Authorization:`token ${token}`}
-    });
+    const ghRes=await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,{
+      headers:getAuthHeader(token)
+    }));
     if(!ghRes.ok)throw new Error('index.html nicht gefunden');
     const ghData=await ghRes.json();
     let html=decodeURIComponent(escape(atob(ghData.content)));
@@ -821,9 +833,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
     if(!sha){
       try{
-        const r=await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,{
-          headers:{Authorization:`token ${token}`}
-        });
+        const r=await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,{
+          headers:getAuthHeader(token)
+        }));
         if(r.ok)sha=(await r.json()).sha;
       }catch(e){}
     }
@@ -831,11 +843,11 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const body={message:`Admin: ${path}`,content:btoa(unescape(encodeURIComponent(content))),branch};
     if(sha)body.sha=sha;
 
-    const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+    const res=await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
       method:'PUT',
-      headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
+      headers:{...getAuthHeader(token),'Content-Type':'application/json'},
       body:JSON.stringify(body)
-    });
+    }));
     if(!res.ok){
       const err=await res.json();
       throw new Error(err.message||'GitHub Fehler');
@@ -844,15 +856,22 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
   async function testGitHub(){
     const token=$('github-token').value,repo=$('github-repo').value;
+    $('github-status').innerHTML='<span style="color:#999">Teste...</span>';
     try{
-      const r=await fetch(`https://api.github.com/repos/${repo}`,{headers:{Authorization:`token ${token}`}});
+      const r=await retry(()=>fetch(`https://api.github.com/repos/${repo}`,{headers:getAuthHeader(token)}),2,500);
       if(r.ok){
-        $('github-status').innerHTML='<span class="success">✓</span>';
+        const data=await r.json();
+        $('github-status').innerHTML='<span class="success">✓ Verbunden</span>';
         localStorage.setItem('gh_token',token);
         localStorage.setItem('gh_repo',repo);
         localStorage.setItem('gh_branch',$('github-branch').value);
-      }else $('github-status').innerHTML='<span class="error">Fehler</span>';
-    }catch(e){$('github-status').innerHTML='<span class="error">Fehler</span>';}
+      }else{
+        const err=await r.json().catch(()=>({message:'Unbekannter Fehler'}));
+        $('github-status').innerHTML=`<span class="error">${err.message||'Fehler'}</span>`;
+      }
+    }catch(e){
+      $('github-status').innerHTML=`<span class="error">${e.message||'Verbindungsfehler'}</span>`;
+    }
   }
 
   function changePw(){
@@ -904,9 +923,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const today=new Date().toISOString().split('T')[0];
     
     try{
-      const r=await fetch(`https://api.github.com/repos/${repo}/contents/sitemap.xml?ref=${branch}`,{
-        headers:{Authorization:`token ${token}`}
-      });
+      const r=await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/sitemap.xml?ref=${branch}`,{
+        headers:getAuthHeader(token)
+      }),2,500);
       if(!r.ok)return;
       const data=await r.json();
       let xml=atob(data.content);
@@ -926,9 +945,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
     try{
       const files=['index.html','style.css'];
       for(const file of files){
-        const r=await fetch(`https://api.github.com/repos/${repo}/contents/${file}?ref=${branch}`,{
-          headers:{Authorization:`token ${token}`}
-        });
+        const r=await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/${file}?ref=${branch}`,{
+          headers:getAuthHeader(token)
+        }),2,500);
         if(r.ok){
           const data=await r.json();
           originalContent[file]=atob(data.content);
@@ -948,9 +967,9 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const branch=localStorage.getItem('gh_branch')||'main';
     
     try{
-      const r=await fetch(`https://api.github.com/repos/${repo}/contents/images?ref=${branch}`,{
-        headers:{Authorization:`token ${token}`}
-      });
+      const r=await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/images?ref=${branch}`,{
+        headers:getAuthHeader(token)
+      }),2,500);
       if(!r.ok)throw new Error('Fehler');
       const files=await r.json();
       const images=files.filter(f=>f.name.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i));
@@ -980,11 +999,11 @@ button:disabled{opacity:.4;cursor:not-allowed}
     const branch=localStorage.getItem('gh_branch')||'main';
     
     try{
-      await fetch(`https://api.github.com/repos/${repo}/contents/images/${name}`,{
+      await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/images/${name}`,{
         method:'DELETE',
-        headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
+        headers:{...getAuthHeader(token),'Content-Type':'application/json'},
         body:JSON.stringify({message:`Delete ${name}`,sha,branch})
-      });
+      }),2,500);
       showStatus('Gelöscht ✓','success');
       loadImages();
     }catch(e){showStatus('Fehler','error');}
@@ -1006,11 +1025,11 @@ button:disabled{opacity:.4;cursor:not-allowed}
     reader.onload=async function(){
       const base64=reader.result.split(',')[1];
       try{
-        await fetch(`https://api.github.com/repos/${repo}/contents/images/${file.name}`,{
+        await retry(()=>fetch(`https://api.github.com/repos/${repo}/contents/images/${file.name}`,{
           method:'PUT',
-          headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},
+          headers:{...getAuthHeader(token),'Content-Type':'application/json'},
           body:JSON.stringify({message:`Upload ${file.name}`,content:base64,branch})
-        });
+        }),2,500);
         status.innerHTML='<span class="success">✓ Hochgeladen</span>';
         input.value='';
         loadImages();
