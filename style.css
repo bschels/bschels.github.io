@@ -635,7 +635,7 @@ address {
 /* ===== FOOTER ===== */
 .footer-bottom-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: baseline;
   padding: var(--padding-xl) 0;
   flex-wrap: wrap;
@@ -645,10 +645,15 @@ address {
 .footer-info-left {
   font-size: var(--font-size-sm);
   color: var(--body);
-  margin-right: 0;
+  margin-right: auto;
   flex-shrink: 0;
-  max-width: 100%;
-  text-align: center;
+  text-align: left;
+}
+
+.footer-legal-links {
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* Alle Footer-Textteile unteilbar - bekommen bei Platzmangel neue Zeile */
@@ -672,8 +677,28 @@ address {
   display: inline-block;
 }
 
-/* Desktop: Standard-Layout mit Bindestrich - wenn genug Platz vorhanden */
+/* Kommas standardmäßig verstecken - werden nur bei Desktop angezeigt */
+.footer-comma-name,
+.footer-comma-street {
+  display: none;
+}
+
+/* Desktop: Alles in einer Zeile - Kommas und Trennstriche anzeigen */
 @media (min-width: 701px) {
+  .footer-info-left {
+    text-align: left;
+  }
+
+  .footer-legal-links {
+    text-align: right;
+  }
+
+  /* Wenn alles nebeneinander passt: Kommas anzeigen */
+  .footer-comma-name,
+  .footer-comma-street {
+    display: inline;
+  }
+
   .footer-info-left .footer-address-line,
   .footer-info-left .footer-name-title {
     display: inline;
@@ -683,9 +708,42 @@ address {
     white-space: normal;
   }
 
+  /* Trennstrich zwischen Name-Title und Adresse */
   .footer-info-left .footer-name-title::after {
     content: " - ";
     white-space: pre;
+  }
+}
+
+/* Mobile: Untereinander - KEINE Kommas, KEINE Trennstriche */
+@media (max-width: 700px) {
+  .footer-bottom-container {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-info-left {
+    text-align: center;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .footer-legal-links {
+    text-align: center;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* Kommas verstecken wenn untereinander */
+  .footer-comma-name,
+  .footer-comma-street {
+    display: none !important;
+  }
+
+  /* Trennstrich verstecken wenn untereinander */
+  .footer-info-left .footer-name-title::after {
+    content: "" !important;
   }
 }
 
@@ -1196,8 +1254,8 @@ hr.z {
 
 /* CV Header: Bei Platzmangel unter Bild verschieben - BEVOR Text abgeschnitten wird */
 /* Diese Media Query kommt NACH der 810px-Regel, damit sie definitiv greift */
-/* Bei 700px greifen, damit genug Platz für alle Wörter ist und nichts abgeschnitten wird */
-@media (max-width: 700px) {
+/* Bei 750px greifen, damit "M.A." nicht abgeschnitten wird */
+@media (max-width: 750px) {
   .cv-header {
     flex-direction: column !important;
     align-items: center;
