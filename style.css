@@ -130,7 +130,7 @@ header, main {
 }
 
 footer {
-  padding-bottom: var(--spacing-xl);
+  padding-bottom: 2%;
 }
 
 main {
@@ -794,6 +794,7 @@ hr.z {
 /* ===== CONTACT FORM ===== */
 .contact-form-section {
   margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
   padding-top: 2rem;
   border-top: 1px solid rgba(0, 0, 0, .1);
 }
