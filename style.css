@@ -1159,8 +1159,9 @@ hr.z {
   }
 
   .footer-legal-links > div {
-    display: block;
-    margin: .4em auto;
+    display: inline-block;
+    margin: 0 0.5em;
+    vertical-align: middle;
   }
 
   .footer-legal-links a {
@@ -1378,8 +1379,9 @@ hr.z {
   }
 
   .footer-legal-links > div {
-    display: block;
-    margin: .4em auto;
+    display: inline-block;
+    margin: 0 0.5em;
+    vertical-align: middle;
   }
 
   .footer-legal-links a {
