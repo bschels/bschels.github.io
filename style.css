@@ -1,14 +1,3 @@
-/* ===== ANIMATIONS ===== */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Animation Variables */
-:root {
-  --animation-fade-in: fadeIn var(--animation-duration-fast) ease-out;
-}
-
 /* ===== CSS VARIABLES ===== */
 :root {
   /* Colors */
@@ -33,9 +22,11 @@
   /* Padding System */
   --padding-xs: 0.2em;
   --padding-sm: 0.4em;
+  --padding-sm-px: 8px;
   --padding-md: 0.5em;
   --padding-lg: 0.8em;
   --padding-xl: 1em;
+  --padding-2xl: 1.2em;
   --padding-section: 8%;
   --padding-section-mobile: 0;
   
@@ -61,6 +52,7 @@
   --font-size-xl: 1.2em;
   --font-size-2xl: 1.3em;
   --font-size-3xl: 1.4em;
+  --font-size-4xl: 1.6em;
   
   /* Typography - Letter Spacing */
   --letter-spacing-xs: 0.05em;
@@ -92,6 +84,9 @@
   --animation-duration-fast: 0.3s;
   --animation-duration-base: 0.5s;
   --animation-duration-slow: 0.8s;
+  
+  /* Animation Variables */
+  --animation-fade-in: fadeIn var(--animation-duration-fast) ease-out;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -290,7 +285,7 @@ label.cat[for^=tog].expanded::before {
 h1, h2 {
   font-family: var(--font-main);
   font-weight: 200;
-  font-size: 1.6em;
+  font-size: var(--font-size-4xl);
   text-align: left;
   line-height: var(--line-height-relaxed);
   margin: var(--spacing-lg) 0 var(--spacing-sm);
@@ -303,7 +298,7 @@ h2 {
 }
 
 .brand-name, h1, h2, h3 {
-  letter-spacing: .2em;
+  letter-spacing: var(--letter-spacing-3xl);
 }
 
 h3, p.content {
@@ -317,7 +312,7 @@ h3, h4, h5, h6 {
 
 h3 {
   font-weight: 200 !important;
-  margin: 2.5rem 0 .75rem;
+  margin: var(--spacing-2xl) 0 var(--spacing-sm);
   text-transform: uppercase !important;
 }
 
@@ -328,7 +323,7 @@ h3 {
 h4, h5, h6 {
   font-weight: 200;
   font-size: 1.1em;
-  margin: 1.5rem 0 .75rem;
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
 }
 
 h5, h6 {
@@ -419,7 +414,7 @@ blockquote .says {
   font-size: var(--font-size-md);
   font-weight: 200;
   display: block;
-  margin-bottom: .3rem;
+  margin-bottom: var(--spacing-xs);
   color: var(--body);
 }
 
@@ -433,7 +428,7 @@ blockquote p:not(.says) {
   text-align: left;
   display: block;
   color: var(--secondary);
-  font-size: .9em;
+  font-size: var(--font-size-base);
 }
 
 blockquote footer {
@@ -442,8 +437,8 @@ blockquote footer {
   display: block;
   text-align: left;
   color: var(--secondary);
-  font-size: .85em;
-  margin-top: .3rem;
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
 }
 
 small {
@@ -464,7 +459,7 @@ table {
 
 td {
   vertical-align: top;
-  padding: .6em .5em;
+  padding: var(--padding-sm) var(--padding-md);
   line-height: 1.5;
 }
 
@@ -528,7 +523,7 @@ address {
 
 .cat_text .arrow-nohover {
   font-size: var(--font-size-md);
-  padding: .4em 0;
+  padding: var(--padding-sm) 0;
   display: block;
   margin-bottom: .3em;
 }
@@ -597,7 +592,7 @@ address {
   min-width: 10em;
   min-height: 10em;
   height: 72%;
-  padding: 8px;
+  padding: var(--padding-sm);
   border: .2em solid var(--primary);
   background-color: var(--bg);
   z-index: 1;
@@ -631,7 +626,7 @@ address {
 }
 
 .footer-info-left {
-  font-size: .85em;
+  font-size: var(--font-size-sm);
   color: var(--body);
   margin-right: 1em;
   flex-shrink: 0;
@@ -664,7 +659,7 @@ address {
 }
 
 .footer-legal-links a {
-  font-size: .85em;
+  font-size: var(--font-size-sm);
   color: var(--body);
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -744,7 +739,7 @@ hr.z {
 }
 
 .cv-role, .form-group label {
-  font-size: .9em;
+  font-size: var(--font-size-base);
   text-transform: uppercase;
   font-weight: 200;
 }
@@ -814,7 +809,6 @@ hr.z {
   margin-top: var(--spacing-2xl);
   margin-bottom: var(--spacing-xl);
   padding-top: var(--spacing-xl);
-  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .contact-form-section h3 {
@@ -833,7 +827,7 @@ hr.z {
 .form-group label {
   display: block;
   margin-bottom: .4rem;
-  letter-spacing: .1em;
+  letter-spacing: var(--letter-spacing-md);
 }
 
 .form-group label .optional {
@@ -843,9 +837,9 @@ hr.z {
 }
 
 .field-hint {
-  font-size: .85em;
+  font-size: var(--font-size-sm);
   color: var(--secondary);
-  margin: 0 0 .5rem;
+  margin: 0 0 var(--spacing-sm);
   font-weight: 200;
 }
 
@@ -853,7 +847,7 @@ hr.z {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: .8em 1em;
+  padding: var(--padding-lg) var(--padding-xl);
   border: 1px solid var(--body);
   background: var(--bg);
   color: var(--body);
@@ -883,14 +877,14 @@ hr.z {
 
 .form-submit {
   display: inline-block;
-  padding: .8em 2em;
+  padding: var(--padding-lg) var(--spacing-xl);
   border: 1px solid var(--body);
   background: var(--bg);
   color: var(--body);
   font-family: var(--font-main);
   font-size: var(--font-size-md);
   font-weight: 200;
-  letter-spacing: .1em;
+  letter-spacing: var(--letter-spacing-md);
   cursor: pointer;
   transition: all var(--transition-fast);
   -webkit-appearance: none;
@@ -916,15 +910,15 @@ hr.z {
 
 .form-success .success-icon {
   font-size: 3em;
-  margin: 0 0 .5rem;
+  margin: 0 0 var(--spacing-sm);
   color: var(--body);
 }
 
 .form-success .success-title {
   font-size: 1.3em;
-  letter-spacing: .1em;
+  letter-spacing: var(--letter-spacing-md);
   text-transform: uppercase;
-  margin: 0 0 .5rem;
+  margin: 0 0 var(--spacing-sm);
 }
 
 .form-success .success-text {
@@ -957,7 +951,7 @@ hr.z {
     width: 90%;
     padding-left: 2%;
     padding-right: 2%;
-    font-size: .9em;
+    font-size: var(--font-size-base);
     min-width: 0;
     max-width: none;
   }
@@ -982,12 +976,12 @@ hr.z {
   .title-text {
     font-size: 1.3em;
     line-height: 1.15;
-    letter-spacing: .18em;
+    letter-spacing: var(--letter-spacing-2xl);
   }
 
   .cat, h2, h3, label {
     font-size: 1.05em;
-    letter-spacing: .2em;
+    letter-spacing: var(--letter-spacing-3xl);
   }
 
   .logo-ru {
@@ -1002,7 +996,7 @@ hr.z {
   .footer-info-left {
     margin-bottom: .5em;
     margin-right: 0;
-    font-size: .85em;
+    font-size: var(--font-size-sm);
   }
 
   .footer-info-left .footer-address-line,
@@ -1030,7 +1024,7 @@ hr.z {
   }
 
   .footer-legal-links a {
-    font-size: .85em;
+    font-size: var(--font-size-sm);
     padding: .2em .4em;
   }
 
@@ -1041,7 +1035,7 @@ hr.z {
   }
 
   td {
-    padding: .5em .4em;
+    padding: var(--padding-md) var(--padding-sm);
   }
 
   td:first-child {
@@ -1049,7 +1043,7 @@ hr.z {
   }
 
   .cat_text .arrow-nohover {
-    padding: .6em 0;
+    padding: var(--padding-sm) 0;
     font-size: 1.05em;
   }
 
@@ -1057,7 +1051,7 @@ hr.z {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 1.5rem;
+    gap: var(--spacing-lg);
   }
 
   .cv-portrait {
@@ -1086,7 +1080,7 @@ hr.z {
   .cta-contact {
     width: 100%;
     max-width: 100%;
-    padding: .8em 1em;
+    padding: var(--padding-lg) var(--padding-xl);
     box-sizing: border-box;
   }
 
@@ -1118,11 +1112,11 @@ hr.z {
     left: auto;
     z-index: 1;
     background: 0 0;
-    padding: .5em;
+    padding: var(--padding-md);
     text-align: left;
     font-size: .8em;
     line-height: 1.1;
-    letter-spacing: .1em;
+    letter-spacing: var(--letter-spacing-md);
   }
 
   .mini-title-link {
