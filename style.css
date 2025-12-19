@@ -1132,7 +1132,6 @@ hr.z {
   /* CV Header wird in der 500px Media Query behandelt */
 
   .header-row {
-    flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
     margin-bottom: .4em;
@@ -1164,8 +1163,6 @@ hr.z {
     letter-spacing: var(--letter-spacing-3xl);
   }
 
-
-
   .footer-legal-links > div {
     display: inline-block;
     margin: 0 0.5em;
@@ -1178,7 +1175,6 @@ hr.z {
   }
 
   .cat_text table {
-    display: table;
     width: 100%;
     table-layout: auto;
     overflow-x: auto;
