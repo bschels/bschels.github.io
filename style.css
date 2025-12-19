@@ -656,6 +656,17 @@ address {
   white-space: pre;
 }
 
+.footer-info-left {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.footer-address-line {
+  white-space: normal;
+  word-break: break-word;
+}
+
 .footer-legal-links {
   text-align: right;
   flex-shrink: 0;
