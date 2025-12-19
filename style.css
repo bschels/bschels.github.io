@@ -745,6 +745,17 @@ address {
   .footer-info-left .footer-name-title::after {
     content: "" !important;
   }
+
+  /* Separator verstecken wenn untereinander */
+  .footer-separator {
+    display: none !important;
+  }
+}
+
+/* Separator standardmäßig anzeigen (Leerzeichen zwischen Name-Title und Adresse) */
+.footer-separator {
+  display: inline;
+  white-space: pre;
 }
 
 .footer-legal-links {
