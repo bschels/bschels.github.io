@@ -646,25 +646,25 @@ address {
   flex-shrink: 0;
 }
 
-.footer-info-left .footer-address-line,
-.footer-info-left .footer-name-title {
-  display: inline;
-}
-
 .footer-info-left {
   max-width: 100%;
-}
-
-.footer-address-line {
-  white-space: normal;
 }
 
 .footer-street {
   white-space: nowrap;
 }
 
-/* Desktop: Bindestrich zwischen Name und Adresse */
+/* Desktop: Standard-Layout mit Bindestrich */
 @media (min-width: 811px) {
+  .footer-info-left .footer-address-line,
+  .footer-info-left .footer-name-title {
+    display: inline;
+  }
+
+  .footer-address-line {
+    white-space: normal;
+  }
+
   .footer-info-left .footer-name-title::after {
     content: " - ";
     white-space: pre;
