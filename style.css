@@ -651,21 +651,24 @@ address {
   display: inline;
 }
 
-.footer-info-left .footer-name-title::after {
-  content: " - ";
-  white-space: pre;
-}
-
-.footer-street {
-  white-space: nowrap;
-}
-
 .footer-info-left {
   max-width: 100%;
 }
 
 .footer-address-line {
   white-space: normal;
+}
+
+.footer-street {
+  white-space: nowrap;
+}
+
+/* Desktop: Bindestrich zwischen Name und Adresse */
+@media (min-width: 811px) {
+  .footer-info-left .footer-name-title::after {
+    content: " - ";
+    white-space: pre;
+  }
 }
 
 .footer-legal-links {
