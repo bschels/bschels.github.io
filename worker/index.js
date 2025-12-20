@@ -75,9 +75,10 @@ export default {
             html: `
               <p style="font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:10pt; line-height:1.5;">
                 Guten Tag ${name},<br><br>
-                vielen Dank für Ihre Nachricht.<br><br>
-                Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.<br><br>
-                Mit freundlichen Grüßen
+                vielen Dank für Ihre Nachricht.<br>
+                Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen zurück.<br><br>
+                Mit freundlichen Grüßen<br><br>
+                Benjamin Schels
               </p>
               <table cellpadding="0" cellspacing="0" border="0" role="presentation"
                 style="max-width:320px; font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:10pt; line-height:1.35;">
@@ -111,7 +112,7 @@ export default {
                 </tr>
               </table>
             `,
-            text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\n\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.\n\nMit freundlichen Grüßen\nBenjamin Schels\nArchitekt M.A.\n\n---\narchitekturbüro schels\nSchlachterstraße 9, 85283 Wolnzach\nTel: +49 8442 929 2291\nWeb: schels.info`,
+            text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen zurück.\n\nMit freundlichen Grüßen\n\nBenjamin Schels\n\n---\narchitekturbüro schels\nBenjamin Schels | Architekt M.A. | Büroinhaber\nSchlachterstraße 9, D-85283 Wolnzach\nT +49 8442 929 229 1\nhello@schels.info\nwww.schels.info`,
           }),
         });
       } catch (e) {
