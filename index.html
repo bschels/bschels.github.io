@@ -252,9 +252,8 @@
  <div class="arrow-nohover" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">Adresse: <a href="https://maps.google.com/?q=Schlachterstraße+9,+85283+Wolnzach" target="_blank" rel="noopener noreferrer" aria-label="Adresse auf Google Maps öffnen"><span itemprop="streetAddress">Schlachterstraße 9</span>, <span itemprop="postalCode">85283</span> <span itemprop="addressLocality">Wolnzach</span></a></div>
  </address>
  <div class="contact-form-section">
- <form id="contact-form-de" name="contact-form-de" method="POST" netlify netlify-honeypot="website" class="contact-form" action="https://abschels.netlify.app/">
+ <form id="contact-form-de" name="contact-form-de" method="POST" class="contact-form">
  <input type="text" name="website" class="website-field" style="display: none;" tabindex="-1" autocomplete="off">
- <input type="hidden" name="form-name" value="contact-form-de">
  <div class="form-group">
  <label for="name-de">Name</label>
  <input type="text" id="name-de" name="name" autocomplete="name" required>
@@ -271,6 +270,12 @@
  <label for="message-de">Nachricht</label>
  <p class="field-hint">Worum geht es? Ort/Adresse und ein kurzer Überblick reichen.</p>
  <textarea id="message-de" name="message" rows="5" required></textarea>
+ </div>
+ <div class="form-group form-checkbox">
+ <label class="checkbox-label">
+ <input type="checkbox" name="datenschutz" id="datenschutz-de" required>
+ <span>Ich habe die <a href="/pages/datenschutz.html" data-open-datenschutz>Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu.</span>
+ </label>
  </div>
  <button type="submit" class="form-submit" aria-label="Kontaktformular absenden">→ Nachricht senden</button>
  </form>

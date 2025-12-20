@@ -1034,6 +1034,39 @@ hr.z {
   min-height: 120px;
 }
 
+.form-checkbox {
+  margin-top: 1.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--body);
+}
+
+.checkbox-label a {
+  color: var(--body);
+  text-decoration: underline;
+}
+
+.checkbox-label a:hover {
+  color: var(--secondary);
+}
+
 .form-submit {
   display: inline-block;
   padding: var(--padding-lg) var(--spacing-xl);
