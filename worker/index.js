@@ -73,20 +73,43 @@ export default {
             reply_to: "hello@schels.info",
             subject: "Ihre Anfrage bei architekturbüro schels",
             html: `
-              <p>Guten Tag ${name},</p>
-              <p>vielen Dank für Ihre Nachricht.</p>
-              <p>Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.</p>
-              <br>
-              <p>Mit freundlichen Grüßen</p>
-              <p><strong>Benjamin Schels</strong><br>
-              Architekt M.A.</p>
-              <hr>
-              <p style="color: #666; font-size: 12px;">
-                architekturbüro schels<br>
-                Schlachterstraße 9, 85283 Wolnzach<br>
-                Tel: +49 8442 929 2291<br>
-                Web: <a href="https://schels.info">schels.info</a>
+              <p style="font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:10pt; line-height:1.5;">
+                Guten Tag ${name},<br><br>
+                vielen Dank für Ihre Nachricht.<br><br>
+                Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.<br><br>
+                Mit freundlichen Grüßen
               </p>
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation"
+                style="max-width:320px; font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:10pt; line-height:1.35;">
+                <tr>
+                  <td style="padding:10px 0 10px 0; border-top:1px solid #D0D0D0;">
+                    <span style="font-size:16pt; letter-spacing:0.12em;">architekturbüro schels</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 0 8px 0;">
+                    <span>Benjamin Schels</span><br>
+                    <span>Architekt M.A.</span>&nbsp;<span style="opacity:0.6;">|</span>&nbsp;<span>Büroinhaber</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 0 8px 0;">
+                    Schlachterstraße&nbsp;9<br>
+                    D-85283&nbsp;Wolnzach
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 0 8px 0;">
+                    <a href="tel:+4984429292291" style="color:inherit; text-decoration:none;">T&nbsp;+49&nbsp;8442&nbsp;929&nbsp;229&nbsp;1</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0;">
+                    <a href="mailto:hello@schels.info" style="color:inherit; text-decoration:none;">hello@schels.info</a><br>
+                    <a href="https://www.schels.info/" style="color:inherit; text-decoration:none;">www.schels.info</a>
+                  </td>
+                </tr>
+              </table>
             `,
             text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\n\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.\n\nMit freundlichen Grüßen\nBenjamin Schels\nArchitekt M.A.\n\n---\narchitekturbüro schels\nSchlachterstraße 9, 85283 Wolnzach\nTel: +49 8442 929 2291\nWeb: schels.info`,
           }),
