@@ -1037,6 +1037,7 @@ hr.z {
 .form-privacy-hint {
   margin: 1.5rem 0 1rem;
   font-size: var(--font-size-small);
+  font-style: italic;
   color: var(--secondary);
   line-height: 1.5;
 }
@@ -1057,6 +1058,7 @@ hr.z {
 .field-error {
   display: block;
   font-size: var(--font-size-small);
+  font-style: italic;
   color: var(--accent);
   margin-top: 0.4rem;
   letter-spacing: var(--letter-spacing-sm);
