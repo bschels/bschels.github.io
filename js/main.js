@@ -149,15 +149,57 @@
       }
     }
 
-    // Click/Keyboard direkt am Label (robuster auf Mobile als Input-Click)
+    // EINFACHSTER Ansatz: Nur auf Input change hören, Label-Verhalten komplett nativ lassen
+    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
+      input.addEventListener("change", function () {
+        const isChecked = this.checked;
+        accordionState.set(this.id, isChecked);
+        
+        const label = document.querySelector(`label[for="${this.id}"]`);
+        if (label) {
+          const hrInLabel = label.querySelector("hr.z");
+          if (hrInLabel) hrInLabel.style.display = isChecked ? "none" : "";
+        }
+        
+        // Andere schließen
+        if (isChecked) {
+          document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
+            if (other !== this) {
+              other.checked = false;
+              accordionState.set(other.id, false);
+              const otherLabel = document.querySelector(`label[for="${other.id}"]`);
+              if (otherLabel) {
+                const otherHr = otherLabel.querySelector("hr.z");
+                if (otherHr) otherHr.style.display = "";
+              }
+            }
+          });
+        }
+        
+        updateAccordionAria();
+        
+        // Mobile scroll
+        if (isChecked && isMobile() && label) {
+          scrollToAccordionLabel(label);
+        }
+      });
+    });
+
+    // Toggle-Verhalten: Wenn auf bereits geöffnetes Accordion geklickt wird, schließen
     document.querySelectorAll('label.cat[for^="tog"]').forEach((label) => {
       label.addEventListener("click", function (event) {
-        event.preventDefault();
         const id = this.getAttribute("for");
         const input = id ? document.getElementById(id) : null;
         if (!input) return;
-        const prevState = accordionState.get(input.id) || false;
-        setAccordion(input, !prevState, { scrollOnOpen: true });
+        
+        // Wenn bereits geöffnet, schließen (Toggle)
+        if (input.checked) {
+          event.preventDefault();
+          event.stopPropagation();
+          input.checked = false;
+          // change-Event wird automatisch ausgelöst und kümmert sich um den Rest
+        }
+        // Wenn geschlossen, native Verhalten erlauben (input wird automatisch checked)
       });
 
       label.addEventListener("keydown", function (event) {
