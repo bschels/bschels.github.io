@@ -1054,6 +1054,18 @@ hr.z {
   text-decoration-color: var(--hover-text);
 }
 
+.field-error {
+  display: block;
+  font-size: var(--font-size-small);
+  color: var(--accent);
+  margin-top: 0.4rem;
+  letter-spacing: var(--letter-spacing-sm);
+}
+
+.input-error {
+  border-color: var(--accent) !important;
+}
+
 .form-submit {
   display: inline-block;
   padding: var(--padding-lg) var(--spacing-xl);

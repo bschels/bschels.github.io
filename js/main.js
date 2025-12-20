@@ -240,25 +240,42 @@
       }
     });
 
-    // Custom Validation Messages (formelle Anrede)
-    document.querySelectorAll(".contact-form input[required], .contact-form textarea[required]").forEach((field) => {
-      field.addEventListener("invalid", function () {
-        if (this.validity.valueMissing) {
-          this.setCustomValidity("Bitte füllen Sie dieses Feld aus.");
-        } else if (this.validity.typeMismatch && this.type === "email") {
-          this.setCustomValidity("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-        } else {
-          this.setCustomValidity("");
+    // Eigene Formular-Validierung
+    function validateForm(form) {
+      let isValid = true;
+      form.querySelectorAll(".field-error").forEach(el => el.remove());
+      form.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
+
+      form.querySelectorAll("input[required], textarea[required]").forEach((field) => {
+        const value = field.value.trim();
+        let errorMsg = "";
+
+        if (!value) {
+          errorMsg = "Pflichtfeld";
+          isValid = false;
+        } else if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          errorMsg = "Ungültige E-Mail-Adresse";
+          isValid = false;
+        }
+
+        if (errorMsg) {
+          field.classList.add("input-error");
+          const errorEl = document.createElement("span");
+          errorEl.className = "field-error";
+          errorEl.textContent = errorMsg;
+          field.parentNode.appendChild(errorEl);
         }
       });
-      field.addEventListener("input", function () {
-        this.setCustomValidity("");
-      });
-    });
+
+      return isValid;
+    }
 
     document.querySelectorAll(".contact-form").forEach((form) => {
       form.addEventListener("submit", function (event) {
         event.preventDefault();
+
+        if (!validateForm(this)) return;
+
         const section = this.closest(".contact-form-section");
         const successBox = section?.querySelector(".form-success");
         const errorBox = section?.querySelector(".form-error");
