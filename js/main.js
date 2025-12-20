@@ -99,41 +99,72 @@
       accordionState.set(input.id, input.checked);
     });
 
+    function isMobile() {
+      return window.matchMedia && window.matchMedia("(max-width: 810px)").matches;
+    }
+
+    function scrollToAccordionLabel(labelEl) {
+      if (!labelEl) return;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const y = labelEl.getBoundingClientRect().top + window.pageYOffset - 12;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        });
+      });
+    }
+
+    function setAccordion(input, nextChecked, opts = {}) {
+      if (!input) return;
+      const { scrollOnOpen = false } = opts;
+
+      // Andere schließen
+      document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
+        if (other !== input) {
+          other.checked = false;
+          accordionState.set(other.id, false);
+          // HR im Label wieder anzeigen wenn Bereich eingeklappt wird
+          const otherLabel = document.querySelector(`label[for="${other.id}"]`);
+          if (otherLabel) {
+            const hrInLabel = otherLabel.querySelector("hr.z");
+            if (hrInLabel) hrInLabel.style.display = "";
+          }
+        }
+      });
+
+      input.checked = nextChecked;
+      accordionState.set(input.id, nextChecked);
+
+      // HR im aktiven Label verstecken/anzeigen
+      const label = document.querySelector(`label[for="${input.id}"]`);
+      if (label) {
+        const hrInLabel = label.querySelector("hr.z");
+        if (hrInLabel) hrInLabel.style.display = nextChecked ? "none" : "";
+      }
+
+      updateAccordionAria();
+
+      // Mobile UX: beim Öffnen nach oben zum Reiter springen
+      if (nextChecked && scrollOnOpen && isMobile()) {
+        scrollToAccordionLabel(label);
+      }
+    }
+
+    // Click/Keyboard direkt am Label (robuster auf Mobile als Input-Click)
     document.querySelectorAll('label.cat[for^="tog"]').forEach((label) => {
+      label.addEventListener("click", function (event) {
+        event.preventDefault();
+        const id = this.getAttribute("for");
+        const input = id ? document.getElementById(id) : null;
+        if (!input) return;
+        const prevState = accordionState.get(input.id) || false;
+        setAccordion(input, !prevState, { scrollOnOpen: true });
+      });
+
       label.addEventListener("keydown", function (event) {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           this.click();
         }
-      });
-    });
-
-    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
-      input.addEventListener("click", function () {
-        const prevState = accordionState.get(this.id);
-        document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
-          if (other !== this) {
-            other.checked = false;
-            accordionState.set(other.id, false);
-            // HR im Label wieder anzeigen wenn Bereich eingeklappt wird
-            const otherLabel = document.querySelector(`label[for="${other.id}"]`);
-            if (otherLabel) {
-              const hrInLabel = otherLabel.querySelector('hr.z');
-              if (hrInLabel) hrInLabel.style.display = '';
-            }
-          }
-        });
-        this.checked = !prevState;
-        accordionState.set(this.id, !prevState);
-        // HR im Label verstecken/anzeigen basierend auf checked Status
-        const label = document.querySelector(`label[for="${this.id}"]`);
-        if (label) {
-          const hrInLabel = label.querySelector('hr.z');
-          if (hrInLabel) {
-            hrInLabel.style.display = this.checked ? 'none' : '';
-          }
-        }
-        updateAccordionAria();
       });
     });
 
@@ -171,15 +202,7 @@
       
       if (input) {
         event.preventDefault();
-        document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
-          if (other !== input) {
-            other.checked = false;
-            accordionState.set(other.id, false);
-          }
-        });
-        input.checked = true;
-        accordionState.set(accordionId, true);
-        updateAccordionAria();
+        setAccordion(input, true, { scrollOnOpen: true });
       }
       
       // Scroll zu Section oder Label
