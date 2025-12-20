@@ -306,8 +306,8 @@
         // Formulardaten sammeln
         const formDataObj = new FormData(this);
 
-        // An Netlify Function senden (CORS-Proxy)
-        fetch("https://abschels.netlify.app/.netlify/functions/submit-form", {
+        // An Cloudflare Worker senden
+        fetch("https://kontaktformular.benni-schels.workers.dev", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams(formDataObj).toString(),

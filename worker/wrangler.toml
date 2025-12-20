@@ -1,0 +1,6 @@
+name = "kontaktformular"
+main = "index.js"
+compatibility_date = "2024-12-20"
+
+[vars]
+# RESEND_API_KEY wird als Secret gesetzt
