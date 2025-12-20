@@ -43,13 +43,13 @@ input[type=radio]:checked ~ .cat_text > *:first-child{
   margin-top: var(--spacing-md);}
 input[type=radio]:checked ~ .cat_text > .cv-header:first-child{
   margin-top: var(--spacing-lg);}
-.cat_text: :-webkit-scrollbar{
+.cat_text::-webkit-scrollbar{
   width: 8px;}
-.cat_text: :-webkit-scrollbar-track{
+.cat_text::-webkit-scrollbar-track{
   background: 0 0;}
-.cat_text: :-webkit-scrollbar-thumb{
+.cat_text::-webkit-scrollbar-thumb{
   background: var(--body); opacity: .3; border-radius: 0;}
-.cat_text: :-webkit-scrollbar-thumb:hover,.white_content: :-webkit-scrollbar-thumb:hover{
+.cat_text::-webkit-scrollbar-thumb:hover,.white_content::-webkit-scrollbar-thumb:hover{
   opacity: .5;}
 label{
   cursor: pointer; display: block; margin: 0;}
@@ -164,9 +164,9 @@ address{
 .lb_footer a{
   pointer-events: auto;}
 .lb_close{
-  position: absolute; top: 0; right: 0; z-index: 20; padding: var(--spacing-md);}
+  position: absolute; top: 0; right: 0; z-index: 200; padding: var(--spacing-md); pointer-events: auto;}
 .lb_close a{
-  font-size: var(--font-size-4xl); font-weight: 200; text-decoration: none; display: block; line-height: 1; padding: var(--spacing-sm); transition: opacity var(--transition-fast); width: 1.2em; height: 1.2em; text-align: center; color: var(--primary);}
+  font-size: var(--font-size-4xl); font-weight: 200; text-decoration: none; display: block; line-height: 1; padding: var(--spacing-sm); transition: opacity var(--transition-fast); width: 1.2em; height: 1.2em; text-align: center; color: var(--primary); pointer-events: auto; position: relative; z-index: 201;}
 .lb_close a:hover{
   opacity: 0.7;}
 .black_overlay,.white{
@@ -179,11 +179,11 @@ address{
   display: none; position: fixed; text-align: justify; hyphens: auto; -webkit-hyphens: auto; margin: 0 auto; top: 15%; left: 2%; right: 2%; max-width: 50em; min-width: 10em; min-height: 10em; height: 72%; padding: 0; border: .2em solid var(--primary); background-color: var(--bg); z-index: calc(var(--z-index-overlay) + 1); overflow: hidden; box-sizing: border-box;}
 .white_content .lightbox{
   height: 100%; overflow-y: auto; overflow-x: hidden; padding: var(--padding-sm); padding-bottom: 3em; box-sizing: border-box; scrollbar-width: thin; scrollbar-color: transparent transparent;}
-.white_content .lightbox: :-webkit-scrollbar{
+.white_content .lightbox::-webkit-scrollbar{
   width: 8px;}
-.white_content .lightbox: :-webkit-scrollbar-track{
+.white_content .lightbox::-webkit-scrollbar-track{
   background: 0 0;}
-.white_content .lightbox: :-webkit-scrollbar-thumb{
+.white_content .lightbox::-webkit-scrollbar-thumb{
   background: var(--body); opacity: .3; border-radius: 0;}
 .white_content table{
   width: 100%; table-layout: auto;}

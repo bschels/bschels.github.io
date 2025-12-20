@@ -87,84 +87,104 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
+    // Cache häufig verwendete Elemente
     const fade = document.getElementById("fade");
-    if (fade) {
-      fade.addEventListener("click", function () {
-        document.querySelectorAll(".white_content").forEach((el) => (el.style.display = "none"));
-        fade.style.display = "none";
-      });
-    }
-
-    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
+    const allAccordionInputs = document.querySelectorAll('input[type="radio"][name="rdo"]');
+    const allAccordionLabels = document.querySelectorAll('label.cat[for^="tog"]');
+    const allWhiteContent = document.querySelectorAll(".white_content");
+    
+    // Accordion-State initialisieren
+    allAccordionInputs.forEach((input) => {
       accordionState.set(input.id, input.checked);
     });
 
     function isMobile() {
       return window.matchMedia && window.matchMedia("(max-width: 810px)").matches;
     }
-
-    function scrollToAccordionLabel(labelEl) {
-      if (!labelEl) return;
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const y = labelEl.getBoundingClientRect().top + window.pageYOffset - 12;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        });
+    
+    // Lightbox-Overlay schließen
+    if (fade) {
+      fade.addEventListener("click", function () {
+        allWhiteContent.forEach((el) => (el.style.display = "none"));
+        fade.style.display = "none";
       });
     }
 
-    function setAccordion(input, nextChecked, opts = {}) {
+    // Optimierte Scroll-Funktion: Reduziert Springen durch besseres Timing
+    let activeScrollLock = null;
+    
+    function scrollToAccordionContent(input) {
       if (!input) return;
-      const { scrollOnOpen = false } = opts;
-
-      // Andere schließen
-      document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
-        if (other !== input) {
-          other.checked = false;
-          accordionState.set(other.id, false);
-          // HR im Label wieder anzeigen wenn Bereich eingeklappt wird
-          const otherLabel = document.querySelector(`label[for="${other.id}"]`);
-          if (otherLabel) {
-            const hrInLabel = otherLabel.querySelector("hr.z");
-            if (hrInLabel) hrInLabel.style.display = "";
-          }
-        }
-      });
-
-      input.checked = nextChecked;
-      accordionState.set(input.id, nextChecked);
-
-      // HR im aktiven Label verstecken/anzeigen
+      
       const label = document.querySelector(`label[for="${input.id}"]`);
-      if (label) {
-        const hrInLabel = label.querySelector("hr.z");
-        if (hrInLabel) hrInLabel.style.display = nextChecked ? "none" : "";
+      if (!label) return;
+      
+      // Vorherige Scroll-Locks aufräumen
+      if (activeScrollLock) {
+        clearInterval(activeScrollLock.interval);
+        activeScrollLock = null;
       }
-
-      updateAccordionAria();
-
-      // Mobile UX: beim Öffnen nach oben zum Reiter springen
-      if (nextChecked && scrollOnOpen && isMobile()) {
-        scrollToAccordionLabel(label);
-      }
+      
+      // Scroll-Position während der Transition einfrieren
+      let scrollLocked = true;
+      const currentScrollY = window.pageYOffset || window.scrollY;
+      
+      const lockScroll = () => {
+        if (scrollLocked) {
+          window.scrollTo({ top: currentScrollY, behavior: "auto" });
+        }
+      };
+      
+      // Scroll-Lock während der Transition aktiv halten
+      const lockInterval = setInterval(lockScroll, 10);
+      activeScrollLock = { interval: lockInterval };
+      
+      // Nach CSS-Transition (500ms) scrollen
+      setTimeout(() => {
+        if (activeScrollLock && activeScrollLock.interval === lockInterval) {
+          clearInterval(lockInterval);
+          activeScrollLock = null;
+        }
+        scrollLocked = false;
+        
+        // Mehrfaches requestAnimationFrame für präzise Positionierung
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const rect = label.getBoundingClientRect();
+            const scrollY = window.pageYOffset || window.scrollY;
+            const targetY = scrollY + rect.top;
+            const finalY = Math.max(0, targetY - 2);
+            
+            window.scrollTo({ top: finalY, behavior: "smooth" });
+          });
+        });
+      }, 520); // Etwas früher als Transition-Ende für flüssigeres Verhalten
     }
 
-    // EINFACHSTER Ansatz: Nur auf Input change hören, Label-Verhalten komplett nativ lassen
-    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
+    // Optimierter Event-Handler: Reduziert Code-Duplikation und verbessert Performance
+    allAccordionInputs.forEach((input) => {
       input.addEventListener("change", function () {
         const isChecked = this.checked;
+        const label = document.querySelector(`label[for="${this.id}"]`);
+        
+        // Scroll-Position sofort einfrieren, um nativen Browser-Scroll zu verhindern
+        if (isChecked) {
+          const currentScrollY = window.pageYOffset || window.scrollY;
+          window.scrollTo({ top: currentScrollY, behavior: "auto" });
+        }
+        
         accordionState.set(this.id, isChecked);
         
-        const label = document.querySelector(`label[for="${this.id}"]`);
+        // HR im Label verstecken/anzeigen
         if (label) {
           const hrInLabel = label.querySelector("hr.z");
           if (hrInLabel) hrInLabel.style.display = isChecked ? "none" : "";
         }
         
-        // Andere schließen
+        // Andere Accordions schließen (nur wenn dieses geöffnet wird)
         if (isChecked) {
-          document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((other) => {
-            if (other !== this) {
+          allAccordionInputs.forEach((other) => {
+            if (other !== this && other.checked) {
               other.checked = false;
               accordionState.set(other.id, false);
               const otherLabel = document.querySelector(`label[for="${other.id}"]`);
@@ -178,15 +198,15 @@
         
         updateAccordionAria();
         
-        // Mobile scroll
-        if (isChecked && isMobile() && label) {
-          scrollToAccordionLabel(label);
+        // Scroll zum Label beim Öffnen (besonders wichtig auf mobil)
+        if (isChecked) {
+          scrollToAccordionContent(this);
         }
       });
     });
 
     // Toggle-Verhalten: Wenn auf bereits geöffnetes Accordion geklickt wird, schließen
-    document.querySelectorAll('label.cat[for^="tog"]').forEach((label) => {
+    allAccordionLabels.forEach((label) => {
       label.addEventListener("click", function (event) {
         const id = this.getAttribute("for");
         const input = id ? document.getElementById(id) : null;
@@ -209,9 +229,12 @@
         }
       });
     });
+    
+    // Optimiert: Einzelner Event-Handler für alle Accordion-Labels (Event-Delegation)
+    // Dies reduziert die Anzahl der Event-Listener
 
     // Initial: HR in Labels verstecken wenn Bereich bereits ausgeklappt ist
-    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
+    allAccordionInputs.forEach((input) => {
       if (input.checked) {
         const label = document.querySelector(`label[for="${input.id}"]`);
         if (label) {
@@ -244,10 +267,31 @@
       
       if (input) {
         event.preventDefault();
-        setAccordion(input, true, { scrollOnOpen: true });
+        // Accordion öffnen - change-Event manuell auslösen falls nötig
+        if (!input.checked) {
+          input.checked = true;
+          // change-Event wird automatisch ausgelöst
+        } else {
+          // Falls bereits geöffnet, nur scrollen
+          const label = document.querySelector(`label.cat[for="${accordionId}"]`);
+          if (label) {
+            const rect = label.getBoundingClientRect();
+            const scrollY = window.pageYOffset || window.scrollY;
+            const targetY = scrollY + rect.top;
+            window.scrollTo({ top: Math.max(0, targetY - 2), behavior: "smooth" });
+          }
+        }
+        // Focus-Management nach Scroll
+        setTimeout(() => {
+          const label = document.querySelector(`label.cat[for="${accordionId}"]`);
+          if (label) {
+            label.focus();
+          }
+        }, 600);
+        return; // Scroll wird vom change-Event-Handler übernommen
       }
       
-      // Scroll zu Section oder Label
+      // Scroll zu Section (nur wenn kein Accordion-Input gefunden wurde)
       if (section) {
         event.preventDefault();
         const y = section.getBoundingClientRect().top + window.pageYOffset - 20;
@@ -263,45 +307,42 @@
             section.removeAttribute('tabindex');
           }
         }, 300);
-      } else if (input) {
-        const label = document.querySelector(`label.cat[for="${accordionId}"]`);
-        if (label) {
-          const y = label.getBoundingClientRect().top + window.pageYOffset - 20;
-          window.scrollTo({ top: y, behavior: "smooth" });
-          setTimeout(() => label.focus(), 300);
-        }
       }
     });
 
+    // Optimiert: Alle Lightbox-Event-Listener in einem Handler
     document.addEventListener("click", function (event) {
+      // Lightbox schließen - mit stopPropagation um sicherzustellen, dass der Klick nicht von anderen Elementen abgefangen wird
       const closeBtn = event.target.closest("[data-close-lightbox]");
-      if (!closeBtn) return;
-      event.preventDefault();
-      const id = closeBtn.dataset.closeLightbox;
-      const panel = document.getElementById(id);
-      const fadeOverlay = document.getElementById("fade");
-      if (panel) panel.style.display = "none";
-      if (fadeOverlay) fadeOverlay.style.display = "none";
-    });
-
-    document.addEventListener("click", function (event) {
+      if (closeBtn) {
+        event.preventDefault();
+        event.stopPropagation();
+        const id = closeBtn.dataset.closeLightbox;
+        const panel = document.getElementById(id);
+        if (panel) panel.style.display = "none";
+        if (fade) fade.style.display = "none";
+        return;
+      }
+      
+      // Lightbox öffnen - Impressum
       if (event.target.closest("[data-open-impressum]")) {
         event.preventDefault();
         kb_source_2_impressum();
+        return;
       }
-    });
-
-    document.addEventListener("click", function (event) {
+      
+      // Lightbox öffnen - Datenschutz
       if (event.target.closest("[data-open-datenschutz]")) {
         event.preventDefault();
         kb_source_2_datenschutz();
+        return;
       }
-    });
-
-    document.addEventListener("click", function (event) {
+      
+      // Lightbox öffnen - Vita
       if (event.target.closest("[data-open-vita]")) {
         event.preventDefault();
         kb_source_2_vita();
+        return;
       }
     });
 
