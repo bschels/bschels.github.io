@@ -54,7 +54,7 @@ input[type=radio]:checked ~ .cat_text > .cv-header:first-child{
 label{
   cursor: pointer; display: block; margin: 0;}
 label.cat[for^=tog]{
-  position: relative; transition: all var(--transition-fast); white-space: nowrap; padding-left: var(--padding-section);}
+  position: relative; transition: all var(--transition-fast); white-space: nowrap;}
 label.cat[for^=tog]: :before{
   content: "+"; color: currentColor; margin-right: .3em; letter-spacing: normal; font-size: var(--font-size-xl); font-weight: 200;}
 label.cat[for^=tog]: :before,label.cat[for^=tog] > h2.cat{
