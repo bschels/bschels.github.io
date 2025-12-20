@@ -1043,11 +1043,15 @@ hr.z {
 
 .form-privacy-hint a {
   color: var(--body);
-  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-line: underline;
+  text-decoration-color: var(--body);
+  text-underline-offset: 2px;
 }
 
 .form-privacy-hint a:hover {
-  color: var(--secondary);
+  color: var(--hover-text);
+  text-decoration-color: var(--hover-text);
 }
 
 .form-submit {
