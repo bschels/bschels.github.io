@@ -145,11 +145,37 @@
         activeScrollLock = null;
       }
       
-      // Warten bis CSS-Transition FERTIG ist (andere Accordions schließen sich)
-      // --transition-slow ist ca. 500ms
+      // Position des Labels berechnen
+      const rect = label.getBoundingClientRect();
+      const currentScrollY = getScrollY();
+      const targetY = currentScrollY + rect.top;
+      
+      // Während der CSS-Animation die Position aggressiv halten
+      let lastTargetY = targetY;
+      const holdPosition = () => {
+        // Position immer wieder setzen (verhindert Browser-Auto-Scroll)
+        window.scrollTo({ top: lastTargetY, behavior: "instant" });
+        
+        // Position neu berechnen falls sich Layout ändert
+        const newRect = label.getBoundingClientRect();
+        const newTargetY = getScrollY() + newRect.top;
+        if (Math.abs(newTargetY - lastTargetY) > 10) {
+          lastTargetY = newTargetY;
+        }
+      };
+      
+      const interval = setInterval(holdPosition, 8); // 120fps für bessere Fixierung
+      
+      // Nach Animation: Finale Position setzen und aufräumen
       setTimeout(() => {
-        label.scrollIntoView({ behavior: "smooth", block: "start" });
+        clearInterval(interval);
+        const finalRect = label.getBoundingClientRect();
+        const finalY = getScrollY() + finalRect.top;
+        window.scrollTo({ top: finalY, behavior: "instant" });
+        activeScrollLock = null;
       }, 550);
+      
+      activeScrollLock = { interval };
     }
 
     // Change-Handler: Nur für programmatische Änderungen (z.B. interne Links)
@@ -182,7 +208,19 @@
         syncAllHrElements();
         updateAccordionAria();
       } else {
-        // Öffnen: Erst andere schließen
+        // Öffnen: Scroll während Animation komplett sperren
+        const targetLabel = getLabelCatForInput(input.id);
+        let lockedScrollY = getScrollY();
+        
+        // Scroll-Lock aktivieren
+        const lockScroll = () => {
+          if (Math.abs(getScrollY() - lockedScrollY) > 1) {
+            window.scrollTo({ top: lockedScrollY, behavior: "instant" });
+          }
+        };
+        const lockInterval = setInterval(lockScroll, 8);
+        
+        // Erst andere schließen
         allAccordionInputs.forEach((other) => {
           if (other !== input && other.checked) {
             other.checked = false;
@@ -191,8 +229,12 @@
         input.checked = true;
         syncAllHrElements();
         updateAccordionAria();
-        // Scroll zum Label
-        scrollToAccordionContent(input);
+        
+        // Nach Animation: Lock entfernen und zum Ziel scrollen
+        setTimeout(() => {
+          clearInterval(lockInterval);
+          scrollToAccordionContent(input);
+        }, 550);
       }
     });
 
