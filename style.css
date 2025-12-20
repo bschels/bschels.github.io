@@ -1054,8 +1054,8 @@ hr.z {
 }
 
 .form-success {
-  text-align: center;
-  padding: 2rem 1rem;
+  text-align: left;
+  padding: 2rem 0;
   max-width: 500px;
 }
 
