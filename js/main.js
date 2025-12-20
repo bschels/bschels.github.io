@@ -93,6 +93,25 @@
     const allAccordionLabels = document.querySelectorAll('label.cat[for^="tog"]');
     const allWhiteContent = document.querySelectorAll(".white_content");
     
+    // Helper-Funktionen für bessere Performance
+    const getScrollY = () => window.pageYOffset || window.scrollY;
+    const getLabelForInput = (inputId) => document.querySelector(`label[for="${inputId}"]`);
+    const getLabelCatForInput = (inputId) => document.querySelector(`label.cat[for="${inputId}"]`);
+    
+    // ZENTRALE Funktion: Synchronisiert ALLE HR-Elemente basierend auf dem aktuellen Zustand
+    function syncAllHrElements() {
+      allAccordionInputs.forEach((input) => {
+        const label = getLabelForInput(input.id);
+        if (label) {
+          const hrInLabel = label.querySelector("hr.z");
+          if (hrInLabel) {
+            // HR verstecken wenn Accordion offen, anzeigen wenn geschlossen
+            hrInLabel.style.display = input.checked ? "none" : "block";
+          }
+        }
+      });
+    }
+    
     // Accordion-State initialisieren
     allAccordionInputs.forEach((input) => {
       accordionState.set(input.id, input.checked);
@@ -116,133 +135,81 @@
     function scrollToAccordionContent(input) {
       if (!input) return;
       
-      const label = document.querySelector(`label[for="${input.id}"]`);
+      // WICHTIG: Zum label.cat scrollen (der Titel), NICHT irgendein Label
+      const label = getLabelCatForInput(input.id);
       if (!label) return;
       
-      // Vorherige Scroll-Locks aufräumen
+      // IMMER vorherige Scroll-Locks aufräumen
       if (activeScrollLock) {
         clearInterval(activeScrollLock.interval);
         activeScrollLock = null;
       }
       
-      // Scroll-Position während der Transition einfrieren
-      let scrollLocked = true;
-      const currentScrollY = window.pageYOffset || window.scrollY;
-      
-      const lockScroll = () => {
-        if (scrollLocked) {
-          window.scrollTo({ top: currentScrollY, behavior: "auto" });
-        }
-      };
-      
-      // Scroll-Lock während der Transition aktiv halten
-      const lockInterval = setInterval(lockScroll, 10);
-      activeScrollLock = { interval: lockInterval };
-      
-      // Nach CSS-Transition (500ms) scrollen
+      // Warten bis CSS-Transition FERTIG ist (andere Accordions schließen sich)
+      // --transition-slow ist ca. 500ms
       setTimeout(() => {
-        if (activeScrollLock && activeScrollLock.interval === lockInterval) {
-          clearInterval(lockInterval);
-          activeScrollLock = null;
-        }
-        scrollLocked = false;
-        
-        // Mehrfaches requestAnimationFrame für präzise Positionierung
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            const rect = label.getBoundingClientRect();
-            const scrollY = window.pageYOffset || window.scrollY;
-            const targetY = scrollY + rect.top;
-            const finalY = Math.max(0, targetY - 2);
-            
-            window.scrollTo({ top: finalY, behavior: "smooth" });
-          });
-        });
-      }, 520); // Etwas früher als Transition-Ende für flüssigeres Verhalten
+        label.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 550);
     }
 
-    // Optimierter Event-Handler: Reduziert Code-Duplikation und verbessert Performance
+    // Change-Handler: Nur für programmatische Änderungen (z.B. interne Links)
+    // Scrollt NICHT, da der Click-Handler das übernimmt
     allAccordionInputs.forEach((input) => {
       input.addEventListener("change", function () {
-        const isChecked = this.checked;
-        const label = document.querySelector(`label[for="${this.id}"]`);
-        
-        // Scroll-Position sofort einfrieren, um nativen Browser-Scroll zu verhindern
-        if (isChecked) {
-          const currentScrollY = window.pageYOffset || window.scrollY;
-          window.scrollTo({ top: currentScrollY, behavior: "auto" });
-        }
-        
-        accordionState.set(this.id, isChecked);
-        
-        // HR im Label verstecken/anzeigen
-        if (label) {
-          const hrInLabel = label.querySelector("hr.z");
-          if (hrInLabel) hrInLabel.style.display = isChecked ? "none" : "";
-        }
-        
-        // Andere Accordions schließen (nur wenn dieses geöffnet wird)
-        if (isChecked) {
-          allAccordionInputs.forEach((other) => {
-            if (other !== this && other.checked) {
-              other.checked = false;
-              accordionState.set(other.id, false);
-              const otherLabel = document.querySelector(`label[for="${other.id}"]`);
-              if (otherLabel) {
-                const otherHr = otherLabel.querySelector("hr.z");
-                if (otherHr) otherHr.style.display = "";
-              }
-            }
-          });
-        }
-        
+        accordionState.set(this.id, this.checked);
+        syncAllHrElements();
         updateAccordionAria();
-        
-        // Scroll zum Label beim Öffnen (besonders wichtig auf mobil)
-        if (isChecked) {
-          scrollToAccordionContent(this);
-        }
       });
     });
 
-    // Toggle-Verhalten: Wenn auf bereits geöffnetes Accordion geklickt wird, schließen
-    allAccordionLabels.forEach((label) => {
-      label.addEventListener("click", function (event) {
-        const id = this.getAttribute("for");
-        const input = id ? document.getElementById(id) : null;
-        if (!input) return;
-        
-        // Wenn bereits geöffnet, schließen (Toggle)
-        if (input.checked) {
-          event.preventDefault();
-          event.stopPropagation();
-          input.checked = false;
-          // change-Event wird automatisch ausgelöst und kümmert sich um den Rest
-        }
-        // Wenn geschlossen, native Verhalten erlauben (input wird automatisch checked)
-      });
-
-      label.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          this.click();
-        }
-      });
-    });
-    
-    // Optimiert: Einzelner Event-Handler für alle Accordion-Labels (Event-Delegation)
-    // Dies reduziert die Anzahl der Event-Listener
-
-    // Initial: HR in Labels verstecken wenn Bereich bereits ausgeklappt ist
-    allAccordionInputs.forEach((input) => {
+    // Toggle-Verhalten: KOMPLETT manuell steuern, um Browser-Scroll zu verhindern
+    // Event-Delegation für bessere Performance
+    document.addEventListener("click", function (event) {
+      const label = event.target.closest('label.cat[for^="tog"]');
+      if (!label) return;
+      
+      const id = label.getAttribute("for");
+      const input = id ? document.getElementById(id) : null;
+      if (!input) return;
+      
+      // IMMER native Verhalten verhindern (verhindert Browser-Auto-Scroll!)
+      event.preventDefault();
+      event.stopPropagation();
+      
       if (input.checked) {
-        const label = document.querySelector(`label[for="${input.id}"]`);
-        if (label) {
-          const hrInLabel = label.querySelector('hr.z');
-          if (hrInLabel) hrInLabel.style.display = 'none';
-        }
+        // Schließen
+        input.checked = false;
+        syncAllHrElements();
+        updateAccordionAria();
+      } else {
+        // Öffnen: Erst andere schließen
+        allAccordionInputs.forEach((other) => {
+          if (other !== input && other.checked) {
+            other.checked = false;
+          }
+        });
+        input.checked = true;
+        syncAllHrElements();
+        updateAccordionAria();
+        // Scroll zum Label
+        scrollToAccordionContent(input);
       }
     });
+
+    // Keyboard-Navigation für Accordions
+    document.addEventListener("keydown", function (event) {
+      const label = event.target.closest('label.cat[for^="tog"]');
+      if (!label) return;
+      
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        label.click();
+      }
+    });
+    
+
+    // Initial: ALLE HR-Elemente synchronisieren
+    syncAllHrElements();
 
     updateAccordionAria();
 
@@ -266,35 +233,49 @@
       const section = document.getElementById(id);
       
       if (input) {
+        // WICHTIG: preventDefault SOFORT, bevor der Browser scrollt
         event.preventDefault();
-        // Accordion öffnen - change-Event manuell auslösen falls nötig
-        if (!input.checked) {
-          input.checked = true;
-          // change-Event wird automatisch ausgelöst
-        } else {
-          // Falls bereits geöffnet, nur scrollen
-          const label = document.querySelector(`label.cat[for="${accordionId}"]`);
-          if (label) {
-            const rect = label.getBoundingClientRect();
-            const scrollY = window.pageYOffset || window.scrollY;
-            const targetY = scrollY + rect.top;
-            window.scrollTo({ top: Math.max(0, targetY - 2), behavior: "smooth" });
-          }
+        event.stopPropagation();
+        
+        // Hash mit replaceState setzen (verhindert Browser-Scroll)
+        if (window.location.hash !== '#' + id) {
+          history.replaceState(null, '', '#' + id);
         }
-        // Focus-Management nach Scroll
-        setTimeout(() => {
-          const label = document.querySelector(`label.cat[for="${accordionId}"]`);
-          if (label) {
-            label.focus();
+        
+        // Alle anderen Accordions schließen
+        allAccordionInputs.forEach((other) => {
+          if (other !== input && other.checked) {
+            other.checked = false;
           }
-        }, 600);
-        return; // Scroll wird vom change-Event-Handler übernommen
+        });
+        
+        // Accordion öffnen
+        input.checked = true;
+        syncAllHrElements();
+        updateAccordionAria();
+        
+        // Spezialbehandlung für #kontakt: Zum Formular scrollen statt zum Titel
+        if (id === "kontakt") {
+          setTimeout(() => {
+            const form = document.getElementById("contact-form-de");
+            if (form) {
+              form.scrollIntoView({ behavior: "smooth", block: "start" });
+            } else {
+              // Fallback zum Label
+              scrollToAccordionContent(input);
+            }
+          }, 550);
+        } else {
+          // Normale Accordions: Zum Titel scrollen
+          scrollToAccordionContent(input);
+        }
+        return;
       }
       
       // Scroll zu Section (nur wenn kein Accordion-Input gefunden wurde)
       if (section) {
         event.preventDefault();
-        const y = section.getBoundingClientRect().top + window.pageYOffset - 20;
+        const y = section.getBoundingClientRect().top + getScrollY() - 20;
         window.scrollTo({ top: y, behavior: "smooth" });
         // Focus-Management für Accessibility
         setTimeout(() => {
