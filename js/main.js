@@ -266,8 +266,8 @@
         // Formulardaten sammeln
         const formDataObj = new FormData(this);
 
-        // An Netlify senden
-        fetch("https://abschels.netlify.app/", {
+        // An Netlify Function senden (CORS-Proxy)
+        fetch("https://abschels.netlify.app/.netlify/functions/submit-form", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams(formDataObj).toString(),
