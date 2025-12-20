@@ -246,15 +246,22 @@
       form.querySelectorAll(".field-error").forEach(el => el.remove());
       form.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
 
+      const messages = {
+        name: "Bitte tragen Sie Ihren Namen ein.",
+        email: "Bitte tragen Sie Ihre E-Mail-Adresse ein.",
+        message: "Bitte tragen Sie Ihre Nachricht ein."
+      };
+
       form.querySelectorAll("input[required], textarea[required]").forEach((field) => {
         const value = field.value.trim();
+        const fieldName = field.name;
         let errorMsg = "";
 
         if (!value) {
-          errorMsg = "Pflichtfeld";
+          errorMsg = messages[fieldName] || "Bitte füllen Sie dieses Feld aus.";
           isValid = false;
         } else if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          errorMsg = "Ungültige E-Mail-Adresse";
+          errorMsg = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
           isValid = false;
         }
 
