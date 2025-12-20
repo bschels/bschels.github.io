@@ -55,9 +55,9 @@ label{
   cursor: pointer; display: block; margin: 0;}
 label.cat[for^=tog]{
   position: relative; transition: all var(--transition-fast); white-space: nowrap;}
-label.cat[for^=tog]: :before{
+label.cat[for^=tog]::before{
   content: "+"; color: currentColor; margin-right: .3em; letter-spacing: normal; font-size: var(--font-size-xl); font-weight: 200;}
-label.cat[for^=tog]: :before,label.cat[for^=tog] > h2.cat{
+label.cat[for^=tog]::before,label.cat[for^=tog] > h2.cat{
   display: inline-block; vertical-align: middle;}
 label.cat[for^=tog] > h2.cat,label.cat[for^=tog] > p.cat{
   display: inline; margin: 0; padding-left: var(--spacing-sm);}
@@ -67,7 +67,7 @@ h3.cat{
   text-transform: uppercase !important;}
 label.cat[for^=tog]:hover{
   color: var(--hover-text); background-color: var(--hover-bg);}
-label.cat[for^=tog].expanded: :before{
+label.cat[for^=tog].expanded::before{
   content: "−";}
 label.cat[for^=tog].expanded{
   color: var(--hover-text); background-color: var(--hover-bg);}
@@ -157,7 +157,7 @@ address{
   font-size: var(--font-size-md); padding: var(--padding-sm) 0; display: block; margin-bottom: .3em;}
 .cat_text .arrow-nohover a{
   word-break: break-word;}
-.arrow-nohover: :before{
+.arrow-nohover::before{
   content: ""; display: none;}
 .lb_footer{
   font-size: var(--font-size-md); font-weight: 200; letter-spacing: var(--letter-spacing-md); position: absolute; bottom: 0; left: 0; right: 0; z-index: 10; text-align: right; background: linear-gradient(transparent 0%,var(--bg) 40%); padding: 1.5em 0.8em 0.5em; pointer-events: none;}
