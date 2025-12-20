@@ -133,7 +133,7 @@ td{
   vertical-align: top; padding: var(--padding-sm) var(--padding-md); line-height: 1.5;}
 td:first-child{
   white-space: nowrap; padding-right: var(--padding-xl); width: 1%;}
-tr: nth-child(odd){
+tr:nth-child(odd){
   background: rgba(204,204,204,.2);}
 input[type=button],input[type=text]{
   -webkit-appearance: none; border-radius: 0;}
@@ -189,6 +189,8 @@ address{
   width: 100%; table-layout: auto;}
 .white_content td{
   word-break: break-word;}
+.white_content tr:nth-child(odd){
+  background: rgba(204,204,204,.2);}
 .footer-bottom-container{
   display: flex; justify-content: space-between; align-items: baseline; padding: var(--padding-xl) 0; flex-wrap: wrap; gap: 0.5em;}
 .footer-info-left{
@@ -365,6 +367,8 @@ footer{
   font-size: var(--font-size-sm); padding: .2em .4em;}
 .cat_text table{
   width: 100%; table-layout: auto; overflow-x: auto; -webkit-overflow-scrolling: touch;}
+.cat_text tr:nth-child(odd){
+  background: rgba(204,204,204,.2);}
 input[type=radio]:checked ~ .cat_text{
   overflow-x: auto;}
 td{
@@ -438,7 +442,9 @@ td:first-child{
   --primary: #fff; --bg: #111; --body: #e5e5e5; --secondary: #999; --accent: #4d9fff; --hover-bg: #fff; --hover-text: #111;}
 .cv-portrait{
   filter: grayscale(100%) brightness(.9);}
-tr: nth-child(odd){
+tr:nth-child(odd){
+  background: rgba(255,255,255,.05);}
+.white_content tr:nth-child(odd),.cat_text tr:nth-child(odd){
   background: rgba(255,255,255,.05);}
 .form-group input:focus,.form-group textarea:focus{
   box-shadow: 0 0 0 2px rgba(255,255,255,.2);}

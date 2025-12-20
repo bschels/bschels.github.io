@@ -256,6 +256,11 @@
     updateAccordionAria();
 
     document.addEventListener("click", function (event) {
+      // Lightbox-Links zuerst prüfen (haben auch href="#")
+      if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita]")) {
+        return; // Wird vom Lightbox-Handler verarbeitet
+      }
+      
       const target = event.target.closest('a[href^="#"]');
       if (!target) return;
       const href = target.getAttribute("href");
