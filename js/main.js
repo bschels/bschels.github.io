@@ -240,6 +240,22 @@
       }
     });
 
+    // Custom Validation Messages (formelle Anrede)
+    document.querySelectorAll(".contact-form input[required], .contact-form textarea[required]").forEach((field) => {
+      field.addEventListener("invalid", function () {
+        if (this.validity.valueMissing) {
+          this.setCustomValidity("Bitte füllen Sie dieses Feld aus.");
+        } else if (this.validity.typeMismatch && this.type === "email") {
+          this.setCustomValidity("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        } else {
+          this.setCustomValidity("");
+        }
+      });
+      field.addEventListener("input", function () {
+        this.setCustomValidity("");
+      });
+    });
+
     document.querySelectorAll(".contact-form").forEach((form) => {
       form.addEventListener("submit", function (event) {
         event.preventDefault();

@@ -58,16 +58,6 @@ exports.handler = async (event) => {
     const email = data.get("email") || "keine@angabe.de";
     const phone = data.get("phone") || "nicht angegeben";
     const message = data.get("message") || "";
-    const datenschutz = data.get("datenschutz");
-
-    // Datenschutz-Checkbox prüfen
-    if (!datenschutz) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: "Bitte stimmen Sie der Datenschutzerklärung zu." }),
-      };
-    }
 
     // E-Mail an dich senden
     const responseToOwner = await fetch("https://api.resend.com/emails", {
@@ -89,10 +79,8 @@ exports.handler = async (event) => {
           <hr>
           <p><strong>Nachricht:</strong></p>
           <p>${message.replace(/\n/g, "<br>")}</p>
-          <hr>
-          <p style="color: #666; font-size: 12px;">Datenschutz akzeptiert: Ja</p>
         `,
-        text: `Neue Kontaktanfrage\n\nName: ${name}\nE-Mail: ${email}\nTelefon: ${phone}\n\nNachricht:\n${message}\n\nDatenschutz akzeptiert: Ja`,
+        text: `Neue Kontaktanfrage\n\nName: ${name}\nE-Mail: ${email}\nTelefon: ${phone}\n\nNachricht:\n${message}`,
       }),
     });
 
@@ -107,36 +95,45 @@ exports.handler = async (event) => {
     }
 
     // Bestätigungs-E-Mail an Besucher senden
-    await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "Benjamin Schels <hello@schels.info>",
-        to: [email],
-        reply_to: "hello@schels.info",
-        subject: "Ihre Anfrage bei architekturbüro schels",
-        html: `
-          <p>Guten Tag ${name},</p>
-          <p>vielen Dank für Ihre Nachricht.</p>
-          <p>Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.</p>
-          <br>
-          <p>Mit freundlichen Grüßen</p>
-          <p><strong>Benjamin Schels</strong><br>
-          Architekt M.A.</p>
-          <hr>
-          <p style="color: #666; font-size: 12px;">
-            architekturbüro schels<br>
-            Schlachterstraße 9, 85283 Wolnzach<br>
-            Tel: +49 8442 929 2291<br>
-            Web: <a href="https://schels.info">schels.info</a>
-          </p>
-        `,
-        text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\n\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.\n\nMit freundlichen Grüßen\nBenjamin Schels\nArchitekt M.A.\n\n---\narchitekturbüro schels\nSchlachterstraße 9, 85283 Wolnzach\nTel: +49 8442 929 2291\nWeb: schels.info`,
-      }),
-    });
+    try {
+      const confirmResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Benjamin Schels <hello@schels.info>",
+          to: [email],
+          reply_to: "hello@schels.info",
+          subject: "Ihre Anfrage bei architekturbüro schels",
+          html: `
+            <p>Guten Tag ${name},</p>
+            <p>vielen Dank für Ihre Nachricht.</p>
+            <p>Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.</p>
+            <br>
+            <p>Mit freundlichen Grüßen</p>
+            <p><strong>Benjamin Schels</strong><br>
+            Architekt M.A.</p>
+            <hr>
+            <p style="color: #666; font-size: 12px;">
+              architekturbüro schels<br>
+              Schlachterstraße 9, 85283 Wolnzach<br>
+              Tel: +49 8442 929 2291<br>
+              Web: <a href="https://schels.info">schels.info</a>
+            </p>
+          `,
+          text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\n\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen.\n\nMit freundlichen Grüßen\nBenjamin Schels\nArchitekt M.A.\n\n---\narchitekturbüro schels\nSchlachterstraße 9, 85283 Wolnzach\nTel: +49 8442 929 2291\nWeb: schels.info`,
+        }),
+      });
+      
+      if (!confirmResponse.ok) {
+        const confirmError = await confirmResponse.json();
+        console.error("Resend error (confirmation):", confirmError);
+      }
+    } catch (confirmErr) {
+      console.error("Confirmation email error:", confirmErr);
+    }
 
     return {
       statusCode: 200,
