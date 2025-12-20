@@ -25,6 +25,13 @@ export default {
       const phone = data.get("phone") || "nicht angegeben";
       const message = data.get("message") || "";
 
+      // Datum und Uhrzeit formatieren
+      const now = new Date();
+      const dateOptions = { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Berlin' };
+      const timeOptions = { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' };
+      const dateStr = now.toLocaleDateString('de-DE', dateOptions);
+      const timeStr = now.toLocaleTimeString('de-DE', timeOptions) + ' Uhr';
+
       // E-Mail an dich senden
       const responseToOwner = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -38,15 +45,48 @@ export default {
           reply_to: email,
           subject: `Neue Anfrage von ${name}`,
           html: `
-            <h2>Neue Kontaktanfrage</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>E-Mail:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p><strong>Telefon:</strong> ${phone}</p>
-            <hr>
-            <p><strong>Nachricht:</strong></p>
-            <p>${message.replace(/\n/g, "<br>")}</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="margin:0; padding:0; background-color:#f5f5f5;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f5f5; padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px; background-color:#ffffff;">
+          
+          <tr>
+            <td align="right" style="padding:24px 40px 16px 40px;">
+              <span style="font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:12pt; letter-spacing:0.12em; color:#1a1a1a;">architekturbüro schels</span>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="padding:16px 40px 32px 40px; font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:11pt; line-height:1.6; color:#333333;">
+              <h2 style="margin:0 0 24px 0; font-weight:normal; font-size:14pt;">Neue Kontaktanfrage über schels.info</h2>
+              
+              <p style="margin:0 0 8px 0;"><span style="letter-spacing:0.05em;">NAME:</span> ${name}</p>
+              <p style="margin:0 0 8px 0;"><span style="letter-spacing:0.05em;">EMAIL:</span> <a href="mailto:${email}" style="color:#333;">${email}</a></p>
+              <p style="margin:0 0 8px 0;"><span style="letter-spacing:0.05em;">TELEFON:</span> ${phone}</p>
+              <p style="margin:0 0 8px 0;"><span style="letter-spacing:0.05em;">DATUM:</span> ${dateStr}</p>
+              <p style="margin:0 0 24px 0;"><span style="letter-spacing:0.05em;">UHRZEIT:</span> ${timeStr}</p>
+              
+              <p style="margin:0 0 8px 0; letter-spacing:0.05em;">NACHRICHT:</p>
+              <p style="margin:0; padding:16px; background:#f9f9f9; border-left:3px solid #D0D0D0;">
+                ${message.replace(/\n/g, "<br>")}
+              </p>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
           `,
-          text: `Neue Kontaktanfrage\n\nName: ${name}\nE-Mail: ${email}\nTelefon: ${phone}\n\nNachricht:\n${message}`,
+          text: `Neue Kontaktanfrage über schels.info\n\nNAME: ${name}\nEMAIL: ${email}\nTELEFON: ${phone}\nDATUM: ${dateStr}\nUHRZEIT: ${timeStr}\n\nNACHRICHT:\n${message}`,
         }),
       });
 
@@ -84,34 +124,53 @@ export default {
       <td align="center">
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px; background-color:#ffffff;">
           
-          <!-- Header -->
-          <tr>
-            <td style="padding:32px 40px 24px 40px; border-bottom:1px solid #e0e0e0;">
-              <span style="font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:18pt; letter-spacing:0.1em; color:#1a1a1a;">architekturbüro schels</span>
-            </td>
-          </tr>
-          
-          <!-- Content -->
           <tr>
             <td style="padding:32px 40px; font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:11pt; line-height:1.6; color:#333333;">
               <p style="margin:0 0 16px 0;">Guten Tag ${name},</p>
               <p style="margin:0 0 16px 0;">vielen Dank für Ihre Nachricht.<br>Ich habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen zurück.</p>
               <p style="margin:24px 0 0 0;">Mit freundlichen Grüßen</p>
-              <p style="margin:16px 0 0 0;"><strong>Benjamin Schels</strong></p>
+              <p style="margin:16px 0 0 0;">Benjamin Schels</p>
             </td>
           </tr>
           
-          <!-- Signature -->
           <tr>
-            <td style="padding:24px 40px 32px 40px; border-top:1px solid #e0e0e0; font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:9pt; line-height:1.5; color:#666666;">
-              <p style="margin:0 0 4px 0;"><strong style="color:#333;">Benjamin Schels</strong></p>
-              <p style="margin:0 0 12px 0;">Architekt M.A. · Büroinhaber</p>
-              <p style="margin:0 0 4px 0;">Schlachterstraße 9<br>D-85283 Wolnzach</p>
-              <p style="margin:12px 0 0 0;">
-                <a href="tel:+4984429292291" style="color:#666666; text-decoration:none;">T +49 8442 929 229 1</a><br>
-                <a href="mailto:hello@schels.info" style="color:#666666; text-decoration:none;">hello@schels.info</a><br>
-                <a href="https://www.schels.info/" style="color:#666666; text-decoration:none;">www.schels.info</a>
-              </p>
+            <td style="padding:0 40px 32px 40px;">
+              <table cellpadding="0" cellspacing="0" border="0" role="presentation"
+                style="max-width:320px; font-family:Avenir,-apple-system,'Segoe UI',Arial,sans-serif; font-size:10pt; line-height:1.35; color:#333333;">
+                
+                <tr>
+                  <td style="padding:10px 0 10px 0; border-top:1px solid #D0D0D0;">
+                    <span style="font-size:16pt; letter-spacing:0.12em;">architekturbüro schels</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:0 0 8px 0;">
+                    <span>Benjamin Schels</span><br>
+                    <span>Architekt M.A.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:0 0 8px 0;">
+                    Schlachterstraße&nbsp;9<br>
+                    D-85283&nbsp;Wolnzach
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:0 0 8px 0;">
+                    <a href="tel:+4984429292291" style="color:inherit; text-decoration:none;">T&nbsp;+49&nbsp;8442&nbsp;929&nbsp;229&nbsp;1</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:0;">
+                    <a href="mailto:hello@schels.info" style="color:inherit; text-decoration:none;">hello@schels.info</a><br>
+                    <a href="https://www.schels.info/" style="color:inherit; text-decoration:none;">www.schels.info</a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
           
@@ -122,7 +181,7 @@ export default {
 </body>
 </html>
             `,
-            text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen zurück.\n\nMit freundlichen Grüßen\n\nBenjamin Schels\n\n---\narchitekturbüro schels\nBenjamin Schels | Architekt M.A. | Büroinhaber\nSchlachterstraße 9, D-85283 Wolnzach\nT +49 8442 929 229 1\nhello@schels.info\nwww.schels.info`,
+            text: `Guten Tag ${name},\n\nvielen Dank für Ihre Nachricht.\nIch habe Ihre Anfrage erhalten und melde mich zeitnah persönlich bei Ihnen zurück.\n\nMit freundlichen Grüßen\n\nBenjamin Schels\n\n---\narchitekturbüro schels\nBenjamin Schels\nArchitekt M.A.\nSchlachterstraße 9, D-85283 Wolnzach\nT +49 8442 929 229 1\nhello@schels.info\nwww.schels.info`,
           }),
         });
       } catch (e) {
