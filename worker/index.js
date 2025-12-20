@@ -7,13 +7,25 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
+    // Security Headers
+    const securityHeaders = {
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-XSS-Protection": "1; mode=block",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
+    };
+
+    // Combine headers
+    const allHeaders = { ...corsHeaders, ...securityHeaders };
+
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: corsHeaders });
+      return new Response(null, { status: 204, headers: allHeaders });
     }
 
     if (request.method !== "POST") {
-      return new Response("Method Not Allowed", { status: 405, headers: corsHeaders });
+      return new Response("Method Not Allowed", { status: 405, headers: allHeaders });
     }
 
     try {
@@ -95,7 +107,7 @@ export default {
         console.error("Resend error:", error);
         return new Response(
           JSON.stringify({ error: "E-Mail konnte nicht gesendet werden." }),
-          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          { status: 500, headers: { ...allHeaders, "Content-Type": "application/json" } }
         );
       }
 
@@ -190,14 +202,14 @@ export default {
 
       return new Response(
         JSON.stringify({ success: true }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        { status: 200, headers: { ...allHeaders, "Content-Type": "application/json" } }
       );
 
     } catch (error) {
       console.error("Worker error:", error);
       return new Response(
         JSON.stringify({ error: error.message }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        { status: 500, headers: { ...allHeaders, "Content-Type": "application/json" } }
       );
     }
   },

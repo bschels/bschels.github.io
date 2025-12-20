@@ -166,9 +166,9 @@ address{
 .lb_close{
   position: absolute; top: 0; right: 0; z-index: 200; padding: var(--spacing-md); pointer-events: auto;}
 .lb_close a{
-  font-size: var(--font-size-4xl); font-weight: 200; text-decoration: none; display: block; line-height: 1; padding: var(--spacing-sm); transition: opacity var(--transition-fast); width: 1.2em; height: 1.2em; text-align: center; color: var(--primary); pointer-events: auto; position: relative; z-index: 201;}
+  font-size: var(--font-size-4xl); font-weight: 200; text-decoration: none; display: block; line-height: 1; padding: var(--spacing-sm); transition: all var(--transition-fast); width: 1.2em; height: 1.2em; text-align: center; color: var(--primary); pointer-events: auto; position: relative; z-index: 201;}
 .lb_close a:hover{
-  opacity: 0.7;}
+  color: var(--hover-text); background-color: var(--hover-bg);}
 .black_overlay,.white{
   background-color: var(--bg);}
 .black_overlay{
