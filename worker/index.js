@@ -14,6 +14,9 @@ export default {
       "X-XSS-Protection": "1; mode=block",
       "Referrer-Policy": "strict-origin-when-cross-origin",
       "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Embedder-Policy": "require-corp",
     };
 
     // Combine headers
@@ -36,6 +39,103 @@ export default {
       const email = data.get("email") || "keine@angabe.de";
       const phone = data.get("phone") || "nicht angegeben";
       const message = data.get("message") || "";
+
+      // Qualitätsprüfung: Erkenne zufällige Zeichenketten und sinnlose Nachrichten
+      function isSpamMessage(text) {
+        if (!text || text.trim().length < 10) {
+          return true; // Zu kurz
+        }
+        
+        const trimmed = text.trim();
+        const withoutSpaces = trimmed.replace(/\s+/g, '');
+        
+        // Prüfe auf zu viele Konsonanten hintereinander (z.B. "aowijweopifpoweiFN")
+        const consonantPattern = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/g;
+        if (consonantPattern.test(withoutSpaces)) {
+          return true;
+        }
+        
+        // Prüfe auf zu viele Großbuchstaben mitten im Wort (z.B. "aowijweopifpoweiFN")
+        const mixedCasePattern = /[a-z][A-Z]{2,}|[A-Z]{2,}[a-z]/;
+        if (mixedCasePattern.test(trimmed)) {
+          return true;
+        }
+        
+        // Prüfe auf zu viele aufeinanderfolgende gleiche Zeichen (z.B. "aaaaaa")
+        const repeatedPattern = /(.)\1{4,}/;
+        if (repeatedPattern.test(trimmed)) {
+          return true;
+        }
+        
+        // Prüfe auf zu viele Sonderzeichen
+        const specialCharCount = (trimmed.match(/[^a-zA-Z0-9äöüÄÖÜß\s]/g) || []).length;
+        if (specialCharCount > trimmed.length * 0.3) {
+          return true; // Mehr als 30% Sonderzeichen
+        }
+        
+        // Prüfe auf fehlende Vokale (zu viele Konsonanten ohne Vokale)
+        const vowels = trimmed.match(/[aeiouäöüAEIOUÄÖÜ]/gi) || [];
+        const consonants = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
+        if (consonants.length > 0 && vowels.length / consonants.length < 0.2) {
+          return true; // Weniger als 20% Vokale
+        }
+        
+        return false;
+      }
+      
+      // E-Mail-Format-Validierung: Erkenne verdächtige E-Mail-Adressen
+      function isSuspiciousEmail(emailAddr) {
+        if (!emailAddr || !emailAddr.includes("@")) {
+          return true;
+        }
+        
+        const [localPart, domain] = emailAddr.split("@");
+        
+        // Prüfe auf zu viele Zahlen im lokalen Teil
+        const numbersInLocal = (localPart.match(/[0-9]/g) || []).length;
+        if (numbersInLocal > localPart.length * 0.5) {
+          return true; // Mehr als 50% Zahlen
+        }
+        
+        // Prüfe auf zu viele aufeinanderfolgende Konsonanten im lokalen Teil
+        const consonantPattern = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/g;
+        if (consonantPattern.test(localPart)) {
+          return true;
+        }
+        
+        // Prüfe auf verdächtige Domain-Muster (z.B. "test123.com", "temp-mail.org")
+        const suspiciousDomains = ["tempmail", "10minutemail", "guerrillamail", "mailinator", "throwaway"];
+        const domainLower = domain.toLowerCase();
+        if (suspiciousDomains.some(susp => domainLower.includes(susp))) {
+          return true;
+        }
+        
+        // Prüfe auf zu viele Sonderzeichen im lokalen Teil
+        const specialCharCount = (localPart.match(/[^a-zA-Z0-9._-]/g) || []).length;
+        if (specialCharCount > localPart.length * 0.2) {
+          return true; // Mehr als 20% Sonderzeichen
+        }
+        
+        return false;
+      }
+      
+      // Prüfe Nachricht und Name auf Spam
+      if (isSpamMessage(message) || isSpamMessage(name)) {
+        // Spam erkannt, stillschweigend ablehnen (wie erfolgreich, damit Bot nichts merkt)
+        return new Response(
+          JSON.stringify({ success: true }),
+          { status: 200, headers: { ...allHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      // Prüfe E-Mail auf verdächtige Muster
+      if (isSuspiciousEmail(email)) {
+        // Verdächtige E-Mail erkannt, stillschweigend ablehnen
+        return new Response(
+          JSON.stringify({ success: true }),
+          { status: 200, headers: { ...allHeaders, "Content-Type": "application/json" } }
+        );
+      }
 
       // Datum und Uhrzeit formatieren
       const now = new Date();

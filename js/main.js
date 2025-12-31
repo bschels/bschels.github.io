@@ -86,6 +86,18 @@
     document.getElementById("fade").style.display = "block";
   };
 
+  window.openProjektbild = function (imgSrc) {
+    const img = document.getElementById("projektbild-gross");
+    if (img) {
+      img.src = imgSrc;
+      img.alt = "Projektbild";
+    }
+    document.getElementById("projektbild-p").style.display = "block";
+    document.getElementById("fade").style.display = "block";
+    // Body-Scroll sperren
+    document.body.style.overflow = "hidden";
+  };
+
   document.addEventListener("DOMContentLoaded", function () {
     // Cache häufig verwendete Elemente
     const fade = document.getElementById("fade");
@@ -257,7 +269,7 @@
 
     document.addEventListener("click", function (event) {
       // Lightbox-Links zuerst prüfen (haben auch href="#")
-      if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita]")) {
+      if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita], [data-open-projektbild]")) {
         return; // Wird vom Lightbox-Handler verarbeitet
       }
       
@@ -349,6 +361,20 @@
         const panel = document.getElementById(id);
         if (panel) panel.style.display = "none";
         if (fade) fade.style.display = "none";
+        // Body-Scroll wieder freigeben
+        document.body.style.overflow = "";
+        return;
+      }
+      
+      // Lightbox schließen beim Klick auf den dunklen Hintergrund
+      if (event.target === fade) {
+        const openPanels = document.querySelectorAll(".white_content[style*='block']");
+        openPanels.forEach(panel => {
+          panel.style.display = "none";
+        });
+        fade.style.display = "none";
+        // Body-Scroll wieder freigeben
+        document.body.style.overflow = "";
         return;
       }
       
@@ -370,6 +396,17 @@
       if (event.target.closest("[data-open-vita]")) {
         event.preventDefault();
         kb_source_2_vita();
+        return;
+      }
+      
+      // Lightbox öffnen - Projektbild
+      const projektbildTrigger = event.target.closest("[data-open-projektbild]");
+      if (projektbildTrigger) {
+        event.preventDefault();
+        const imgSrc = projektbildTrigger.getAttribute("data-open-projektbild");
+        if (imgSrc) {
+          openProjektbild(imgSrc);
+        }
         return;
       }
     });
@@ -412,6 +449,22 @@
     }
 
     document.querySelectorAll(".contact-form").forEach((form) => {
+      // Zeitpunkt speichern, wenn Formular sichtbar wird
+      let formOpenTime = Date.now();
+      let formInitialized = false;
+      
+      // Intersection Observer: Zeitpunkt erfassen, wenn Formular sichtbar wird
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !formInitialized) {
+            formOpenTime = Date.now();
+            formInitialized = true;
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(form);
+      
       form.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -428,6 +481,18 @@
         const honeypot = this.querySelector(".website-field");
         if (honeypot && honeypot.value) {
           // Spam erkannt, stillschweigend abbrechen
+          return;
+        }
+
+        // Zeitbasierte Validierung: Mindestens 5 Sekunden warten
+        const timeOpen = Date.now() - formOpenTime;
+        if (timeOpen < 5000) {
+          if (errorBox) {
+            if (errorText) {
+              errorText.textContent = "Bitte warten Sie einen Moment, bevor Sie das Formular absenden.";
+            }
+            fadeIn(errorBox, 300);
+          }
           return;
         }
 
