@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+e wirtschafts 
 <html lang="de-DE" dir="ltr">
 <head>
  <meta charset="utf-8">
@@ -75,19 +75,19 @@
  <link rel="dns-prefetch" href="https://api.netlify.com">
  <link rel="preconnect" href="https://schels.goatcounter.com" crossorigin>
  <link rel="preconnect" href="https://gc.zgo.at" crossorigin>
- <link rel="preload" href="style.css" as="style">
-<link rel="preload" href="/images/benjamin-schels-portrait.webp" as="image" type="image/webp" fetchpriority="high">
-<link rel="preload" href="/js/main.js" as="script" crossorigin="anonymous">
-<link rel="stylesheet" href="style.css">
+ <link rel="preload" href="style.css?v=20251223" as="style">
+<link rel="preload" href="/images/benjamin-schels-portrait.webp?v=20251223" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="/js/main.js?v=20251223" as="script" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css?v=20251223">
  <link rel="prefetch" href="/pages/impressum.html" as="document">
  <link rel="prefetch" href="/pages/datenschutz.html" as="document">
- <link rel="prefetch" href="/images/abs-logo.svg" as="image" type="image/svg+xml">
+ <link rel="prefetch" href="/images/abs-logo.svg?v=20251223" as="image" type="image/svg+xml">
  <meta name="mobile-web-app-capable" content="yes">
  <meta name="apple-mobile-web-app-title" content="architekturbüro schels">
  <meta name="application-name" content="architekturbüro schels">
  <meta name="msapplication-TileColor" content="#ffffff">
  <meta name="msapplication-config" content="/favicon/browserconfig.xml">
- <script src="/js/main.js" defer></script>
+ <script src="/js/main.js?v=20251223" defer></script>
 </head>
 <body>
  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
@@ -114,8 +114,8 @@
  <section class="cat_text" id="profil" role="region" aria-labelledby="label-profil">
 <div class="cv-header">
 <picture>
-<source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
- <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels, Architekt M.A. und Büroinhaber von architekturbüro schels in Wolnzach" class="cv-portrait" loading="eager" fetchpriority="high" width="180" height="226" decoding="async" itemprop="image">
+<source srcset="/images/benjamin-schels-portrait.webp?v=20251223" type="image/webp">
+ <img src="/images/benjamin-schels-portrait.png?v=20251223" alt="Benjamin Schels, Architekt M.A. und Büroinhaber von architekturbüro schels in Wolnzach" class="cv-portrait" loading="eager" fetchpriority="high" width="180" height="226" decoding="async" itemprop="image">
 </picture>
 <div class="cv-name">
 <p class="cv-role">Büroinhaber</p>
@@ -250,7 +250,11 @@
  </address>
  <div class="contact-form-section">
  <form id="contact-form-de" name="contact-form-de" method="POST" class="contact-form" novalidate>
+ <!-- Honeypot-Felder: Sollten nie ausgefüllt werden -->
  <input type="text" name="website" class="website-field" style="display: none;" tabindex="-1" autocomplete="off">
+ <input type="text" name="url" class="website-field" style="position: absolute; left: -9999px;" tabindex="-1" autocomplete="off" aria-hidden="true">
+ <input type="text" name="homepage" class="website-field" style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" tabindex="-1" autocomplete="off" aria-hidden="true">
+ <input type="hidden" name="js_token" id="js-token-field" value="">
  <div class="form-group">
  <label for="name-de">Name</label>
  <input type="text" id="name-de" name="name" autocomplete="name" required>

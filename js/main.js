@@ -453,6 +453,14 @@
       let formOpenTime = Date.now();
       let formInitialized = false;
       
+      // JavaScript-Token setzen (Bots ohne JS können das nicht)
+      const jsTokenField = form.querySelector("#js-token-field");
+      if (jsTokenField) {
+        // Einfacher Token basierend auf aktueller Zeit und zufälligem Wert
+        const token = btoa(Date.now().toString() + Math.random().toString()).substring(0, 16);
+        jsTokenField.value = token;
+      }
+      
       // Intersection Observer: Zeitpunkt erfassen, wenn Formular sichtbar wird
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -477,10 +485,24 @@
         const submitBtn = this.querySelector(".form-submit");
         const originalText = submitBtn ? submitBtn.textContent : "";
 
-        // Honeypot-Check: Wenn website-Feld ausgefüllt ist, abbrechen (Spam)
-        const honeypot = this.querySelector(".website-field");
-        if (honeypot && honeypot.value) {
-          // Spam erkannt, stillschweigend abbrechen
+        // Honeypot-Check: Alle Honeypot-Felder prüfen
+        const honeypots = this.querySelectorAll(".website-field");
+        for (const honeypot of honeypots) {
+          if (honeypot.value && honeypot.name !== "js_token") {
+            // Spam erkannt, stillschweigend abbrechen
+            return;
+          }
+        }
+        
+        // JavaScript-Token prüfen
+        if (jsTokenField && !jsTokenField.value) {
+          // Kein Token = Bot ohne JavaScript
+          if (errorBox) {
+            if (errorText) {
+              errorText.textContent = "Bitte aktivieren Sie JavaScript in Ihrem Browser.";
+            }
+            fadeIn(errorBox, 300);
+          }
           return;
         }
 

@@ -32,8 +32,74 @@ export default {
     }
 
     try {
+      // Referrer-Check: Blockiere nur verdächtige externe Referrer
+      const referer = request.headers.get("Referer") || request.headers.get("Referrer") || "";
+      if (referer) {
+        try {
+          const refererUrl = new URL(referer);
+          const refererDomain = refererUrl.hostname.toLowerCase();
+          const allowedDomains = ["schels.info", "www.schels.info", "bschels.github.io", "localhost"];
+          
+          // Wenn Referrer vorhanden, muss er von erlaubter Domain kommen
+          if (!allowedDomains.some(domain => refererDomain.includes(domain))) {
+            return new Response(
+              JSON.stringify({ error: "Ungültige Anfragequelle." }),
+              { status: 403, headers: { ...allHeaders, "Content-Type": "application/json" } }
+            );
+          }
+        } catch (e) {
+          // Ungültiger Referrer-URL = verdächtig
+          return new Response(
+            JSON.stringify({ error: "Ungültige Anfragequelle." }),
+            { status: 403, headers: { ...allHeaders, "Content-Type": "application/json" } }
+          );
+        }
+      }
+      
+      // User-Agent-Check: Bekannte Bot-User-Agents blockieren
+      const userAgent = request.headers.get("User-Agent") || "";
+      const botPatterns = [
+        /bot/i, /crawler/i, /spider/i, /scraper/i, /curl/i, /wget/i,
+        /python/i, /java/i, /php/i, /ruby/i, /perl/i,
+        /^$/, // Leerer User-Agent
+        /^Mozilla\/5\.0$/, // Minimaler User-Agent
+      ];
+      if (botPatterns.some(pattern => pattern.test(userAgent))) {
+        // Erlaube nur bekannte Browser-User-Agents
+        const allowedBrowsers = /Mozilla\/5\.0.*(Chrome|Safari|Firefox|Edge|Opera)/i;
+        if (!allowedBrowsers.test(userAgent)) {
+          return new Response(
+            JSON.stringify({ error: "Ungültiger Browser." }),
+            { status: 403, headers: { ...allHeaders, "Content-Type": "application/json" } }
+          );
+        }
+      }
+      
       const formData = await request.text();
       const data = new URLSearchParams(formData);
+      
+      // Honeypot-Check: Alle Honeypot-Felder prüfen
+      const honeypotFields = ["website", "url", "homepage"];
+      for (const field of honeypotFields) {
+        const value = data.get(field);
+        if (value && value.trim().length > 0) {
+          // Honeypot ausgefüllt = Spam
+          return new Response(
+            JSON.stringify({ error: "Ungültige Anfrage." }),
+            { status: 400, headers: { ...allHeaders, "Content-Type": "application/json" } }
+          );
+        }
+      }
+      
+      // JavaScript-Token prüfen
+      const jsToken = data.get("js_token");
+      if (!jsToken || jsToken.trim().length === 0) {
+        // Kein Token = Bot ohne JavaScript
+        return new Response(
+          JSON.stringify({ error: "JavaScript muss aktiviert sein." }),
+          { status: 400, headers: { ...allHeaders, "Content-Type": "application/json" } }
+        );
+      }
       
       const name = data.get("name") || "Unbekannt";
       const email = data.get("email") || "keine@angabe.de";
@@ -41,46 +107,70 @@ export default {
       const message = data.get("message") || "";
 
       // Qualitätsprüfung: Erkenne zufällige Zeichenketten und sinnlose Nachrichten
-      function isSpamMessage(text) {
-        if (!text || text.trim().length < 10) {
-          return true; // Zu kurz
+      function isSpamMessage(text, isName = false) {
+        // Prüfe zuerst auf leeren Text
+        if (!text || typeof text !== 'string') {
+          return { isSpam: true, reason: "Die Nachricht ist leer oder ungültig." };
         }
         
         const trimmed = text.trim();
+        
+        // Prüfe auf leeren Text nach trim
+        if (trimmed.length === 0) {
+          return { isSpam: true, reason: "Die Nachricht ist leer." };
+        }
+        
+        // Mindestlänge: Nachrichten müssen mindestens 20 Zeichen haben, Namen mindestens 2
+        const minLength = isName ? 2 : 20;
+        if (trimmed.length < minLength) {
+          return { isSpam: true, reason: `Die Nachricht ist zu kurz. Bitte geben Sie mindestens ${minLength} Zeichen ein.` };
+        }
+        
         const withoutSpaces = trimmed.replace(/\s+/g, '');
         
         // Prüfe auf zu viele Konsonanten hintereinander (z.B. "aowijweopifpoweiFN")
-        const consonantPattern = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{6,}/g;
+        const consonantPattern = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{5,}/g;
         if (consonantPattern.test(withoutSpaces)) {
-          return true;
+          return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
         }
         
         // Prüfe auf zu viele Großbuchstaben mitten im Wort (z.B. "aowijweopifpoweiFN")
         const mixedCasePattern = /[a-z][A-Z]{2,}|[A-Z]{2,}[a-z]/;
         if (mixedCasePattern.test(trimmed)) {
-          return true;
+          return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
         }
         
         // Prüfe auf zu viele aufeinanderfolgende gleiche Zeichen (z.B. "aaaaaa")
-        const repeatedPattern = /(.)\1{4,}/;
+        const repeatedPattern = /(.)\1{3,}/;
         if (repeatedPattern.test(trimmed)) {
-          return true;
+          return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
         }
         
         // Prüfe auf zu viele Sonderzeichen
         const specialCharCount = (trimmed.match(/[^a-zA-Z0-9äöüÄÖÜß\s]/g) || []).length;
-        if (specialCharCount > trimmed.length * 0.3) {
-          return true; // Mehr als 30% Sonderzeichen
+        if (specialCharCount > trimmed.length * 0.25) {
+          return { isSpam: true, reason: "Die Nachricht enthält zu viele Sonderzeichen." };
         }
         
         // Prüfe auf fehlende Vokale (zu viele Konsonanten ohne Vokale)
-        const vowels = trimmed.match(/[aeiouäöüAEIOUÄÖÜ]/gi) || [];
-        const consonants = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
-        if (consonants.length > 0 && vowels.length / consonants.length < 0.2) {
-          return true; // Weniger als 20% Vokale
+        if (trimmed.length >= 8) {
+          const vowels = trimmed.match(/[aeiouäöüAEIOUÄÖÜ]/gi) || [];
+          const consonants = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
+          if (consonants.length > 0 && vowels.length / consonants.length < 0.25) {
+            return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
+          }
         }
         
-        return false;
+        // Prüfe auf zufällige Zeichenketten: Wenn mehr als 50% des Textes aus Konsonanten besteht
+        if (trimmed.length >= 6) {
+          const letterCount = trimmed.match(/[a-zA-ZäöüÄÖÜ]/g) || [];
+          const consonantCount = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
+          if (letterCount.length > 0 && consonantCount.length / letterCount.length > 0.7) {
+            return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
+          }
+        }
+        
+        return { isSpam: false };
       }
       
       // E-Mail-Format-Validierung: Erkenne verdächtige E-Mail-Adressen
@@ -119,21 +209,29 @@ export default {
         return false;
       }
       
-      // Prüfe Nachricht und Name auf Spam
-      if (isSpamMessage(message) || isSpamMessage(name)) {
-        // Spam erkannt, stillschweigend ablehnen (wie erfolgreich, damit Bot nichts merkt)
+      // Prüfe Nachricht auf Spam
+      const messageCheck = isSpamMessage(message, false);
+      if (messageCheck.isSpam) {
         return new Response(
-          JSON.stringify({ success: true }),
-          { status: 200, headers: { ...allHeaders, "Content-Type": "application/json" } }
+          JSON.stringify({ error: messageCheck.reason }),
+          { status: 400, headers: { ...allHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      // Prüfe Name auf Spam
+      const nameCheck = isSpamMessage(name, true);
+      if (nameCheck.isSpam) {
+        return new Response(
+          JSON.stringify({ error: nameCheck.reason }),
+          { status: 400, headers: { ...allHeaders, "Content-Type": "application/json" } }
         );
       }
       
       // Prüfe E-Mail auf verdächtige Muster
       if (isSuspiciousEmail(email)) {
-        // Verdächtige E-Mail erkannt, stillschweigend ablehnen
         return new Response(
-          JSON.stringify({ success: true }),
-          { status: 200, headers: { ...allHeaders, "Content-Type": "application/json" } }
+          JSON.stringify({ error: "Die E-Mail-Adresse ist ungültig oder verdächtig." }),
+          { status: 400, headers: { ...allHeaders, "Content-Type": "application/json" } }
         );
       }
 
