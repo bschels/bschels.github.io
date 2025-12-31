@@ -343,7 +343,7 @@ hr.z{
 .form-error .error-fallback{
   color: var(--secondary); font-size: 0.9em;}
 .form-error .error-fallback a{
-  color: var(--accent); text-decoration: underline;}
+  color: inherit; text-decoration: underline;}
 @media (max-width: 810px){
   body{
   width: 100%; padding-left: 0; padding-right: 0; font-size: var(--font-size-base); min-width: 0; max-width: none;}
@@ -453,7 +453,23 @@ tr:nth-child(odd){
 hr.z{
   background: var(--body);}
 .white_content{
-  border-color: var(--body);}}
+  border-color: var(--body);}
+/* Projekte-Bilder in Tabelle - kompakt, schwarz-weiß, rechtsbündig */
+.projekt-bild-cell{
+  width: 100px; min-width: 100px; max-width: 100px; padding: var(--padding-sm) 0 var(--padding-sm) var(--padding-sm) !important; vertical-align: top; text-align: right;}
+.projekt-bild-klein{
+  width: 100px; height: 100px; min-width: 100px; max-width: 100px; object-fit: cover; display: block; filter: grayscale(1); border-radius: 2px; margin: 0 0 0 auto; cursor: pointer;}
+.projekt-mit-bild td:not(.projekt-bild-cell){
+  padding-right: var(--padding-sm);}
+#projektbild-gross{
+  filter: grayscale(1);}
+/* Lightbox für Bilder - Best Practices */
+.white_content_image{
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: var(--spacing-xl);}
+.lightbox_image{
+  display: flex; align-items: center; justify-content: center; overflow: visible; padding: 0; height: auto; max-height: 100%;}
+#projektbild-gross{
+  max-width: 90vw; max-height: 85vh; width: auto; height: auto; display: block; object-fit: contain; margin: 0 auto;}
 @media print{
   body{
   width: 100%; font-size: 11pt;}
