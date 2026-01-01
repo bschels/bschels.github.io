@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="de-DE" dir="ltr">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="format-detection" content="telephone=yes">
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="default">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+ <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+ <title>Dateien – architekturbüro schels</title>
+ <style>
+ :root {
+   --primary: #000;
+   --bg: #fff;
+   --body: #000;
+   --secondary: #555;
+   --hover-bg: #000;
+   --hover-text: #fff;
+   --font-main: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+   --spacing-xs: 0.3rem;
+   --spacing-sm: 0.5rem;
+   --spacing-md: 1rem;
+   --spacing-lg: 1.5rem;
+   --spacing-xl: 2rem;
+   --spacing-2xl: 3rem;
+   --padding-sm: 0.4em;
+   --padding-md: 0.5em;
+   --padding-lg: 0.8em;
+   --padding-xl: 1em;
+   --font-size-sm: 0.85em;
+   --font-size-base: 0.9em;
+   --font-size-md: 1em;
+   --font-size-lg: 1.1em;
+   --font-size-xl: 1.2em;
+   --font-size-3xl: 1.4em;
+   --letter-spacing-sm: 0.08em;
+   --letter-spacing-md: 0.1em;
+   --letter-spacing-lg: 0.12em;
+   --letter-spacing-xl: 0.15em;
+   --letter-spacing-2xl: 0.18em;
+   --letter-spacing-3xl: 0.2em;
+   --transition-fast: 0.2s ease;
+   --transition-base: 0.3s ease;
+ }
+
+ * {
+   border-radius: 0 !important;
+   box-sizing: border-box;
+ }
+
+ body {
+   background: var(--bg);
+   color: var(--body);
+   font-family: var(--font-main);
+   font-weight: 200;
+   margin: 0;
+   padding: 0;
+   font-size: var(--font-size-md);
+   line-height: 1.5;
+ }
+
+ /* Header */
+ .header {
+   background: var(--primary);
+   color: var(--bg);
+   padding: var(--spacing-md) var(--spacing-xl);
+   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   position: sticky;
+   top: 0;
+   z-index: 100;
+ }
+
+ .header-content {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   max-width: 1400px;
+   margin: 0 auto;
+ }
+
+ .logo {
+   font-size: var(--font-size-3xl);
+   font-weight: 200;
+   letter-spacing: var(--letter-spacing-3xl);
+   text-decoration: none;
+   color: var(--bg);
+   line-height: 1.2;
+ }
+
+ .logo span {
+   display: block;
+ }
+
+ .header-actions {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-md);
+ }
+
+ .header-button {
+   background: transparent;
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   color: var(--bg);
+   padding: var(--padding-sm) var(--padding-lg);
+   font-family: var(--font-main);
+   font-weight: 200;
+   font-size: var(--font-size-base);
+   letter-spacing: var(--letter-spacing-md);
+   cursor: pointer;
+   transition: all var(--transition-fast);
+   text-transform: uppercase;
+ }
+
+ .header-button:hover {
+   background: var(--bg);
+   color: var(--primary);
+   border-color: var(--bg);
+ }
+
+ /* Navigation */
+ .nav {
+   background: var(--bg);
+   border-bottom: 1px solid #e0e0e0;
+   padding: 0 var(--spacing-xl);
+ }
+
+ .nav-content {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xl);
+   max-width: 1400px;
+   margin: 0 auto;
+ }
+
+ .nav-item {
+   padding: var(--spacing-md) 0;
+   text-decoration: none;
+   color: var(--body);
+   font-weight: 200;
+   font-size: var(--font-size-md);
+   letter-spacing: var(--letter-spacing-md);
+   text-transform: uppercase;
+   border-bottom: 2px solid transparent;
+   transition: all var(--transition-fast);
+ }
+
+ .nav-item:hover,
+ .nav-item.active {
+   color: var(--primary);
+   border-bottom-color: var(--primary);
+ }
+
+ /* Toolbar */
+ .toolbar {
+   background: var(--bg);
+   padding: var(--spacing-md) var(--spacing-xl);
+   border-bottom: 1px solid #e0e0e0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: var(--spacing-md);
+ }
+
+ .toolbar-content {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-md);
+   max-width: 1400px;
+   width: 100%;
+   margin: 0 auto;
+ }
+
+ .breadcrumb {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   font-size: var(--font-size-base);
+   font-weight: 200;
+ }
+
+ .breadcrumb-item {
+   color: var(--secondary);
+   text-decoration: none;
+   transition: color var(--transition-fast);
+ }
+
+ .breadcrumb-item:hover {
+   color: var(--primary);
+ }
+
+ .breadcrumb-separator {
+   color: var(--secondary);
+ }
+
+ .toolbar-actions {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   margin-left: auto;
+ }
+
+ .toolbar-button {
+   background: transparent;
+   border: 1px solid var(--body);
+   color: var(--body);
+   padding: var(--padding-sm) var(--padding-lg);
+   font-family: var(--font-main);
+   font-weight: 200;
+   font-size: var(--font-size-base);
+   letter-spacing: var(--letter-spacing-md);
+   cursor: pointer;
+   transition: all var(--transition-fast);
+   text-transform: uppercase;
+ }
+
+ .toolbar-button:hover {
+   background: var(--hover-bg);
+   color: var(--hover-text);
+   border-color: var(--hover-bg);
+ }
+
+ .toolbar-button.primary {
+   background: var(--primary);
+   color: var(--bg);
+   border-color: var(--primary);
+ }
+
+ .toolbar-button.primary:hover {
+   background: var(--hover-bg);
+   color: var(--hover-text);
+ }
+
+ /* Main Content */
+ .main-content {
+   max-width: 1400px;
+   margin: 0 auto;
+   padding: var(--spacing-xl);
+ }
+
+ /* File List */
+ .file-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+ }
+
+ .file-item {
+   display: flex;
+   align-items: center;
+   padding: var(--spacing-md);
+   border-bottom: 1px solid #e0e0e0;
+   transition: background-color var(--transition-fast);
+   cursor: pointer;
+ }
+
+ .file-item:hover {
+   background: rgba(0, 0, 0, 0.05);
+ }
+
+ .file-icon {
+   width: 32px;
+   height: 32px;
+   margin-right: var(--spacing-md);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 1.2em;
+   color: var(--secondary);
+ }
+
+ .file-info {
+   flex: 1;
+   min-width: 0;
+ }
+
+ .file-name {
+   font-weight: 200;
+   font-size: var(--font-size-md);
+   color: var(--body);
+   margin: 0 0 var(--spacing-xs) 0;
+   letter-spacing: var(--letter-spacing-sm);
+ }
+
+ .file-meta {
+   font-size: var(--font-size-sm);
+   color: var(--secondary);
+   font-weight: 200;
+ }
+
+ .file-size {
+   font-size: var(--font-size-sm);
+   color: var(--secondary);
+   font-weight: 200;
+   text-align: right;
+   min-width: 80px;
+ }
+
+ .file-actions {
+   display: flex;
+   gap: var(--spacing-sm);
+   margin-left: var(--spacing-md);
+   opacity: 0;
+   transition: opacity var(--transition-fast);
+ }
+
+ .file-item:hover .file-actions {
+   opacity: 1;
+ }
+
+ .file-action-button {
+   background: transparent;
+   border: 1px solid var(--secondary);
+   color: var(--secondary);
+   padding: var(--padding-sm);
+   font-family: var(--font-main);
+   font-weight: 200;
+   font-size: var(--font-size-sm);
+   cursor: pointer;
+   transition: all var(--transition-fast);
+   width: 32px;
+   height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .file-action-button:hover {
+   background: var(--primary);
+   color: var(--bg);
+   border-color: var(--primary);
+ }
+
+ /* Empty State */
+ .empty-state {
+   text-align: center;
+   padding: var(--spacing-2xl) var(--spacing-xl);
+   color: var(--secondary);
+ }
+
+ .empty-state-icon {
+   font-size: 4em;
+   margin-bottom: var(--spacing-md);
+   opacity: 0.3;
+ }
+
+ .empty-state-text {
+   font-size: var(--font-size-lg);
+   font-weight: 200;
+   letter-spacing: var(--letter-spacing-md);
+   text-transform: uppercase;
+ }
+
+ /* Responsive */
+ @media (max-width: 768px) {
+   .header-content,
+   .nav-content,
+   .toolbar-content,
+   .main-content {
+     padding-left: var(--spacing-md);
+     padding-right: var(--spacing-md);
+   }
+
+   .toolbar {
+     flex-direction: column;
+     align-items: flex-start;
+   }
+
+   .toolbar-actions {
+     margin-left: 0;
+     width: 100%;
+   }
+
+   .toolbar-button {
+     flex: 1;
+   }
+
+   .file-item {
+     flex-wrap: wrap;
+   }
+
+   .file-actions {
+     opacity: 1;
+     width: 100%;
+     margin-top: var(--spacing-sm);
+     margin-left: 48px;
+   }
+ }
+
+ @media (prefers-color-scheme: dark) {
+   :root {
+     --primary: #fff;
+     --bg: #111;
+     --body: #e5e5e5;
+     --secondary: #999;
+     --hover-bg: #fff;
+     --hover-text: #111;
+   }
+
+   .header {
+     background: var(--primary);
+     color: var(--bg);
+   }
+
+   .nav {
+     border-bottom-color: rgba(255, 255, 255, 0.1);
+   }
+
+   .toolbar {
+     border-bottom-color: rgba(255, 255, 255, 0.1);
+   }
+
+   .file-item {
+     border-bottom-color: rgba(255, 255, 255, 0.1);
+   }
+
+   .file-item:hover {
+     background: rgba(255, 255, 255, 0.05);
+   }
+ }
+ </style>
+</head>
+<body>
+ <header class="header" role="banner">
+   <div class="header-content">
+    <a href="./" class="logo">
+      archi­tektur­büro<br><span>schels</span>
+    </a>
+     <div class="header-actions">
+       <button class="header-button">Einstellungen</button>
+       <button class="header-button">Abmelden</button>
+     </div>
+   </div>
+ </header>
+
+ <nav class="nav" role="navigation">
+   <div class="nav-content">
+     <a href="#" class="nav-item active">Dateien</a>
+     <a href="#" class="nav-item">Fotos</a>
+     <a href="#" class="nav-item">Geteilt</a>
+     <a href="#" class="nav-item">Aktivität</a>
+   </div>
+ </nav>
+
+ <div class="toolbar">
+   <div class="toolbar-content">
+     <div class="breadcrumb">
+       <a href="#" class="breadcrumb-item">Dateien</a>
+       <span class="breadcrumb-separator">/</span>
+       <a href="#" class="breadcrumb-item">Projekte</a>
+       <span class="breadcrumb-separator">/</span>
+       <span class="breadcrumb-item">2024</span>
+     </div>
+     <div class="toolbar-actions">
+       <button class="toolbar-button">Ansicht</button>
+       <button class="toolbar-button">Sortieren</button>
+       <button class="toolbar-button primary">Hochladen</button>
+     </div>
+   </div>
+ </div>
+
+ <main class="main-content" role="main">
+   <ul class="file-list">
+     <li class="file-item">
+       <div class="file-icon">📁</div>
+       <div class="file-info">
+         <div class="file-name">Projekt_Muenchen_2024</div>
+         <div class="file-meta">Ordner • Zuletzt geändert: 15.12.2024</div>
+       </div>
+       <div class="file-size">—</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+     <li class="file-item">
+       <div class="file-icon">📄</div>
+       <div class="file-info">
+         <div class="file-name">Grundriss_EG.pdf</div>
+         <div class="file-meta">PDF-Dokument • Zuletzt geändert: 10.12.2024</div>
+       </div>
+       <div class="file-size">2.4 MB</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Herunterladen">⬇</button>
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+     <li class="file-item">
+       <div class="file-icon">📄</div>
+       <div class="file-info">
+         <div class="file-name">Grundriss_OG.pdf</div>
+         <div class="file-meta">PDF-Dokument • Zuletzt geändert: 10.12.2024</div>
+       </div>
+       <div class="file-size">2.1 MB</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Herunterladen">⬇</button>
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+     <li class="file-item">
+       <div class="file-icon">🖼️</div>
+       <div class="file-info">
+         <div class="file-name">Fassade_Ansicht_Sued.jpg</div>
+         <div class="file-meta">Bild • Zuletzt geändert: 08.12.2024</div>
+       </div>
+       <div class="file-size">5.8 MB</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Herunterladen">⬇</button>
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+     <li class="file-item">
+       <div class="file-icon">📄</div>
+       <div class="file-info">
+         <div class="file-name">Kostenplanung.xlsx</div>
+         <div class="file-meta">Excel-Tabelle • Zuletzt geändert: 05.12.2024</div>
+       </div>
+       <div class="file-size">156 KB</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Herunterladen">⬇</button>
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+     <li class="file-item">
+       <div class="file-icon">📁</div>
+       <div class="file-info">
+         <div class="file-name">Fotos_Baustelle</div>
+         <div class="file-meta">Ordner • Zuletzt geändert: 03.12.2024</div>
+       </div>
+       <div class="file-size">—</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+     <li class="file-item">
+       <div class="file-icon">📄</div>
+       <div class="file-info">
+         <div class="file-name">Genehmigungsplanung.pdf</div>
+         <div class="file-meta">PDF-Dokument • Zuletzt geändert: 01.12.2024</div>
+       </div>
+       <div class="file-size">8.2 MB</div>
+       <div class="file-actions">
+         <button class="file-action-button" title="Herunterladen">⬇</button>
+         <button class="file-action-button" title="Teilen">🔗</button>
+         <button class="file-action-button" title="Mehr">⋯</button>
+       </div>
+     </li>
+   </ul>
+ </main>
+</body>
+</html>

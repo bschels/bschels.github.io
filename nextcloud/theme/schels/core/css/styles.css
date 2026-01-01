@@ -1,0 +1,425 @@
+/* Nextcloud Theme: architekturbüro schels */
+/* Corporate Design: Schwarz, keine runden Ecken, Avenir Next Font */
+
+/* Globale Einstellungen - Keine runden Ecken */
+* {
+  border-radius: 0 !important;
+}
+
+/* Font: Avenir Next (System Font) - ALLE Elemente */
+*,
+body,
+#header,
+#app-navigation,
+#app-content,
+button,
+input,
+select,
+textarea,
+.app-header,
+.app-header-header,
+header,
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, li, ul, ol {
+  font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 200 !important;
+}
+
+/* Header - Schwarz (alle Varianten) */
+#header,
+header,
+header[role="banner"],
+.app-header,
+.app-header-header,
+#app-header,
+.header,
+.header-header {
+  background: #000 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  padding: 12px 20px !important;
+}
+
+/* Header Text - Weiß */
+#header,
+#header *,
+header,
+header *,
+header[role="banner"],
+header[role="banner"] *,
+.app-header,
+.app-header *,
+.app-header-header,
+.app-header-header *,
+#app-header,
+#app-header *,
+.header,
+.header *,
+.header-header,
+.header-header * {
+  color: #fff !important;
+}
+
+#header .header-left,
+#header .header-right,
+#header .header-start,
+#header .header-end,
+#header .header-appname,
+#header .header-title,
+header .header-left,
+header .header-right,
+header .header-start,
+header .header-end,
+.app-header-header .header-left,
+.app-header-header .header-right,
+header[role="banner"] .header-left,
+header[role="banner"] .header-right {
+  color: #fff !important;
+}
+
+#header .logo,
+header .logo,
+.app-header-header .logo,
+header[role="banner"] .logo {
+  color: #fff !important;
+  font-size: 1.4em !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.2em !important;
+  line-height: 1.2 !important;
+}
+
+#header .logo span,
+header .logo span {
+  display: block;
+}
+
+#header .header-title,
+header .header-title,
+.app-header-header .header-title,
+header[role="banner"] .header-title {
+  font-weight: 200 !important;
+  letter-spacing: 0.2em !important;
+  font-size: 1.4em !important;
+  color: #fff !important;
+}
+
+/* Navigation - Minimalistisch */
+#app-navigation {
+  background: #fff !important;
+  border-right: 1px solid #e0e0e0 !important;
+}
+
+#app-navigation a {
+  color: #000 !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+#app-navigation a:hover,
+#app-navigation a:focus,
+#app-navigation li.active a {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Buttons - Schwarz, keine runden Ecken (ALLE Varianten) */
+button,
+.button,
+button.primary,
+.button.primary,
+button[type="submit"],
+button[type="submit"].primary,
+.primary,
+#header button,
+#header .button,
+header button,
+header .button,
+header[role="banner"] button,
+header[role="banner"] .button,
+.app-header-header button,
+.app-header-header .button,
+.public-share-view button,
+.public-share-view .button,
+.header button,
+.header .button {
+  background: #000 !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.1em !important;
+  padding: 10px 20px !important;
+  border-radius: 0 !important;
+  transition: all 0.2s ease !important;
+  text-transform: uppercase !important;
+}
+
+button:hover,
+.button:hover,
+button.primary:hover,
+.button.primary:hover,
+#header button:hover,
+#header .button:hover,
+header button:hover,
+header .button:hover,
+header[role="banner"] button:hover,
+header[role="banner"] .button:hover,
+.app-header-header button:hover,
+.app-header-header .button:hover,
+.public-share-view button:hover,
+.public-share-view .button:hover {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+/* Input-Felder - Keine runden Ecken */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+textarea,
+select {
+  border: 1px solid #ccc !important;
+  border-radius: 0 !important;
+  padding: 8px 12px !important;
+  font-family: inherit !important;
+  font-weight: 200 !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #000 !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Files App - Dateiliste */
+.files-fileList {
+  border: none !important;
+}
+
+.files-fileList tr {
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.files-fileList tr:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.files-fileList .filename {
+  font-weight: 200 !important;
+  letter-spacing: 0.08em !important;
+  color: #000 !important;
+}
+
+.files-fileList .fileinfo {
+  font-size: 0.85em !important;
+  color: #555 !important;
+  font-weight: 200 !important;
+}
+
+/* Toolbar */
+.toolbar {
+  background: #fff !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  padding: 1rem 2rem !important;
+}
+
+.breadcrumb {
+  font-weight: 200 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.breadcrumb a {
+  color: #555 !important;
+  text-decoration: none !important;
+}
+
+.breadcrumb a:hover {
+  color: #000 !important;
+}
+
+/* Cards - Minimalistisch */
+.card,
+.box {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Tabs */
+.tab {
+  border-radius: 0 !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+.tab.active {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+/* Dropdowns */
+.dropdown-menu {
+  border-radius: 0 !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dropdown-menu li a {
+  font-weight: 200 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.dropdown-menu li a:hover {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Modals */
+.modal-container {
+  border-radius: 0 !important;
+}
+
+.modal-title {
+  font-weight: 200 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+}
+
+/* Icons - Anpassung falls nötig */
+.icon {
+  border-radius: 0 !important;
+}
+
+/* ÖFFENTLICHE FREIGABEN - Umfassende Regeln */
+/* Alle Header-Varianten auf öffentlichen Seiten */
+body.public-share-view header,
+body.public-share-view #header,
+body.public-share-view .app-header,
+body.public-share-view .app-header-header,
+body.public-share-view header[role="banner"],
+.public-share-view header,
+.public-share-view #header,
+.public-share-view .app-header,
+.public-share-view .app-header-header,
+.public-share-view header[role="banner"],
+#public-share-view header,
+#public-share-view #header {
+  background: #000 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Alle Text-Elemente im Header auf öffentlichen Seiten */
+body.public-share-view header *,
+body.public-share-view #header *,
+.public-share-view header *,
+.public-share-view #header *,
+#public-share-view header *,
+#public-share-view #header * {
+  color: #fff !important;
+}
+
+/* Alle Buttons auf öffentlichen Seiten */
+body.public-share-view button,
+body.public-share-view .button,
+.public-share-view button,
+.public-share-view .button,
+#public-share-view button,
+#public-share-view .button {
+  background: #000 !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+  font-weight: 200 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+body.public-share-view button:hover,
+body.public-share-view .button:hover,
+.public-share-view button:hover,
+.public-share-view .button:hover,
+#public-share-view button:hover,
+#public-share-view .button:hover {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+/* Spezifische Selektoren für Nextcloud Public Share */
+.app-content-public,
+.app-content-public-view,
+.public-share-view .app-content,
+.public-share-view #app-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 200 !important;
+}
+
+/* Überschreibe alle blauen Hintergründe */
+[style*="background-color: var(--color-primary"],
+[style*="background: var(--color-primary"],
+[style*="background-color: #0082c9"],
+[style*="background: #0082c9"],
+.bg-primary,
+.primary {
+  background: #000 !important;
+}
+
+/* Überschreibe alle blauen Texte */
+[style*="color: var(--color-primary"],
+[style*="color: #0082c9"],
+.text-primary {
+  color: #fff !important;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #111 !important;
+    color: #e5e5e5 !important;
+  }
+
+  #app-navigation {
+    background: #111 !important;
+    border-right-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  #app-navigation a {
+    color: #e5e5e5 !important;
+  }
+
+  .files-fileList tr {
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .files-fileList tr:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .toolbar {
+    background: #111 !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  select {
+    background: #111 !important;
+    color: #e5e5e5 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+}

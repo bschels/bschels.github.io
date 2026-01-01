@@ -1,0 +1,503 @@
+/* ===== Grundsetup ===== */
+body#body-public,
+body#body-public * {
+  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Segoe UI",
+               "Helvetica Neue", Arial, sans-serif !important;
+  font-weight: 200 !important;
+  border-radius: 0 !important;
+}
+
+/* ===== Header (nur Textlogo + Download-Pfeil) ===== */
+body#body-public #header {
+  background: #fff !important;
+  padding: 20px 24px 10px !important;
+  min-height: 110px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 28px !important;
+  align-items: flex-start !important;
+  color: #000 !important;
+}
+body#body-public #header #nextcloud.header-appname {
+  display: flex !important;
+  gap: 28px !important;
+  padding: 0 !important;
+}
+body#body-public #header #nextcloud .logo.logo-icon {
+  background: none !important;
+  width: 320px !important;
+  position: static !important;
+}
+body#body-public #header #nextcloud .logo.logo-icon::after {
+  content: "architekturbüro\Aschels" !important;
+  white-space: pre !important;
+  font-size: 22px !important;
+  letter-spacing: .12em !important;
+  color: #000 !important;
+}
+body#body-public #header .header-info { display: none !important; }
+
+body#body-public #header #public-page-menu,
+body#body-public #header #public-page-user-menu { display: none !important; }
+body#body-public #header a#public-page-menu--primary.public-page-menu__primary.button-vue {
+  background: transparent !important;
+  border: none !important;
+  color: #000 !important;
+  box-shadow: none !important;
+}
+body#body-public #header a#public-page-menu--primary .public-page-menu__primary-icon {
+  display: none !important;
+}
+body#body-public #header a#public-page-menu--primary .button-vue__text {
+  color: currentColor !important;
+}
+body#body-public #header a#public-page-menu--primary .button-vue__text::before {
+  content: "↓";
+  margin-right: 6px;
+  font-size: 1.1em;
+  color: currentColor !important;
+}
+
+/* ===== Breadcrumb sichtbar machen - GENAU wie bei gelb/rot, aber schön ===== */
+/* WICHTIG: breadcrumb--collapsed überschreiben - GENAU wie bei gelb/rot */
+html body#body-public main .files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+html body#body-public main .files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__breadcrumbs,
+html body#body-public .files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+html body#body-public .files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__breadcrumbs,
+body#body-public .breadcrumb.breadcrumb--collapsed,
+.breadcrumb.breadcrumb--collapsed,
+body#body-public .files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+.files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: flex !important;
+}
+
+/* Parent Container - Kein Hintergrund, wie der Rest der Seite */
+/* WICHTIG: Auch .files-list__header berücksichtigen! */
+html body#body-public main .files-list__header .files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__header .files-list__breadcrumbs,
+html body#body-public .files-list__header .files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__header .files-list__breadcrumbs,
+html body#body-public main .files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__breadcrumbs,
+html body#body-public .files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__breadcrumbs,
+html body#body-public div.files-list__breadcrumbs.breadcrumb,
+html body#body-public div.files-list__breadcrumbs,
+body#body-public .files-list__header .files-list__breadcrumbs,
+body#body-public .files-list__breadcrumbs,
+.files-list__breadcrumbs,
+body#body-public .files-list__breadcrumbs.breadcrumb,
+.files-list__breadcrumbs.breadcrumb,
+body#body-public div.files-list__breadcrumbs,
+div.files-list__breadcrumbs {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  padding: 0px 24px 15px 24px !important; /* padding-top: 0px, padding-right: 24px, padding-bottom: 15px, padding-left: 24px */
+  background: transparent !important; /* Kein Hintergrund - wie der Rest */
+  border: none !important;
+  margin-top: 115px !important; /* Direkt unter Header (Header ist 110px hoch, position: absolute) - minimaler Abstand */
+  margin-bottom: 10px !important;
+  position: relative !important; /* Wichtig für z-index */
+  z-index: 9999 !important;
+  isolation: isolate !important;
+}
+
+/* Breadcrumb-Hintergrund auch im Dark Mode transparent - wie der Rest */
+@media (prefers-color-scheme: dark) {
+  html body#body-public main .files-list__header .files-list__breadcrumbs.breadcrumb,
+  html body#body-public main .files-list__header .files-list__breadcrumbs,
+  html body#body-public .files-list__header .files-list__breadcrumbs.breadcrumb,
+  html body#body-public .files-list__header .files-list__breadcrumbs,
+  html body#body-public main .files-list__breadcrumbs.breadcrumb,
+  html body#body-public main .files-list__breadcrumbs,
+  html body#body-public .files-list__breadcrumbs.breadcrumb,
+  html body#body-public .files-list__breadcrumbs,
+  html body#body-public div.files-list__breadcrumbs.breadcrumb,
+  html body#body-public div.files-list__breadcrumbs,
+  body#body-public .files-list__header .files-list__breadcrumbs,
+  body#body-public .files-list__breadcrumbs,
+  .files-list__breadcrumbs,
+  body#body-public .files-list__breadcrumbs.breadcrumb,
+  .files-list__breadcrumbs.breadcrumb,
+  body#body-public div.files-list__breadcrumbs,
+  div.files-list__breadcrumbs {
+    background: transparent !important; /* Kein Hintergrund - wie der Rest */
+    border: none !important;
+  }
+  
+  /* Breadcrumb-Text im Dark Mode weiß (auf schwarzem Hintergrund) */
+  html body#body-public main .files-list__breadcrumbs nav[aria-label="Aktueller Verzeichnispfad"],
+  html body#body-public main .files-list__breadcrumbs.breadcrumb nav[aria-label="Aktueller Verzeichnispfad"],
+  html body#body-public .files-list__breadcrumbs.breadcrumb nav[aria-label="Aktueller Verzeichnispfad"],
+  html body#body-public .files-list__breadcrumbs nav[aria-label="Aktueller Verzeichnispfad"],
+  html body#body-public nav[aria-label="Aktueller Verzeichnispfad"],
+  nav[aria-label="Aktueller Verzeichnispfad"],
+  body#body-public nav[aria-label="Aktueller Verzeichnispfad"],
+  body#body-public nav[aria-label="Aktueller Verzeichnispfad"],
+  .files-list__breadcrumbs nav,
+  body#body-public .files-list__breadcrumbs nav,
+  body#body-public .files-list__breadcrumbs nav,
+  .breadcrumb nav,
+  body#body-public .breadcrumb nav,
+  body#body-public .breadcrumb nav,
+  div.files-list__breadcrumbs nav,
+  body#body-public div.files-list__breadcrumbs nav {
+    color: #e5e5e5 !important; /* Weiß im Dark Mode */
+  }
+  
+  body#body-public .files-list__breadcrumbs .button-vue__text[data-v-bfde1a98],
+  body#body-public nav.files-content-breadcrumbs .button-vue__text[data-v-bfde1a98],
+  body#body-public .breadcrumb .button-vue__text,
+  .breadcrumb .button-vue__text {
+    color: #e5e5e5 !important; /* Weiß im Dark Mode */
+  }
+}
+
+/* ZUSÄTZLICH: Direkter Selektor für den Parent mit ALLEN Klassen */
+html body#body-public main .files-list__header div.files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+html body#body-public main .files-list__header div.files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__header div.files-list__breadcrumbs,
+html body#body-public main .files-list__header .files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+html body#body-public main .files-list__header .files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__header .files-list__breadcrumbs,
+html body#body-public .files-list__header div.files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+html body#body-public .files-list__header div.files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__header div.files-list__breadcrumbs,
+html body#body-public .files-list__header .files-list__breadcrumbs.breadcrumb.breadcrumb--collapsed,
+html body#body-public .files-list__header .files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__header .files-list__breadcrumbs {
+  position: relative !important;
+  z-index: 9999 !important;
+  isolation: isolate !important;
+}
+
+/* .files-list__header Container auch z-index erhöhen */
+html body#body-public main .files-list__header,
+html body#body-public .files-list__header,
+body#body-public .files-list__header {
+  position: relative !important;
+  z-index: 9999 !important;
+  isolation: isolate !important;
+  margin-top: 0px !important; /* Kein margin-top - Header ist position: absolute */
+  padding-top: 0px !important; /* Padding-top entfernen */
+}
+
+/* Header-Kinder z-index reduzieren */
+html body#body-public #header *,
+body#body-public #header * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Header z-index reduzieren, damit Breadcrumbs sichtbar sind */
+html body#body-public #header,
+body#body-public #header,
+body#body-public header#header,
+html body#body-public header#header {
+  position: absolute !important;
+  z-index: 1 !important;
+  isolation: isolate !important;
+  max-height: 100px !important;
+  height: 100px !important;
+  overflow: hidden !important;
+}
+
+/* Alle Header-Kinder auch auf niedrigen z-index */
+html body#body-public #header *,
+body#body-public #header * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Breadcrumb-Container noch höher setzen - mit isolation für neuen Stacking Context */
+html body#body-public main .files-list__header .files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__header .files-list__breadcrumbs,
+html body#body-public .files-list__header .files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__header .files-list__breadcrumbs,
+html body#body-public main .files-list__breadcrumbs.breadcrumb,
+html body#body-public main .files-list__breadcrumbs,
+html body#body-public .files-list__breadcrumbs.breadcrumb,
+html body#body-public .files-list__breadcrumbs,
+html body#body-public div.files-list__breadcrumbs.breadcrumb,
+html body#body-public div.files-list__breadcrumbs,
+body#body-public .files-list__header .files-list__breadcrumbs,
+body#body-public .files-list__breadcrumbs,
+.files-list__breadcrumbs,
+body#body-public .files-list__breadcrumbs.breadcrumb,
+.files-list__breadcrumbs.breadcrumb,
+body#body-public div.files-list__breadcrumbs,
+div.files-list__breadcrumbs {
+  z-index: 9999 !important;
+  isolation: isolate !important;
+}
+
+/* nav-Element - GENAU wie bei gelb/rot, aber schön */
+html body#body-public main .files-list__breadcrumbs nav[aria-label="Aktueller Verzeichnispfad"],
+html body#body-public main .files-list__breadcrumbs.breadcrumb nav[aria-label="Aktueller Verzeichnispfad"],
+html body#body-public .files-list__breadcrumbs.breadcrumb nav[aria-label="Aktueller Verzeichnispfad"],
+html body#body-public .files-list__breadcrumbs nav[aria-label="Aktueller Verzeichnispfad"],
+html body#body-public nav[aria-label="Aktueller Verzeichnispfad"],
+nav[aria-label="Aktueller Verzeichnispfad"],
+body#body-public nav[aria-label="Aktueller Verzeichnispfad"],
+body#body-public nav[aria-label="Aktueller Verzeichnispfad"],
+.files-list__breadcrumbs nav,
+body#body-public .files-list__breadcrumbs nav,
+body#body-public .files-list__breadcrumbs nav,
+.breadcrumb nav,
+body#body-public .breadcrumb nav,
+body#body-public .breadcrumb nav,
+div.files-list__breadcrumbs nav,
+body#body-public div.files-list__breadcrumbs nav {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #000 !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  padding: 0 !important;
+  border: none !important;
+  min-height: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1001 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Breadcrumb-Inhalte */
+body#body-public .files-list__breadcrumbs .breadcrumb__crumbs[data-v-daf14f2f],
+body#body-public nav.files-content-breadcrumbs .breadcrumb__crumbs[data-v-daf14f2f],
+body#body-public .breadcrumb__crumbs,
+.breadcrumb__crumbs {
+  display: inline-flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body#body-public .files-list__breadcrumbs .vue-crumb[data-v-bc2f0c21],
+body#body-public nav.files-content-breadcrumbs .vue-crumb[data-v-bc2f0c21],
+body#body-public .vue-crumb,
+.vue-crumb {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body#body-public .files-list__breadcrumbs .button-vue__text[data-v-bfde1a98],
+body#body-public nav.files-content-breadcrumbs .button-vue__text[data-v-bfde1a98],
+body#body-public .breadcrumb .button-vue__text,
+.breadcrumb .button-vue__text {
+  color: #000 !important;
+  font-size: 14px !important;
+  letter-spacing: .08em !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: inline-flex !important;
+  font-weight: 400 !important;
+}
+
+/* Breadcrumb-Buttons und Links */
+body#body-public nav[aria-label="Aktueller Verzeichnispfad"] button,
+body#body-public .files-list__breadcrumbs nav button,
+body#body-public .breadcrumb nav button,
+nav[aria-label="Aktueller Verzeichnispfad"] button,
+.breadcrumb nav button {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: currentColor !important;
+}
+
+body#body-public nav[aria-label="Aktueller Verzeichnispfad"] ul,
+body#body-public .files-list__breadcrumbs nav ul,
+body#body-public .breadcrumb nav ul,
+nav[aria-label="Aktueller Verzeichnispfad"] ul,
+.breadcrumb nav ul {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body#body-public nav[aria-label="Aktueller Verzeichnispfad"] li,
+body#body-public .files-list__breadcrumbs nav li,
+body#body-public .breadcrumb nav li,
+nav[aria-label="Aktueller Verzeichnispfad"] li,
+.breadcrumb nav li {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* ===== Dateiliste + Dropdowns monochrom ===== */
+body#body-public .files-list__table .icon,
+body#body-public .files-list__table [class^="icon-"],
+body#body-public .files-list__table [class*=" icon-"],
+body#body-public .files-list__table .mime-icon,
+body#body-public .files-list__table .fileicon,
+body#body-public .files-list__table .file-icon,
+body#body-public .files-list__table .files-list__row-icon,
+body#body-public .files-list__row-action-icon,
+body#body-public .files-list__row-action .material-design-icon,
+body#body-public .action-button__icon[data-v-5b4c6c71],
+body#body-public .action-button__icon[data-v-5b4c6c71] *,
+body#body-public .action-link__icon[data-v-86e09254],
+body#body-public .action-link__icon[data-v-86e09254] *,
+body#body-public .menu .list-item__icon,
+body#body-public .menu [class^="icon-"],
+body#body-public .popovermenu .list-item__icon,
+body#body-public .popovermenu [class^="icon-"] {
+  background: none !important;
+  background-image: none !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  color: #000 !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  filter: grayscale(100%) !important;
+}
+body#body-public .files-list__table img,
+body#body-public .menu img,
+body#body-public .popovermenu img {
+  filter: grayscale(100%) !important;
+}
+
+/* ===== Footer-Werbung aus ===== */
+body#body-public footer .footer__simple-sign-up,
+body#body-public footer a[href*="nextcloud.com"] { display: none !important; }
+
+/* ===== Footer wie auf Homepage ===== */
+/* Footer-Inhalt wie auf Homepage - Reine CSS-Lösung */
+body#body-public footer p {
+  display: none !important;
+}
+
+body#body-public footer .footer__simple-sign-up {
+  display: none !important;
+}
+
+/* Footer-Styling */
+body#body-public footer {
+  background: #fff !important;
+  padding: 1em 8% !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Segoe UI",
+               "Helvetica Neue", Arial, sans-serif !important;
+  font-weight: 200 !important;
+  font-size: 0.85em !important;
+  color: #000 !important;
+  border-top: none !important;
+  margin-top: auto !important; /* Footer ans Ende schieben */
+  position: static !important; /* static für normale Positionierung im Flow */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  min-height: 1em !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  clear: both !important; /* Footer unter allen float-Elementen */
+  top: auto !important; /* Keine top-Positionierung */
+  left: auto !important; /* Keine left-Positionierung */
+  right: auto !important; /* Keine right-Positionierung */
+  bottom: auto !important; /* Keine bottom-Positionierung */
+}
+
+/* Neuer Footer-Text mit CSS content - nur Text, keine Links */
+body#body-public footer::before {
+  content: "Benjamin Schels, Architekt M.A. - Schlachterstraße 9, D-85283 Wolnzach" !important;
+  display: block !important;
+  font-size: 0.85em !important;
+  font-weight: 200 !important;
+  line-height: 1.5 !important;
+  color: #000 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  min-height: 1em !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Footer::after explizit deaktivieren - keine Links */
+body#body-public footer::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Dark Mode Footer */
+@media (prefers-color-scheme: dark) {
+  body#body-public footer {
+    background: #000 !important;
+    color: #e5e5e5 !important;
+    border-top: none !important;
+  }
+  body#body-public footer a {
+    color: #e5e5e5 !important;
+  }
+  body#body-public footer a:hover {
+    color: #000 !important;
+    background-color: #fff !important;
+    text-decoration-color: #000 !important;
+  }
+}
+
+/* ===== Dark Mode ===== */
+@media (prefers-color-scheme: dark) {
+  body#body-public,
+  body#body-public #content,
+  body#body-public .app-files {
+    background: #000 !important;
+    color: #e5e5e5 !important;
+  }
+  body#body-public #header {
+    background: #000 !important;
+    color: #fff !important;
+  }
+  body#body-public #header #nextcloud .logo.logo-icon::after,
+  body#body-public #header a#public-page-menu--primary.public-page-menu__primary.button-vue,
+  body#body-public #header a#public-page-menu--primary .button-vue__text::before {
+    color: #fff !important;
+  }
+  body#body-public .files-list__table .icon,
+  body#body-public .files-list__table [class^="icon-"],
+  body#body-public .files-list__table [class*=" icon-"],
+  body#body-public .files-list__table .mime-icon,
+  body#body-public .files-list__table .fileicon,
+  body#body-public .files-list__table .file-icon,
+  body#body-public .action-button__icon[data-v-5b4c6c71],
+  body#body-public .action-link__icon[data-v-86e09254],
+  body#body-public .menu .list-item__icon,
+  body#body-public .popovermenu .list-item__icon {
+    color: #fff !important;
+  }
+  body#body-public .files-list__table img,
+  body#body-public .menu img,
+  body#body-public .popovermenu img {
+    filter: grayscale(100%) invert(100%) !important;
+  }
+  body#body-public .menu,
+  body#body-public .popovermenu {
+    background: #000 !important;
+    color: #e5e5e5 !important;
+  }
+  body#body-public .menu *,
+  body#body-public .popovermenu * {
+    color: #e5e5e5 !important;
+  }
+}

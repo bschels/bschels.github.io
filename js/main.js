@@ -86,7 +86,19 @@
     document.getElementById("fade").style.display = "block";
   };
 
+  // Hilfsfunktion: Schließe alle offenen Lightboxes außer der angegebenen
+  function closeAllLightboxesExcept(exceptId) {
+    document.querySelectorAll('.white_content').forEach(panel => {
+      if (panel.id !== exceptId && panel.style.display === "block") {
+        panel.style.display = "none";
+      }
+    });
+  }
+
   window.kb_source_2_hoai = function () {
+    // Schließe alle anderen Lightboxes zuerst
+    closeAllLightboxesExcept("hoai-p");
+    
     // Lade die HOAI-Seite aus /artikel/ statt /pages/
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/hoai.html${cacheBust}`)
@@ -123,6 +135,9 @@
   };
 
   window.kb_source_2_artikel = function () {
+    // Schließe alle anderen Lightboxes zuerst
+    closeAllLightboxesExcept("artikel-p");
+    
     // Lade die Artikel-Übersichtsseite
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/index.html${cacheBust}`)
@@ -159,6 +174,9 @@
   };
 
   window.kb_source_2_baugenehmigung = function () {
+    // Schließe alle anderen Lightboxes zuerst
+    closeAllLightboxesExcept("baugenehmigung-p");
+    
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/baugenehmigung.html${cacheBust}`)
       .then((res) => (res.ok ? res.text() : Promise.reject()))
@@ -192,6 +210,9 @@
   };
 
   window.kb_source_2_kostenbasis = function () {
+    // Schließe alle anderen Lightboxes zuerst
+    closeAllLightboxesExcept("kostenbasis-p");
+    
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/kostenbasis-architektur.html${cacheBust}`)
       .then((res) => (res.ok ? res.text() : Promise.reject()))
@@ -407,6 +428,9 @@
 
     // Generische Funktion zum Laden von Artikel-Lightboxes
     window.loadArticleLightbox = function(articlePath, lightboxId) {
+      // Schließe alle anderen Lightboxes zuerst
+      closeAllLightboxesExcept(lightboxId + "-p");
+      
       const cacheBust = "?_t=" + Date.now();
       fetch(`${articlePath}${cacheBust}`)
         .then((res) => (res.ok ? res.text() : Promise.reject()))
@@ -459,10 +483,6 @@
           if (isOnHomepage || isInLightbox) {
             event.preventDefault();
             event.stopPropagation();
-            const artikelPanel = document.getElementById("artikel-p");
-            if (artikelPanel && artikelPanel.style.display === "block") {
-              artikelPanel.style.display = "none";
-            }
             kb_source_2_hoai();
             return false;
           }
@@ -472,16 +492,6 @@
           if (isOnHomepage || isInLightbox) {
             event.preventDefault();
             event.stopPropagation();
-            const artikelPanel = document.getElementById("artikel-p");
-            if (artikelPanel && artikelPanel.style.display === "block") {
-              artikelPanel.style.display = "none";
-            }
-            const openArticlePanels = document.querySelectorAll(".white_content[id$='-p']");
-            openArticlePanels.forEach(panel => {
-              if (panel.id !== "baugenehmigung-p" && panel.style.display === "block") {
-                panel.style.display = "none";
-              }
-            });
             kb_source_2_baugenehmigung();
             return false;
           }
@@ -491,16 +501,6 @@
           if (isOnHomepage || isInLightbox) {
             event.preventDefault();
             event.stopPropagation();
-            const artikelPanel = document.getElementById("artikel-p");
-            if (artikelPanel && artikelPanel.style.display === "block") {
-              artikelPanel.style.display = "none";
-            }
-            const openArticlePanels = document.querySelectorAll(".white_content[id$='-p']");
-            openArticlePanels.forEach(panel => {
-              if (panel.id !== "kostenbasis-p" && panel.style.display === "block") {
-                panel.style.display = "none";
-              }
-            });
             kb_source_2_kostenbasis();
             return false;
           }
@@ -534,11 +534,6 @@
               <div class="lightbox" id="${lightboxId}"></div>
             `;
             document.body.appendChild(lightboxDiv);
-          }
-          // Schließe andere Lightboxes
-          const artikelPanel = document.getElementById("artikel-p");
-          if (artikelPanel && artikelPanel.style.display === "block") {
-            artikelPanel.style.display = "none";
           }
           loadArticleLightbox(href, lightboxId);
           return false;

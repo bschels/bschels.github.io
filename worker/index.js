@@ -32,29 +32,8 @@ export default {
     }
 
     try {
-      // Referrer-Check: Blockiere nur verdächtige externe Referrer
-      const referer = request.headers.get("Referer") || request.headers.get("Referrer") || "";
-      if (referer) {
-        try {
-          const refererUrl = new URL(referer);
-          const refererDomain = refererUrl.hostname.toLowerCase();
-          const allowedDomains = ["schels.info", "www.schels.info", "bschels.github.io", "localhost"];
-          
-          // Wenn Referrer vorhanden, muss er von erlaubter Domain kommen
-          if (!allowedDomains.some(domain => refererDomain.includes(domain))) {
-            return new Response(
-              JSON.stringify({ error: "Ungültige Anfragequelle." }),
-              { status: 403, headers: { ...allHeaders, "Content-Type": "application/json" } }
-            );
-          }
-        } catch (e) {
-          // Ungültiger Referrer-URL = verdächtig
-          return new Response(
-            JSON.stringify({ error: "Ungültige Anfragequelle." }),
-            { status: 403, headers: { ...allHeaders, "Content-Type": "application/json" } }
-          );
-        }
-      }
+      // Referrer-Check entfernt: Zu unzuverlässig (blockiert legitime Nutzer mit VPN/Privacy-Mode)
+      // Andere Filter (Honeypots, JavaScript-Token, User-Agent, Content-Filterung) sind ausreichend
       
       // User-Agent-Check: Bekannte Bot-User-Agents blockieren
       const userAgent = request.headers.get("User-Agent") || "";
@@ -123,49 +102,72 @@ export default {
         // Mindestlänge: Nachrichten müssen mindestens 20 Zeichen haben, Namen mindestens 2
         const minLength = isName ? 2 : 20;
         if (trimmed.length < minLength) {
-          return { isSpam: true, reason: `Die Nachricht ist zu kurz. Bitte geben Sie mindestens ${minLength} Zeichen ein.` };
+          const fieldName = isName ? "Der Name" : "Die Nachricht";
+          return { isSpam: true, reason: `${fieldName} ist zu kurz. Bitte geben Sie mindestens ${minLength} Zeichen ein.` };
         }
         
         const withoutSpaces = trimmed.replace(/\s+/g, '');
         
-        // Prüfe auf zu viele Konsonanten hintereinander (z.B. "aowijweopifpoweiFN")
-        const consonantPattern = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{5,}/g;
+        // Prüfe auf sehr lange Konsonantenketten (8+ hintereinander) - sehr spezifisch für Spam
+        // Deutsche Wörter haben max. 4-5 Konsonanten hintereinander
+        const consonantPattern = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{8,}/g;
         if (consonantPattern.test(withoutSpaces)) {
           return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
         }
         
-        // Prüfe auf zu viele Großbuchstaben mitten im Wort (z.B. "aowijweopifpoweiFN")
-        const mixedCasePattern = /[a-z][A-Z]{2,}|[A-Z]{2,}[a-z]/;
-        if (mixedCasePattern.test(trimmed)) {
-          return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
-        }
+        // Prüfe auf gemischte Groß-/Kleinschreibung - mehrere Wechsel erkennen
+        // "yhTDZsSEpajqqyanEsRpdFJ" hat viele Wechsel zwischen Groß- und Kleinbuchstaben
+        const hasManyCaseSwitches = (text) => {
+          let switches = 0;
+          for (let i = 1; i < text.length; i++) {
+            const prev = text[i - 1];
+            const curr = text[i];
+            // Wechsel von klein zu groß oder groß zu klein (nur Buchstaben)
+            if (/[a-z]/.test(prev) && /[A-Z]/.test(curr)) switches++;
+            if (/[A-Z]/.test(prev) && /[a-z]/.test(curr)) switches++;
+          }
+          return switches;
+        };
         
-        // Prüfe auf zu viele aufeinanderfolgende gleiche Zeichen (z.B. "aaaaaa")
-        const repeatedPattern = /(.)\1{3,}/;
-        if (repeatedPattern.test(trimmed)) {
-          return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
-        }
-        
-        // Prüfe auf zu viele Sonderzeichen
-        const specialCharCount = (trimmed.match(/[^a-zA-Z0-9äöüÄÖÜß\s]/g) || []).length;
-        if (specialCharCount > trimmed.length * 0.25) {
-          return { isSpam: true, reason: "Die Nachricht enthält zu viele Sonderzeichen." };
-        }
-        
-        // Prüfe auf fehlende Vokale (zu viele Konsonanten ohne Vokale)
-        if (trimmed.length >= 8) {
-          const vowels = trimmed.match(/[aeiouäöüAEIOUÄÖÜ]/gi) || [];
-          const consonants = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
-          if (consonants.length > 0 && vowels.length / consonants.length < 0.25) {
+        // Bei längeren Texten: mehr als 3 Wechsel oder mehr als Textlänge/6 = verdächtig
+        if (trimmed.length >= 15) {
+          const switches = hasManyCaseSwitches(trimmed);
+          if (switches > Math.max(3, trimmed.length / 6)) {
             return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
           }
         }
         
-        // Prüfe auf zufällige Zeichenketten: Wenn mehr als 50% des Textes aus Konsonanten besteht
-        if (trimmed.length >= 6) {
+        // Prüfe auf sehr viele aufeinanderfolgende gleiche Zeichen (6+)
+        // Nur extreme Fälle wie "aaaaaa" blockieren
+        const repeatedPattern = /(.)\1{5,}/;
+        if (repeatedPattern.test(trimmed)) {
+          return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
+        }
+        
+        // Prüfe auf sehr viele Sonderzeichen (mehr als 40%)
+        // Normale Nachrichten haben max. 10-20% Sonderzeichen
+        const specialCharCount = (trimmed.match(/[^a-zA-Z0-9äöüÄÖÜß\s]/g) || []).length;
+        if (specialCharCount > trimmed.length * 0.4) {
+          return { isSpam: true, reason: "Die Nachricht enthält zu viele Sonderzeichen." };
+        }
+        
+        // Prüfe auf extrem wenig Vokale - bei längeren Texten (15+ Zeichen)
+        // Blockiere wenn weniger als 15% Vokale (normale Texte haben 25-35%)
+        if (trimmed.length >= 15) {
+          const vowels = trimmed.match(/[aeiouäöüAEIOUÄÖÜ]/gi) || [];
+          const consonants = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
+          if (consonants.length > 0 && vowels.length / consonants.length < 0.15) {
+            return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
+          }
+        }
+        
+        // Prüfe auf extrem hohen Konsonantenanteil (80%+) - bei längeren Texten
+        // "yhTDZsSEpajqqyanEsRpdFJ" hat 91.7% Konsonanten
+        // Normale deutsche Texte haben 60-70% Konsonanten
+        if (trimmed.length >= 15) {
           const letterCount = trimmed.match(/[a-zA-ZäöüÄÖÜ]/g) || [];
           const consonantCount = trimmed.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/gi) || [];
-          if (letterCount.length > 0 && consonantCount.length / letterCount.length > 0.7) {
+          if (letterCount.length > 0 && consonantCount.length / letterCount.length > 0.8) {
             return { isSpam: true, reason: "Die Nachricht enthält verdächtige Zeichenmuster." };
           }
         }

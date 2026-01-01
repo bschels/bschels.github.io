@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<info>
+  <id>schels</id>
+  <name>architekturbüro schels</name>
+  <summary>Corporate Design Theme für architekturbüro schels</summary>
+  <description>Minimalistisches Theme mit schwarzem Header, Avenir Next Font und ohne runde Ecken</description>
+  <version>1.0.0</version>
+  <licence>MIT</licence>
+  <author>Benjamin Schels</author>
+  <namespace>Schels</namespace>
+  <default_enable/>
+  <types>
+    <filesystem/>
+  </types>
+  <dependencies>
+    <nextcloud min-version="25" max-version="32"/>
+  </dependencies>
+</info>

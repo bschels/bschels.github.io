@@ -1,0 +1,391 @@
+/* =========================================================
+   Nextcloud Custom CSS – Public Share ONLY (Dashboard safe)
+
+   Neu in dieser Version:
+   - Breadcrumb-Zeile (wo "Öffentliche Freigabe > Test2" steht):
+     Light: schwarzer Balken + weiße Schrift
+     Dark:  weißer Balken + schwarze Schrift (invertiert)
+   - Download Button/Icon: garantiert NICHT hinterlegt (transparent) in beiden Modi
+   - Header bleibt wie zuvor (größer + Logo größer)
+   - Dateityp-Icons monochrom (img + svg + mask/background icons)
+   - "Öffentliche Freigabe" bleibt ausgeblendet, Pfad (z.B. Test2) bleibt
+   ========================================================= */
+
+/* ---------- Scope Guard: alles nur auf public share ---------- */
+body#body-public,
+body#body-public * {
+  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+  font-weight: 200 !important;
+}
+
+/* ---------- Ecken eckig ---------- */
+body#body-public,
+body#body-public * {
+  border-radius: 0 !important;
+}
+
+body#body-public :root {
+  --border-radius: 0 !important;
+  --border-radius-small: 0 !important;
+  --border-radius-element: 0 !important;
+  --border-radius-container: 0 !important;
+  --border-radius-container-large: 0 !important;
+  --border-radius-large: 0 !important;
+  --border-radius-rounded: 0 !important;
+  --border-radius-pill: 0 !important;
+
+  --header-height: 120px !important;
+}
+
+/* =========================================================
+   HEADER (LIGHT default): weiß / schwarz
+   ========================================================= */
+body#body-public #header {
+  background: #fff !important;
+  height: var(--header-height) !important;
+  min-height: var(--header-height) !important;
+}
+
+body#body-public #header,
+body#body-public #header a,
+body#body-public #header button,
+body#body-public #header .header-end,
+body#body-public #header .header-end * {
+  color: #000 !important;
+}
+
+body#body-public #header .header-start {
+  align-items: center !important;
+}
+
+body#body-public #header #nextcloud.header-appname {
+  height: var(--header-height) !important;
+  padding-inline-start: 16px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+/* ---------- Logo: Text statt Bild (LIGHT = schwarz) ---------- */
+body#body-public #header #nextcloud .logo,
+body#body-public #header #nextcloud .logo.logo-icon {
+  background-image: none !important;
+}
+
+body#body-public #header #nextcloud .logo.logo-icon {
+  position: static !important;
+  width: 340px !important;
+  height: auto !important;
+  margin: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+body#body-public #header #nextcloud .logo.logo-icon::after {
+  content: "architekturbüro\Aschels" !important;
+  white-space: pre !important;
+
+  color: #000 !important;
+  font-size: 22px !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.12em !important;
+}
+
+/* ---------- Header Info daneben (LIGHT = schwarz) ---------- */
+body#body-public #header .header-info {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+
+  margin-inline-start: 28px !important;
+  gap: 6px !important;
+  overflow: visible !important;
+  line-height: 1.2 !important;
+}
+
+body#body-public #header .header-info::before {
+  content: "PROJEKTUNTERLAGEN" !important;
+  display: block !important;
+
+  color: rgba(0,0,0,0.70) !important;
+  font-size: 13px !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+}
+
+body#body-public #header .header-title {
+  display: block !important;
+
+  color: #000 !important;
+  font-size: 14px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* ---------- Download Button (LIGHT): transparent, schwarz + ICON schwarz (NO FILL FIX) ---------- */
+body#body-public #header .button-vue,
+body#body-public #header button.button-vue,
+body#body-public #header a.button-vue,
+body#body-public #header .button {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(0,0,0,0.55) !important;
+  color: #000 !important;
+  box-shadow: none !important;
+}
+
+body#body-public #header .button-vue__text,
+body#body-public #header .button__text {
+  color: #000 !important;
+}
+
+/* Icon erbt currentColor */
+body#body-public #header .button-vue__icon,
+body#body-public #header .button-vue__icon *,
+body#body-public #header .button-vue__icon svg,
+body#body-public #header .button-vue__icon svg * {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  color: #000 !important;
+}
+
+/* falls mask/background icon */
+body#body-public #header .button-vue__icon,
+body#body-public #header .button-vue__icon::before,
+body#body-public #header .button-vue__icon::after {
+  background-color: currentColor !important;
+}
+
+/* ---------- Rechts oben im Share ausblenden (nicht Dashboard) ---------- */
+body#body-public #header #public-page-user-menu,
+body#body-public #header #public-page-menu {
+  display: none !important;
+}
+
+body#body-public #header a[aria-label*="Help"],
+body#body-public #header button[aria-label*="Help"],
+body#body-public #header a[aria-label*="Apps"],
+body#body-public #header button[aria-label*="Apps"],
+body#body-public #header button[aria-label*="More"],
+body#body-public #header button[aria-label*="Mehr"] {
+  display: none !important;
+}
+
+/* =========================================================
+   CONTENT (LIGHT): weiß / schwarz
+   ========================================================= */
+body#body-public,
+body#body-public #content,
+body#body-public .app-files {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* =========================================================
+   Breadcrumb BAR (Zeile unter Header): Light schwarz, Dark invertiert
+   ========================================================= */
+body#body-public nav.files-content-breadcrumbs {
+  background: #000 !important;
+  color: #fff !important;
+
+  padding: 10px 16px !important;
+  margin: 0 !important;
+
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+body#body-public nav.files-content-breadcrumbs a,
+body#body-public nav.files-content-breadcrumbs button,
+body#body-public nav.files-content-breadcrumbs span,
+body#body-public nav.files-content-breadcrumbs li,
+body#body-public nav.files-content-breadcrumbs * {
+  color: #fff !important;
+}
+
+/* "Öffentliche Freigabe" NUR weg, Rest bleibt */
+body#body-public nav.files-content-breadcrumbs ul.breadcrumb__crumbs > li:first-child {
+  display: none !important;
+}
+body#body-public nav.files-content-breadcrumbs .breadcrumb__crumbs > li:first-child {
+  display: none !important;
+}
+body#body-public nav.files-content-breadcrumbs li.breadcrumb__crumb:first-child {
+  display: none !important;
+}
+/* Ultra-Fallback: falls es doch als Textspan gerendert wird */
+body#body-public nav.files-content-breadcrumbs span.button-vue__text {
+  display: none !important;
+}
+
+/* =========================================================
+   Dateityp-Icons monochrom (robust)
+   ========================================================= */
+body#body-public .files-filestable img {
+  filter: grayscale(100%) !important;
+}
+
+body#body-public .files-filestable svg,
+body#body-public .files-filestable svg * {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+body#body-public .files-filestable .icon,
+body#body-public .files-filestable [class^="icon-"],
+body#body-public .files-filestable [class*=" icon-"],
+body#body-public .files-filestable .mime-icon,
+body#body-public .files-filestable .fileicon,
+body#body-public .files-filestable .file-icon {
+  background-color: currentColor !important;
+  color: #000 !important; /* Light: schwarz */
+  filter: none !important;
+}
+
+/* =========================================================
+   Menüs / Dropdowns: kein weiß-in-weiß
+   ========================================================= */
+body#body-public .menu,
+body#body-public .popovermenu,
+body#body-public #header .menu {
+  background: #fff !important;
+  color: #000 !important;
+}
+body#body-public .menu *,
+body#body-public .popovermenu *,
+body#body-public #header .menu * {
+  color: #000 !important;
+}
+
+/* =========================================================
+   Footer Werbung weg
+   ========================================================= */
+body#body-public footer .footer__simple-sign-up,
+body#body-public footer a[href*="nextcloud.com"] {
+  display: none !important;
+}
+
+/* =========================================================
+   DARK MODE:
+   - Header schwarz/weiß (wie Rest)
+   - Background schwarz (kein Rahmen)
+   - Breadcrumb BAR invertiert: weiß/schwarz
+   - Download Button/Icon weiß + transparent
+   - Icons monochrom + invert visibility
+   ========================================================= */
+@media (prefers-color-scheme: dark) {
+  body#body-public,
+  body#body-public #content,
+  body#body-public .app-files,
+  body#body-public #app,
+  body#body-public .content,
+  body#body-public .app-content,
+  body#body-public .app-files__container,
+  body#body-public .files-filestable {
+    background: #000 !important;
+    color: #e5e5e5 !important;
+  }
+
+  /* Header: schwarz + weiß */
+  body#body-public #header {
+    background: #000 !important;
+  }
+
+  body#body-public #header,
+  body#body-public #header a,
+  body#body-public #header button,
+  body#body-public #header .header-end,
+  body#body-public #header .header-end * {
+    color: #fff !important;
+  }
+
+  body#body-public #header #nextcloud .logo.logo-icon::after {
+    color: #fff !important;
+  }
+  body#body-public #header .header-info::before,
+  body#body-public #header .header-title {
+    color: #fff !important;
+  }
+
+  /* Download Button/Icon: weiß + TRANSPARENT (NO FILL) */
+  body#body-public #header .button-vue,
+  body#body-public #header button.button-vue,
+  body#body-public #header a.button-vue,
+  body#body-public #header .button {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 1px solid rgba(255,255,255,0.55) !important;
+    color: #fff !important;
+  }
+
+  body#body-public #header .button-vue__text,
+  body#body-public #header .button__text {
+    color: #fff !important;
+  }
+
+  body#body-public #header .button-vue__icon,
+  body#body-public #header .button-vue__icon *,
+  body#body-public #header .button-vue__icon svg,
+  body#body-public #header .button-vue__icon svg * {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    color: #fff !important;
+  }
+
+  body#body-public #header .button-vue__icon,
+  body#body-public #header .button-vue__icon::before,
+  body#body-public #header .button-vue__icon::after {
+    background-color: currentColor !important;
+  }
+
+  /* Breadcrumb BAR invertiert: weißer Balken + schwarze Schrift */
+  body#body-public nav.files-content-breadcrumbs {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  body#body-public nav.files-content-breadcrumbs a,
+  body#body-public nav.files-content-breadcrumbs button,
+  body#body-public nav.files-content-breadcrumbs span,
+  body#body-public nav.files-content-breadcrumbs li,
+  body#body-public nav.files-content-breadcrumbs * {
+    color: #000 !important;
+  }
+
+  /* Icons in Dark Mode sichtbar */
+  body#body-public .files-filestable .icon,
+  body#body-public .files-filestable [class^="icon-"],
+  body#body-public .files-filestable [class*=" icon-"],
+  body#body-public .files-filestable .mime-icon,
+  body#body-public .files-filestable .fileicon,
+  body#body-public .files-filestable .file-icon {
+    background-color: currentColor !important;
+    color: #fff !important;
+  }
+
+  body#body-public .files-filestable img {
+    filter: grayscale(100%) invert(100%) !important;
+  }
+
+  /* Hover/Selection Kontrast */
+  body#body-public tr:hover,
+  body#body-public tr:hover td,
+  body#body-public .files-filestable tbody tr:hover,
+  body#body-public .files-filestable tbody tr:hover td {
+    background: rgba(255,255,255,0.10) !important;
+    color: #e5e5e5 !important;
+  }
+
+  body#body-public tr.selected,
+  body#body-public tr.selected td,
+  body#body-public .selected {
+    background: rgba(255,255,255,0.14) !important;
+    color: #e5e5e5 !important;
+  }
+}
