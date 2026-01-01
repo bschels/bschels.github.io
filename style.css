@@ -447,7 +447,8 @@ td:first-child{
 .white_content{
   top: clamp(3%,2vh,5%); left: clamp(1%,2vw,2%); right: clamp(1%,2vw,2%); height: clamp(88%,90vh,92%); padding: clamp(0.75em,3vw,1.25em) !important; padding-bottom: clamp(2.5em,8vw,3.5em) !important;}
 .lb_footer{
-  bottom: 0 !important; right: 0 !important; left: auto !important; top: auto !important; padding: 0.8em 0.5em 0.5em !important;}}
+  bottom: 0 !important; right: 0 !important; left: auto !important; top: auto !important; padding: 0.8em 0.5em 0.5em !important;}
+}
 @media (prefers-color-scheme: dark){
   :root{
   --primary: #fff; --bg: #111; --body: #e5e5e5; --secondary: #999; --accent: #4d9fff; --hover-bg: #fff; --hover-text: #111;}
