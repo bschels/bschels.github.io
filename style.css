@@ -468,6 +468,7 @@ hr.z{
   border-color: var(--body);}
 .footnotes{
   border-top-color: rgba(255,255,255,0.2);}
+}
 /* Projekte-Bilder in Tabelle - kompakt, schwarz-weiß, rechtsbündig */
 .projekt-bild-cell{
   width: 100px; min-width: 100px; max-width: 100px; padding: var(--padding-sm) 0 var(--padding-sm) var(--padding-sm) !important; vertical-align: top; text-align: right;}
