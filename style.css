@@ -506,4 +506,8 @@ sup.fn-ref:hover{
 .cat_text{
   max-height: none !important; overflow: visible !important;}
 a[href]: after{
-  content: " (" attr(href) ")"; font-size: .8em; color: #666;}}
+  content: " (" attr(href) ")"; font-size: .8em; color: #666;}
+.hidden-field{
+  position: absolute; left: -9999px; opacity: 0; pointer-events: none; display: none;}
+.form-success,.form-error{
+  display: none;}
