@@ -509,7 +509,9 @@ sup.fn-ref:hover{
   max-height: none !important; overflow: visible !important;}
 a[href]: after{
   content: " (" attr(href) ")"; font-size: .8em; color: #666;}
-.hidden-field,.website-field.hidden-field{
-  position: absolute !important; left: -9999px !important; opacity: 0 !important; pointer-events: none !important; display: none !important; visibility: hidden !important; width: 0 !important; height: 0 !important; overflow: hidden !important;}
+.hidden-field{
+  position: absolute !important; left: -9999px !important; opacity: 0 !important; pointer-events: none !important; display: none !important; visibility: hidden !important; width: 0 !important; height: 0 !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; border: 0 !important; padding: 0 !important; margin: 0 !important;}
+input[name="website"],input[name="url"],input[name="homepage"]{
+  position: absolute !important; left: -9999px !important; opacity: 0 !important; pointer-events: none !important; display: none !important; visibility: hidden !important; width: 0 !important; height: 0 !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; border: 0 !important; padding: 0 !important; margin: 0 !important;}
 .form-success,.form-error{
   display: none;}
