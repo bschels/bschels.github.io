@@ -780,7 +780,7 @@
         if (errorBox) errorBox.style.display = "none";
 
         // Honeypot-Check: Alle Honeypot-Felder prüfen
-        const honeypots = this.querySelectorAll(".website-field");
+        const honeypots = this.querySelectorAll('input[name="website"], input[name="url"], input[name="homepage"]');
         for (const honeypot of honeypots) {
           if (honeypot.value && honeypot.name !== "js_token") {
             // Spam erkannt, stillschweigend abbrechen
