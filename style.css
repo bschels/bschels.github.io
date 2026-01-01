@@ -9,6 +9,8 @@ to{
   position: absolute; top: -40px; left: 0; background: var(--primary); color: var(--bg); padding: var(--padding-sm); text-decoration: none; z-index: var(--z-index-overlay);}
 .skip-link:focus{
   top: 0;}
+.sr-only{
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;}
 body{
   background: var(--bg); color: var(--body); font-family: var(--font-main); font-weight: 200; width: 70%; max-width: 60em; min-width: 10em; margin: auto; padding-bottom: clamp(1rem,2vh,2%); font-size: var(--font-size-md); text-align: left; hyphens: manual; font-variant-numeric: normal; position: relative;}
 footer,header,main{
