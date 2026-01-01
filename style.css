@@ -479,6 +479,25 @@ hr.z{
   display: flex; align-items: center; justify-content: center; overflow: visible; padding: 0; height: auto; max-height: 100%;}
 #projektbild-gross{
   max-width: 90vw; max-height: 85vh; width: auto; height: auto; display: block; object-fit: contain; margin: 0 auto;}
+/* Fußnoten */
+sup.fn-ref{
+  font-size: 0.75em; vertical-align: super; line-height: 0; font-weight: 400; cursor: pointer; text-decoration: none; color: var(--primary);}
+sup.fn-ref:hover{
+  text-decoration: underline;}
+.footnotes{
+  margin-top: var(--spacing-2xl); padding-top: var(--spacing-lg); border-top: 1px solid rgba(0,0,0,0.2); font-size: var(--font-size-sm);}
+.footnotes h3{
+  font-size: var(--font-size-lg); font-weight: 200; margin-bottom: var(--spacing-md); text-transform: uppercase; letter-spacing: var(--letter-spacing-3xl);}
+.footnotes ol{
+  list-style: none; counter-reset: footnote-counter; padding-left: 0;}
+.footnotes li{
+  counter-increment: footnote-counter; margin-bottom: var(--spacing-md); padding-left: 2em; position: relative; line-height: var(--line-height-relaxed);}
+.footnotes li::before{
+  content: counter(footnote-counter); position: absolute; left: 0; font-weight: 400;}
+.footnotes li a{
+  color: var(--primary); text-decoration: none; border-bottom: 1px solid currentColor;}
+.footnotes li a:hover{
+  border-bottom: 2px solid currentColor;}
 @media print{
   body{
   width: 100%; font-size: 11pt;}
