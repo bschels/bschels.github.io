@@ -191,6 +191,39 @@
       });
   };
 
+  window.kb_source_2_kostenbasis = function () {
+    const cacheBust = "?_t=" + Date.now();
+    fetch(`/artikel/kostenbasis-architektur.html${cacheBust}`)
+      .then((res) => (res.ok ? res.text() : Promise.reject()))
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('.cat_text');
+        if (content) {
+          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+          document.getElementById("kostenbasis").innerHTML = content.innerHTML;
+        } else {
+          const main = doc.querySelector('main');
+          if (main) {
+            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+            document.getElementById("kostenbasis").innerHTML = main.innerHTML;
+          } else {
+            document.getElementById("kostenbasis").innerHTML = html;
+          }
+        }
+        document.getElementById("kostenbasis-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        document.body.style.overflow = "hidden";
+      })
+      .catch(() => {
+        document.getElementById("kostenbasis").innerHTML =
+          "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
+        document.getElementById("kostenbasis-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        document.body.style.overflow = "hidden";
+      });
+  };
+
   window.openProjektbild = function (imgSrc) {
     const img = document.getElementById("projektbild-gross");
     if (img) {
@@ -450,6 +483,25 @@
               }
             });
             kb_source_2_baugenehmigung();
+            return false;
+          }
+        }
+        // Spezialbehandlung für Kostenbasis (hat eigene Lightbox)
+        else if (href.includes("/artikel/kostenbasis-architektur.html")) {
+          if (isOnHomepage || isInLightbox) {
+            event.preventDefault();
+            event.stopPropagation();
+            const artikelPanel = document.getElementById("artikel-p");
+            if (artikelPanel && artikelPanel.style.display === "block") {
+              artikelPanel.style.display = "none";
+            }
+            const openArticlePanels = document.querySelectorAll(".white_content[id$='-p']");
+            openArticlePanels.forEach(panel => {
+              if (panel.id !== "kostenbasis-p" && panel.style.display === "block") {
+                panel.style.display = "none";
+              }
+            });
+            kb_source_2_kostenbasis();
             return false;
           }
         }
