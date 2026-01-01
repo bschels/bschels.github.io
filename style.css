@@ -489,7 +489,7 @@ sup.fn-ref{
 sup.fn-ref:hover{
   text-decoration: underline;}
 .footnotes{
-  margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--body); font-size: var(--font-size-sm);}
+  margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid rgba(0,0,0,0.2); font-size: var(--font-size-sm);}
 .footnotes h3{
   font-size: var(--font-size-lg); font-weight: 200; margin-bottom: var(--spacing-md); text-transform: uppercase; letter-spacing: var(--letter-spacing-3xl);}
 .footnotes ol{
