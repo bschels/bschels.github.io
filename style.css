@@ -449,7 +449,6 @@ td:first-child{
 .lb_footer{
   bottom: 0 !important; right: 0 !important; left: auto !important; top: auto !important; padding: 0.8em 0.5em 0.5em !important;}
 }
-}
 @media (prefers-color-scheme: dark){
   :root{
   --primary: #fff; --bg: #111; --body: #e5e5e5; --secondary: #999; --accent: #4d9fff; --hover-bg: #fff; --hover-text: #111;}
