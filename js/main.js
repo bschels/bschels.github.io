@@ -774,6 +774,10 @@
         const errorText = errorBox?.querySelector(".error-text");
         const submitBtn = this.querySelector(".form-submit");
         const originalText = submitBtn ? submitBtn.textContent : "";
+        
+        // Sicherstellen, dass Erfolgs- und Fehlermeldungen initial versteckt sind
+        if (successBox) successBox.style.display = "none";
+        if (errorBox) errorBox.style.display = "none";
 
         // Honeypot-Check: Alle Honeypot-Felder prüfen
         const honeypots = this.querySelectorAll(".website-field");

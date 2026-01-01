@@ -342,7 +342,7 @@ hr.z{
 .form-submit:disabled{
   opacity: .5; cursor: not-allowed;}
 .form-success{
-  text-align: left; padding: 2rem 0; max-width: 500px;}
+  text-align: left; padding: 2rem 0; max-width: 500px; display: none;}
 .form-success .success-icon{
   font-size: 3em; margin: 0 0 var(--spacing-sm); color: var(--body);}
 .form-success .success-title{
