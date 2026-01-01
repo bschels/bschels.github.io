@@ -98,7 +98,7 @@
   window.kb_source_2_hoai = function () {
     // Schließe alle anderen Lightboxes zuerst
     closeAllLightboxesExcept("hoai-p");
-    
+
     // Lade die HOAI-Seite aus /artikel/ statt /pages/
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/hoai.html${cacheBust}`)
@@ -137,7 +137,7 @@
   window.kb_source_2_artikel = function () {
     // Schließe alle anderen Lightboxes zuerst
     closeAllLightboxesExcept("artikel-p");
-    
+
     // Lade die Artikel-Übersichtsseite
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/index.html${cacheBust}`)
@@ -176,7 +176,7 @@
   window.kb_source_2_baugenehmigung = function () {
     // Schließe alle anderen Lightboxes zuerst
     closeAllLightboxesExcept("baugenehmigung-p");
-    
+
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/baugenehmigung.html${cacheBust}`)
       .then((res) => (res.ok ? res.text() : Promise.reject()))
@@ -212,7 +212,7 @@
   window.kb_source_2_kostenbasis = function () {
     // Schließe alle anderen Lightboxes zuerst
     closeAllLightboxesExcept("kostenbasis-p");
-    
+
     const cacheBust = "?_t=" + Date.now();
     fetch(`/artikel/kostenbasis-architektur.html${cacheBust}`)
       .then((res) => (res.ok ? res.text() : Promise.reject()))
@@ -263,12 +263,12 @@
     const allAccordionInputs = document.querySelectorAll('input[type="radio"][name="rdo"]');
     const allAccordionLabels = document.querySelectorAll('label.cat[for^="tog"]');
     const allWhiteContent = document.querySelectorAll(".white_content");
-    
+
     // Helper-Funktionen für bessere Performance
     const getScrollY = () => window.pageYOffset || window.scrollY;
     const getLabelForInput = (inputId) => document.querySelector(`label[for="${inputId}"]`);
     const getLabelCatForInput = (inputId) => document.querySelector(`label.cat[for="${inputId}"]`);
-    
+
     // ZENTRALE Funktion: Synchronisiert ALLE HR-Elemente basierend auf dem aktuellen Zustand
     function syncAllHrElements() {
       allAccordionInputs.forEach((input) => {
@@ -282,7 +282,7 @@
         }
       });
     }
-    
+
     // Accordion-State initialisieren
     allAccordionInputs.forEach((input) => {
       accordionState.set(input.id, input.checked);
@@ -291,7 +291,7 @@
     function isMobile() {
       return window.matchMedia && window.matchMedia("(max-width: 810px)").matches;
     }
-    
+
     // Lightbox-Overlay schließen
     if (fade) {
       fade.addEventListener("click", function () {
@@ -302,31 +302,31 @@
 
     // Optimierte Scroll-Funktion: Reduziert Springen durch besseres Timing
     let activeScrollLock = null;
-    
+
     function scrollToAccordionContent(input) {
       if (!input) return;
-      
+
       // WICHTIG: Zum label.cat scrollen (der Titel), NICHT irgendein Label
       const label = getLabelCatForInput(input.id);
       if (!label) return;
-      
+
       // IMMER vorherige Scroll-Locks aufräumen
       if (activeScrollLock) {
         clearInterval(activeScrollLock.interval);
         activeScrollLock = null;
       }
-      
+
       // Position des Labels berechnen
       const rect = label.getBoundingClientRect();
       const currentScrollY = getScrollY();
       const targetY = currentScrollY + rect.top;
-      
+
       // Während der CSS-Animation die Position aggressiv halten
       let lastTargetY = targetY;
       const holdPosition = () => {
         // Position immer wieder setzen (verhindert Browser-Auto-Scroll)
         window.scrollTo({ top: lastTargetY, behavior: "instant" });
-        
+
         // Position neu berechnen falls sich Layout ändert
         const newRect = label.getBoundingClientRect();
         const newTargetY = getScrollY() + newRect.top;
@@ -334,9 +334,9 @@
           lastTargetY = newTargetY;
         }
       };
-      
+
       const interval = setInterval(holdPosition, 8); // 120fps für bessere Fixierung
-      
+
       // Nach Animation: Finale Position setzen und aufräumen
       setTimeout(() => {
         clearInterval(interval);
@@ -345,7 +345,7 @@
         window.scrollTo({ top: finalY, behavior: "instant" });
         activeScrollLock = null;
       }, 550);
-      
+
       activeScrollLock = { interval };
     }
 
@@ -364,15 +364,15 @@
     document.addEventListener("click", function (event) {
       const label = event.target.closest('label.cat[for^="tog"]');
       if (!label) return;
-      
+
       const id = label.getAttribute("for");
       const input = id ? document.getElementById(id) : null;
       if (!input) return;
-      
+
       // IMMER native Verhalten verhindern (verhindert Browser-Auto-Scroll!)
       event.preventDefault();
       event.stopPropagation();
-      
+
       if (input.checked) {
         // Schließen
         input.checked = false;
@@ -382,7 +382,7 @@
         // Öffnen: Scroll während Animation komplett sperren
         const targetLabel = getLabelCatForInput(input.id);
         let lockedScrollY = getScrollY();
-        
+
         // Scroll-Lock aktivieren
         const lockScroll = () => {
           if (Math.abs(getScrollY() - lockedScrollY) > 1) {
@@ -390,7 +390,7 @@
           }
         };
         const lockInterval = setInterval(lockScroll, 8);
-        
+
         // Erst andere schließen
         allAccordionInputs.forEach((other) => {
           if (other !== input && other.checked) {
@@ -400,7 +400,7 @@
         input.checked = true;
         syncAllHrElements();
         updateAccordionAria();
-        
+
         // Nach Animation: Lock entfernen und zum Ziel scrollen
         setTimeout(() => {
           clearInterval(lockInterval);
@@ -413,13 +413,13 @@
     document.addEventListener("keydown", function (event) {
       const label = event.target.closest('label.cat[for^="tog"]');
       if (!label) return;
-      
+
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         label.click();
       }
     });
-    
+
 
     // Initial: ALLE HR-Elemente synchronisieren
     syncAllHrElements();
@@ -430,7 +430,7 @@
     window.loadArticleLightbox = function(articlePath, lightboxId) {
       // Schließe alle anderen Lightboxes zuerst
       closeAllLightboxesExcept(lightboxId + "-p");
-      
+
       const cacheBust = "?_t=" + Date.now();
       fetch(`${articlePath}${cacheBust}`)
         .then((res) => (res.ok ? res.text() : Promise.reject()))
@@ -473,7 +473,7 @@
     document.addEventListener("click", function (event) {
       const isOnHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
       const isInLightbox = event.target.closest('.white_content, .lightbox');
-      
+
       // Prüfe ob es ein Link zu /artikel/*.html ist
       const artikelLink = event.target.closest('a[href^="/artikel/"]');
       if (artikelLink && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
@@ -546,13 +546,13 @@
       if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita], [data-open-hoai], [data-open-artikel], [data-open-projektbild]")) {
         return; // Wird vom Lightbox-Handler verarbeitet
       }
-      
+
       const target = event.target.closest('a[href^="#"]');
       if (!target) return;
       const href = target.getAttribute("href");
       if (!href || href === "#") return;
       const id = href.substring(1);
-      
+
       // Mapping für SEO-freundliche IDs zu Accordion-IDs
       const idMap = {
         "profil": "tog1",
@@ -560,33 +560,33 @@
         "projekte": "tog4",
         "kontakt": "tog5"
       };
-      
+
       const accordionId = idMap[id] || id;
       const input = document.getElementById(accordionId);
       const section = document.getElementById(id);
-      
+
       if (input) {
         // WICHTIG: preventDefault SOFORT, bevor der Browser scrollt
         event.preventDefault();
         event.stopPropagation();
-        
+
         // Hash mit replaceState setzen (verhindert Browser-Scroll)
         if (window.location.hash !== '#' + id) {
           history.replaceState(null, '', '#' + id);
         }
-        
+
         // Alle anderen Accordions schließen
         allAccordionInputs.forEach((other) => {
           if (other !== input && other.checked) {
             other.checked = false;
           }
         });
-        
+
         // Accordion öffnen
         input.checked = true;
         syncAllHrElements();
         updateAccordionAria();
-        
+
         // Spezialbehandlung für #kontakt: Zum Formular scrollen statt zum Titel
         if (id === "kontakt") {
           setTimeout(() => {
@@ -604,7 +604,7 @@
         }
         return;
       }
-      
+
       // Scroll zu Section (nur wenn kein Accordion-Input gefunden wurde)
       if (section) {
         event.preventDefault();
@@ -639,7 +639,7 @@
         document.body.style.overflow = "";
         return;
       }
-      
+
       // Lightbox schließen beim Klick auf den dunklen Hintergrund
       if (event.target === fade) {
         const openPanels = document.querySelectorAll(".white_content[style*='block']");
@@ -651,28 +651,28 @@
         document.body.style.overflow = "";
         return;
       }
-      
+
       // Lightbox öffnen - Impressum
       if (event.target.closest("[data-open-impressum]")) {
         event.preventDefault();
         kb_source_2_impressum();
         return;
       }
-      
+
       // Lightbox öffnen - Datenschutz
       if (event.target.closest("[data-open-datenschutz]")) {
         event.preventDefault();
         kb_source_2_datenschutz();
         return;
       }
-      
+
       // Lightbox öffnen - Vita
       if (event.target.closest("[data-open-vita]")) {
         event.preventDefault();
         kb_source_2_vita();
         return;
       }
-      
+
       // Lightbox öffnen - HOAI (wird bereits vom früheren Event-Listener abgefangen)
       // Dieser Handler bleibt für data-open-hoai Attribute (falls noch verwendet)
       const hoaiLink = event.target.closest("[data-open-hoai]");
@@ -681,14 +681,14 @@
         kb_source_2_hoai();
         return;
       }
-      
+
       // Lightbox öffnen - Artikel
       if (event.target.closest("[data-open-artikel]")) {
         event.preventDefault();
         kb_source_2_artikel();
         return;
       }
-      
+
       // Lightbox öffnen - Projektbild
       const projektbildTrigger = event.target.closest("[data-open-projektbild]");
       if (projektbildTrigger) {
@@ -742,7 +742,7 @@
       // Zeitpunkt speichern, wenn Formular sichtbar wird
       let formOpenTime = Date.now();
       let formInitialized = false;
-      
+
       // JavaScript-Token setzen (Bots ohne JS können das nicht)
       const jsTokenField = form.querySelector("#js-token-field");
       if (jsTokenField) {
@@ -750,7 +750,7 @@
         const token = btoa(Date.now().toString() + Math.random().toString()).substring(0, 16);
         jsTokenField.value = token;
       }
-      
+
       // Intersection Observer: Zeitpunkt erfassen, wenn Formular sichtbar wird
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -760,9 +760,9 @@
           }
         });
       }, { threshold: 0.1 });
-      
+
       observer.observe(form);
-      
+
       form.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -783,7 +783,7 @@
             return;
           }
         }
-        
+
         // JavaScript-Token prüfen
         if (jsTokenField && !jsTokenField.value) {
           // Kein Token = Bot ohne JavaScript
