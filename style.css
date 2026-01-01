@@ -143,6 +143,8 @@ a:focus,a:hover{
   text-decoration-color: var(--hover-text);}
 a:focus,a:hover,label.cat[for^=tog]:focus,label.cat[for^=tog]:hover{
   color: var(--hover-text); background-color: var(--hover-bg); outline: 0;}
+.article-link{
+  /* Normaler Link-Cursor, kein Fragezeichen */}
 .lb-link{
   text-transform: uppercase; list-style-position: inside;}
 .arrow-nohover{
@@ -176,9 +178,16 @@ address{
 .black_overlay:focus{
   outline: 0;}
 .white_content{
-  display: none; position: fixed; text-align: justify; hyphens: auto; -webkit-hyphens: auto; margin: 0 auto; top: 15%; left: 2%; right: 2%; max-width: 50em; min-width: 10em; min-height: 10em; height: 72%; padding: 0; border: .2em solid var(--primary); background-color: var(--bg); z-index: calc(var(--z-index-overlay) + 1); overflow: hidden; box-sizing: border-box;}
+  display: none; position: fixed; text-align: left; hyphens: auto; -webkit-hyphens: auto; margin: 0 auto; top: 15%; left: 2%; right: 2%; max-width: 50em; min-width: 10em; min-height: 10em; height: 72%; padding: 0; border: .2em solid var(--primary); background-color: var(--bg); z-index: calc(var(--z-index-overlay) + 1); overflow: hidden; box-sizing: border-box;}
 .white_content .lightbox{
-  height: 100%; overflow-y: auto; overflow-x: hidden; padding: var(--padding-sm); padding-bottom: 3em; box-sizing: border-box; scrollbar-width: thin; scrollbar-color: transparent transparent;}
+  height: 100%; overflow-y: auto; overflow-x: hidden; padding: var(--padding-sm); padding-bottom: 3em; box-sizing: border-box; scrollbar-width: thin; scrollbar-color: transparent transparent; text-align: left;}
+.white_content .lightbox h1,
+.white_content .lightbox h2,
+.white_content .lightbox h3,
+.white_content .lightbox h4,
+.white_content .lightbox h5,
+.white_content .lightbox h6{
+  text-align: left;}
 .white_content .lightbox::-webkit-scrollbar{
   width: 8px;}
 .white_content .lightbox::-webkit-scrollbar-track{

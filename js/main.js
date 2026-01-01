@@ -86,6 +86,111 @@
     document.getElementById("fade").style.display = "block";
   };
 
+  window.kb_source_2_hoai = function () {
+    // Lade die HOAI-Seite aus /artikel/ statt /pages/
+    const cacheBust = "?_t=" + Date.now();
+    fetch(`/artikel/hoai.html${cacheBust}`)
+      .then((res) => (res.ok ? res.text() : Promise.reject()))
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('.cat_text');
+        if (content) {
+          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+          document.getElementById("hoai").innerHTML = content.innerHTML;
+        } else {
+          const main = doc.querySelector('main');
+          if (main) {
+            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+            document.getElementById("hoai").innerHTML = main.innerHTML;
+          } else {
+            document.getElementById("hoai").innerHTML = html;
+          }
+        }
+        document.getElementById("hoai-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        // Body-Scroll sperren
+        document.body.style.overflow = "hidden";
+      })
+      .catch(() => {
+        document.getElementById("hoai").innerHTML =
+          "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
+        document.getElementById("hoai-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        // Body-Scroll sperren
+        document.body.style.overflow = "hidden";
+      });
+  };
+
+  window.kb_source_2_artikel = function () {
+    // Lade die Artikel-Übersichtsseite
+    const cacheBust = "?_t=" + Date.now();
+    fetch(`/artikel/index.html${cacheBust}`)
+      .then((res) => (res.ok ? res.text() : Promise.reject()))
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('.cat_text');
+        if (content) {
+          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+          document.getElementById("artikel").innerHTML = content.innerHTML;
+        } else {
+          const main = doc.querySelector('main');
+          if (main) {
+            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+            document.getElementById("artikel").innerHTML = main.innerHTML;
+          } else {
+            document.getElementById("artikel").innerHTML = html;
+          }
+        }
+        document.getElementById("artikel-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        // Body-Scroll sperren
+        document.body.style.overflow = "hidden";
+      })
+      .catch(() => {
+        document.getElementById("artikel").innerHTML =
+          "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
+        document.getElementById("artikel-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        // Body-Scroll sperren
+        document.body.style.overflow = "hidden";
+      });
+  };
+
+  window.kb_source_2_baugenehmigung = function () {
+    const cacheBust = "?_t=" + Date.now();
+    fetch(`/artikel/baugenehmigung.html${cacheBust}`)
+      .then((res) => (res.ok ? res.text() : Promise.reject()))
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('.cat_text');
+        if (content) {
+          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+          document.getElementById("baugenehmigung").innerHTML = content.innerHTML;
+        } else {
+          const main = doc.querySelector('main');
+          if (main) {
+            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+            document.getElementById("baugenehmigung").innerHTML = main.innerHTML;
+          } else {
+            document.getElementById("baugenehmigung").innerHTML = html;
+          }
+        }
+        document.getElementById("baugenehmigung-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        document.body.style.overflow = "hidden";
+      })
+      .catch(() => {
+        document.getElementById("baugenehmigung").innerHTML =
+          "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
+        document.getElementById("baugenehmigung-p").style.display = "block";
+        document.getElementById("fade").style.display = "block";
+        document.body.style.overflow = "hidden";
+      });
+  };
+
   window.openProjektbild = function (imgSrc) {
     const img = document.getElementById("projektbild-gross");
     if (img) {
@@ -267,9 +372,131 @@
 
     updateAccordionAria();
 
+    // Generische Funktion zum Laden von Artikel-Lightboxes
+    window.loadArticleLightbox = function(articlePath, lightboxId) {
+      const cacheBust = "?_t=" + Date.now();
+      fetch(`${articlePath}${cacheBust}`)
+        .then((res) => (res.ok ? res.text() : Promise.reject()))
+        .then((html) => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const content = doc.querySelector('.cat_text');
+          if (content) {
+            content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+            document.getElementById(lightboxId).innerHTML = content.innerHTML;
+          } else {
+            const main = doc.querySelector('main');
+            if (main) {
+              main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+              document.getElementById(lightboxId).innerHTML = main.innerHTML;
+            } else {
+              document.getElementById(lightboxId).innerHTML = html;
+            }
+          }
+          const panel = document.getElementById(lightboxId + "-p");
+          if (panel) {
+            panel.style.display = "block";
+            document.getElementById("fade").style.display = "block";
+            document.body.style.overflow = "hidden";
+          }
+        })
+        .catch(() => {
+          document.getElementById(lightboxId).innerHTML =
+            "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
+          const panel = document.getElementById(lightboxId + "-p");
+          if (panel) {
+            panel.style.display = "block";
+            document.getElementById("fade").style.display = "block";
+            document.body.style.overflow = "hidden";
+          }
+        });
+    };
+
+    // FRÜHER Event-Listener: Artikel-Links abfangen (auf Startseite UND in Lightboxes)
+    document.addEventListener("click", function (event) {
+      const isOnHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+      const isInLightbox = event.target.closest('.white_content, .lightbox');
+      
+      // Prüfe ob es ein Link zu /artikel/*.html ist
+      const artikelLink = event.target.closest('a[href^="/artikel/"]');
+      if (artikelLink && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
+        const href = artikelLink.getAttribute("href");
+        // Spezialbehandlung für HOAI (hat eigene Lightbox)
+        if (href.includes("/artikel/hoai.html") || artikelLink.hasAttribute("data-open-hoai")) {
+          if (isOnHomepage || isInLightbox) {
+            event.preventDefault();
+            event.stopPropagation();
+            const artikelPanel = document.getElementById("artikel-p");
+            if (artikelPanel && artikelPanel.style.display === "block") {
+              artikelPanel.style.display = "none";
+            }
+            kb_source_2_hoai();
+            return false;
+          }
+        }
+        // Spezialbehandlung für Baugenehmigung (hat eigene Lightbox)
+        else if (href.includes("/artikel/baugenehmigung.html")) {
+          if (isOnHomepage || isInLightbox) {
+            event.preventDefault();
+            event.stopPropagation();
+            const artikelPanel = document.getElementById("artikel-p");
+            if (artikelPanel && artikelPanel.style.display === "block") {
+              artikelPanel.style.display = "none";
+            }
+            const openArticlePanels = document.querySelectorAll(".white_content[id$='-p']");
+            openArticlePanels.forEach(panel => {
+              if (panel.id !== "baugenehmigung-p" && panel.style.display === "block") {
+                panel.style.display = "none";
+              }
+            });
+            kb_source_2_baugenehmigung();
+            return false;
+          }
+        }
+        // Spezialbehandlung für Artikel-Übersicht
+        else if (href === "/artikel/" || href === "/artikel/index.html" || artikelLink.hasAttribute("data-open-artikel")) {
+          if (isOnHomepage) {
+            event.preventDefault();
+            event.stopPropagation();
+            kb_source_2_artikel();
+            return false;
+          }
+        }
+        // Alle anderen Artikel-Links: generische Lightbox (falls auf Startseite)
+        else if (isOnHomepage && href.endsWith(".html")) {
+          event.preventDefault();
+          event.stopPropagation();
+          // Erstelle dynamisch Lightbox-Struktur falls nötig
+          const articleName = href.split("/").pop().replace(".html", "");
+          const lightboxId = "artikel-" + articleName;
+          if (!document.getElementById(lightboxId + "-p")) {
+            // Erstelle Lightbox-Struktur
+            const lightboxDiv = document.createElement("div");
+            lightboxDiv.id = lightboxId + "-p";
+            lightboxDiv.className = "white_content";
+            lightboxDiv.innerHTML = `
+              <div class="lb_close">
+                <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
+              </div>
+              <div class="lb_footer"></div>
+              <div class="lightbox" id="${lightboxId}"></div>
+            `;
+            document.body.appendChild(lightboxDiv);
+          }
+          // Schließe andere Lightboxes
+          const artikelPanel = document.getElementById("artikel-p");
+          if (artikelPanel && artikelPanel.style.display === "block") {
+            artikelPanel.style.display = "none";
+          }
+          loadArticleLightbox(href, lightboxId);
+          return false;
+        }
+      }
+    }, true); // capture phase - wird VOR anderen Handlern ausgeführt
+
     document.addEventListener("click", function (event) {
       // Lightbox-Links zuerst prüfen (haben auch href="#")
-      if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita], [data-open-projektbild]")) {
+      if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita], [data-open-hoai], [data-open-artikel], [data-open-projektbild]")) {
         return; // Wird vom Lightbox-Handler verarbeitet
       }
       
@@ -396,6 +623,22 @@
       if (event.target.closest("[data-open-vita]")) {
         event.preventDefault();
         kb_source_2_vita();
+        return;
+      }
+      
+      // Lightbox öffnen - HOAI (wird bereits vom früheren Event-Listener abgefangen)
+      // Dieser Handler bleibt für data-open-hoai Attribute (falls noch verwendet)
+      const hoaiLink = event.target.closest("[data-open-hoai]");
+      if (hoaiLink) {
+        event.preventDefault();
+        kb_source_2_hoai();
+        return;
+      }
+      
+      // Lightbox öffnen - Artikel
+      if (event.target.closest("[data-open-artikel]")) {
+        event.preventDefault();
+        kb_source_2_artikel();
         return;
       }
       
