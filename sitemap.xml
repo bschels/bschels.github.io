@@ -125,6 +125,12 @@
 <priority>0.8</priority>
 </url>
 <url>
+<loc>https://schels.info/artikel/holzbau.html</loc>
+<lastmod>2026-01-02T12:00:00+01:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
 <loc>https://schels.info/artikel/index-new.html</loc>
 <lastmod>2026-01-02T12:00:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
@@ -138,6 +144,12 @@
 </url>
 <url>
 <loc>https://schels.info/artikel/leistungsphasen.html</loc>
+<lastmod>2026-01-02T12:00:00+01:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://schels.info/artikel/neubau.html</loc>
 <lastmod>2026-01-02T12:00:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.8</priority>

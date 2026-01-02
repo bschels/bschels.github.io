@@ -28,6 +28,7 @@ PRIORITIES = {
     "/artikel/fachplaner.html": 0.8,
     "/artikel/bauweisen-neubau.html": 0.8,
     "/artikel/holzbau.html": 0.8,
+    "/artikel/neubau.html": 0.8,
     "/pages/impressum.html": 0.3,
     "/pages/datenschutz.html": 0.3,
 }
