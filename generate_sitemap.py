@@ -22,7 +22,6 @@ PRIORITIES = {
     "/artikel/kostenbasis-architektur.html": 0.8,
     "/artikel/architekt-kosten.html": 0.8,
     "/artikel/haus-bauen-architekt.html": 0.8,
-    "/artikel/bauen-pfaffenhofen.html": 0.8,
     "/pages/impressum.html": 0.3,
     "/pages/datenschutz.html": 0.3,
 }
