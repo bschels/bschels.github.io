@@ -26,6 +26,7 @@ PRIORITIES = {
     "/artikel/genehmigungsfrei.html": 0.8,
     "/artikel/bestandsschutz.html": 0.8,
     "/artikel/fachplaner.html": 0.8,
+    "/artikel/bauweisen-neubau.html": 0.8,
     "/pages/impressum.html": 0.3,
     "/pages/datenschutz.html": 0.3,
 }
