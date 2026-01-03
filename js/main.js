@@ -936,65 +936,8 @@
       
       const isInLightbox = event.target.closest('.white_content, .lightbox');
 
-      // Prüfe ob es ein Link zu /artikel/*.html ist
-      const artikelLink = event.target.closest('a[href^="/artikel/"]');
-      if (artikelLink && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
-        const href = artikelLink.getAttribute("href");
-        // Spezialbehandlung für HOAI (hat eigene Lightbox)
-        if (href.includes("/artikel/hoai.html") || artikelLink.hasAttribute("data-open-hoai")) {
-          if (isOnHomepage() || isInLightbox) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_hoai();
-            return false;
-          }
-        }
-        // Spezialbehandlung für Baugenehmigung (hat eigene Lightbox)
-        else if (href.includes("/artikel/baugenehmigung.html")) {
-          if (isOnHomepage() || isInLightbox) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_baugenehmigung();
-            return false;
-          }
-        }
-        // Spezialbehandlung für Kostenbasis (hat eigene Lightbox)
-        else if (href.includes("/artikel/kostenbasis-architektur.html")) {
-          if (isOnHomepage() || isInLightbox) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_kostenbasis();
-            return false;
-          }
-        }
-        // Alle anderen Artikel-Links: generische Lightbox (falls auf Startseite)
-        else if (isOnHomepage() && href.endsWith(".html") && href.startsWith("/artikel/")) {
-          event.preventDefault();
-          event.stopPropagation();
-          // Erstelle dynamisch Lightbox-Struktur falls nötig
-          const articleName = href.split("/").pop().replace(".html", "");
-          const lightboxId = "artikel-" + articleName;
-          if (!document.getElementById(lightboxId + "-p")) {
-            // Erstelle Lightbox-Struktur
-            const lightboxDiv = document.createElement("div");
-            lightboxDiv.id = lightboxId + "-p";
-            lightboxDiv.className = "white_content";
-            lightboxDiv.innerHTML = `
-              <div class="lb_header">
-                <div class="lb_breadcrumb"></div>
-                <div class="lb_close">
-                  <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
-                </div>
-              </div>
-              <div class="lb_footer"></div>
-              <div class="lightbox" id="${lightboxId}"></div>
-            `;
-            document.body.appendChild(lightboxDiv);
-          }
-          loadArticleLightbox(href, lightboxId);
-          return false;
-        }
-      }
+      // Artikel-Links werden jetzt normal geöffnet (nicht mehr als Lightbox)
+      // Keine Behandlung mehr für Artikel-Links - sie funktionieren als normale Links
     }, true); // capture phase - wird VOR anderen Handlern ausgeführt
 
 
