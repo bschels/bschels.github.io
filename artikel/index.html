@@ -38,8 +38,11 @@
 
   <main role="main">
     <div class="cat_text" style="max-height: none; overflow: visible;">
-      <nav style="margin-bottom: 2rem; font-size: 0.9em;">
-        <a href="/">← Zur Startseite</a>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Startseite</a></li>
+          <li aria-current="page">Artikel</li>
+        </ol>
       </nav>
       
       <h1>Artikel zu Architektur, Planung und Bauen</h1>
@@ -47,12 +50,12 @@
 
       <div id="article-index" style="margin: 1.5rem 0; padding: 0;">
         <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.25rem 1.5rem; font-size: 0.85em;">
-          <li><a href="#grundlagen" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Grundlagen</a></li>
-          <li><a href="#neubau" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Neubau</a></li>
-          <li><a href="#bestand" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Bauen im Bestand</a></li>
-          <li><a href="#recht" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Recht & Genehmigung</a></li>
-          <li><a href="#planung" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Planung & Ausführung</a></li>
-          <li><a href="#kosten" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Kosten & Honorare</a></li>
+          <li><a href="/artikel/grundlagen.html" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Grundlagen</a></li>
+          <li><a href="/artikel/neubau-kategorie.html" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Neubau</a></li>
+          <li><a href="/artikel/bauen-im-bestand.html" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Bauen im Bestand</a></li>
+          <li><a href="/artikel/recht-genehmigung.html" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Recht & Genehmigung</a></li>
+          <li><a href="/artikel/planung-ausfuehrung.html" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Planung & Ausführung</a></li>
+          <li><a href="/artikel/kosten-honorare.html" style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px; color: inherit;">Kosten & Honorare</a></li>
         </ul>
       </div>
 
@@ -135,6 +138,20 @@
       <h2>Hinweise</h2>
       <p>Die Artikel dienen der allgemeinen Information und ersetzen keine individuelle Beratung. Sie spiegeln meine Erfahrung aus der praktischen architektonischen Arbeit wider und gelten für Bauvorhaben in Bayern. Jedes Bauvorhaben bringt eigene Rahmenbedingungen mit sich und erfordert eine individuelle Betrachtung.</p>
       <p>Planung und Genehmigung sind teilweise lokal geprägt – etwa durch Satzungen, Bebauungspläne und Verwaltungspraxis. Als Architekt mit Sitz in Wolnzach in der Region Pfaffenhofen an der Ilm und Mitglied der Bayerischen Architektenkammer arbeite ich regelmäßig mit den entsprechenden baurechtlichen Rahmenbedingungen und Anforderungen der Baubehörden.</p>
+
+      <section class="author-section">
+        <h2>Über den Autor</h2>
+        <div class="author-content">
+          <picture>
+            <source srcset="/images/benjamin-schels-portrait.webp" type="image/webp">
+            <img src="/images/benjamin-schels-portrait.png" alt="Benjamin Schels, Architekt M.A." class="author-portrait" width="120" height="151" loading="lazy">
+          </picture>
+          <div class="author-text">
+            <p>Benjamin Schels, Architekt M.A., ist Inhaber des Architekturbüro Schels mit Sitz in Wolnzach im Landkreis Pfaffenhofen an der Ilm. Die Inhalte basieren auf der praktischen Erfahrung aus der architektonischen Planungspraxis und dienen der sachlichen Orientierung für Bauherren.</p>
+            <p>Ein unverbindliches Erstgespräch kann helfen, die Inhalte auf ein konkretes Vorhaben einzuordnen. <a href="/#kontakt" class="author-contact-link">→ Kontakt aufnehmen</a></p>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 

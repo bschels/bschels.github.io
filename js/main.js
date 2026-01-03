@@ -4,32 +4,27 @@
 
   function loadPage(page, targetId, cb) {
     const cacheBust = "?_t=" + Date.now();
+    const panelId = targetId + "-p";
+    const target = document.getElementById(targetId);
+    
     fetch(`/pages/${page}.html${cacheBust}`)
       .then((res) => (res.ok ? res.text() : Promise.reject()))
       .then((html) => {
-        // Parse HTML und extrahiere nur den Inhalt aus .cat_text
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('.cat_text');
-        if (content) {
-          // Entferne Header und Footer falls vorhanden
-          content.querySelectorAll('header, footer').forEach(el => el.remove());
-          document.getElementById(targetId).innerHTML = content.innerHTML;
-        } else {
-          // Fallback: Versuche main zu finden
-          const main = doc.querySelector('main');
-          if (main) {
-            main.querySelectorAll('header, footer').forEach(el => el.remove());
-            document.getElementById(targetId).innerHTML = main.innerHTML;
-          } else {
-            document.getElementById(targetId).innerHTML = html;
-          }
+        // Nutze extractContentFromHTML für konsistente Verarbeitung
+        if (!extractContentFromHTML(html, targetId)) {
+          // Fallback falls extractContentFromHTML fehlschlägt
+          if (target) target.innerHTML = html;
         }
+        // Scroll auf oben setzen nach dem Laden
+        setTimeout(() => scrollLightboxToTop(panelId), 10);
         cb && cb();
       })
       .catch(() => {
-        document.getElementById(targetId).innerHTML =
-          "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
+        if (target) {
+          target.innerHTML = "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
+        }
+        // Scroll auf oben setzen auch bei Fehler
+        setTimeout(() => scrollLightboxToTop(panelId), 10);
         cb && cb();
       });
   }
@@ -55,44 +50,120 @@
     }, duration);
   }
 
+  // Optimiert: Nutzt gecachte Elemente wenn verfügbar
   function updateAccordionAria() {
-    document.querySelectorAll('input[type="radio"][name="rdo"]').forEach((input) => {
+    const inputs = window._cachedAccordionInputs || document.querySelectorAll('input[type="radio"][name="rdo"]');
+    inputs.forEach((input) => {
       const label = document.querySelector(`label.cat[for="${input.id}"]`);
       if (!label) return;
-      if (input.checked) {
-        label.classList.add("expanded");
-        label.setAttribute("aria-expanded", "true");
-      } else {
-        label.classList.remove("expanded");
-        label.setAttribute("aria-expanded", "false");
-      }
+      const isChecked = input.checked;
+      label.classList.toggle("expanded", isChecked);
+      label.setAttribute("aria-expanded", isChecked ? "true" : "false");
     });
   }
 
   window.kb_source_2_datenschutz = function () {
-    loadPage("datenschutz", "datenschutz", () => {});
-    document.getElementById("datenschutz-p").style.display = "block";
-    document.getElementById("fade").style.display = "block";
+    loadPage("datenschutz", "datenschutz", () => {
+      setTimeout(() => scrollLightboxToTop("datenschutz-p"), 10);
+    });
+    openLightbox("datenschutz-p");
   };
 
   window.kb_source_2_impressum = function () {
-    loadPage("impressum", "impressum", () => {});
-    document.getElementById("impressum-p").style.display = "block";
-    document.getElementById("fade").style.display = "block";
+    loadPage("impressum", "impressum", () => {
+      setTimeout(() => scrollLightboxToTop("impressum-p"), 10);
+    });
+    openLightbox("impressum-p");
   };
 
   window.kb_source_2_vita = function () {
-    document.getElementById("vita-p").style.display = "block";
-    document.getElementById("fade").style.display = "block";
+    // Öffne die Vita-Lightbox direkt (closeAllLightboxes wird in openLightbox nicht benötigt)
+    openLightbox("vita-p");
   };
 
-  // Hilfsfunktion: Schließe alle offenen Lightboxes außer der angegebenen
+  // Hilfsfunktion: Schließe alle offenen Lightboxes außer der angegebenen (optimiert)
   function closeAllLightboxesExcept(exceptId) {
-    document.querySelectorAll('.white_content').forEach(panel => {
+    const whiteContentPanels = window._cachedWhiteContent || document.querySelectorAll('.white_content');
+    whiteContentPanels.forEach(panel => {
       if (panel.id !== exceptId && panel.style.display === "block") {
         panel.style.display = "none";
       }
     });
+  }
+
+  // Zentrale Funktion: Schließe ALLE Lightboxes (robust und sicher, optimiert)
+  function closeAllLightboxes() {
+    // WICHTIG: Immer alle Lightboxes neu suchen, auch dynamisch erstellte
+    const whiteContentPanels = document.querySelectorAll('.white_content');
+    const fade = document.getElementById("fade");
+    
+    // Alle Lightboxes schließen - FORCE close, keine Prüfung
+    whiteContentPanels.forEach(panel => {
+      panel.style.display = "none";
+    });
+    
+    if (fade) {
+      fade.style.display = "none";
+    }
+    document.body.style.overflow = "";
+    
+    // Cache aktualisieren
+    if (window._cachedWhiteContent) {
+      window._cachedWhiteContent = Array.from(whiteContentPanels);
+    }
+  }
+
+  // Hilfsfunktion: Setze Scroll-Position einer Lightbox auf oben
+  function scrollLightboxToTop(panelId) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const lightboxContainer = panel.querySelector('.lightbox');
+    if (lightboxContainer) {
+      lightboxContainer.scrollTop = 0;
+    }
+  }
+
+  // Hilfsfunktion: Öffne eine Lightbox (optimiert, reduziert Code-Duplikation)
+  function openLightbox(panelId) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const fade = document.getElementById("fade");
+    if (!fade) return;
+    panel.style.display = "block";
+    fade.style.display = "block";
+    document.body.style.overflow = "hidden";
+    setTimeout(() => scrollLightboxToTop(panelId), 10);
+  }
+
+  // Hilfsfunktion: Prüfe ob auf Startseite (optimiert, reduziert Code-Duplikation)
+  function isOnHomepage() {
+    const path = window.location.pathname;
+    return path === '/' || path === '/index.html' || path === '';
+  }
+
+  // Hilfsfunktion: Extrahiere Content aus HTML (reduziert Code-Duplikation, optimiert)
+  function extractContentFromHTML(html, targetId) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const target = document.getElementById(targetId);
+    if (!target) return false;
+    
+    const content = doc.querySelector('.cat_text');
+    if (content) {
+      content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+      target.innerHTML = content.innerHTML;
+      return true;
+    }
+    
+    const main = doc.querySelector('main');
+    if (main) {
+      main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
+      target.innerHTML = main.innerHTML;
+      return true;
+    }
+    
+    target.innerHTML = html;
+    return false;
   }
 
   window.kb_source_2_hoai = function () {
@@ -106,37 +177,54 @@
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('.cat_text');
-        if (content) {
-          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-          document.getElementById("hoai").innerHTML = content.innerHTML;
-        } else {
-          const main = doc.querySelector('main');
-          if (main) {
-            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-            document.getElementById("hoai").innerHTML = main.innerHTML;
-          } else {
-            document.getElementById("hoai").innerHTML = html;
+        
+        // Erstelle Breadcrumbs
+        const breadcrumbContainer = document.querySelector('#hoai-p .lb_breadcrumb');
+        if (breadcrumbContainer) {
+          breadcrumbContainer.innerHTML = `
+            <nav class="breadcrumb breadcrumb-lightbox" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="/artikel/" data-open-artikel="">Artikel</a></li>
+                <li><a href="/artikel/grundlagen.html" data-open-category="/artikel/grundlagen.html">Grundlagen</a></li>
+                <li aria-current="page">HOAI</li>
+              </ol>
+            </nav>
+          `;
+          // Stelle sicher, dass der Artikel-Link einen Event-Listener hat (sofort, nicht in setTimeout)
+          const artikelLinkInBreadcrumb = breadcrumbContainer.querySelector('a[data-open-artikel]');
+          if (artikelLinkInBreadcrumb) {
+            artikelLinkInBreadcrumb.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+              closeAllLightboxes();
+              setTimeout(() => {
+                kb_source_2_artikel();
+              }, 10);
+            }, true);
           }
         }
-        document.getElementById("hoai-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        // Body-Scroll sperren
-        document.body.style.overflow = "hidden";
+        
+        extractContentFromHTML(html, "hoai");
+        openLightbox("hoai-p");
       })
       .catch(() => {
-        document.getElementById("hoai").innerHTML =
-          "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
-        document.getElementById("hoai-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        // Body-Scroll sperren
-        document.body.style.overflow = "hidden";
+        const hoaiEl = document.getElementById("hoai");
+        if (hoaiEl) {
+          hoaiEl.innerHTML = "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
+        }
+        openLightbox("hoai-p");
       });
   };
 
   window.kb_source_2_artikel = function () {
-    // Schließe alle anderen Lightboxes zuerst
-    closeAllLightboxesExcept("artikel-p");
+    // WICHTIG: Schließe ALLE Lightboxes zuerst, dann öffne die Artikel-Lightbox
+    // Das verhindert, dass mehrere Lightboxes übereinander liegen
+    closeAllLightboxes();
+    
+    // Kurze Verzögerung, um sicherzustellen, dass alle Lightboxes geschlossen sind
+    // (besonders wichtig für dynamisch erstellte Lightboxes)
+    setTimeout(() => {
 
     // Lade die Artikel-Übersichtsseite
     const cacheBust = "?_t=" + Date.now();
@@ -145,23 +233,11 @@
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('.cat_text');
-        if (content) {
-          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-          document.getElementById("artikel").innerHTML = content.innerHTML;
-        } else {
-          const main = doc.querySelector('main');
-          if (main) {
-            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-            document.getElementById("artikel").innerHTML = main.innerHTML;
-          } else {
-            document.getElementById("artikel").innerHTML = html;
-          }
-        }
-        document.getElementById("artikel-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        // Body-Scroll sperren
-        document.body.style.overflow = "hidden";
+        extractContentFromHTML(html, "artikel");
+        
+        // WICHTIG: Stelle sicher, dass alle anderen Lightboxes geschlossen sind, bevor wir öffnen
+        closeAllLightboxes();
+        openLightbox("artikel-p");
         
         // Event-Listener für Anker-Links im Modal hinzufügen
         const artikelContainer = document.getElementById("artikel");
@@ -185,15 +261,29 @@
             }
           }, true);
         }
+        
+        // Event-Delegation für Breadcrumb-Links direkt auf dem document
+        // Wird bereits vom globalen Event-Listener in Zeile 863 abgefangen, aber sicherstellen dass es funktioniert
+        setTimeout(() => {
+          const breadcrumbLinks = document.querySelectorAll('.lb_breadcrumb a[data-open-artikel], .lb_breadcrumb a[href="/artikel/"]');
+          breadcrumbLinks.forEach(link => {
+            // Stelle sicher, dass das data-open-artikel Attribut vorhanden ist
+            if (!link.hasAttribute('data-open-artikel') && (link.getAttribute('href') === '/artikel/' || link.getAttribute('href') === '/artikel/index.html')) {
+              link.setAttribute('data-open-artikel', '');
+            }
+          });
+        }, 100);
       })
       .catch(() => {
-        document.getElementById("artikel").innerHTML =
-          "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
-        document.getElementById("artikel-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        // Body-Scroll sperren
-        document.body.style.overflow = "hidden";
+        const artikelEl = document.getElementById("artikel");
+        if (artikelEl) {
+          artikelEl.innerHTML = "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
+        }
+        // WICHTIG: Stelle sicher, dass alle anderen Lightboxes geschlossen sind
+        closeAllLightboxes();
+        openLightbox("artikel-p");
       });
+    }, 0); // setTimeout schließen
   };
 
   window.kb_source_2_baugenehmigung = function () {
@@ -206,29 +296,43 @@
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('.cat_text');
-        if (content) {
-          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-          document.getElementById("baugenehmigung").innerHTML = content.innerHTML;
-        } else {
-          const main = doc.querySelector('main');
-          if (main) {
-            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-            document.getElementById("baugenehmigung").innerHTML = main.innerHTML;
-          } else {
-            document.getElementById("baugenehmigung").innerHTML = html;
+        
+        // Erstelle Breadcrumbs
+        const breadcrumbContainer = document.querySelector('#baugenehmigung-p .lb_breadcrumb');
+        if (breadcrumbContainer) {
+          breadcrumbContainer.innerHTML = `
+            <nav class="breadcrumb breadcrumb-lightbox" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="/artikel/" data-open-artikel="">Artikel</a></li>
+                <li><a href="/artikel/recht-genehmigung.html" data-open-category="/artikel/recht-genehmigung.html">Recht & Genehmigung</a></li>
+                <li aria-current="page">Baugenehmigung</li>
+              </ol>
+            </nav>
+          `;
+          // Stelle sicher, dass der Artikel-Link einen Event-Listener hat (sofort, nicht in setTimeout)
+          const artikelLinkInBreadcrumb = breadcrumbContainer.querySelector('a[data-open-artikel]');
+          if (artikelLinkInBreadcrumb) {
+            artikelLinkInBreadcrumb.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+              closeAllLightboxes();
+              setTimeout(() => {
+                kb_source_2_artikel();
+              }, 10);
+            }, true);
           }
         }
-        document.getElementById("baugenehmigung-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        document.body.style.overflow = "hidden";
+        
+        extractContentFromHTML(html, "baugenehmigung");
+        openLightbox("baugenehmigung-p");
       })
       .catch(() => {
-        document.getElementById("baugenehmigung").innerHTML =
-          "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
-        document.getElementById("baugenehmigung-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        document.body.style.overflow = "hidden";
+        const baugenehmigungEl = document.getElementById("baugenehmigung");
+        if (baugenehmigungEl) {
+          baugenehmigungEl.innerHTML = "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
+        }
+        openLightbox("baugenehmigung-p");
       });
   };
 
@@ -242,29 +346,43 @@
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('.cat_text');
-        if (content) {
-          content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-          document.getElementById("kostenbasis").innerHTML = content.innerHTML;
-        } else {
-          const main = doc.querySelector('main');
-          if (main) {
-            main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-            document.getElementById("kostenbasis").innerHTML = main.innerHTML;
-          } else {
-            document.getElementById("kostenbasis").innerHTML = html;
+        
+        // Erstelle Breadcrumbs
+        const breadcrumbContainer = document.querySelector('#kostenbasis-p .lb_breadcrumb');
+        if (breadcrumbContainer) {
+          breadcrumbContainer.innerHTML = `
+            <nav class="breadcrumb breadcrumb-lightbox" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="/artikel/" data-open-artikel="">Artikel</a></li>
+                <li><a href="/artikel/kosten-honorare.html" data-open-category="/artikel/kosten-honorare.html">Kosten & Honorare</a></li>
+                <li aria-current="page">Kostenbasis</li>
+              </ol>
+            </nav>
+          `;
+          // Stelle sicher, dass der Artikel-Link einen Event-Listener hat (sofort, nicht in setTimeout)
+          const artikelLinkInBreadcrumb = breadcrumbContainer.querySelector('a[data-open-artikel]');
+          if (artikelLinkInBreadcrumb) {
+            artikelLinkInBreadcrumb.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+              closeAllLightboxes();
+              setTimeout(() => {
+                kb_source_2_artikel();
+              }, 10);
+            }, true);
           }
         }
-        document.getElementById("kostenbasis-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        document.body.style.overflow = "hidden";
+        
+        extractContentFromHTML(html, "kostenbasis");
+        openLightbox("kostenbasis-p");
       })
       .catch(() => {
-        document.getElementById("kostenbasis").innerHTML =
-          "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
-        document.getElementById("kostenbasis-p").style.display = "block";
-        document.getElementById("fade").style.display = "block";
-        document.body.style.overflow = "hidden";
+        const kostenbasisEl = document.getElementById("kostenbasis");
+        if (kostenbasisEl) {
+          kostenbasisEl.innerHTML = "<p>Fehler beim Laden. Bitte versuchen Sie es erneut.</p>";
+        }
+        openLightbox("kostenbasis-p");
       });
   };
 
@@ -274,34 +392,176 @@
       img.src = imgSrc;
       img.alt = "Projektbild";
     }
-    document.getElementById("projektbild-p").style.display = "block";
-    document.getElementById("fade").style.display = "block";
-    // Body-Scroll sperren
-    document.body.style.overflow = "hidden";
+    openLightbox("projektbild-p");
   };
 
+  // WICHTIG: Lightbox-Event-Listener SOFORT registrieren (mit CAPTURE Phase)
+  // Läuft VOR allen anderen Event-Listenern
+  document.addEventListener("click", function (event) {
+    // WICHTIG: Vita-Link MUSS ZUERST geprüft werden (vor allen anderen), da er innerhalb eines Accordions ist
+    const vitaLink = event.target.closest("[data-open-vita]");
+    if (vitaLink) {
+      event.preventDefault();
+      event.stopPropagation();
+      kb_source_2_vita();
+      return false;
+    }
+
+    // WICHTIG: Lightbox öffnen - Artikel MUSS ZUERST geprüft werden, bevor andere Handler
+    // Prüfe sowohl auf data-open-artikel Attribut als auch auf href="/artikel/"
+    // WICHTIG: Muss auch in Lightboxes funktionieren (Breadcrumb-Links, auch in Kategorie-Seiten)
+    let artikelLink = null;
+    
+    // Prüfe zuerst auf data-open-artikel (funktioniert auch bei dynamisch erstellten Links)
+    if (event.target && event.target.closest) {
+      artikelLink = event.target.closest("[data-open-artikel]");
+    }
+    
+    // Zusätzliche Prüfung: Wenn das geklickte Element selbst ein Link mit data-open-artikel ist
+    if (!artikelLink && event.target && event.target.tagName === 'A' && event.target.hasAttribute && event.target.hasAttribute("data-open-artikel")) {
+      artikelLink = event.target;
+    }
+    
+    // Fallback: Prüfe auf href="/artikel/" (aber nicht data-open-category)
+    if (!artikelLink && event.target && event.target.closest) {
+      const link = event.target.closest('a[href="/artikel/"], a[href="/artikel/index.html"]');
+      if (link && link.hasAttribute && !link.hasAttribute("data-open-category")) {
+        artikelLink = link;
+      }
+    }
+    
+    if (artikelLink) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      // Stelle sicher, dass alle anderen Lightboxes geschlossen sind
+      closeAllLightboxes();
+      // Kurze Verzögerung, um sicherzustellen, dass alle Lightboxes geschlossen sind
+      setTimeout(() => {
+        kb_source_2_artikel();
+      }, 10);
+      return false;
+    }
+
+    // Lightbox schließen
+    const closeBtn = event.target.closest("[data-close-lightbox]");
+    if (closeBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      const id = closeBtn.dataset.closeLightbox;
+      const panel = document.getElementById(id);
+      if (panel) {
+        panel.style.display = "none";
+        const fade = document.getElementById("fade");
+        if (fade) fade.style.display = "none";
+        document.body.style.overflow = "";
+      }
+      return;
+    }
+
+    // Lightbox schließen beim Klick auf den dunklen Hintergrund
+    const fade = document.getElementById("fade");
+    if (event.target === fade) {
+      closeAllLightboxes();
+      return;
+    }
+
+    // Lightbox öffnen - Impressum
+    const impressumLink = event.target.closest("[data-open-impressum]");
+    if (impressumLink) {
+      event.preventDefault();
+      event.stopPropagation();
+      kb_source_2_impressum();
+      return false;
+    }
+
+    // Lightbox öffnen - Datenschutz
+    const datenschutzLink = event.target.closest("[data-open-datenschutz]");
+    if (datenschutzLink) {
+      event.preventDefault();
+      event.stopPropagation();
+      kb_source_2_datenschutz();
+      return false;
+    }
+
+    // Lightbox öffnen - HOAI
+    const hoaiLink = event.target.closest("[data-open-hoai]");
+    if (hoaiLink) {
+      event.preventDefault();
+      event.stopPropagation();
+      kb_source_2_hoai();
+      return false;
+    }
+
+    // Lightbox öffnen - Kategorie
+    const categoryLink = event.target.closest("[data-open-category]");
+    if (categoryLink) {
+      event.preventDefault();
+      event.stopPropagation();
+      const categoryUrl = categoryLink.getAttribute("data-open-category");
+      if (categoryUrl) {
+        const categoryName = categoryUrl.split('/').pop().replace('.html', '');
+        const lightboxId = "artikel-" + categoryName;
+        if (!document.getElementById(lightboxId + "-p")) {
+          const lightboxDiv = document.createElement("div");
+          lightboxDiv.id = lightboxId + "-p";
+          lightboxDiv.className = "white_content";
+          lightboxDiv.innerHTML = `
+            <div class="lb_header">
+              <div class="lb_breadcrumb"></div>
+              <div class="lb_close">
+                <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
+              </div>
+            </div>
+            <div class="lb_footer"></div>
+            <div class="lightbox" id="${lightboxId}"></div>
+          `;
+          document.body.appendChild(lightboxDiv);
+        }
+        loadArticleLightbox(categoryUrl, lightboxId);
+        return;
+      }
+    }
+
+    // Lightbox öffnen - Projektbild
+    const projektbildTrigger = event.target.closest("[data-open-projektbild]");
+    if (projektbildTrigger) {
+      event.preventDefault();
+      event.stopPropagation();
+      const imgSrc = projektbildTrigger.getAttribute("data-open-projektbild");
+      if (imgSrc) {
+        openProjektbild(imgSrc);
+      }
+      return;
+    }
+  }, true); // CAPTURE PHASE - läuft VOR allen anderen Event-Listenern
+
   document.addEventListener("DOMContentLoaded", function () {
-    // Cache häufig verwendete Elemente
+    // Cache häufig verwendete Elemente (einmalig, für bessere Performance)
     const fade = document.getElementById("fade");
     const allAccordionInputs = document.querySelectorAll('input[type="radio"][name="rdo"]');
     const allAccordionLabels = document.querySelectorAll('label.cat[for^="tog"]');
     const allWhiteContent = document.querySelectorAll(".white_content");
+    
+    // Cache Elemente global für bessere Performance
+    window._cachedFade = fade;
+    window._cachedWhiteContent = allWhiteContent;
+    window._cachedAccordionInputs = allAccordionInputs;
 
     // Helper-Funktionen für bessere Performance
     const getScrollY = () => window.pageYOffset || window.scrollY;
     const getLabelForInput = (inputId) => document.querySelector(`label[for="${inputId}"]`);
     const getLabelCatForInput = (inputId) => document.querySelector(`label.cat[for="${inputId}"]`);
 
-    // ZENTRALE Funktion: Synchronisiert ALLE HR-Elemente basierend auf dem aktuellen Zustand
+    // ZENTRALE Funktion: Synchronisiert ALLE HR-Elemente basierend auf dem aktuellen Zustand (optimiert)
     function syncAllHrElements() {
       allAccordionInputs.forEach((input) => {
         const label = getLabelForInput(input.id);
-        if (label) {
-          const hrInLabel = label.querySelector("hr.z");
-          if (hrInLabel) {
-            // HR verstecken wenn Accordion offen, anzeigen wenn geschlossen
-            hrInLabel.style.display = input.checked ? "none" : "block";
-          }
+        if (!label) return;
+        const hrInLabel = label.querySelector("hr.z");
+        if (hrInLabel) {
+          // HR verstecken wenn Accordion offen, anzeigen wenn geschlossen
+          hrInLabel.style.display = input.checked ? "none" : "block";
         }
       });
     }
@@ -449,6 +709,66 @@
 
     updateAccordionAria();
 
+    // Hash beim Laden der Seite verarbeiten (z.B. von /#kontakt)
+    function handleInitialHash() {
+      const hash = window.location.hash.substring(1);
+      if (!hash) return;
+      
+      const idMap = {
+        "profil": "tog1",
+        "leistungen": "tog3",
+        "projekte": "tog4",
+        "kontakt": "tog5"
+      };
+      
+      const accordionId = idMap[hash] || hash;
+      const input = document.getElementById(accordionId);
+      const section = document.getElementById(hash);
+      
+      if (input) {
+        // Alle anderen Accordions schließen
+        allAccordionInputs.forEach((other) => {
+          if (other !== input && other.checked) {
+            other.checked = false;
+          }
+        });
+        
+        // Accordion öffnen
+        input.checked = true;
+        syncAllHrElements();
+        updateAccordionAria();
+        
+        // Hash aus URL entfernen nach dem Öffnen (besonders für Kontakt)
+        if (hash === "kontakt") {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        
+        // IMMER zum Accordion-Titel scrollen (auch bei Kontakt)
+        setTimeout(() => {
+          scrollToAccordionContent(input);
+        }, 100);
+      } else if (section && !input) {
+        // Fallback: Direkt zur Section scrollen
+        setTimeout(() => {
+          const y = section.getBoundingClientRect().top + getScrollY() - 20;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }, 100);
+      }
+    }
+    
+    // Hash beim Laden verarbeiten
+    if (window.location.hash) {
+      setTimeout(handleInitialHash, 150);
+      window.addEventListener("load", function() {
+        setTimeout(handleInitialHash, 100);
+      }, { once: true });
+    }
+    
+    // Hash-Änderungen verarbeiten (z.B. wenn man von einer anderen Seite kommt)
+    window.addEventListener("hashchange", function() {
+      setTimeout(handleInitialHash, 100);
+    });
+
     // Generische Funktion zum Laden von Artikel-Lightboxes
     window.loadArticleLightbox = function(articlePath, lightboxId) {
       // Schließe alle anderen Lightboxes zuerst
@@ -460,41 +780,160 @@
         .then((html) => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
-          const content = doc.querySelector('.cat_text');
-          if (content) {
-            content.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-            document.getElementById(lightboxId).innerHTML = content.innerHTML;
+          
+          // Mapping: Dateiname → Kategorie
+          const fileName = articlePath.split('/').pop().replace('.html', '');
+          const categoryMap = {
+            'hoai': 'Grundlagen',
+            'leistungsphasen': 'Grundlagen',
+            'planung-architektur': 'Grundlagen',
+            'haus-bauen-architekt': 'Grundlagen',
+            'neubau': 'Neubau',
+            'bauweisen-neubau': 'Neubau',
+            'holzbau': 'Neubau',
+            'umbau-architektur': 'Bauen im Bestand',
+            'sanierung-architektur': 'Bauen im Bestand',
+            'denkmal-architektur': 'Bauen im Bestand',
+            'baugenehmigung': 'Recht & Genehmigung',
+            'genehmigungsplanung': 'Recht & Genehmigung',
+            'genehmigungsfrei': 'Recht & Genehmigung',
+            'gebaeudeklassen': 'Recht & Genehmigung',
+            'flaechen-begriffe': 'Recht & Genehmigung',
+            'bestandsschutz': 'Recht & Genehmigung',
+            'architektur-pfaffenhofen': 'Recht & Genehmigung',
+            'architektur-wolnzach': 'Recht & Genehmigung',
+            'ausfuehrungsplanung-architektur': 'Planung & Ausführung',
+            'bauleitung-architektur': 'Planung & Ausführung',
+            'fachplaner': 'Planung & Ausführung',
+            'kostenbasis-architektur': 'Kosten & Honorare',
+            'architekt-kosten': 'Kosten & Honorare'
+          };
+          
+          // Prüfe ob es eine Kategorie-Seite ist
+          const isCategoryPage = ['grundlagen', 'neubau-kategorie', 'bauen-im-bestand', 'recht-genehmigung', 'planung-ausfuehrung', 'kosten-honorare'].includes(fileName);
+          
+          const category = categoryMap[fileName] || (isCategoryPage ? null : 'Artikel');
+          
+          // Extrahiere Titel für Breadcrumbs
+          const h1 = doc.querySelector('h1');
+          let pageTitle = '';
+          if (h1) {
+            pageTitle = h1.textContent.trim();
+            // Für Artikel: Kürze auf ersten Teil vor "–"
+            if (!isCategoryPage) {
+              const parts = pageTitle.split('–');
+              if (parts.length > 1) {
+                pageTitle = parts[0].trim();
+              } else {
+                pageTitle = pageTitle.substring(0, 30).trim();
+              }
+            }
           } else {
-            const main = doc.querySelector('main');
-            if (main) {
-              main.querySelectorAll('header, footer, nav').forEach(el => el.remove());
-              document.getElementById(lightboxId).innerHTML = main.innerHTML;
-            } else {
-              document.getElementById(lightboxId).innerHTML = html;
+            pageTitle = fileName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          }
+          
+          // Erstelle Breadcrumbs
+          const breadcrumbContainer = document.querySelector(`#${lightboxId}-p .lb_breadcrumb`);
+          if (breadcrumbContainer) {
+            // Mapping: Kategorie → URL
+            const categoryUrlMap = {
+              'Grundlagen': '/artikel/grundlagen.html',
+              'Neubau': '/artikel/neubau-kategorie.html',
+              'Bauen im Bestand': '/artikel/bauen-im-bestand.html',
+              'Recht & Genehmigung': '/artikel/recht-genehmigung.html',
+              'Planung & Ausführung': '/artikel/planung-ausfuehrung.html',
+              'Kosten & Honorare': '/artikel/kosten-honorare.html'
+            };
+            
+            if (isCategoryPage) {
+              // Kategorie-Seite: Artikel → [Kategorie]
+              const categoryName = pageTitle;
+              breadcrumbContainer.innerHTML = `
+                <nav class="breadcrumb breadcrumb-lightbox" aria-label="Breadcrumb">
+                  <ol>
+                    <li><a href="/artikel/" data-open-artikel="">Artikel</a></li>
+                    <li aria-current="page">${categoryName}</li>
+                  </ol>
+                </nav>
+              `;
+              // Stelle sicher, dass der Artikel-Link einen Event-Listener hat (sofort, nicht in setTimeout)
+              const artikelLinkInBreadcrumb = breadcrumbContainer.querySelector('a[data-open-artikel]');
+              if (artikelLinkInBreadcrumb) {
+                artikelLinkInBreadcrumb.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  e.stopImmediatePropagation();
+                  closeAllLightboxes();
+                  setTimeout(() => {
+                    kb_source_2_artikel();
+                  }, 10);
+                }, true);
+              }
+            } else if (category && category !== 'Artikel') {
+              // Artikel-Seite: Artikel → [Kategorie] → [Artikel]
+              const categoryUrl = categoryUrlMap[category] || '/artikel/';
+              breadcrumbContainer.innerHTML = `
+                <nav class="breadcrumb breadcrumb-lightbox" aria-label="Breadcrumb">
+                  <ol>
+                    <li><a href="/artikel/" data-open-artikel="">Artikel</a></li>
+                    <li><a href="${categoryUrl}" data-open-category="${categoryUrl}">${category}</a></li>
+                    <li aria-current="page">${pageTitle}</li>
+                  </ol>
+                </nav>
+              `;
+              // Stelle sicher, dass der Artikel-Link einen Event-Listener hat (sofort, nicht in setTimeout)
+              const artikelLinkInBreadcrumb = breadcrumbContainer.querySelector('a[data-open-artikel]');
+              if (artikelLinkInBreadcrumb) {
+                artikelLinkInBreadcrumb.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  e.stopImmediatePropagation();
+                  closeAllLightboxes();
+                  setTimeout(() => {
+                    kb_source_2_artikel();
+                  }, 10);
+                }, true);
+              }
             }
           }
-          const panel = document.getElementById(lightboxId + "-p");
-          if (panel) {
-            panel.style.display = "block";
-            document.getElementById("fade").style.display = "block";
-            document.body.style.overflow = "hidden";
-          }
+          
+          extractContentFromHTML(html, lightboxId);
+          openLightbox(lightboxId + "-p");
         })
         .catch(() => {
-          document.getElementById(lightboxId).innerHTML =
-            "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
-          const panel = document.getElementById(lightboxId + "-p");
-          if (panel) {
-            panel.style.display = "block";
-            document.getElementById("fade").style.display = "block";
-            document.body.style.overflow = "hidden";
+          const lightboxEl = document.getElementById(lightboxId);
+          if (lightboxEl) {
+            lightboxEl.innerHTML = "<p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>";
           }
+          openLightbox(lightboxId + "-p");
         });
     };
 
+
     // FRÜHER Event-Listener: Artikel-Links abfangen (auf Startseite UND in Lightboxes)
+    // WICHTIG: Läuft in CAPTURE Phase, aber NUR für Artikel-Links, NICHT für andere Lightbox-Links
     document.addEventListener("click", function (event) {
-      const isOnHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+      // WICHTIG: Prüfe ZUERST auf data-open-artikel (auch in Lightboxes/Breadcrumbs)
+      // Das muss VOR der Blockier-Liste stehen, damit Breadcrumb-Links funktionieren
+      const artikelLinkInBreadcrumb = event.target.closest("[data-open-artikel]");
+      if (artikelLinkInBreadcrumb) {
+        // Wird vom ERSTEN Event-Listener verarbeitet, aber als Fallback hier auch behandeln
+        // (falls der erste Event-Listener aus irgendeinem Grund nicht greift)
+        event.preventDefault();
+        event.stopPropagation();
+        closeAllLightboxes();
+        kb_source_2_artikel();
+        return false;
+      }
+      
+      // WICHTIG: Überspringe andere Lightbox-Links
+      // Muss GANZ AM ANFANG stehen, bevor andere Prüfungen
+      // Prüfe zuerst auf data-*-Attribute, dann auf href
+      const lightboxLink = event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita], [data-open-hoai], [data-open-category], [data-open-projektbild], [data-close-lightbox]");
+      if (lightboxLink) {
+        return; // Wird vom Lightbox-Event-Listener oben verarbeitet - NICHT blockieren!
+      }
+      
       const isInLightbox = event.target.closest('.white_content, .lightbox');
 
       // Prüfe ob es ein Link zu /artikel/*.html ist
@@ -503,7 +942,7 @@
         const href = artikelLink.getAttribute("href");
         // Spezialbehandlung für HOAI (hat eigene Lightbox)
         if (href.includes("/artikel/hoai.html") || artikelLink.hasAttribute("data-open-hoai")) {
-          if (isOnHomepage || isInLightbox) {
+          if (isOnHomepage() || isInLightbox) {
             event.preventDefault();
             event.stopPropagation();
             kb_source_2_hoai();
@@ -512,7 +951,7 @@
         }
         // Spezialbehandlung für Baugenehmigung (hat eigene Lightbox)
         else if (href.includes("/artikel/baugenehmigung.html")) {
-          if (isOnHomepage || isInLightbox) {
+          if (isOnHomepage() || isInLightbox) {
             event.preventDefault();
             event.stopPropagation();
             kb_source_2_baugenehmigung();
@@ -521,24 +960,15 @@
         }
         // Spezialbehandlung für Kostenbasis (hat eigene Lightbox)
         else if (href.includes("/artikel/kostenbasis-architektur.html")) {
-          if (isOnHomepage || isInLightbox) {
+          if (isOnHomepage() || isInLightbox) {
             event.preventDefault();
             event.stopPropagation();
             kb_source_2_kostenbasis();
             return false;
           }
         }
-        // Spezialbehandlung für Artikel-Übersicht
-        else if (href === "/artikel/" || href === "/artikel/index.html" || artikelLink.hasAttribute("data-open-artikel")) {
-          if (isOnHomepage) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_artikel();
-            return false;
-          }
-        }
         // Alle anderen Artikel-Links: generische Lightbox (falls auf Startseite)
-        else if (isOnHomepage && href.endsWith(".html")) {
+        else if (isOnHomepage() && href.endsWith(".html") && href.startsWith("/artikel/")) {
           event.preventDefault();
           event.stopPropagation();
           // Erstelle dynamisch Lightbox-Struktur falls nötig
@@ -550,8 +980,11 @@
             lightboxDiv.id = lightboxId + "-p";
             lightboxDiv.className = "white_content";
             lightboxDiv.innerHTML = `
-              <div class="lb_close">
-                <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
+              <div class="lb_header">
+                <div class="lb_breadcrumb"></div>
+                <div class="lb_close">
+                  <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
+                </div>
               </div>
               <div class="lb_footer"></div>
               <div class="lightbox" id="${lightboxId}"></div>
@@ -564,18 +997,38 @@
       }
     }, true); // capture phase - wird VOR anderen Handlern ausgeführt
 
+
+    // Event-Listener für # Links - NUR für Accordion-Links auf der Startseite
+    // WICHTIG: Läuft in BUBBLING PHASE NACH Lightbox-Event-Listenern
     document.addEventListener("click", function (event) {
-      // Lightbox-Links zuerst prüfen (haben auch href="#")
+      // Prüfe ob es ein Link zu einem Accordion ist
+      const target = event.target.closest('a[href^="#"], a[href^="/#"]');
+      if (!target) return;
+      
+      const href = target.getAttribute("href");
+      if (!href || href === "#" || href === "/#") return;
+      
+      // Lightbox-Links überspringen (haben auch href="#")
       if (event.target.closest("[data-open-impressum], [data-open-datenschutz], [data-open-vita], [data-open-hoai], [data-open-artikel], [data-open-projektbild]")) {
         return; // Wird vom Lightbox-Handler verarbeitet
       }
+      
+      // "→ Kontakt aufnehmen" Links überspringen (werden vom speziellen Event-Listener verarbeitet)
+      if (target.classList.contains('author-contact-link')) {
+        return;
+      }
 
-      const target = event.target.closest('a[href^="#"]');
-      if (!target) return;
-      const href = target.getAttribute("href");
-      if (!href || href === "#") return;
-      const id = href.substring(1);
-
+      // Prüfe ob Link innerhalb einer Lightbox ist
+      const isInLightbox = event.target.closest('.white_content, .lightbox');
+      
+      // Extrahiere Hash: "#kontakt" oder "/#kontakt" -> "kontakt"
+      let id = href;
+      if (id.startsWith("/#")) {
+        id = id.substring(2);
+      } else if (id.startsWith("#")) {
+        id = id.substring(1);
+      }
+      
       // Mapping für SEO-freundliche IDs zu Accordion-IDs
       const idMap = {
         "profil": "tog1",
@@ -584,145 +1037,113 @@
         "kontakt": "tog5"
       };
 
-      const accordionId = idMap[id] || id;
+      const accordionId = idMap[id];
+      
+      // NUR verarbeiten wenn es ein Accordion-Link ist
+      if (!accordionId) {
+        // Kein Accordion-Link -> ignorieren
+        return;
+      }
+      
       const input = document.getElementById(accordionId);
-      const section = document.getElementById(id);
-
-      if (input) {
-        // WICHTIG: preventDefault SOFORT, bevor der Browser scrollt
-        event.preventDefault();
-        event.stopPropagation();
-
-        // Hash mit replaceState setzen (verhindert Browser-Scroll)
-        if (window.location.hash !== '#' + id) {
-          history.replaceState(null, '', '#' + id);
+      if (!input) return; // Accordion existiert nicht
+      
+      // Wenn Link zu Startseite führt (/), dann zur Startseite navigieren
+      if (href.startsWith("/#")) {
+        if (!isOnHomepage()) {
+          // Nicht auf Startseite: Zur Startseite navigieren
+          event.preventDefault();
+          event.stopPropagation();
+          closeAllLightboxes();
+          window.location.href = href;
+          return;
         }
-
-        // Alle anderen Accordions schließen
-        allAccordionInputs.forEach((other) => {
-          if (other !== input && other.checked) {
-            other.checked = false;
-          }
-        });
-
-        // Accordion öffnen
-        input.checked = true;
-        syncAllHrElements();
-        updateAccordionAria();
-
-        // Spezialbehandlung für #kontakt: Zum Formular scrollen statt zum Titel
-        if (id === "kontakt") {
-          setTimeout(() => {
-            const form = document.getElementById("contact-form-de");
-            if (form) {
-              form.scrollIntoView({ behavior: "smooth", block: "start" });
-            } else {
-              // Fallback zum Label
-              scrollToAccordionContent(input);
-            }
-          }, 550);
-        } else {
-          // Normale Accordions: Zum Titel scrollen
-          scrollToAccordionContent(input);
-        }
-        return;
+        // Bereits auf Startseite: Weiter mit Accordion-Öffnung
+      }
+      
+      // Wenn Link in einer Lightbox ist und NICHT zur Startseite führt, ignorieren
+      if (isInLightbox && !href.startsWith("/#")) {
+        return; // Lass den Link normal funktionieren
+      }
+      
+      // Nur auf Startseite verarbeiten (außer Links zur Startseite)
+      if (!isOnHomepage() && !href.startsWith("/#")) {
+        return; // Nicht auf Startseite und kein Link zur Startseite -> ignorieren
       }
 
-      // Scroll zu Section (nur wenn kein Accordion-Input gefunden wurde)
-      if (section) {
-        event.preventDefault();
-        const y = section.getBoundingClientRect().top + getScrollY() - 20;
-        window.scrollTo({ top: y, behavior: "smooth" });
-        // Focus-Management für Accessibility
-        setTimeout(() => {
-          const firstFocusable = section.querySelector('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
-          if (firstFocusable) {
-            firstFocusable.focus();
-          } else {
-            section.setAttribute('tabindex', '-1');
-            section.focus();
-            section.removeAttribute('tabindex');
-          }
-        }, 300);
-      }
-    });
+      // JETZT: Accordion öffnen
+      event.preventDefault();
+      closeAllLightboxes();
 
-    // Optimiert: Alle Lightbox-Event-Listener in einem Handler
+      // Hash NICHT in URL setzen für Kontakt-Links
+      if (id !== "kontakt" && window.location.hash !== '#' + id) {
+        history.replaceState(null, '', '#' + id);
+      } else if (id === "kontakt") {
+        // Hash entfernen für Kontakt-Links
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+
+      // Alle anderen Accordions schließen
+      allAccordionInputs.forEach((other) => {
+        if (other !== input && other.checked) {
+          other.checked = false;
+        }
+      });
+
+      // Accordion öffnen
+      input.checked = true;
+      syncAllHrElements();
+      updateAccordionAria();
+
+      // IMMER zum Accordion-Titel scrollen (auch bei Kontakt)
+      scrollToAccordionContent(input);
+    }); // BUBBLING PHASE - läuft NACH anderen Handlern
+
+
+    // SPEZIELLER Event-Listener für "→ Kontakt aufnehmen" Links (author-contact-link)
+    // Läuft in CAPTURE PHASE NACH Lightbox-Event-Listener, damit Lightbox-Öffnungen funktionieren
     document.addEventListener("click", function (event) {
-      // Lightbox schließen - mit stopPropagation um sicherzustellen, dass der Klick nicht von anderen Elementen abgefangen wird
-      const closeBtn = event.target.closest("[data-close-lightbox]");
-      if (closeBtn) {
-        event.preventDefault();
-        event.stopPropagation();
-        const id = closeBtn.dataset.closeLightbox;
-        const panel = document.getElementById(id);
-        if (panel) panel.style.display = "none";
-        if (fade) fade.style.display = "none";
-        // Body-Scroll wieder freigeben
-        document.body.style.overflow = "";
+      const contactLink = event.target.closest('a.author-contact-link[href^="/#kontakt"], a.author-contact-link[href^="#kontakt"]');
+      if (!contactLink) return;
+      
+      const href = contactLink.getAttribute("href");
+      if (!href) return;
+      
+      event.preventDefault();
+      event.stopPropagation();
+      
+      // Lightbox schließen
+      closeAllLightboxes();
+      
+      // Prüfe ob wir auf der Startseite sind
+      if (!isOnHomepage()) {
+        // Nicht auf Startseite: Zur Startseite navigieren
+        window.location.href = href;
         return;
       }
-
-      // Lightbox schließen beim Klick auf den dunklen Hintergrund
-      if (event.target === fade) {
-        const openPanels = document.querySelectorAll(".white_content[style*='block']");
-        openPanels.forEach(panel => {
-          panel.style.display = "none";
-        });
-        fade.style.display = "none";
-        // Body-Scroll wieder freigeben
-        document.body.style.overflow = "";
-        return;
-      }
-
-      // Lightbox öffnen - Impressum
-      if (event.target.closest("[data-open-impressum]")) {
-        event.preventDefault();
-        kb_source_2_impressum();
-        return;
-      }
-
-      // Lightbox öffnen - Datenschutz
-      if (event.target.closest("[data-open-datenschutz]")) {
-        event.preventDefault();
-        kb_source_2_datenschutz();
-        return;
-      }
-
-      // Lightbox öffnen - Vita
-      if (event.target.closest("[data-open-vita]")) {
-        event.preventDefault();
-        kb_source_2_vita();
-        return;
-      }
-
-      // Lightbox öffnen - HOAI (wird bereits vom früheren Event-Listener abgefangen)
-      // Dieser Handler bleibt für data-open-hoai Attribute (falls noch verwendet)
-      const hoaiLink = event.target.closest("[data-open-hoai]");
-      if (hoaiLink) {
-        event.preventDefault();
-        kb_source_2_hoai();
-        return;
-      }
-
-      // Lightbox öffnen - Artikel
-      if (event.target.closest("[data-open-artikel]")) {
-        event.preventDefault();
-        kb_source_2_artikel();
-        return;
-      }
-
-      // Lightbox öffnen - Projektbild
-      const projektbildTrigger = event.target.closest("[data-open-projektbild]");
-      if (projektbildTrigger) {
-        event.preventDefault();
-        const imgSrc = projektbildTrigger.getAttribute("data-open-projektbild");
-        if (imgSrc) {
-          openProjektbild(imgSrc);
+      
+      // Auf Startseite: Accordion öffnen
+      const input = document.getElementById("tog5");
+      if (!input) return;
+      
+      // Alle anderen Accordions schließen
+      allAccordionInputs.forEach((other) => {
+        if (other !== input && other.checked) {
+          other.checked = false;
         }
-        return;
-      }
-    });
+      });
+      
+      // Accordion öffnen
+      input.checked = true;
+      syncAllHrElements();
+      updateAccordionAria();
+      
+      // Hash NICHT in URL setzen
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      
+      // Zum Accordion-Titel scrollen
+      scrollToAccordionContent(input);
+    }, true); // CAPTURE PHASE - läuft NACH Lightbox-Event-Listener (weil später registriert)
 
     // Eigene Formular-Validierung
     function validateForm(form) {
@@ -858,7 +1279,10 @@
             }
             fadeOut(form, 300, () => {
               if (successBox) fadeIn(successBox, 300);
-              if (submitBtn) submitBtn.textContent = originalText;
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+              }
             });
           })
           .catch((error) => {
@@ -882,4 +1306,60 @@
       });
     });
   });
+
+  // Tooltip positioning for social logos
+  function positionTooltips() {
+    const tooltipLogos = document.querySelectorAll('.social-logo[data-tooltip]');
+    const hoveredLogos = new Set();
+    
+    const updateTooltipPosition = (logo) => {
+      const rect = logo.getBoundingClientRect();
+      
+      // Calculate position: above the logo, centered
+      const tooltipTop = rect.top - 30; // 30px above (tooltip height + gap)
+      const tooltipLeft = rect.left + (rect.width / 2);
+      const arrowTop = rect.top - 7;
+      const arrowLeft = rect.left + (rect.width / 2);
+      
+      logo.style.setProperty('--tooltip-top', `${tooltipTop}px`);
+      logo.style.setProperty('--tooltip-left', `${tooltipLeft}px`);
+      logo.style.setProperty('--tooltip-arrow-top', `${arrowTop}px`);
+      logo.style.setProperty('--tooltip-arrow-left', `${arrowLeft}px`);
+    };
+    
+    tooltipLogos.forEach(logo => {
+      logo.addEventListener('mouseenter', (e) => {
+        hoveredLogos.add(logo);
+        updateTooltipPosition(logo);
+      });
+      
+      logo.addEventListener('mousemove', (e) => {
+        updateTooltipPosition(logo);
+      });
+      
+      logo.addEventListener('mouseleave', () => {
+        hoveredLogos.delete(logo);
+      });
+    });
+    
+    // Update tooltip positions on scroll (only for hovered logos)
+    let scrollTimeout = null;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(() => {
+        hoveredLogos.forEach(logo => {
+          updateTooltipPosition(logo);
+        });
+      }, 10);
+    }, { passive: true });
+  }
+  
+  // Initialize tooltip positioning
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', positionTooltips);
+  } else {
+    positionTooltips();
+  }
 })();
