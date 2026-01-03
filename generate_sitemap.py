@@ -29,6 +29,8 @@ PRIORITIES = {
     "/artikel/bauweisen-neubau.html": 0.8,
     "/artikel/holzbau.html": 0.8,
     "/artikel/neubau.html": 0.8,
+    "/artikel/architektur-pfaffenhofen.html": 0.8,
+    "/artikel/architektur-wolnzach.html": 0.8,
     "/pages/impressum.html": 0.3,
     "/pages/datenschutz.html": 0.3,
 }
@@ -90,9 +92,9 @@ def find_html_files():
                 "changefreq": CHANGEFREQ.get("/artikel/", "monthly"),
             })
         
-        # Einzelne Artikel
+        # Einzelne Artikel (index.html und index-new.html ausschließen)
         for file in sorted(artikel_dir.glob("*.html")):
-            if file.name != "index.html":
+            if file.name not in ["index.html", "index-new.html"]:
                 rel_path = f"/artikel/{file.name}"
                 urls.append({
                     "loc": f"{BASE_URL}{rel_path}",
