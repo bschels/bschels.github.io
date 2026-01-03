@@ -431,16 +431,24 @@
     }
     
     if (artikelLink) {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      // Stelle sicher, dass alle anderen Lightboxes geschlossen sind
-      closeAllLightboxes();
-      // Kurze Verzögerung, um sicherzustellen, dass alle Lightboxes geschlossen sind
-      setTimeout(() => {
-        kb_source_2_artikel();
-      }, 10);
-      return false;
+      // Prüfe ob man bereits in einer Lightbox ist
+      const isInLightbox = event.target.closest('.white_content, .lightbox');
+      
+      // NUR wenn man bereits in einer Lightbox ist: Artikel-Übersicht in Lightbox öffnen
+      // Wenn man von der Startseite kommt: normal navigieren (kein preventDefault)
+      if (isInLightbox) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        // Stelle sicher, dass alle anderen Lightboxes geschlossen sind
+        closeAllLightboxes();
+        // Kurze Verzögerung, um sicherzustellen, dass alle Lightboxes geschlossen sind
+        setTimeout(() => {
+          kb_source_2_artikel();
+        }, 10);
+        return false;
+      }
+      // Wenn NICHT in Lightbox: Link normal öffnen lassen (kein preventDefault)
     }
 
     // Lightbox schließen
@@ -917,13 +925,21 @@
       // Das muss VOR der Blockier-Liste stehen, damit Breadcrumb-Links funktionieren
       const artikelLinkInBreadcrumb = event.target.closest("[data-open-artikel]");
       if (artikelLinkInBreadcrumb) {
-        // Wird vom ERSTEN Event-Listener verarbeitet, aber als Fallback hier auch behandeln
-        // (falls der erste Event-Listener aus irgendeinem Grund nicht greift)
-        event.preventDefault();
-        event.stopPropagation();
-        closeAllLightboxes();
-        kb_source_2_artikel();
-        return false;
+        // Prüfe ob man bereits in einer Lightbox ist
+        const isInLightboxForBreadcrumb = event.target.closest('.white_content, .lightbox');
+        
+        // NUR wenn man bereits in einer Lightbox ist: Artikel-Übersicht in Lightbox öffnen
+        // Wenn man von der Startseite kommt: normal navigieren (kein preventDefault)
+        if (isInLightboxForBreadcrumb) {
+          // Wird vom ERSTEN Event-Listener verarbeitet, aber als Fallback hier auch behandeln
+          // (falls der erste Event-Listener aus irgendeinem Grund nicht greift)
+          event.preventDefault();
+          event.stopPropagation();
+          closeAllLightboxes();
+          kb_source_2_artikel();
+          return false;
+        }
+        // Wenn NICHT in Lightbox: Link normal öffnen lassen (kein preventDefault, kein return)
       }
       
       // WICHTIG: Überspringe andere Lightbox-Links
@@ -941,57 +957,64 @@
       if (artikelLink && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
         const href = artikelLink.getAttribute("href");
         
-        // NUR wenn man bereits in einer Lightbox ist: Artikel in Lightbox öffnen
-        // Wenn man von der Startseite kommt: normal öffnen (kein preventDefault)
-        if (isInLightbox && href.endsWith(".html") && href.startsWith("/artikel/")) {
-          // Prüfe ob es ein spezieller Artikel ist (HOAI, Baugenehmigung, Kostenbasis)
-          if (href.includes("/artikel/hoai.html") || artikelLink.hasAttribute("data-open-hoai")) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_hoai();
-            return false;
-          }
-          else if (href.includes("/artikel/baugenehmigung.html")) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_baugenehmigung();
-            return false;
-          }
-          else if (href.includes("/artikel/kostenbasis-architektur.html")) {
-            event.preventDefault();
-            event.stopPropagation();
-            kb_source_2_kostenbasis();
-            return false;
-          }
-          // Alle anderen Artikel-Links: generische Lightbox (nur wenn in Lightbox)
-          else {
-            event.preventDefault();
-            event.stopPropagation();
-            // Erstelle dynamisch Lightbox-Struktur falls nötig
-            const articleName = href.split("/").pop().replace(".html", "");
-            const lightboxId = "artikel-" + articleName;
-            if (!document.getElementById(lightboxId + "-p")) {
-              // Erstelle Lightbox-Struktur
-              const lightboxDiv = document.createElement("div");
-              lightboxDiv.id = lightboxId + "-p";
-              lightboxDiv.className = "white_content";
-              lightboxDiv.innerHTML = `
-                <div class="lb_header">
-                  <div class="lb_breadcrumb"></div>
-                  <div class="lb_close">
-                    <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
-                  </div>
-                </div>
-                <div class="lb_footer"></div>
-                <div class="lightbox" id="${lightboxId}"></div>
-              `;
-              document.body.appendChild(lightboxDiv);
+        // Für Links zu einzelnen Artikeln (nicht /artikel/ selbst):
+        // - Wenn auf Startseite: in Lightbox öffnen
+        // - Wenn bereits in Lightbox: in Lightbox öffnen
+        // Für Links zu /artikel/ (Artikel-Übersicht):
+        // - Nur in Lightbox öffnen wenn bereits in Lightbox
+        // - Sonst normal navigieren
+        if (href.endsWith(".html") && href.startsWith("/artikel/") && href !== "/artikel/index.html") {
+          // Einzelner Artikel: Immer in Lightbox öffnen (auf Startseite ODER in Lightbox)
+          if (isOnHomepage() || isInLightbox) {
+            // Prüfe ob es ein spezieller Artikel ist (HOAI, Baugenehmigung, Kostenbasis)
+            if (href.includes("/artikel/hoai.html") || artikelLink.hasAttribute("data-open-hoai")) {
+              event.preventDefault();
+              event.stopPropagation();
+              kb_source_2_hoai();
+              return false;
             }
-            loadArticleLightbox(href, lightboxId);
-            return false;
+            else if (href.includes("/artikel/baugenehmigung.html")) {
+              event.preventDefault();
+              event.stopPropagation();
+              kb_source_2_baugenehmigung();
+              return false;
+            }
+            else if (href.includes("/artikel/kostenbasis-architektur.html")) {
+              event.preventDefault();
+              event.stopPropagation();
+              kb_source_2_kostenbasis();
+              return false;
+            }
+            // Alle anderen Artikel-Links: generische Lightbox
+            else {
+              event.preventDefault();
+              event.stopPropagation();
+              // Erstelle dynamisch Lightbox-Struktur falls nötig
+              const articleName = href.split("/").pop().replace(".html", "");
+              const lightboxId = "artikel-" + articleName;
+              if (!document.getElementById(lightboxId + "-p")) {
+                // Erstelle Lightbox-Struktur
+                const lightboxDiv = document.createElement("div");
+                lightboxDiv.id = lightboxId + "-p";
+                lightboxDiv.className = "white_content";
+                lightboxDiv.innerHTML = `
+                  <div class="lb_header">
+                    <div class="lb_breadcrumb"></div>
+                    <div class="lb_close">
+                      <a href="#" data-close-lightbox="${lightboxId}-p" class="white" aria-label="Schließen">×</a>
+                    </div>
+                  </div>
+                  <div class="lb_footer"></div>
+                  <div class="lightbox" id="${lightboxId}"></div>
+                `;
+                document.body.appendChild(lightboxDiv);
+              }
+              loadArticleLightbox(href, lightboxId);
+              return false;
+            }
           }
+          // Wenn weder auf Startseite noch in Lightbox: Link normal öffnen lassen (kein preventDefault)
         }
-        // Wenn man NICHT in einer Lightbox ist: Link normal öffnen lassen (kein preventDefault)
       }
     }, true); // capture phase - wird VOR anderen Handlern ausgeführt
 
