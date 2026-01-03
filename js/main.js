@@ -162,6 +162,29 @@
         document.getElementById("fade").style.display = "block";
         // Body-Scroll sperren
         document.body.style.overflow = "hidden";
+        
+        // Event-Listener für Anker-Links im Modal hinzufügen
+        const artikelContainer = document.getElementById("artikel");
+        if (artikelContainer) {
+          artikelContainer.addEventListener("click", function(event) {
+            const link = event.target.closest('a[href^="#"]');
+            if (link && link.getAttribute("href") !== "#") {
+              const href = link.getAttribute("href");
+              const targetId = href.substring(1);
+              const targetElement = artikelContainer.querySelector(`#${targetId}`);
+              if (targetElement) {
+                event.preventDefault();
+                event.stopPropagation();
+                // Scroll innerhalb des lightbox-Containers (der scrollbare Container)
+                const targetRect = targetElement.getBoundingClientRect();
+                const containerRect = artikelContainer.getBoundingClientRect();
+                const scrollTop = artikelContainer.scrollTop;
+                const targetTop = targetRect.top - containerRect.top + scrollTop - 20;
+                artikelContainer.scrollTo({ top: targetTop, behavior: "smooth" });
+              }
+            }
+          }, true);
+        }
       })
       .catch(() => {
         document.getElementById("artikel").innerHTML =
