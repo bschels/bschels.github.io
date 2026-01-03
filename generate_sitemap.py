@@ -66,7 +66,7 @@ def find_html_files():
             "file_path": "index.html",
             "images": [
                 {
-                    "loc": f"{BASE_URL}/images/benjamin-schels-portrait.webp",
+                    "loc": f"{BASE_URL}/images/benjamin-schels-architekt.webp",
                     "title": "Benjamin Schels - Architekt M.A.",
                     "caption": "Inhaber architekturbüro schels, Wolnzach"
                 },
