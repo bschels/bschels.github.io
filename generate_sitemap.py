@@ -67,8 +67,8 @@ def find_html_files():
             "images": [
                 {
                     "loc": f"{BASE_URL}/images/benjamin-schels-architekt.webp",
-                    "title": "Benjamin Schels - Architekt M.A.",
-                    "caption": "Inhaber architekturbüro schels, Wolnzach"
+                    "title": "Benjamin Schels - Architekt in Wolnzach (Landkreis Pfaffenhofen)",
+                    "caption": "Benjamin Schels, Architekt M.A., Inhaber architekturbüro schels in Wolnzach"
                 },
                 {
                     "loc": f"{BASE_URL}/images/abs-logo.svg",
