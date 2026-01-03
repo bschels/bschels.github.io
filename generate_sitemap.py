@@ -43,8 +43,14 @@ CHANGEFREQ = {
     "/pages/datenschutz.html": "yearly",
 }
 
-def get_lastmod():
-    """Gibt aktuelles Datum im ISO 8601 Format zurück"""
+def get_lastmod(file_path=None):
+    """Gibt Datum im ISO 8601 Format zurück - entweder Datei-Modifikationszeit oder aktuelles Datum"""
+    if file_path and os.path.exists(file_path):
+        # Verwende tatsächliche Datei-Modifikationszeit
+        mtime = os.path.getmtime(file_path)
+        dt = datetime.fromtimestamp(mtime)
+        return dt.strftime("%Y-%m-%dT%H:%M:%S+01:00")
+    # Fallback: aktuelles Datum
     return datetime.now().strftime("%Y-%m-%dT12:00:00+01:00")
 
 def find_html_files():
@@ -57,6 +63,7 @@ def find_html_files():
             "loc": f"{BASE_URL}/",
             "priority": PRIORITIES.get("/", 1.0),
             "changefreq": CHANGEFREQ.get("/", "weekly"),
+            "file_path": "index.html",
             "images": [
                 {
                     "loc": f"{BASE_URL}/images/benjamin-schels-portrait.webp",
@@ -79,17 +86,20 @@ def find_html_files():
                 "loc": f"{BASE_URL}{rel_path}",
                 "priority": PRIORITIES.get(rel_path, 0.3),
                 "changefreq": CHANGEFREQ.get(rel_path, "yearly"),
+                "file_path": str(file),
             })
     
     # Artikel-Verzeichnis
     artikel_dir = Path("artikel")
     if artikel_dir.exists():
         # Artikel-Übersicht
-        if (artikel_dir / "index.html").exists():
+        artikel_index = artikel_dir / "index.html"
+        if artikel_index.exists():
             urls.append({
                 "loc": f"{BASE_URL}/artikel/",
                 "priority": PRIORITIES.get("/artikel/", 0.7),
                 "changefreq": CHANGEFREQ.get("/artikel/", "monthly"),
+                "file_path": str(artikel_index),
             })
         
         # Einzelne Artikel (index.html und index-new.html ausschließen)
@@ -100,6 +110,7 @@ def find_html_files():
                     "loc": f"{BASE_URL}{rel_path}",
                     "priority": PRIORITIES.get(rel_path, 0.7),
                     "changefreq": "monthly",
+                    "file_path": str(file),
                 })
     
     return urls
@@ -107,12 +118,15 @@ def find_html_files():
 def generate_sitemap():
     """Generiert die sitemap.xml"""
     urls = find_html_files()
-    lastmod = get_lastmod()
     
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
     xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">')
     
     for url_data in urls:
+        # Verwende tatsächliche Datei-Modifikationszeit, falls verfügbar
+        file_path = url_data.get('file_path')
+        lastmod = get_lastmod(file_path)
+        
         xml.append("<url>")
         xml.append(f"<loc>{url_data['loc']}</loc>")
         xml.append(f"<lastmod>{lastmod}</lastmod>")

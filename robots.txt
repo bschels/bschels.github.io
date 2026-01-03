@@ -8,8 +8,5 @@ Allow: /pages/
 Disallow: /admin.html
 Disallow: /admin-data.json
 
-# Crawl-delay für freundlicheres Crawling
-Crawl-delay: 1
-
 # Sitemap
 Sitemap: https://schels.info/sitemap.xml
