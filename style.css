@@ -625,6 +625,16 @@ a[href]::after{
   display: inline !important; font: inherit !important; letter-spacing: inherit !important; text-decoration: underline !important; text-decoration-color: var(--secondary) !important; text-underline-offset: 2px !important; color: var(--body) !important; transition: all var(--transition-fast) !important; padding: 0 !important; border: 0 !important; background: 0 !important;}
 .author-contact-link:hover{
   color: var(--hover-text) !important; text-decoration-color: var(--hover-text) !important; background-color: var(--hover-bg) !important;}
+/* Info-Box für Artikel: Zusammenfassungen und wichtige Punkte */
+.info-box{
+  background-color: #f5f5f5; padding: 1.5em; margin: 2em 0; border-left: 4px solid #333;}
+.info-box h3{
+  margin-top: 0; margin-bottom: var(--spacing-sm);}
+.info-box ul,
+.info-box ol{
+  margin-bottom: 0;}
+.info-box p:last-child{
+  margin-bottom: 0;}
 /* Author-Section Mobile: bereits in Zeile 371 abgedeckt */
 /* Footer-Linie für Artikel-Seiten (Footer außerhalb main) - nur wenn .author-section vorhanden */
 /* Diese Regel greift nur auf Artikel-Seiten, da die Startseite keinen .author-section hat */
