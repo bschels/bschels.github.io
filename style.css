@@ -94,7 +94,11 @@ h3,p.content{
 h3,h4,h5,h6{
   line-height: var(--line-height-relaxed);}
 h3{
-  font-weight: 200 !important; margin: var(--spacing-2xl) 0 var(--spacing-sm); text-transform: none !important;}
+  font-weight: 200 !important; margin: var(--spacing-2xl) 0 var(--spacing-sm); text-transform: uppercase !important;}
+/* H3 in Artikeln (erkennbar am breadcrumb) in normaler Schreibweise */
+.breadcrumb ~ h3,
+.breadcrumb + * h3{
+  text-transform: none !important;}
 .cv-header + h3{
   margin-top: var(--spacing-lg);}
 h4,h5,h6{
