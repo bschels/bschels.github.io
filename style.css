@@ -491,6 +491,9 @@ hr.z{
   border-color: var(--body);}
 .footnotes{
   border-top-color: rgba(255,255,255,0.2);}
+/* Dark Mode: Info-Box anpassen */
+.info-box{
+  background-color: rgba(255,255,255,0.1); border-left-color: var(--body);}
 }
 /* Projekte-Bilder in Tabelle - kompakt, schwarz-weiß, rechtsbündig */
 .projekt-bild-cell{
@@ -627,14 +630,16 @@ a[href]::after{
   color: var(--hover-text) !important; text-decoration-color: var(--hover-text) !important; background-color: var(--hover-bg) !important;}
 /* Info-Box für Artikel: Zusammenfassungen und wichtige Punkte */
 .info-box{
-  background-color: #f5f5f5; padding: 1.5em; margin: 2em 0; border-left: 4px solid #333;}
+  background-color: #f5f5f5; padding: 1.5em; margin: 2em 0; border-left: 4px solid #333; color: var(--body);}
 .info-box h3{
-  margin-top: 0; margin-bottom: var(--spacing-sm);}
+  margin-top: 0; margin-bottom: var(--spacing-sm); color: var(--body);}
 .info-box ul,
 .info-box ol{
   margin-bottom: 0;}
 .info-box p:last-child{
   margin-bottom: 0;}
+.info-box a{
+  color: var(--body);}
 /* Author-Section Mobile: bereits in Zeile 371 abgedeckt */
 /* Footer-Linie für Artikel-Seiten (Footer außerhalb main) - nur wenn .author-section vorhanden */
 /* Diese Regel greift nur auf Artikel-Seiten, da die Startseite keinen .author-section hat */
