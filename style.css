@@ -493,7 +493,12 @@ hr.z{
   border-top-color: rgba(255,255,255,0.2);}
 /* Dark Mode: Info-Box anpassen */
 .info-box{
-  background-color: rgba(255,255,255,0.1); border-left-color: var(--body);}
+  background-color: rgba(255,255,255,0.1) !important; border-left-color: var(--body) !important; color: var(--body) !important;}
+.info-box h3,
+.info-box p,
+.info-box li,
+.info-box a{
+  color: var(--body) !important;}
 }
 /* Projekte-Bilder in Tabelle - kompakt, schwarz-weiß, rechtsbündig */
 .projekt-bild-cell{
